@@ -1,7 +1,10 @@
 import type { Config } from "tailwindcss";
 
-export default {
-  content: ["./app/**/{**,.client,.server}/**/*.{js,jsx,ts,tsx}"],
+const config: Config = {
+  content: ["./app/**/*.{js,ts,jsx,tsx}"],
+  corePlugins: {
+    preflight: false, // Desactiva el reset global de estilos
+  },
   theme: {
     extend: {
       fontFamily: {
@@ -16,7 +19,17 @@ export default {
           "Noto Color Emoji",
         ],
       },
+      colors: {
+        blue: {
+          500: "#1D4ED8", // Azul primario
+        },
+        yellow: {
+          500: "#D97706", // Amarillo secundario
+        },
+      },
     },
   },
   plugins: [],
-} satisfies Config;
+};
+
+export default config;

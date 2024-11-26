@@ -6,8 +6,11 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
-
+// import resolveConfig from "tailwindcss/resolveConfig";
+// import tailwindConfig from "../tailwind.config";
 import "./tailwind.css";
+// import { ThemeProvider, createTheme } from "@mui/material/styles";
+// import { CssBaseline } from "@mui/material";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -21,6 +24,18 @@ export const links: LinksFunction = () => [
     href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
   },
 ];
+// const tailwind = resolveConfig(tailwindConfig);
+// const theme = createTheme({
+//   palette: {
+//     mode: "dark",
+//     primary: {
+//       main: `${tailwind.theme.colors.blue["500"]} !important`,
+//     },
+//     secondary: {
+//       main: `${tailwind.theme.colors.yellow["500"]} !important`,
+//     },
+//   },
+// });
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -41,5 +56,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    // <ThemeProvider theme={theme}>
+    //   <CssBaseline />
+    <Outlet />
+    // {/* </ThemeProvider> */}
+  );
 }
