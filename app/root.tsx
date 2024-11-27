@@ -8,6 +8,8 @@ import {
 import type { LinksFunction } from "@remix-run/node";
 // import resolveConfig from "tailwindcss/resolveConfig";
 // import tailwindConfig from "../tailwind.config";
+import { GlobalProvider } from "./context/GlobalProvider"; // Importa el GlobalProvider
+
 import "./tailwind.css";
 // import { ThemeProvider, createTheme } from "@mui/material/styles";
 // import { CssBaseline } from "@mui/material";
@@ -59,7 +61,11 @@ export default function App() {
   return (
     // <ThemeProvider theme={theme}>
     //   <CssBaseline />
-    <Outlet />
+    <GlobalProvider>
+      {/* <Layout> */}
+      <Outlet />
+      {/* </Layout> */}
+    </GlobalProvider>
     // {/* </ThemeProvider> */}
   );
 }

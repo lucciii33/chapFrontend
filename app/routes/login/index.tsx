@@ -1,9 +1,41 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import { useState } from "react";
+import { Link, useNavigate } from "@remix-run/react";
+import { useGlobalContext } from "../../context/GlobalProvider"; // Ajusta el path
 import loginImage from "../../images/imageLogin4.png";
 
 export default function Login() {
+  const { auth } = useGlobalContext();
+  const navigate = useNavigate();
+  const [loginData, setLoginData] = useState({
+    email: "",
+    hashed_password: "",
+  });
+
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setLoginData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  const handleLoginClick = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const result = await auth.login(loginData);
+      console.log("Result", result);
+      if (result) {
+        console.log("Login exitoso", result);
+        navigate("/dashboard");
+      } else {
+        console.error("Credenciales incorrectas");
+      }
+    } catch (error) {
+      console.error("Error en login:", error);
+    }
+  };
   return (
     <div className="flex ">
-      {/* Imagen a la izquierda */}
       <div className="w-1/2 flex items-center justify-center">
         <img
           src={loginImage}
@@ -11,22 +43,10 @@ export default function Login() {
           className="min-w-full h-screen object-cover"
         />
       </div>
-
-      {/* Formulario a la derecha */}
       <div className="w-1/2 flex items-center justify-center bg-neutral-950">
         <div className="w-full max-w-lg px-4 ">
           <div className="flex items-center justify-center">
             <h1 className="text-2xl font-bold mb-4 text-slate-50">Login</h1>
-          </div>
-
-          {/* Aquí puedes agregar tus campos de formulario */}
-          <div className="mb-4">
-            <label className="block text-slate-50">Full Name</label>
-            <input
-              type="text"
-              className="w-full px-4 py-2 border rounded-lg"
-              placeholder="Enter your username"
-            />
           </div>
           <div className="mb-4">
             <label className="block text-slate-50">Email</label>
@@ -34,34 +54,30 @@ export default function Login() {
               type="text"
               className="w-full px-4 py-2 border rounded-lg"
               placeholder="Enter your username"
+              name="email"
+              value={loginData.email}
+              onChange={handleOnChange}
             />
           </div>
-          <div className="mb-4">
+          <div className="mb-2">
             <label className="block text-slate-50">Password</label>
             <input
               type="password"
               className="w-full px-4 py-2 border rounded-lg"
               placeholder="Enter your password"
+              name="hashed_password"
+              value={loginData.hashed_password}
+              onChange={handleOnChange}
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-slate-50">Edad</label>
-            <input
-              type="password"
-              className="w-full px-4 py-2 border rounded-lg"
-              placeholder="Enter your password"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-slate-50">Edad</label>
-            <input
-              type="password"
-              className="w-full px-4 py-2 border rounded-lg"
-              placeholder="Enter your password"
-            />
+          <div className="mb-2">
+            <Link to="/register">dont have an account yet? Register here</Link>
           </div>
           <div className="w-full">
-            <button className="w-full border-none py-3 px-4  bg-teal-500 text-white rounded-lg">
+            <button
+              className="w-full border-none py-3 px-4  bg-teal-500 text-white rounded-lg"
+              onClick={handleLoginClick}
+            >
               Login
             </button>
           </div>
