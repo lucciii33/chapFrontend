@@ -13,6 +13,7 @@
   "dependencies": {
     "@emotion/react": "^11.13.5",
     "@emotion/styled": "^11.13.5",
+    "@heroicons/react": "^2.2.0",
     "@mui/material": "^6.1.8",
     "@remix-run/node": "^2.15.0",
     "@remix-run/react": "^2.15.0",
