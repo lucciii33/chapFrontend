@@ -1,16 +1,21 @@
 import { createContext, useContext, ReactNode } from "react";
-import { useAuthContext } from "./AuthContext"; // Importa tu archivo original
+import { useAuthContext } from "./AuthContext";
+import { usePetContext } from "./PetContext";
 
 type GlobalContextType = {
   auth: ReturnType<typeof useAuthContext>;
+  pet: ReturnType<typeof usePetContext>;
 };
 
 const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
 
 export const GlobalProvider = ({ children }: { children: ReactNode }) => {
   const auth = useAuthContext();
+  const pet = usePetContext();
   return (
-    <GlobalContext.Provider value={{ auth }}>{children}</GlobalContext.Provider>
+    <GlobalContext.Provider value={{ auth, pet }}>
+      {children}
+    </GlobalContext.Provider>
   );
 };
 

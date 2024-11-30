@@ -4,6 +4,7 @@ type User = {
   access_token: string;
   token_type: string;
   full_name: string;
+  id: number;
 };
 
 type RegisterData = {
@@ -31,6 +32,7 @@ type LoginResponse = {
   access_token: string;
   token_type: string;
   full_name: string;
+  id: number;
 };
 
 export const useAuthContext = () => {
@@ -53,6 +55,7 @@ export const useAuthContext = () => {
         access_token: responseData.access_token,
         token_type: responseData.token_type,
         full_name: responseData.full_name,
+        id: responseData.id,
       });
       return responseData;
     } catch (error) {

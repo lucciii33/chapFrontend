@@ -6,6 +6,8 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
+import { useMatches } from "@remix-run/react";
+
 // import resolveConfig from "tailwindcss/resolveConfig";
 // import tailwindConfig from "../tailwind.config";
 import { GlobalProvider } from "./context/GlobalProvider"; // Importa el GlobalProvider
@@ -41,6 +43,8 @@ export const links: LinksFunction = () => [
 // });
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const matches = useMatches();
+  console.log("Rutas cargadas:", matches);
   return (
     <html lang="en">
       <head>
@@ -59,6 +63,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  const matches = useMatches();
+  console.log("Rutas cargadas:", matches);
   return (
     // <ThemeProvider theme={theme}>
     //   <CssBaseline />
