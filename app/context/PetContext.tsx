@@ -122,5 +122,40 @@ export const usePetContext = () => {
     }
   };
 
-  return { petProfile, createPet, getPets, allPets, getPetById, petByID };
+  const deletePetById = async (
+    petId: number
+  ): Promise<CreatePetResponse | null> => {
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/pets/${petId}/delete`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error al crear la mascota");
+      }
+
+      const responseData: CreatePetResponse = await response.json();
+      setPetByID(responseData); // Guardamos la mascota creada en el estado
+      return responseData;
+    } catch (error) {
+      console.error("Error al crear la mascota:", error);
+      return null;
+    }
+  };
+
+  return {
+    petProfile,
+    createPet,
+    getPets,
+    allPets,
+    getPetById,
+    petByID,
+    deletePetById,
+  };
 };

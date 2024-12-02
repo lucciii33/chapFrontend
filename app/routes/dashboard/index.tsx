@@ -180,7 +180,7 @@ export default function Dashboard() {
                   <div className="mb-4 w-full">
                     <label>Phone Number</label>
                     <input
-                      type="tel"
+                      type="number"
                       name="phone_number"
                       value={petInfo.phone_number}
                       onChange={handleChange}
@@ -192,7 +192,7 @@ export default function Dashboard() {
                   <div className="mb-4 w-full ms-2">
                     <label>Phone Number (Optional)</label>
                     <input
-                      type="tel"
+                      type="number"
                       name="phone_number_optional"
                       value={petInfo.phone_number_optional || ""}
                       onChange={handleChange}
@@ -309,7 +309,7 @@ export default function Dashboard() {
         {allPets.map((pet, index) => {
           return (
             <div key={index} className="flex">
-              <Card pet={pet} />
+              <Card petObj={pet} />
             </div>
           );
         })}
