@@ -149,6 +149,35 @@ export const usePetContext = () => {
     }
   };
 
+  const editPet = async (
+    petId: number,
+    petData: Pet
+  ): Promise<CreatePetResponse | null> => {
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/pets/${petId}/edit`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(petData), // Aquí pasamos los datos de la mascota
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error al crear la mascota");
+      }
+
+      const responseData: CreatePetResponse = await response.json();
+      // setPetProfile(responseData); // Guardamos la mascota creada en el estado
+      return responseData;
+    } catch (error) {
+      console.error("Error al crear la mascota:", error);
+      return null;
+    }
+  };
+
   return {
     petProfile,
     createPet,
@@ -157,5 +186,6 @@ export const usePetContext = () => {
     getPetById,
     petByID,
     deletePetById,
+    editPet,
   };
 };

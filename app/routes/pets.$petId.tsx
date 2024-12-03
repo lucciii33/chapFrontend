@@ -5,7 +5,8 @@ import { useGlobalContext } from "../context/GlobalProvider";
 
 export default function PetDetail() {
   const { pet } = useGlobalContext();
-  const { getPetById, petByID } = pet;
+  const { getPetById, petByID, editPet } = pet;
+  const [message, setMessage] = useState("");
 
   const { petId } = useParams();
   console.log("petttttt", petId);
@@ -74,14 +75,25 @@ export default function PetDetail() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Updating pet info:", petInfo);
-    // Aquí implementa la lógica del método PUT para actualizar
+    try {
+      const updatedPet = await editPet(Number(petId), petInfo); // Llamamos a editPet
+      if (updatedPet) {
+        setMessage("Pet details updated successfully!");
+      } else {
+        setMessage("Failed to update pet details.");
+      }
+    } catch (error) {
+      console.error("Error updating pet:", error);
+      setMessage("An error occurred while updating pet details.");
+    }
   };
 
   return (
     <div>
       <div className="mt-2">
-        <form method="dialog">
+        {message && <div className="alert">{message}</div>}{" "}
+        {/* Mostrar mensaje */}
+        <form method="dialog" onSubmit={handleSubmit}>
           <div className="flex">
             <div className="mb-4 w-full">
               <label>Mom's Name</label>

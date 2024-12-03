@@ -6,6 +6,7 @@
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { useEffect, useState } from "react";
 import Card from "~/components/card";
+import tag from "../../images/tag.png";
 
 export default function Dashboard() {
   const { auth, pet } = useGlobalContext(); // Accede a la info del usuario
@@ -31,6 +32,9 @@ export default function Dashboard() {
     chip_number: 0, // Similar a phone_number, si es número debe estar bien definido
   });
 
+  const [petInfoModal, setPetInfoModal] = useState(true);
+  const [petChapModal, setPetChapModal] = useState(false);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setPetInfo((prevInfo) => ({
@@ -52,6 +56,9 @@ export default function Dashboard() {
       const response = await createPet(user.id, petData);
       if (response) {
         alert("Mascota creada con éxito");
+        setPetChapModal(!petChapModal);
+        setPetInfoModal(!petInfoModal);
+        getPets(user.id);
       } else {
         alert("Hubo un error al crear la mascota");
       }
@@ -98,209 +105,266 @@ export default function Dashboard() {
 
         <dialog id="my_modal_1" className="modal">
           <div className="modal-box w-3/4 max-w-4xl h-auto p-6">
-            <h3 className="font-bold text-lg">Agrega Tu Macota aqui</h3>
-            <div className="mt-2">
-              <form method="dialog">
-                <div className="flex">
-                  <div className="mb-4 w-full">
-                    <label>Mom's Name</label>
+            {petInfoModal && (
+              <h3 className="font-bold text-lg">Agrega Tu Macota aqui</h3>
+            )}
+            {petChapModal && (
+              <h3 className="font-bold text-lg">Crea Tu chapa aqui</h3>
+            )}
+            {petInfoModal && (
+              <div className="mt-2">
+                <form method="dialog">
+                  <div className="flex">
+                    <div className="mb-4 w-full">
+                      <label>Mom's Name</label>
+                      <input
+                        type="text"
+                        name="mom_name"
+                        value={petInfo.mom_name}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border rounded-lg"
+                        placeholder="Mom's Name"
+                      />
+                    </div>
+
+                    <div className="mb-4 w-full ms-2">
+                      <label>Dad's Name</label>
+                      <input
+                        type="text"
+                        name="dad_name"
+                        value={petInfo.dad_name}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border rounded-lg"
+                        placeholder="Dad's Name"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex">
+                    <div className="mb-4 w-full">
+                      <label>Name</label>
+                      <input
+                        type="text"
+                        name="name"
+                        value={petInfo.name}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border rounded-lg"
+                        placeholder="Pet's Name"
+                      />
+                    </div>
+
+                    <div className="mb-4 w-full ms-2">
+                      <label>Age</label>
+                      <input
+                        type="number"
+                        name="age"
+                        value={petInfo.age}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border rounded-lg"
+                        placeholder="Pet's Age"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mb-4">
+                    <label>Personality</label>
                     <input
                       type="text"
-                      name="mom_name"
-                      value={petInfo.mom_name}
+                      name="personality"
+                      value={petInfo.personality}
                       onChange={handleChange}
                       className="w-full px-4 py-2 border rounded-lg"
-                      placeholder="Mom's Name"
+                      placeholder="Personality"
                     />
                   </div>
 
-                  <div className="mb-4 w-full ms-2">
-                    <label>Dad's Name</label>
+                  <div className="mb-4">
+                    <label>Address</label>
                     <input
                       type="text"
-                      name="dad_name"
-                      value={petInfo.dad_name}
+                      name="address"
+                      value={petInfo.address}
                       onChange={handleChange}
                       className="w-full px-4 py-2 border rounded-lg"
-                      placeholder="Dad's Name"
-                    />
-                  </div>
-                </div>
-                <div className="flex">
-                  <div className="mb-4 w-full">
-                    <label>Name</label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={petInfo.name}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2 border rounded-lg"
-                      placeholder="Pet's Name"
+                      placeholder="Address"
                     />
                   </div>
 
-                  <div className="mb-4 w-full ms-2">
-                    <label>Age</label>
+                  <div className="flex">
+                    <div className="mb-4 w-full">
+                      <label>Phone Number</label>
+                      <input
+                        type="number"
+                        name="phone_number"
+                        value={petInfo.phone_number}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border rounded-lg"
+                        placeholder="Phone Number"
+                      />
+                    </div>
+
+                    <div className="mb-4 w-full ms-2">
+                      <label>Phone Number (Optional)</label>
+                      <input
+                        type="number"
+                        name="phone_number_optional"
+                        value={petInfo.phone_number_optional || ""}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border rounded-lg"
+                        placeholder="Optional Phone Number"
+                      />
+                    </div>
+                  </div>
+                  <div className="mb-4">
+                    <label>Profile Photo</label>
+                    <input
+                      type="text"
+                      name="profile_photo"
+                      value={petInfo.profile_photo}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2 border rounded-lg"
+                      placeholder="Profile Photo"
+                    />
+                  </div>
+
+                  <div className="flex">
+                    <div className="mb-4 w-full">
+                      <label>Pet Color</label>
+                      <input
+                        type="text"
+                        name="pet_color"
+                        value={petInfo.pet_color}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border rounded-lg"
+                        placeholder="Pet's Color"
+                      />
+                    </div>
+
+                    <div className="mb-4 w-full ms-2">
+                      <label>Breed</label>
+                      <input
+                        type="text"
+                        name="breed"
+                        value={petInfo.breed}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border rounded-lg"
+                        placeholder="Breed"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mb-4 flex">
+                    <div>
+                      <label>Lost</label>
+                    </div>
+                    <div>
+                      <input
+                        type="checkbox"
+                        name="lost"
+                        checked={petInfo.lost}
+                        onChange={(e) =>
+                          setPetInfo((prevInfo) => ({
+                            ...prevInfo,
+                            lost: e.target.checked,
+                          }))
+                        }
+                        className="w-full px-4 py-2 border rounded-lg"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mb-4">
+                    <label>Vet Address</label>
+                    <input
+                      type="text"
+                      name="vet_address"
+                      value={petInfo.vet_address}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2 border rounded-lg"
+                      placeholder="Vet Address"
+                    />
+                  </div>
+
+                  <div className="mb-4">
+                    <label>Neighbourhood</label>
+                    <input
+                      type="text"
+                      name="neighbourhood"
+                      value={petInfo.neighbourhood}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2 border rounded-lg"
+                      placeholder="Neighbourhood"
+                    />
+                  </div>
+
+                  <div className="mb-4">
+                    <label>Chip Number</label>
                     <input
                       type="number"
-                      name="age"
-                      value={petInfo.age}
+                      name="chip_number"
+                      value={petInfo.chip_number}
                       onChange={handleChange}
                       className="w-full px-4 py-2 border rounded-lg"
-                      placeholder="Pet's Age"
-                    />
-                  </div>
-                </div>
-
-                <div className="mb-4">
-                  <label>Personality</label>
-                  <input
-                    type="text"
-                    name="personality"
-                    value={petInfo.personality}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border rounded-lg"
-                    placeholder="Personality"
-                  />
-                </div>
-
-                <div className="mb-4">
-                  <label>Address</label>
-                  <input
-                    type="text"
-                    name="address"
-                    value={petInfo.address}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border rounded-lg"
-                    placeholder="Address"
-                  />
-                </div>
-
-                <div className="flex">
-                  <div className="mb-4 w-full">
-                    <label>Phone Number</label>
-                    <input
-                      type="number"
-                      name="phone_number"
-                      value={petInfo.phone_number}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2 border rounded-lg"
-                      placeholder="Phone Number"
+                      placeholder="Chip Number"
                     />
                   </div>
 
-                  <div className="mb-4 w-full ms-2">
-                    <label>Phone Number (Optional)</label>
-                    <input
-                      type="number"
-                      name="phone_number_optional"
-                      value={petInfo.phone_number_optional || ""}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2 border rounded-lg"
-                      placeholder="Optional Phone Number"
-                    />
+                  <div className="modal-action">
+                    <button className="btn">Close</button>
+                    <button onClick={handleSubmit}>create </button>
+                  </div>
+                </form>
+              </div>
+            )}
+            {petChapModal && (
+              <>
+                <div className="flex mt-3">
+                  <div className="w-1/2 border-r border-gray-500 ">
+                    <div className="me-5">
+                      <div>
+                        <label>Material</label>
+                      </div>
+                      <div>
+                        <input className="w-full px-4 py-2 border rounded-lg"></input>
+                      </div>
+                    </div>
+
+                    <div className="me-5">
+                      <div>
+                        <label>forma</label>
+                      </div>
+                      <div>
+                        <input className="w-full px-4 py-2 border rounded-lg"></input>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center mt-2">
+                      <div>
+                        <label>Name</label>
+                      </div>
+                      <div className="ms-2">
+                        <input type="checkbox"></input>
+                      </div>
+                    </div>
+
+                    <button className="btn  bg-teal-500 w-[92%] mt-2 me-2">
+                      Crea tu chapa aqui
+                    </button>
+                  </div>
+                  <div className="w-1/2 flex justify-center items-center">
+                    <img src={tag} alt="tag" className="w-[250px]" />
                   </div>
                 </div>
-                <div className="mb-4">
-                  <label>Profile Photo</label>
-                  <input
-                    type="text"
-                    name="profile_photo"
-                    value={petInfo.profile_photo}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border rounded-lg"
-                    placeholder="Profile Photo"
-                  />
-                </div>
-
-                <div className="flex">
-                  <div className="mb-4 w-full">
-                    <label>Pet Color</label>
-                    <input
-                      type="text"
-                      name="pet_color"
-                      value={petInfo.pet_color}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2 border rounded-lg"
-                      placeholder="Pet's Color"
-                    />
-                  </div>
-
-                  <div className="mb-4 w-full ms-2">
-                    <label>Breed</label>
-                    <input
-                      type="text"
-                      name="breed"
-                      value={petInfo.breed}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2 border rounded-lg"
-                      placeholder="Breed"
-                    />
-                  </div>
-                </div>
-
-                <div className="mb-4 flex">
-                  <div>
-                    <label>Lost</label>
-                  </div>
-                  <div>
-                    <input
-                      type="checkbox"
-                      name="lost"
-                      checked={petInfo.lost}
-                      onChange={(e) =>
-                        setPetInfo((prevInfo) => ({
-                          ...prevInfo,
-                          lost: e.target.checked,
-                        }))
-                      }
-                      className="w-full px-4 py-2 border rounded-lg"
-                    />
-                  </div>
-                </div>
-
-                <div className="mb-4">
-                  <label>Vet Address</label>
-                  <input
-                    type="text"
-                    name="vet_address"
-                    value={petInfo.vet_address}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border rounded-lg"
-                    placeholder="Vet Address"
-                  />
-                </div>
-
-                <div className="mb-4">
-                  <label>Neighbourhood</label>
-                  <input
-                    type="text"
-                    name="neighbourhood"
-                    value={petInfo.neighbourhood}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border rounded-lg"
-                    placeholder="Neighbourhood"
-                  />
-                </div>
-
-                <div className="mb-4">
-                  <label>Chip Number</label>
-                  <input
-                    type="number"
-                    name="chip_number"
-                    value={petInfo.chip_number}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border rounded-lg"
-                    placeholder="Chip Number"
-                  />
-                </div>
-
                 <div className="modal-action">
-                  <button className="btn">Close</button>
-                  <button onClick={handleSubmit}>create </button>
+                  <button
+                    onClick={() => {
+                      document.getElementById("my_modal_1").close(); // Cierra el modal
+                    }}
+                  >
+                    Close
+                  </button>
                 </div>
-              </form>
-            </div>
+              </>
+            )}
           </div>
         </dialog>
       </div>
