@@ -6,13 +6,22 @@
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { useEffect, useState } from "react";
 import Card from "~/components/card";
-import tag from "../../images/tag.png";
+import tagImg from "../../images/tag.png";
 
 export default function Dashboard() {
-  const { auth, pet } = useGlobalContext(); // Accede a la info del usuario
+  const { auth, pet, tag } = useGlobalContext(); // Accede a la info del usuario
   const user = auth.user;
-  const { createPet, getPets, allPets } = pet;
+  const { createPet, getPets, allPets, petProfile } = pet;
+  const { createTag, tagInfo } = tag;
   console.log("allPets", allPets);
+  console.log("petProfile", petProfile);
+  const [tagInfoData, setTagInfoData] = useState({
+    shape: "circular",
+    name: true,
+    continue_later: false,
+    material: "metal",
+    color: "blue",
+  });
 
   const [petInfo, setPetInfo] = useState({
     name: "",
@@ -62,6 +71,38 @@ export default function Dashboard() {
       } else {
         alert("Hubo un error al crear la mascota");
       }
+    }
+  };
+
+  const handleTagChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value, type, checked } = e.target;
+
+    setTagInfoData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value, // Si es checkbox, usa `checked`, si no, usa `value`
+    }));
+  };
+
+  const handleCreateTag = async () => {
+    if (petProfile && typeof petProfile) {
+      try {
+        const petId = petProfile.id;
+        const response = await createTag(petId, tagInfoData); // Usamos el estado `tagInfo` directamente
+        if (response) {
+          alert("¡Chapa creada con éxito!");
+          setPetChapModal(false);
+          document.getElementById("my_modal_1").close();
+        } else {
+          alert("Hubo un error al crear la chapa");
+        }
+      } catch (error) {
+        console.error("Error al crear la chapa:", error);
+        alert("Error al conectar con el servidor.");
+      }
+    } else {
+      alert("El perfil de la mascota no tiene un ID válido.");
     }
   };
 
@@ -324,16 +365,50 @@ export default function Dashboard() {
                         <label>Material</label>
                       </div>
                       <div>
-                        <input className="w-full px-4 py-2 border rounded-lg"></input>
+                        <select
+                          name="material"
+                          value={tagInfoData.material}
+                          onChange={handleTagChange}
+                          className="w-full px-4 py-2 border rounded-lg"
+                        >
+                          <option value="metal">Metal</option>
+                          <option value="plastic">Plástico</option>
+                          <option value="leather">Cuero</option>
+                        </select>
                       </div>
                     </div>
 
                     <div className="me-5">
                       <div>
-                        <label>forma</label>
+                        <label>Shape</label>
                       </div>
                       <div>
-                        <input className="w-full px-4 py-2 border rounded-lg"></input>
+                        <select
+                          name="shape"
+                          value={tagInfoData.shape}
+                          onChange={handleTagChange}
+                          className="w-full px-4 py-2 border rounded-lg"
+                        >
+                          <option value="circular">Circular</option>
+                          <option value="square">Cuadrado</option>
+                          <option value="heart">Corazón</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="me-5">
+                      <div>
+                        <label>Color</label>
+                      </div>
+                      <div>
+                        <input
+                          type="text"
+                          name="color"
+                          value={tagInfoData.color}
+                          onChange={handleTagChange}
+                          className="w-full px-4 py-2 border rounded-lg"
+                          placeholder="Color"
+                        />
                       </div>
                     </div>
 
@@ -342,16 +417,38 @@ export default function Dashboard() {
                         <label>Name</label>
                       </div>
                       <div className="ms-2">
-                        <input type="checkbox"></input>
+                        <input
+                          type="checkbox"
+                          name="name"
+                          checked={tagInfoData.name}
+                          onChange={handleTagChange}
+                        />
                       </div>
                     </div>
 
-                    <button className="btn  bg-teal-500 w-[92%] mt-2 me-2">
+                    <div className="flex items-center mt-2">
+                      <div>
+                        <label>Continue Later</label>
+                      </div>
+                      <div className="ms-2">
+                        <input
+                          type="checkbox"
+                          name="continue_later"
+                          checked={tagInfoData.continue_later}
+                          onChange={handleTagChange}
+                        />
+                      </div>
+                    </div>
+
+                    <button
+                      className="btn  bg-teal-500 w-[92%] mt-2 me-2"
+                      onClick={handleCreateTag}
+                    >
                       Crea tu chapa aqui
                     </button>
                   </div>
                   <div className="w-1/2 flex justify-center items-center">
-                    <img src={tag} alt="tag" className="w-[250px]" />
+                    <img src={tagImg} alt="tag" className="w-[250px]" />
                   </div>
                 </div>
                 <div className="modal-action">

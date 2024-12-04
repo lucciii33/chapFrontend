@@ -1,6 +1,7 @@
 import { Link } from "@remix-run/react"; // Importa Link de Remix
 import { useState } from "react";
 import { useGlobalContext } from "../context/GlobalProvider";
+import tagImg from "../images/tag.png";
 
 type CardProps = {
   petObj: {
@@ -27,7 +28,9 @@ export default function Card({ petObj }: CardProps) {
   const [selectPetId, setSelectPetId] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   console.log("selectPetId", selectPetId);
-  const { auth, pet } = useGlobalContext(); // Accede a la info del usuario
+  const { auth, pet, tag } = useGlobalContext();
+  const { createTag, tagInfo } = tag;
+  // Accede a la info del usuario
   const user = auth.user;
 
   const { deletePetById, getPets } = pet;
@@ -47,6 +50,53 @@ export default function Card({ petObj }: CardProps) {
     setSelectPetId(null); // Limpia el estado
   };
 
+  const [tagInfoData, setTagInfoData] = useState({
+    shape: "circular",
+    name: true,
+    continue_later: false,
+    material: "metal",
+    color: "blue",
+  });
+
+  const [selectPetIdTag, setSelectPetIdTag] = useState<number | null>(null);
+  console.log("setSelectPetIdTag", selectPetIdTag);
+  const handleBuyTag = (id: number) => {
+    document.getElementById("my_modal_2").showModal();
+    console.log("ID recibido para comprar tag:", id);
+    setSelectPetIdTag(id); // Cambia el estado
+  };
+
+  const handleTagChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value, type, checked } = e.target;
+
+    setTagInfoData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value, // Si es checkbox, usa `checked`, si no, usa `value`
+    }));
+  };
+
+  const handleCreateTag = async () => {
+    if (selectPetIdTag !== null) {
+      try {
+        const petId = selectPetIdTag;
+        const response = await createTag(petId, tagInfoData); // Usamos el estado `tagInfo` directamente
+        if (response) {
+          alert("¡Chapa creada con éxito!");
+          document.getElementById("my_modal_2").close();
+        } else {
+          alert("Hubo un error al crear la chapa");
+        }
+      } catch (error) {
+        console.error("Error al crear la chapa:", error);
+        alert("Error al conectar con el servidor.");
+      }
+    } else {
+      alert("El perfil de la mascota no tiene un ID válido.");
+    }
+  };
+
   return (
     <div className="ms-2">
       <div className="card bg-base-100 w-96 shadow-xl">
@@ -63,19 +113,29 @@ export default function Card({ petObj }: CardProps) {
         <div className="card-body">
           <h2 className="card-title">{petObj.name}</h2>
           <p>{petObj.personality}</p>
-          <div className="card-actions justify-end">
-            <Link to={`/pets/${petObj.id}`}>
-              <button className="btn btn-primary">Pet's Details</button>
-            </Link>
-          </div>
+          <div className="flex">
+            <div className="card-actions justify-end me-2">
+              <Link to={`/pets/${petObj.id}`}>
+                <button className="btn btn-primary">Pet's Details</button>
+              </Link>
+            </div>
 
-          <div className="card-actions justify-end">
-            <button
-              className="btn btn-primary"
-              onClick={() => grabpetIdToDelete(petObj.id)}
-            >
-              Delete Pet
-            </button>
+            <div className="card-actions justify-end ms-2">
+              <button
+                className="btn btn-primary"
+                onClick={() => grabpetIdToDelete(petObj.id)}
+              >
+                Delete Pet
+              </button>
+            </div>
+            <div className="card-actions ms-2">
+              <button
+                className="btn btn-primary"
+                onClick={() => handleBuyTag(petObj.id)}
+              >
+                Buy A tag
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -102,6 +162,116 @@ export default function Card({ petObj }: CardProps) {
           </div>
         </div>
       )}
+      <dialog id="my_modal_2" className="modal">
+        <div className="modal-box w-3/4 max-w-4xl h-auto p-6">
+          <h3 className="font-bold text-lg">Crea Tu chapa aqui</h3>
+
+          <>
+            <div className="flex mt-3">
+              <div className="w-1/2 border-r border-gray-500 ">
+                <div className="me-5">
+                  <div>
+                    <label>Material</label>
+                  </div>
+                  <div>
+                    <select
+                      name="material"
+                      value={tagInfoData.material}
+                      onChange={handleTagChange}
+                      className="w-full px-4 py-2 border rounded-lg"
+                    >
+                      <option value="metal">Metal</option>
+                      <option value="plastic">Plástico</option>
+                      <option value="leather">Cuero</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="me-5">
+                  <div>
+                    <label>Shape</label>
+                  </div>
+                  <div>
+                    <select
+                      name="shape"
+                      value={tagInfoData.shape}
+                      onChange={handleTagChange}
+                      className="w-full px-4 py-2 border rounded-lg"
+                    >
+                      <option value="circular">Circular</option>
+                      <option value="square">Cuadrado</option>
+                      <option value="heart">Corazón</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="me-5">
+                  <div>
+                    <label>Color</label>
+                  </div>
+                  <div>
+                    <input
+                      type="text"
+                      name="color"
+                      value={tagInfoData.color}
+                      onChange={handleTagChange}
+                      className="w-full px-4 py-2 border rounded-lg"
+                      placeholder="Color"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex items-center mt-2">
+                  <div>
+                    <label>Name</label>
+                  </div>
+                  <div className="ms-2">
+                    <input
+                      type="checkbox"
+                      name="name"
+                      checked={tagInfoData.name}
+                      onChange={handleTagChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="flex items-center mt-2">
+                  <div>
+                    <label>Continue Later</label>
+                  </div>
+                  <div className="ms-2">
+                    <input
+                      type="checkbox"
+                      name="continue_later"
+                      checked={tagInfoData.continue_later}
+                      onChange={handleTagChange}
+                    />
+                  </div>
+                </div>
+
+                <button
+                  className="btn  bg-teal-500 w-[92%] mt-2 me-2"
+                  onClick={handleCreateTag}
+                >
+                  Crea tu chapa aqui
+                </button>
+              </div>
+              <div className="w-1/2 flex justify-center items-center">
+                <img src={tagImg} alt="tag" className="w-[250px]" />
+              </div>
+            </div>
+            <div className="modal-action">
+              <button
+                onClick={() => {
+                  document.getElementById("my_modal_2").close(); // Cierra el modal
+                }}
+              >
+                Close
+              </button>
+            </div>
+          </>
+        </div>
+      </dialog>
     </div>
   );
 }

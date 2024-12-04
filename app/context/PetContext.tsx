@@ -39,7 +39,7 @@ type CreatePetResponse = {
 };
 
 export const usePetContext = () => {
-  const [petProfile, setPetProfile] = useState<Pet | null>(null);
+  const [petProfile, setPetProfile] = useState<CreatePetResponse | null>(null);
   const [allPets, setAllPets] = useState<CreatePetResponse[]>([]);
   const [petByID, setPetByID] = useState<CreatePetResponse>();
 
