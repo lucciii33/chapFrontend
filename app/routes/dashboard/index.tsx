@@ -43,6 +43,7 @@ export default function Dashboard() {
 
   const [petInfoModal, setPetInfoModal] = useState(true);
   const [petChapModal, setPetChapModal] = useState(false);
+  const [addTocardOrBuy, setAddTocardOrBuy] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -93,7 +94,8 @@ export default function Dashboard() {
         if (response) {
           alert("¡Chapa creada con éxito!");
           setPetChapModal(false);
-          document.getElementById("my_modal_1").close();
+          setAddTocardOrBuy(true);
+          // document.getElementById("my_modal_1").close();
         } else {
           alert("Hubo un error al crear la chapa");
         }
@@ -146,11 +148,45 @@ export default function Dashboard() {
 
         <dialog id="my_modal_1" className="modal">
           <div className="modal-box w-3/4 max-w-4xl h-auto p-6">
+            <div className="flex items-center justify-center">
+              <div
+                className={`box-ball w-10 h-10 flex justify-center items-center rounded-full ${
+                  petInfoModal
+                    ? "bg-teal-500 text-white"
+                    : "bg-gray-300 text-black"
+                } font-bold`}
+              >
+                1
+              </div>
+              <div className="box-line w-16 h-1 bg-gray-300"></div>
+              <div
+                className={`box-ball w-10 h-10 flex justify-center items-center rounded-full ${
+                  petChapModal
+                    ? "bg-teal-500 text-white"
+                    : "bg-gray-300 text-black"
+                } font-bold`}
+              >
+                2
+              </div>
+              <div className="box-line w-16 h-1 bg-gray-300"></div>
+              <div
+                className={`box-ball w-10 h-10 flex justify-center items-center rounded-full ${
+                  addTocardOrBuy
+                    ? "bg-teal-500 text-white"
+                    : "bg-gray-300 text-black"
+                } font-bold`}
+              >
+                3
+              </div>
+            </div>
             {petInfoModal && (
               <h3 className="font-bold text-lg">Agrega Tu Macota aqui</h3>
             )}
             {petChapModal && (
               <h3 className="font-bold text-lg">Crea Tu chapa aqui</h3>
+            )}
+            {addTocardOrBuy && (
+              <h3 className="font-bold text-lg">Buy Now or add to card</h3>
             )}
             {petInfoModal && (
               <div className="mt-2">
@@ -461,6 +497,20 @@ export default function Dashboard() {
                   </button>
                 </div>
               </>
+            )}
+            {addTocardOrBuy && (
+              <div className="font-bold text-lg">
+                Buy Now or add to card
+                <div className="modal-action">
+                  <button
+                    onClick={() => {
+                      document.getElementById("my_modal_1").close(); // Cierra el modal
+                    }}
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
             )}
           </div>
         </dialog>
