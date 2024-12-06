@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type User = {
   access_token: string;
@@ -38,6 +38,13 @@ type LoginResponse = {
 export const useAuthContext = () => {
   const [user, setUser] = useState<User | null>(null);
 
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
   const login = async (data: LoginData): Promise<LoginResponse | null> => {
     try {
       const response = await fetch("http://127.0.0.1:8000/users/login", {
@@ -51,12 +58,14 @@ export const useAuthContext = () => {
       }
 
       const responseData: LoginResponse = await response.json(); // Recibir LoginResponse
-      setUser({
+      const userData: User = {
         access_token: responseData.access_token,
         token_type: responseData.token_type,
         full_name: responseData.full_name,
         id: responseData.id,
-      });
+      };
+      setUser(userData);
+      localStorage.setItem("user", JSON.stringify(userData));
       return responseData;
     } catch (error) {
       console.error("Error en login:", error);
@@ -87,7 +96,8 @@ export const useAuthContext = () => {
   };
 
   const logout = () => {
-    setUser(null);
+    setUser(null); // Eliminar el usuario del estado
+    localStorage.removeItem("access_token"); // Eliminar el token del Local Storage
   };
 
   return { user, login, register, logout };

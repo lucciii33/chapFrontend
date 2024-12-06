@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { MoonIcon, SunIcon, PowerIcon } from "@heroicons/react/24/solid";
+import { useGlobalContext } from "../context/GlobalProvider"; // Ajusta el path
 
 export default function Navbar() {
   const [theme, setTheme] = useState("light");
+  const { auth } = useGlobalContext();
+  const { logout, user } = auth;
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
@@ -21,9 +24,11 @@ export default function Navbar() {
             <SunIcon className="h-6 w-6 text-yellow-500 " />
           )}
         </button>
-        <button className="btn ms-2">
-          <PowerIcon className="h-6 w-6 text-red-500" />
-        </button>
+        {user && (
+          <button className="btn ms-2" onClick={logout}>
+            <PowerIcon className="h-6 w-6 text-red-500" />
+          </button>
+        )}
       </div>
     </nav>
   );

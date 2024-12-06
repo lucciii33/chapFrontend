@@ -7,6 +7,7 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 import { useEffect, useState } from "react";
 import Card from "~/components/card";
 import tagImg from "../../images/tag.png";
+import "../../../styles/dashboard.css";
 
 export default function Dashboard() {
   const { auth, pet, tag } = useGlobalContext(); // Accede a la info del usuario
@@ -109,11 +110,19 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    if (user) {
-      getPets(user.id);
+    const token = localStorage.getItem("user");
+    if (token && user) {
+      getPets(user.id)
+        .then(() => {
+          console.log("Mascotas cargadas al refrescar");
+        })
+        .catch((error) => {
+          console.error("Error al cargar mascotas:", error);
+        });
+    } else {
+      console.warn("Token no encontrado o usuario no autenticado");
     }
-  }, []);
-
+  }, [user]);
   return (
     <div>
       <div className="flex justify-between p-3">
@@ -407,9 +416,9 @@ export default function Dashboard() {
                           onChange={handleTagChange}
                           className="w-full px-4 py-2 border rounded-lg"
                         >
-                          <option value="metal">Metal</option>
-                          <option value="plastic">Plástico</option>
-                          <option value="leather">Cuero</option>
+                          <option value="wood">Wood</option>
+                          <option value="aluminum">Aluminum</option>
+                          <option value="acrylic">Acrylic</option>
                         </select>
                       </div>
                     </div>
@@ -426,27 +435,30 @@ export default function Dashboard() {
                           className="w-full px-4 py-2 border rounded-lg"
                         >
                           <option value="circular">Circular</option>
-                          <option value="square">Cuadrado</option>
-                          <option value="heart">Corazón</option>
+                          <option value="square">Square</option>
+                          <option value="heart">Heart</option>
+                          <option value="bone">Bone</option>
                         </select>
                       </div>
                     </div>
 
-                    <div className="me-5">
-                      <div>
-                        <label>Color</label>
+                    {tagInfoData.material === "acrylic" && (
+                      <div className="me-5">
+                        <div>
+                          <label>Color</label>
+                        </div>
+                        <div>
+                          <input
+                            type="text"
+                            name="color"
+                            value={tagInfoData.color}
+                            onChange={handleTagChange}
+                            className="w-full px-4 py-2 border rounded-lg"
+                            placeholder="Color"
+                          />
+                        </div>
                       </div>
-                      <div>
-                        <input
-                          type="text"
-                          name="color"
-                          value={tagInfoData.color}
-                          onChange={handleTagChange}
-                          className="w-full px-4 py-2 border rounded-lg"
-                          placeholder="Color"
-                        />
-                      </div>
-                    </div>
+                    )}
 
                     <div className="flex items-center mt-2">
                       <div>
@@ -484,7 +496,21 @@ export default function Dashboard() {
                     </button>
                   </div>
                   <div className="w-1/2 flex justify-center items-center">
-                    <img src={tagImg} alt="tag" className="w-[250px]" />
+                    {tagInfoData.shape === "circular" && (
+                      <div className="w-[250px] h-[250px] bg-gray-300 rounded-full"></div>
+                    )}
+                    {tagInfoData.shape === "square" && (
+                      <div className="w-[250px] h-[250px] bg-gray-300"></div>
+                    )}
+                    {tagInfoData.shape === "heart" && (
+                      <div className="w-[250px] h-[250px] bg-gray-300 heart-shape"></div>
+                    )}
+                    {tagInfoData.shape === "bone" && (
+                      <div className="bone-shape">
+                        <div className="bottom-circle-left"></div>
+                        <div className="bottom-circle-right"></div>
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className="modal-action">

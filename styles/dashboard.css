@@ -1,0 +1,77 @@
+.heart-shape {
+  width: 150px;
+  height: 150px;
+  background-color: red;
+  position: relative;
+  transform: rotate(-45deg);
+  margin: 50px;
+}
+
+.heart-shape::before,
+.heart-shape::after {
+  content: "";
+  width: 150px;
+  height: 150px;
+  background-color: red;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.heart-shape::before {
+  top: 0;
+  left: 50px;
+}
+
+.heart-shape::after {
+  top: -50px;
+  left: 0;
+}
+
+.bone-shape {
+  width: 200px;
+  height: 90px;
+  background-color: #d3bda7;
+  border-radius: 25px;
+  position: relative;
+  margin: 50px;
+}
+
+.bone-shape::before,
+.bone-shape::after {
+  content: "";
+  width: 80px;
+  height: 80px;
+  background-color: #d3bda7;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.bone-shape::before {
+  top: -25px;
+  left: -25px;
+}
+
+.bone-shape::after {
+  top: -25px;
+  right: -25px;
+}
+
+.bone-shape .bottom-circle-left,
+.bone-shape .bottom-circle-right {
+  content: "";
+  width: 80px;
+  height: 80px;
+  background-color: #d3bda7;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.bone-shape .bottom-circle-left {
+  bottom: -25px;
+  left: -25px;
+}
+
+.bone-shape .bottom-circle-right {
+  bottom: -25px;
+  right: -25px;
+}

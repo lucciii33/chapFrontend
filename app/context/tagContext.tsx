@@ -20,17 +20,29 @@ type CreateTagResponse = {
 export const useTagContext = () => {
   const [tagInfo, setTagInfo] = useState<Tag | null>(null);
 
+  const getToken = (): string | null => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      return user.access_token; // Obtener el token del almacenamiento local
+    }
+    return null;
+  };
+
   const createTag = async (
     petId: number,
     tagData: Tag
   ): Promise<CreateTagResponse | null> => {
     try {
+      const token = getToken();
+      if (!token) throw new Error("Usuario no autenticado");
       const response = await fetch(
         `http://127.0.0.1:8000/api/tag/${petId}/pets`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Añadimos el token aquí
           },
           body: JSON.stringify(tagData), // Aquí pasamos los datos de la mascota
         }

@@ -43,18 +43,30 @@ export const usePetContext = () => {
   const [allPets, setAllPets] = useState<CreatePetResponse[]>([]);
   const [petByID, setPetByID] = useState<CreatePetResponse>();
 
+  const getToken = (): string | null => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      return user.access_token; // Obtener el token del almacenamiento local
+    }
+    return null;
+  };
+
   // Función para manejar la creación de una nueva mascota
   const createPet = async (
     userId: number,
     petData: Pet
   ): Promise<CreatePetResponse | null> => {
     try {
+      const token = getToken();
+      if (!token) throw new Error("Usuario no autenticado");
       const response = await fetch(
         `http://127.0.0.1:8000/api/users/${userId}/pets`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Añadimos el token aquí
           },
           body: JSON.stringify(petData), // Aquí pasamos los datos de la mascota
         }
@@ -75,12 +87,15 @@ export const usePetContext = () => {
 
   const getPets = async (userId: number): Promise<CreatePetResponse | null> => {
     try {
+      const token = getToken();
+      if (!token) throw new Error("Usuario no autenticado");
       const response = await fetch(
         `http://127.0.0.1:8000/api/users/${userId}/pets`,
         {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Añadimos el token aquí
           },
         }
       );
@@ -102,10 +117,13 @@ export const usePetContext = () => {
     petId: number
   ): Promise<CreatePetResponse | null> => {
     try {
+      const token = getToken();
+      if (!token) throw new Error("Usuario no autenticado");
       const response = await fetch(`http://127.0.0.1:8000/api/pets/${petId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Añadimos el token aquí
         },
       });
 
@@ -126,12 +144,15 @@ export const usePetContext = () => {
     petId: number
   ): Promise<CreatePetResponse | null> => {
     try {
+      const token = getToken();
+      if (!token) throw new Error("Usuario no autenticado");
       const response = await fetch(
         `http://127.0.0.1:8000/api/pets/${petId}/delete`,
         {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Añadimos el token aquí
           },
         }
       );
@@ -154,12 +175,15 @@ export const usePetContext = () => {
     petData: Pet
   ): Promise<CreatePetResponse | null> => {
     try {
+      const token = getToken();
+      if (!token) throw new Error("Usuario no autenticado");
       const response = await fetch(
         `http://127.0.0.1:8000/api/pets/${petId}/edit`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Añadimos el token aquí
           },
           body: JSON.stringify(petData), // Aquí pasamos los datos de la mascota
         }
