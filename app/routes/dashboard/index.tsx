@@ -10,18 +10,22 @@ import tagImg from "../../images/tag.png";
 import "../../../styles/dashboard.css";
 
 export default function Dashboard() {
-  const { auth, pet, tag } = useGlobalContext(); // Accede a la info del usuario
+  const { auth, pet, tag, cart } = useGlobalContext(); // Accede a la info del usuario
   const user = auth.user;
   const { createPet, getPets, allPets, petProfile } = pet;
   const { createTag, tagInfo } = tag;
+  const { createCart, cartProfile } = cart;
+
   console.log("allPets", allPets);
   console.log("petProfile", petProfile);
+  console.log("tagInfo", tagInfo);
+  console.log("user", user);
   const [tagInfoData, setTagInfoData] = useState({
-    shape: "circular",
+    shape: "circular", // Valor por defecto
     name: true,
     continue_later: false,
-    material: "metal",
-    color: "blue",
+    material: "wood", // Valor por defecto
+    color: "blue", // Puede ser vacío si se espera llenar
   });
 
   const [petInfo, setPetInfo] = useState({
@@ -123,6 +127,31 @@ export default function Dashboard() {
       console.warn("Token no encontrado o usuario no autenticado");
     }
   }, [user]);
+
+  const addToCart = () => {
+    if (tagInfo && user && petProfile) {
+      const cartData = {
+        tag_id: tagInfo.id,
+        pet_id: petProfile.id,
+        quantity: 1, // Puedes ajustar según sea necesario
+        price: 100, // Ejemplo, ajusta según el precio del tag o la lógica
+        subtotal: 100, // Igual al precio inicial
+        is_checked_out: false,
+      };
+
+      createCart(user.id, cartData)
+        .then((response) => {
+          if (response) {
+            console.log("Item added to cart successfully:", response);
+          }
+        })
+        .catch((error) => {
+          console.error("Error adding item to cart:", error);
+        });
+    } else {
+      console.log("else");
+    }
+  };
   return (
     <div>
       <div className="flex justify-between p-3">
@@ -535,6 +564,9 @@ export default function Dashboard() {
                   >
                     Close
                   </button>
+
+                  <button onClick={() => addToCart(tag.id)}>add to cart</button>
+                  <button> pay now</button>
                 </div>
               </div>
             )}

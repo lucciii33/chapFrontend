@@ -4,13 +4,16 @@ import { useEffect, useState } from "react";
 import { useGlobalContext } from "../context/GlobalProvider";
 
 export default function PetDetail() {
-  const { pet } = useGlobalContext();
+  const { pet, cart, auth } = useGlobalContext();
   const { getPetById, petByID, editPet } = pet;
+  const { createCart, cartProfile } = cart;
+  const { user } = auth;
   const [message, setMessage] = useState("");
 
   const { petId } = useParams();
   console.log("petttttt", petId);
   console.log("petByID", petByID);
+  console.log("cartProfile", cartProfile);
 
   const [petInfo, setPetInfo] = useState({
     mom_name: "",
@@ -85,6 +88,33 @@ export default function PetDetail() {
     } catch (error) {
       console.error("Error updating pet:", error);
       setMessage("An error occurred while updating pet details.");
+    }
+  };
+
+  const addToCart = (tagId: number) => {
+    if (petByID && user) {
+      const cartData = {
+        tag_id: tagId,
+        pet_id: petByID.id,
+        quantity: 1, // Puedes ajustar según sea necesario
+        price: 100, // Ejemplo, ajusta según el precio del tag o la lógica
+        subtotal: 100, // Igual al precio inicial
+        is_checked_out: false,
+      };
+
+      createCart(user.id, cartData)
+        .then((response) => {
+          if (response) {
+            console.log("Item added to cart successfully:", response);
+            setMessage("Item added to cart!");
+          }
+        })
+        .catch((error) => {
+          console.error("Error adding item to cart:", error);
+          setMessage("Failed to add item to cart.");
+        });
+    } else {
+      setMessage("User or Pet information is missing.");
     }
   };
 
@@ -301,7 +331,12 @@ export default function PetDetail() {
               <p>{tag.color}</p>
               <p>{tag.shape}</p>
               <p>{tag.material}</p>
-              <button className="btn btn-primary">Add to cart</button>
+              <button
+                className="btn btn-primary"
+                onClick={() => addToCart(tag.id)}
+              >
+                Add to cart
+              </button>
             </div>
           );
         })}
