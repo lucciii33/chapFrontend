@@ -99,7 +99,10 @@ export default function Card({ petObj }: CardProps) {
 
   return (
     <div className="ms-2">
-      <div className="card bg-base-100 w-96 shadow-xl">
+      <div
+        className="card bg-base-100 w-96 shadow-xl"
+        style={{ zIndex: "-10" }}
+      >
         <figure>
           <img
             src={

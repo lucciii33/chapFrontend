@@ -294,6 +294,18 @@ export default function PetDetail() {
           </div>
         </form>
       </div>
+      <div>
+        {petByID.tags.map((tag) => {
+          return (
+            <div key={tag.id} className="mt-2 border">
+              <p>{tag.color}</p>
+              <p>{tag.shape}</p>
+              <p>{tag.material}</p>
+              <button className="btn btn-primary">Add to cart</button>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
