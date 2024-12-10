@@ -2,33 +2,13 @@
 // import { useState } from "react";
 import { useEffect } from "react";
 import { useGlobalContext } from "../context/GlobalProvider";
+import { TrashIcon, PlusIcon } from "@heroicons/react/24/outline";
 
-// type CardProps = {
-//   petObj: {
-//     id: number;
-//     name: string;
-//     age: number;
-//     personality: string;
-//     address: string;
-//     phone_number: number;
-//     phone_number_optional: number | null;
-//     profile_photo: string;
-//     pet_color: string;
-//     breed: string;
-//     lost: boolean;
-//     vet_address: string;
-//     neighbourhood: string;
-//     mom_name: string;
-//     dad_name: string;
-//     chip_number: number;
-//     user_id: number;
-//   };
-// };
-// { petObj }: CardProps
 export default function Cart() {
   const { auth, cart } = useGlobalContext();
   const { user } = auth;
-  const { getCartByUser, allCarts } = cart;
+  const { getCartByUser, allCarts, deleteCartById, editCartById, actSideBar } =
+    cart;
   console.log("user", user);
   console.log("allCarts", allCarts);
   const getCartByUserFunc = () => {
@@ -40,6 +20,25 @@ export default function Cart() {
     getCartByUserFunc();
   }, [user]);
 
+  const handleIncrement = (
+    cartId,
+    currentQuantity,
+    tagId,
+    price,
+    isCheckedOut
+  ) => {
+    const newQuantity = currentQuantity + 1;
+    const updatedCart = {
+      quantity: newQuantity,
+      tag_id: tagId,
+      price: price, // Mantén el precio original
+      subtotal: newQuantity * price, // Calcula el subtotal
+      is_checked_out: isCheckedOut, // Mantén el estado actual
+    };
+
+    editCartById(cartId, updatedCart); // Envía todos los campos necesarios
+  };
+
   return (
     <div className="ms-2">
       <div>
@@ -50,6 +49,26 @@ export default function Cart() {
               <p>{item.tag.color}</p>
               <p>{item.tag.shape}</p>
               <p>{item.tag.material}</p>
+              <p>{item.quantity}</p>
+              <button>
+                <TrashIcon
+                  className="h-6 w-6 text-gray-500"
+                  onClick={() => deleteCartById(item.id)}
+                />
+              </button>
+              <button
+                onClick={() =>
+                  handleIncrement(
+                    item.id,
+                    item.quantity,
+                    item.tag.id,
+                    item.price,
+                    item.is_checked_out
+                  )
+                }
+              >
+                <PlusIcon className="h-6 w-6 text-gray-500" />
+              </button>
             </div>
           );
         })}

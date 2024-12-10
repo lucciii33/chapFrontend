@@ -28,8 +28,9 @@ export default function Card({ petObj }: CardProps) {
   const [selectPetId, setSelectPetId] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   console.log("selectPetId", selectPetId);
-  const { auth, pet, tag } = useGlobalContext();
+  const { auth, pet, tag, cart } = useGlobalContext();
   const { createTag, tagInfo } = tag;
+  const { actSideBar } = cart;
   // Accede a la info del usuario
   const user = auth.user;
 
@@ -101,7 +102,7 @@ export default function Card({ petObj }: CardProps) {
     <div className="ms-2">
       <div
         className="card bg-base-100 w-96 shadow-xl"
-        // style={{ zIndex: "-10" }}
+        style={{ zIndex: actSideBar ? -10 : "auto" }}
       >
         <figure>
           <img

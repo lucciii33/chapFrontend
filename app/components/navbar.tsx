@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   MoonIcon,
   SunIcon,
@@ -12,7 +12,10 @@ import Cart from "./cart";
 
 export default function Navbar() {
   const [theme, setTheme] = useState("light");
-  const { auth } = useGlobalContext();
+  const { auth, cart } = useGlobalContext();
+  const { activateSideBar, actSideBar, closeSideBar } = cart;
+  console.log("actSideBar", actSideBar);
+
   const { logout, user } = auth;
 
   const toggleTheme = () => {
@@ -55,6 +58,7 @@ export default function Navbar() {
               <label
                 htmlFor="my-drawer-4"
                 className="drawer-button btn btn-primary ms-2"
+                onClick={() => activateSideBar()}
               >
                 <ShoppingCartIcon className="h-6 w-6 text-blue-500" />
               </label>
@@ -75,6 +79,7 @@ export default function Navbar() {
             htmlFor="my-drawer-4"
             aria-label="close sidebar"
             className="drawer-overlay"
+            onClick={() => closeSideBar()} // Actualiza el estado global al cerrar
           ></label>
           <div className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
             {/* Sidebar content here */}

@@ -59,6 +59,7 @@ export const useCartContext = () => {
     null
   );
   const [allCarts, setAllCarts] = useState<CreateCartResponse[]>([]);
+  const [actSideBar, setActSideBar] = useState(false);
 
   const getToken = (): string | null => {
     const storedUser = localStorage.getItem("user");
@@ -132,72 +133,84 @@ export const useCartContext = () => {
     }
   };
 
-  //   const deletePetById = async (
-  //     petId: number
-  //   ): Promise<CreatePetResponse | null> => {
-  //     try {
-  //       const token = getToken();
-  //       if (!token) throw new Error("Usuario no autenticado");
-  //       const response = await fetch(
-  //         `http://127.0.0.1:8000/api/pets/${petId}/delete`,
-  //         {
-  //           method: "DELETE",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //             Authorization: `Bearer ${token}`, // Añadimos el token aquí
-  //           },
-  //         }
-  //       );
+  const deleteCartById = async (
+    cartId: number
+  ): Promise<CreateCartResponse | null> => {
+    try {
+      const token = getToken();
+      if (!token) throw new Error("Usuario no autenticado");
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/cart/${cartId}/delete`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Añadimos el token aquí
+          },
+        }
+      );
 
-  //       if (!response.ok) {
-  //         throw new Error("Error al crear la mascota");
-  //       }
+      if (!response.ok) {
+        throw new Error("Error al crear la mascota");
+      }
 
-  //       const responseData: CreatePetResponse = await response.json();
-  //       setPetByID(responseData); // Guardamos la mascota creada en el estado
-  //       return responseData;
-  //     } catch (error) {
-  //       console.error("Error al crear la mascota:", error);
-  //       return null;
-  //     }
-  //   };
+      const responseData: CreateCartResponse = await response.json();
+      return responseData;
+    } catch (error) {
+      console.error("Error al crear la mascota:", error);
+      return null;
+    }
+  };
 
-  //   const editPet = async (
-  //     petId: number,
-  //     petData: Pet
-  //   ): Promise<CreatePetResponse | null> => {
-  //     try {
-  //       const token = getToken();
-  //       if (!token) throw new Error("Usuario no autenticado");
-  //       const response = await fetch(
-  //         `http://127.0.0.1:8000/api/pets/${petId}/edit`,
-  //         {
-  //           method: "PUT",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //             Authorization: `Bearer ${token}`, // Añadimos el token aquí
-  //           },
-  //           body: JSON.stringify(petData), // Aquí pasamos los datos de la mascota
-  //         }
-  //       );
+  const editCartById = async (
+    cartId: number,
+    cartData: Cart
+  ): Promise<CreateCartResponse | null> => {
+    try {
+      const token = getToken();
+      if (!token) throw new Error("Usuario no autenticado");
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/cart/${cartId}/edit`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(cartData),
+        }
+      );
 
-  //       if (!response.ok) {
-  //         throw new Error("Error al crear la mascota");
-  //       }
+      if (!response.ok) {
+        throw new Error("Error al crear la mascota");
+      }
 
-  //       const responseData: CreatePetResponse = await response.json();
-  //       // setPetProfile(responseData); // Guardamos la mascota creada en el estado
-  //       return responseData;
-  //     } catch (error) {
-  //       console.error("Error al crear la mascota:", error);
-  //       return null;
-  //     }
-  //   };
+      const responseData: CreateCartResponse = await response.json();
+      // setPetProfile(responseData); // Guardamos la mascota creada en el estado
+      return responseData;
+    } catch (error) {
+      console.error("Error al crear la mascota:", error);
+      return null;
+    }
+  };
+
+  const activateSideBar = () => {
+    setActSideBar(true);
+  };
+
+  const closeSideBar = () => {
+    setActSideBar(false);
+  };
 
   return {
     createCart,
     cartProfile,
     getCartByUser,
     allCarts,
+    deleteCartById,
+    editCartById,
+    activateSideBar,
+    actSideBar,
+    closeSideBar,
   };
 };
