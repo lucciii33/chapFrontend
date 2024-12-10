@@ -1,4 +1,4 @@
-// import { Link } from "@remix-run/react"; // Importa Link de Remix
+import { Link } from "@remix-run/react";
 // import { useState } from "react";
 import { useEffect } from "react";
 import { useGlobalContext } from "../context/GlobalProvider";
@@ -73,6 +73,9 @@ export default function Cart() {
           );
         })}
       </div>
+      <Link to="/checkout">
+        <button>Pay now</button>
+      </Link>
     </div>
   );
 }

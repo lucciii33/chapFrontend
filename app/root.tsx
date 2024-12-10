@@ -7,6 +7,8 @@ import {
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
 import { useMatches } from "@remix-run/react";
+import { Elements } from "@stripe/react-stripe-js";
+import { stripePromise } from "./stripeConfig";
 
 // import resolveConfig from "tailwindcss/resolveConfig";
 // import tailwindConfig from "../tailwind.config";
@@ -66,14 +68,11 @@ export default function App() {
   const matches = useMatches();
   console.log("Rutas cargadas:", matches);
   return (
-    // <ThemeProvider theme={theme}>
-    //   <CssBaseline />
     <GlobalProvider>
-      {/* <Layout> */}
-      <Navbar />
-      <Outlet />
-      {/* </Layout> */}
+      <Elements stripe={stripePromise}>
+        <Navbar />
+        <Outlet />
+      </Elements>
     </GlobalProvider>
-    // {/* </ThemeProvider> */}
   );
 }
