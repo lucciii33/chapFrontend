@@ -30,7 +30,8 @@ export default function Card({ petObj }: CardProps) {
   console.log("selectPetId", selectPetId);
   const { auth, pet, tag, cart } = useGlobalContext();
   const { createTag, tagInfo } = tag;
-  const { actSideBar } = cart;
+  const { actSideBar, selectPetIdForTag, selectPetIdNew } = cart;
+  console.log("selectPetIdNew", selectPetIdNew);
   // Accede a la info del usuario
   const user = auth.user;
 
@@ -64,7 +65,7 @@ export default function Card({ petObj }: CardProps) {
   const handleBuyTag = (id: number) => {
     document.getElementById("my_modal_2").showModal();
     console.log("ID recibido para comprar tag:", id);
-    setSelectPetIdTag(id); // Cambia el estado
+    selectPetIdForTag(id); // Cambia el estado
   };
 
   const handleTagChange = (
@@ -79,9 +80,9 @@ export default function Card({ petObj }: CardProps) {
   };
 
   const handleCreateTag = async () => {
-    if (selectPetIdTag !== null) {
+    if (selectPetIdNew !== null) {
       try {
-        const petId = selectPetIdTag;
+        const petId = selectPetIdNew;
         const response = await createTag(petId, tagInfoData); // Usamos el estado `tagInfo` directamente
         if (response) {
           alert("¡Chapa creada con éxito!");

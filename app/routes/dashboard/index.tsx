@@ -577,9 +577,9 @@ export default function Dashboard() {
       </div>
 
       <div className="flex flex-wrap justify-center gap-4">
-        {allPets.map((pet, index) => {
+        {allPets.map((pet) => {
           return (
-            <div key={index} className="flex">
+            <div key={pet.id} className="flex">
               <Card petObj={pet} />
             </div>
           );

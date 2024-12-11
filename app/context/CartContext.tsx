@@ -60,6 +60,7 @@ export const useCartContext = () => {
   );
   const [allCarts, setAllCarts] = useState<CreateCartResponse[]>([]);
   const [actSideBar, setActSideBar] = useState(false);
+  const [selectPetIdNew, setSelectPetIdNew] = useState<number | null>(null);
 
   const getToken = (): string | null => {
     const storedUser = localStorage.getItem("user");
@@ -202,6 +203,11 @@ export const useCartContext = () => {
     setActSideBar(false);
   };
 
+  const selectPetIdForTag = (id: number) => {
+    setSelectPetIdNew(id);
+    console.log("ID seleccionado para la chapa:", id);
+  };
+
   return {
     createCart,
     cartProfile,
@@ -212,5 +218,8 @@ export const useCartContext = () => {
     activateSideBar,
     actSideBar,
     closeSideBar,
+    selectPetIdNew,
+    setSelectPetIdNew,
+    selectPetIdForTag,
   };
 };
