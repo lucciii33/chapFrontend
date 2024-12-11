@@ -6,7 +6,7 @@ import { useGlobalContext } from "../context/GlobalProvider";
 export default function PetDetail() {
   const { pet, cart, auth } = useGlobalContext();
   const { getPetById, petByID, editPet } = pet;
-  const { createCart, cartProfile } = cart;
+  const { createCart, cartProfile, getCartByUser } = cart;
   const { user } = auth;
   const [message, setMessage] = useState("");
 
@@ -107,6 +107,7 @@ export default function PetDetail() {
           if (response) {
             console.log("Item added to cart successfully:", response);
             setMessage("Item added to cart!");
+            getCartByUser(user.id);
           }
         })
         .catch((error) => {

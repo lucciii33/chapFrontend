@@ -267,7 +267,8 @@ export default function Card({ petObj }: CardProps) {
             <div className="modal-action">
               <button
                 onClick={() => {
-                  document.getElementById("my_modal_2").close(); // Cierra el modal
+                  document.getElementById("my_modal_2").close();
+                  setSelectPetIdTag(null); // Cierra el modal
                 }}
               >
                 Close

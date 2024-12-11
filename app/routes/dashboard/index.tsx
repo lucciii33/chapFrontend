@@ -14,12 +14,12 @@ export default function Dashboard() {
   const user = auth.user;
   const { createPet, getPets, allPets, petProfile } = pet;
   const { createTag, tagInfo } = tag;
-  const { createCart, cartProfile } = cart;
+  const { createCart, cartProfile, getCartByUser } = cart;
 
-  console.log("allPets", allPets);
-  console.log("petProfile", petProfile);
-  console.log("tagInfo", tagInfo);
-  console.log("user", user);
+  // console.log("allPets", allPets);
+  // console.log("petProfile", petProfile);
+  // console.log("tagInfo", tagInfo);
+  // console.log("user", user);
   const [tagInfoData, setTagInfoData] = useState({
     shape: "circular", // Valor por defecto
     name: true,
@@ -128,7 +128,7 @@ export default function Dashboard() {
     }
   }, [user]);
 
-  const addToCart = () => {
+  const addToCart = async () => {
     if (tagInfo && user && petProfile) {
       const cartData = {
         tag_id: tagInfo.id,
@@ -139,10 +139,11 @@ export default function Dashboard() {
         is_checked_out: false,
       };
 
-      createCart(user.id, cartData)
+      await createCart(user.id, cartData)
         .then((response) => {
           if (response) {
             console.log("Item added to cart successfully:", response);
+            getCartByUser(user.id);
           }
         })
         .catch((error) => {
@@ -152,6 +153,7 @@ export default function Dashboard() {
       console.log("else");
     }
   };
+
   return (
     <div>
       <div className="flex justify-between p-3">
@@ -574,7 +576,7 @@ export default function Dashboard() {
         </dialog>
       </div>
 
-      <div className="flex">
+      <div className="flex flex-wrap justify-center gap-4">
         {allPets.map((pet, index) => {
           return (
             <div key={index} className="flex">

@@ -20,7 +20,7 @@ export default function Cart() {
     getCartByUserFunc();
   }, [user]);
 
-  const handleIncrement = (
+  const handleIncrement = async (
     cartId,
     currentQuantity,
     tagId,
@@ -36,7 +36,8 @@ export default function Cart() {
       is_checked_out: isCheckedOut, // Mantén el estado actual
     };
 
-    editCartById(cartId, updatedCart); // Envía todos los campos necesarios
+    await editCartById(cartId, updatedCart);
+    getCartByUser(user.id); // Envía todos los campos necesarios
   };
 
   return (
@@ -53,7 +54,10 @@ export default function Cart() {
               <button>
                 <TrashIcon
                   className="h-6 w-6 text-gray-500"
-                  onClick={() => deleteCartById(item.id)}
+                  onClick={async () => {
+                    await deleteCartById(item.id);
+                    getCartByUser(user.id);
+                  }}
                 />
               </button>
               <button
