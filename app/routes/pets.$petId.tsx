@@ -121,7 +121,7 @@ export default function PetDetail() {
 
   return (
     <div>
-      <div className="mt-2">
+      <div className="mt-2 p-5">
         {message && <div className="alert">{message}</div>}{" "}
         {/* Mostrar mensaje */}
         <form method="dialog" onSubmit={handleSubmit}>
@@ -320,24 +320,42 @@ export default function PetDetail() {
           </div>
 
           <div className="modal-action">
-            <button className="btn">Close</button>
-            <button onClick={handleSubmit}>create </button>
+            <button
+              className=" border-none py-3 px-4 ms-3 bg-cyan-500 text-white rounded-lg"
+              onClick={handleSubmit}
+            >
+              create{" "}
+            </button>
           </div>
         </form>
       </div>
-      <div>
-        {petByID.tags.map((tag) => {
+      <div className="p-3">
+        <h1 className="font-bold text-xl">Your tags:</h1>
+      </div>
+      <div className="flex">
+        {petByID?.tags.map((tag) => {
           return (
-            <div key={tag.id} className="mt-2 border">
-              <p>{tag.color}</p>
-              <p>{tag.shape}</p>
-              <p>{tag.material}</p>
-              <button
-                className="btn btn-primary"
-                onClick={() => addToCart(tag.id)}
-              >
-                Add to cart
-              </button>
+            <div key={tag.id} className="ms-4 border rounded w-[200px] p-3">
+              <div className=" ">
+                <img
+                  className="w-[200px]"
+                  src="https://s.alicdn.com/@sc04/kf/H623bd864f88641ab95a88756ed36cd903.jpg_720x720q50.jpg"
+                  alt="dd"
+                />
+                <div className="flex mt-2">
+                  <p>{tag.color} - </p>
+                  <p className="ms-2">{tag.shape} - </p>
+                  <p className="ms-2"> {tag.material}</p>
+                </div>
+                <div className="mt-4">
+                  <button
+                    className="border-2 border-cyan-500 rounded-full px-6 py-2 bg-transparent"
+                    onClick={() => addToCart(tag.id)}
+                  >
+                    Add to cart
+                  </button>
+                </div>
+              </div>
             </div>
           );
         })}
