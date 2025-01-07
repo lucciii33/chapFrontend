@@ -7,7 +7,7 @@ type Pet = {
   address: string;
   phone_number: number; // Cambiado de string a number
   phone_number_optional: number | null; // Cambiado de string a number
-  profile_photo: string;
+  profile_photo: File | null;
   pet_color: string;
   breed: string;
   lost: boolean;
@@ -57,18 +57,28 @@ export const usePetContext = () => {
     userId: number,
     petData: Pet
   ): Promise<CreatePetResponse | null> => {
+    console.log("petData", petData);
     try {
+      const formData = new FormData();
+      if (petData.profile_photo) {
+        formData.append("profile_photo", petData.profile_photo); // Solo si existe
+      }
+      const { profile_photo, ...petDataWithoutFile } = petData;
+      formData.append("pet", JSON.stringify(petDataWithoutFile));
       const token = getToken();
       if (!token) throw new Error("Usuario no autenticado");
+
+      console.log("formDataformDataformData", formData);
+
       const response = await fetch(
         `http://127.0.0.1:8000/api/users/${userId}/pets`,
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            // "Content-Type": "application/json",
             Authorization: `Bearer ${token}`, // Añadimos el token aquí
           },
-          body: JSON.stringify(petData), // Aquí pasamos los datos de la mascota
+          body: formData, // Aquí pasamos los datos de la mascota
         }
       );
 

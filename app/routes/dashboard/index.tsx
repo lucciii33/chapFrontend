@@ -35,7 +35,7 @@ export default function Dashboard() {
     address: "",
     phone_number: 0, // Esto puede ser string, pero no deberías cambiarlo a número si no es necesario
     phone_number_optional: null,
-    profile_photo: "",
+    profile_photo: undefined,
     pet_color: "",
     breed: "",
     lost: false,
@@ -46,15 +46,16 @@ export default function Dashboard() {
     chip_number: 0, // Similar a phone_number, si es número debe estar bien definido
   });
 
+  console.log("petInfopetInfopetInfo", petInfo);
   const [petInfoModal, setPetInfoModal] = useState(true);
   const [petChapModal, setPetChapModal] = useState(false);
   const [addTocardOrBuy, setAddTocardOrBuy] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { name, type, files } = e.target;
     setPetInfo((prevInfo) => ({
       ...prevInfo,
-      [name]: value,
+      [name]: type === "file" ? files?.[0] : e.target.value, // Maneja archivos correctamente
     }));
   };
 
@@ -334,9 +335,9 @@ export default function Dashboard() {
                   <div className="mb-4">
                     <label>Profile Photo</label>
                     <input
-                      type="text"
+                      type="file"
                       name="profile_photo"
-                      value={petInfo.profile_photo}
+                      // value={petInfo.profile_photo}
                       onChange={handleChange}
                       className="w-full px-4 py-2 border rounded-lg"
                       placeholder="Profile Photo"
