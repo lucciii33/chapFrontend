@@ -2,6 +2,7 @@ import { useParams } from "@remix-run/react";
 import { useEffect, useState } from "react";
 
 import { useGlobalContext } from "../context/GlobalProvider";
+import { CameraIcon } from "@heroicons/react/24/solid";
 
 export default function PetDetail() {
   const { pet, cart, auth } = useGlobalContext();
@@ -9,6 +10,7 @@ export default function PetDetail() {
   const { createCart, cartProfile, getCartByUser } = cart;
   const { user } = auth;
   const [message, setMessage] = useState("");
+  const [showCamara, setShowCamara] = useState(false);
 
   const { petId } = useParams();
   console.log("petttttt", petId);
@@ -24,7 +26,7 @@ export default function PetDetail() {
     address: "",
     phone_number: 0,
     phone_number_optional: 0,
-    profile_photo: "",
+    profile_photo: null,
     pet_color: "",
     breed: "",
     lost: false,
@@ -45,7 +47,7 @@ export default function PetDetail() {
         address: petByID.address || "",
         phone_number: petByID.phone_number || 0,
         phone_number_optional: petByID.phone_number_optional || 0,
-        profile_photo: petByID.profile_photo || "",
+        profile_photo: petByID.profile_photo || null,
         pet_color: petByID.pet_color || "",
         breed: petByID.breed || "",
         lost: petByID.lost || false,
@@ -69,17 +71,23 @@ export default function PetDetail() {
   console.log("petttttt", petId);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type, checked, files } = e.target;
+
     setPetInfo((prevInfo) => ({
       ...prevInfo,
-      [name]: type === "checkbox" ? checked : value,
+      [name]:
+        type === "checkbox"
+          ? checked
+          : type === "file" && files
+          ? files[0] // Si es un archivo, guarda el primero seleccionado
+          : value,
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const updatedPet = await editPet(Number(petId), petInfo); // Llamamos a editPet
+      const updatedPet = await editPet(Number(petId), petInfo);
       if (updatedPet) {
         setMessage("Pet details updated successfully!");
       } else {
@@ -125,6 +133,35 @@ export default function PetDetail() {
         {message && <div className="alert">{message}</div>}{" "}
         {/* Mostrar mensaje */}
         <form method="dialog" onSubmit={handleSubmit}>
+          <div className="relative flex justify-center">
+            <div
+              className="mb-4"
+              onMouseEnter={() => setShowCamara(true)}
+              onMouseLeave={() => setShowCamara(false)}
+            >
+              {/* <p>Profile Photo</p> */}
+              {petInfo.profile_photo && (
+                <img
+                  src={petInfo.profile_photo} // Mostrará la foto actual
+                  alt="defdefe"
+                  className={
+                    showCamara
+                      ? "w-32 h-32 object-cover rounded-full opacity-80 group-hover:opacity-60 transition-opacity duration-200"
+                      : "w-32 h-32 object-cover rounded-full mb-2"
+                  }
+                />
+              )}
+              {showCamara && (
+                <CameraIcon
+                  className="absolute inset-0 m-auto h-8 w-8 text-white bg-black bg-opacity-50 rounded-full p-1 cursor-pointer"
+                  onClick={() =>
+                    document.getElementById("my_modal_3_pet_id").showModal()
+                  }
+                />
+              )}
+            </div>
+          </div>
+
           <div className="flex">
             <div className="mb-4 w-full">
               <label>Mom's Name</label>
@@ -224,17 +261,6 @@ export default function PetDetail() {
                 placeholder="Optional Phone Number"
               />
             </div>
-          </div>
-          <div className="mb-4">
-            <label>Profile Photo</label>
-            <input
-              type="text"
-              name="profile_photo"
-              value={petInfo.profile_photo}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-lg"
-              placeholder="Profile Photo"
-            />
           </div>
 
           <div className="flex">
@@ -360,6 +386,27 @@ export default function PetDetail() {
           );
         })}
       </div>
+
+      {/* //modal here to change image  */}
+      <dialog id="my_modal_3_pet_id" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Hello!</h3>
+          <p className="py-4">
+            <input
+              type="file"
+              name="profile_photo"
+              onChange={handleChange}
+              className="w-full px-4 py-2 border rounded-lg"
+            />
+          </p>
+          <div className="modal-action">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 }
