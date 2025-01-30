@@ -130,7 +130,7 @@ export default function PublicQr() {
     const obtenerUbicacionGoogle = async () => {
       try {
         const response = await fetch(
-          "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAnfAXFYsqhCMliHPvwuxVFe7vSHsv1vT0",
+          `https://www.googleapis.com/geolocation/v1/geolocate?key=${process.env.REACT_APP_GEOLOCATION_KEY}`,
           { method: "POST" }
         );
         const data = await response.json();
@@ -150,7 +150,7 @@ export default function PublicQr() {
     const cargarScriptGoogleMaps = () => {
       if (!document.querySelector('[src*="maps.googleapis.com"]')) {
         const script = document.createElement("script");
-        script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCkCrNWHvyOhNXdFBNeDCsRettgIRObUfE&callback=initMap`;
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_KEY}UfE&callback=initMap`;
         script.async = true;
 
         window.initMap = () => inicializarMapa(ubicacion.lat, ubicacion.lng);
