@@ -19,17 +19,169 @@ export default function PublicQr() {
   //   console.log("petByID", petByID);
   //   console.log("cartProfile", cartProfile);
   const [petData, setPetData] = useState(null);
+  const [location, setLocation] = useState(null);
+  const [ubicacion, setUbicacion] = useState(null);
+  console.log("ubicacion", ubicacion);
+
+  console.log("location", location);
+
+  // useEffect(() => {
+  //   if (petId) {
+  //     fetch(`http://localhost:8000/api/public/pets/${petId}`) // Ajusta la URL si estás en producción
+  //       .then((response) => response.json())
+  //       .then((data) => setPetData(data))
+  //       .catch((error) => {
+  //         console.error("Error al obtener la mascota:", error);
+  //       });
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   // Fallback automático usando IP para obtener ubicación aproximada
+  //   const fetchLocation = async () => {
+  //     const response = await fetch("https://ipapi.co/json/");
+  //     const data = await response.json();
+  //     setLocation({ latitude: data.latitude, longitude: data.longitude });
+  //   };
+
+  //   fetchLocation();
+  // }, []);
+
+  // useEffect(() => {
+  //   const obtenerUbicacionGoogle = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAnfAXFYsqhCMliHPvwuxVFe7vSHsv1vT0",
+  //         {
+  //           method: "POST",
+  //         }
+  //       );
+  //       const data = await response.json();
+
+  //       console.log(
+  //         "Ubicación más precisa (Google):",
+  //         data.location.lat,
+  //         data.location.lng
+  //       );
+  //       return { lat: data.location.lat, lng: data.location.lng };
+  //     } catch (error) {
+  //       console.error("Error al obtener ubicación con Google:", error);
+  //     }
+  //   };
+
+  //   obtenerUbicacionGoogle();
+  // }, []);
+
+  // useEffect(() => {
+  //   const obtenerUbicacionGoogle = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAnfAXFYsqhCMliHPvwuxVFe7vSHsv1vT0",
+  //         { method: "POST" }
+  //       );
+  //       const data = await response.json();
+  //       setUbicacion({ lat: data.location.lat, lng: data.location.lng });
+  //     } catch (error) {
+  //       console.error("Error al obtener ubicación:", error);
+  //     }
+  //   };
+
+  //   const cargarScriptGoogleMaps = () => {
+  //     if (!document.querySelector('[src*="maps.googleapis.com"]')) {
+  //       const script = document.createElement("script");
+  //       script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCkCrNWHvyOhNXdFBNeDCsRettgIRObUfE&callback=initMap`;
+  //       script.async = true;
+  //       script.onload = () => {
+  //         if (ubicacion) inicializarMapa(ubicacion.lat, ubicacion.lng);
+  //       };
+  //       document.body.appendChild(script);
+  //     } else {
+  //       if (ubicacion) inicializarMapa(ubicacion.lat, ubicacion.lng);
+  //     }
+  //   };
+
+  //   const inicializarMapa = (lat, lng) => {
+  //     const map = new google.maps.Map(document.getElementById("map"), {
+  //       center: { lat, lng },
+  //       zoom: 14,
+  //     });
+
+  //     new google.maps.Marker({
+  //       position: { lat, lng },
+  //       map: map,
+  //       title: "Ubicación detectada",
+  //     });
+  //   };
+
+  //   obtenerUbicacionGoogle();
+  //   cargarScriptGoogleMaps();
+  // }, []);
 
   useEffect(() => {
+    // 1. Obtén los detalles de la mascota
     if (petId) {
-      fetch(`http://localhost:8000/api/public/pets/${petId}`) // Ajusta la URL si estás en producción
+      fetch(`http://localhost:8000/api/public/pets/${petId}`)
         .then((response) => response.json())
         .then((data) => setPetData(data))
-        .catch((error) => {
-          console.error("Error al obtener la mascota:", error);
-        });
+        .catch((error) => console.error("Error al obtener la mascota:", error));
     }
-  }, []);
+
+    // 2. Obtén la ubicación de Google Geolocation
+    const obtenerUbicacionGoogle = async () => {
+      try {
+        const response = await fetch(
+          "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAnfAXFYsqhCMliHPvwuxVFe7vSHsv1vT0",
+          { method: "POST" }
+        );
+        const data = await response.json();
+        setUbicacion({ lat: data.location.lat, lng: data.location.lng });
+      } catch (error) {
+        console.error("Error al obtener ubicación:", error);
+      }
+    };
+
+    obtenerUbicacionGoogle();
+  }, [petId]);
+
+  useEffect(() => {
+    // 3. Cargar script de Google Maps después de obtener ubicación
+    if (!ubicacion) return;
+
+    const cargarScriptGoogleMaps = () => {
+      if (!document.querySelector('[src*="maps.googleapis.com"]')) {
+        const script = document.createElement("script");
+        script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCkCrNWHvyOhNXdFBNeDCsRettgIRObUfE&callback=initMap`;
+        script.async = true;
+
+        window.initMap = () => inicializarMapa(ubicacion.lat, ubicacion.lng);
+        document.body.appendChild(script);
+      } else {
+        inicializarMapa(ubicacion.lat, ubicacion.lng);
+      }
+    };
+
+    cargarScriptGoogleMaps();
+  }, [ubicacion]);
+
+  const inicializarMapa = (lat, lng) => {
+    const mapaContenedor = document.getElementById("map");
+
+    if (!mapaContenedor) {
+      console.error("Contenedor del mapa no encontrado.");
+      return;
+    }
+
+    const map = new google.maps.Map(mapaContenedor, {
+      center: { lat, lng },
+      zoom: 14,
+    });
+
+    new google.maps.Marker({
+      position: { lat, lng },
+      map: map,
+      title: "Ubicación detectada",
+    });
+  };
 
   if (!petData) {
     return <div>Cargando los detalles de la mascota...</div>;
@@ -112,6 +264,7 @@ export default function PublicQr() {
             <p className="text-base">No medical history available.</p>
           )}
         </div>
+        <div id="map" style={{ height: "400px", width: "100%" }} />
       </div>
     </div>
   );
