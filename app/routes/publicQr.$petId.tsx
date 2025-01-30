@@ -15,10 +15,12 @@ export default function PublicQr() {
   //   const { user } = auth;
 
   const { petId } = useParams();
+
   //   console.log("petttttt", petId);
   //   console.log("petByID", petByID);
   //   console.log("cartProfile", cartProfile);
   const [petData, setPetData] = useState(null);
+  console.log("petDatapetDatapetDatapetData", petData);
   const [location, setLocation] = useState(null);
   const [ubicacion, setUbicacion] = useState(null);
   console.log("ubicacion", ubicacion);
@@ -137,31 +139,65 @@ export default function PublicQr() {
         setUbicacion({ lat: data.location.lat, lng: data.location.lng });
       } catch (error) {
         console.error("Error al obtener ubicación:", error);
+        setUbicacion({ lat: "40.4153528", lng: "-3.7090139" });
       }
     };
 
     obtenerUbicacionGoogle();
   }, [petId]);
 
+  // useEffect(() => {
+  //   // 3. Cargar script de Google Maps después de obtener ubicación
+  //   if (!ubicacion) return;
+
+  //   const cargarScriptGoogleMaps = () => {
+  //     if (!document.querySelector('[src*="maps.googleapis.com"]')) {
+  //       const script = document.createElement("script");
+  //       script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_KEY}UfE&callback=initMap`;
+  //       script.async = true;
+
+  //       window.initMap = () => inicializarMapa(ubicacion.lat, ubicacion.lng);
+  //       document.body.appendChild(script);
+  //     } else {
+  //       inicializarMapa(ubicacion.lat, ubicacion.lng);
+  //     }
+  //   };
+
+  //   cargarScriptGoogleMaps();
+  // }, [ubicacion]);
+
   useEffect(() => {
-    // 3. Cargar script de Google Maps después de obtener ubicación
-    if (!ubicacion) return;
+    if (!ubicacion || !petId) return;
 
-    const cargarScriptGoogleMaps = () => {
-      if (!document.querySelector('[src*="maps.googleapis.com"]')) {
-        const script = document.createElement("script");
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_KEY}UfE&callback=initMap`;
-        script.async = true;
+    const updateLastLatAndLastLong = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:8000/api/pets/${petId}/location/`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              last_latitude: ubicacion.lat,
+              last_longitude: ubicacion.lng,
+            }),
+          }
+        );
 
-        window.initMap = () => inicializarMapa(ubicacion.lat, ubicacion.lng);
-        document.body.appendChild(script);
-      } else {
-        inicializarMapa(ubicacion.lat, ubicacion.lng);
+        if (!response.ok) {
+          throw new Error("Error al actualizar la ubicación");
+        }
+
+        const updatedData = await response.json();
+        setPetData(updatedData);
+      } catch (error) {
+        console.error("Error al actualizar la ubicación:", error);
       }
     };
 
-    cargarScriptGoogleMaps();
-  }, [ubicacion]);
+    updateLastLatAndLastLong();
+  }, [ubicacion, petId]);
 
   const inicializarMapa = (lat, lng) => {
     const mapaContenedor = document.getElementById("map");
