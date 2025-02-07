@@ -132,7 +132,7 @@ export default function PublicQr() {
     const obtenerUbicacionGoogle = async () => {
       try {
         const response = await fetch(
-          `https://www.googleapis.com/geolocation/v1/geolocate?key=${process.env.REACT_APP_GEOLOCATION_KEY}`,
+          `https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAVXI9w5sCdYPcXpXDPXqC8ikEWXBvZ_40`,
           { method: "POST" }
         );
         const data = await response.json();
@@ -146,25 +146,26 @@ export default function PublicQr() {
     obtenerUbicacionGoogle();
   }, [petId]);
 
-  // useEffect(() => {
-  //   // 3. Cargar script de Google Maps después de obtener ubicación
-  //   if (!ubicacion) return;
+  useEffect(() => {
+    // 3. Cargar script de Google Maps después de obtener ubicación
+    if (!ubicacion) return;
+    console.log("API Key:", process.env.REACT_APP_GOOGLE_MAPS_KEY);
+    const cargarScriptGoogleMaps = () => {
+      if (!document.querySelector('[src*="maps.googleapis.com"]')) {
+        const script = document.createElement("script");
 
-  //   const cargarScriptGoogleMaps = () => {
-  //     if (!document.querySelector('[src*="maps.googleapis.com"]')) {
-  //       const script = document.createElement("script");
-  //       script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_KEY}UfE&callback=initMap`;
-  //       script.async = true;
+        script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyB5xQDLPYakPCm42BZq9nrjApf24yP5Dmc&callback=initMap`;
+        script.async = true;
 
-  //       window.initMap = () => inicializarMapa(ubicacion.lat, ubicacion.lng);
-  //       document.body.appendChild(script);
-  //     } else {
-  //       inicializarMapa(ubicacion.lat, ubicacion.lng);
-  //     }
-  //   };
+        window.initMap = () => inicializarMapa(ubicacion.lat, ubicacion.lng);
+        document.body.appendChild(script);
+      } else {
+        inicializarMapa(ubicacion.lat, ubicacion.lng);
+      }
+    };
 
-  //   cargarScriptGoogleMaps();
-  // }, [ubicacion]);
+    cargarScriptGoogleMaps();
+  }, [ubicacion]);
 
   useEffect(() => {
     if (!ubicacion || !petId) return;
@@ -190,7 +191,8 @@ export default function PublicQr() {
         }
 
         const updatedData = await response.json();
-        setPetData(updatedData);
+        return updatedData;
+        // setPetData(updatedData);
       } catch (error) {
         console.error("Error al actualizar la ubicación:", error);
       }
@@ -288,7 +290,9 @@ export default function PublicQr() {
           <h1 className="text-2xl font-bold mb-4 border-b border-white pb-2">
             Medical Notes
           </h1>
-          {petData?.medical_history && petData.medical_history.length > 0 ? (
+          {petData?.medical_history &&
+          petData.medical_history.length &&
+          petData.show_medical_history > 0 ? (
             <ul className="list-disc ml-6">
               {petData.medical_history.map((note) => (
                 <li key={note.id} className="text-base mb-2">

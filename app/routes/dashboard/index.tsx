@@ -44,6 +44,7 @@ export default function Dashboard() {
     mom_name: "",
     dad_name: "",
     chip_number: 0, // Similar a phone_number, si es número debe estar bien definido
+    show_medical_history: false,
   });
 
   console.log("petInfopetInfopetInfo", petInfo);
@@ -386,6 +387,21 @@ export default function Dashboard() {
                           }))
                         }
                         className="w-full px-4 py-2 border rounded-lg"
+                      />
+                    </div>
+
+                    <div className="mb-4 flex items-center">
+                      <label className="mr-2">Show Medical History</label>
+                      <input
+                        type="checkbox"
+                        name="show_medical_history"
+                        checked={petInfo.show_medical_history} // Conectado al estado
+                        onChange={(e) =>
+                          setPetInfo((prevInfo) => ({
+                            ...prevInfo,
+                            show_medical_history: e.target.checked, // Actualiza el estado con el valor del checkbox
+                          }))
+                        }
                       />
                     </div>
                   </div>

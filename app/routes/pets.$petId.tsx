@@ -5,17 +5,23 @@ import { useGlobalContext } from "../context/GlobalProvider";
 import { CameraIcon } from "@heroicons/react/24/solid";
 
 export default function PetDetail() {
-  const { pet, cart, auth } = useGlobalContext();
+  const { pet, cart, auth, medicalHistory } = useGlobalContext();
   const { getPetById, petByID, editPet } = pet;
   const { createCart, cartProfile, getCartByUser } = cart;
+  const { createMedicalHistory, deleteMedicalHistory, editMedicalHistory } =
+    medicalHistory;
   const { user } = auth;
   const [message, setMessage] = useState("");
   const [showCamara, setShowCamara] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { petId } = useParams();
   console.log("petttttt", petId);
   console.log("petByID", petByID);
   console.log("cartProfile", cartProfile);
+  const [medicalHistoryData, setMedicalHistoryData] = useState({
+    description: "",
+  });
 
   const [petInfo, setPetInfo] = useState({
     mom_name: "",
@@ -33,9 +39,9 @@ export default function PetDetail() {
     vet_address: "",
     neighbourhood: "",
     chip_number: 0,
+    show_medical_history: false,
   });
 
-  // Sincronizar el estado con petByID cuando cambie
   useEffect(() => {
     if (petByID) {
       setPetInfo({
@@ -54,6 +60,7 @@ export default function PetDetail() {
         vet_address: petByID.vet_address || "",
         neighbourhood: petByID.neighbourhood || "",
         chip_number: petByID.chip_number || 0,
+        show_medical_history: petByID.show_medical_history || false,
       });
     }
   }, [petByID]);
@@ -63,6 +70,15 @@ export default function PetDetail() {
       getPetById(Number(petId));
     }
   }, []);
+
+  useEffect(() => {
+    if (petByID?.medical_history?.length > 0) {
+      const existingMedicalHistory = petByID.medical_history[0];
+      setMedicalHistoryData({
+        description: existingMedicalHistory.description || "",
+      });
+    }
+  }, [petByID]);
 
   if (!petByID) {
     return <div>Cargando los detalles de la mascota...</div>;
@@ -127,11 +143,73 @@ export default function PetDetail() {
     }
   };
 
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    const { name, value } = e.target;
+
+    setMedicalHistoryData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  // Crear historial médico con datos dinámicos
+  const handleCreateOrEditMedicalHistory = async () => {
+    if (!petByID || !petId || !medicalHistoryData.description.trim()) {
+      setMessage("La descripción no puede estar vacía.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const body = { ...medicalHistoryData };
+
+      let response;
+      if (petByID.medical_history?.length > 0) {
+        // Si ya existe, edita el historial
+        const medicalHistoryId = petByID.medical_history[0].id;
+        response = await editMedicalHistory(medicalHistoryId, body);
+      } else {
+        // Si no existe, crea uno nuevo
+        response = await createMedicalHistory(Number(petId), body);
+      }
+
+      if (response) {
+        setMessage("¡Historial médico guardado con éxito!");
+        getPetById(Number(petId)); // Refrescar los datos del pet
+      } else {
+        setMessage("No se pudo guardar el historial médico.");
+      }
+    } catch (error) {
+      console.error("Error guardando historial médico:", error);
+      setMessage("Ocurrió un error al guardar el historial médico.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div>
       <div className="mt-2 p-5">
         {message && <div className="alert">{message}</div>}{" "}
         {/* Mostrar mensaje */}
+        <div>
+          {petByID.medical_history.length > 0 ? (
+            <div>
+              <button
+                className="btn bg-teal-500 mt-2 me-2 color-white"
+                onClick={() =>
+                  document.getElementById("my_modal_4_pet_id").showModal()
+                }
+              >
+                Add vet history here
+              </button>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
         <form method="dialog" onSubmit={handleSubmit}>
           <div className="relative flex justify-center">
             <div
@@ -307,6 +385,16 @@ export default function PetDetail() {
                 className="w-full px-4 py-2 border rounded-lg"
               />
             </div>
+
+            <div className="mb-4 flex items-center">
+              <label className="mr-2">Show Medical History</label>
+              <input
+                type="checkbox"
+                name="show_medical_history"
+                checked={petInfo.show_medical_history}
+                onChange={handleChange}
+              />
+            </div>
           </div>
 
           <div className="mb-4">
@@ -387,6 +475,29 @@ export default function PetDetail() {
         })}
       </div>
 
+      <div>
+        <h2 className="font-bold text-lg mb-2">Crear historial médico</h2>
+
+        {/* Textarea para descripción */}
+        <textarea
+          name="description"
+          value={medicalHistoryData.description}
+          onChange={handleInputChange}
+          className="w-full p-2 border rounded-lg mb-4"
+          placeholder="Escribe la descripción del historial médico aquí..."
+          rows={5}
+        />
+
+        {/* Botón para crear el historial */}
+        <button
+          className="border-none py-3 px-4 bg-blue-500 text-white rounded-lg"
+          onClick={handleCreateOrEditMedicalHistory}
+          disabled={loading}
+        >
+          {loading ? "Creando historial médico..." : "Crear Historial Médico"}
+        </button>
+      </div>
+
       {/* //modal here to change image  */}
       <dialog id="my_modal_3_pet_id" className="modal">
         <div className="modal-box">
@@ -399,6 +510,20 @@ export default function PetDetail() {
               className="w-full px-4 py-2 border rounded-lg"
             />
           </p>
+          <div className="modal-action">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+
+      {/* //modal here to create or edit medical vet session   */}
+      <dialog id="my_modal_4_pet_id" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Hello!</h3>
+          <p>here you can add your vet session</p>
           <div className="modal-action">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}

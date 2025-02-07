@@ -21,4 +21,10 @@ export default defineConfig({
     }),
     tsconfigPaths(),
   ],
+  define: {
+    'process.env': {
+      REACT_APP_GEOLOCATION_KEY: process.env.REACT_APP_GEOLOCATION_KEY,
+      REACT_APP_GOOGLE_MAPS_KEY: process.env.REACT_APP_GOOGLE_MAPS_KEY,
+    },
+  }
 });
