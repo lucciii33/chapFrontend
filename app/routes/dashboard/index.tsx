@@ -158,8 +158,8 @@ export default function Dashboard() {
 
   return (
     <div>
-      <div className="flex justify-between p-3">
-        <div>
+      <div className="flex justify-between mt-4 align-middle p-3">
+        <div className="">
           {user ? (
             <div className="flex items-center">
               <div>
@@ -593,7 +593,7 @@ export default function Dashboard() {
         </dialog>
       </div>
 
-      <div className="flex flex-wrap justify-center gap-4">
+      <div className="flex flex-wrap justify-center gap-4 mt-4">
         {allPets.map((pet) => {
           return (
             <div key={pet.id} className="flex">

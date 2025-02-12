@@ -26,7 +26,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="p-4 flex justify-between items-center bg-teal-500">
+      <nav className="p-4 flex justify-between items-center bg-zinc-950">
         <div>
           <Link to="/">
             <h1 className="text-xl font-bold text-white">Chap</h1>
