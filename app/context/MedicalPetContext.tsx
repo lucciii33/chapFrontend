@@ -117,5 +117,60 @@ export const useMedicalPetContext = () => {
     }
   };
 
-  return { createMedicalHistory, deleteMedicalHistory, editMedicalHistory };
+  const createVetSession = async (
+    medicalHistoryId: number,
+    data: VetSession
+  ): Promise<VetSession | null> => {
+    const token = getToken();
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/medical_history/${medicalHistoryId}/vet`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (!response.ok) throw new Error("Error creating medical history");
+
+      return await response.json();
+    } catch (error) {
+      console.error("Error creating medical history:", error);
+      return null;
+    }
+  };
+
+  const deleteVetSession = async (
+    vetId: number
+  ): Promise<VetSession | null> => {
+    const token = getToken();
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/vet/${vetId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) throw new Error("Error creating medical history");
+
+      return await response.json();
+    } catch (error) {
+      console.error("Error creating medical history:", error);
+      return null;
+    }
+  };
+
+  return {
+    createMedicalHistory,
+    deleteMedicalHistory,
+    editMedicalHistory,
+    createVetSession,
+    deleteVetSession,
+  };
 };
