@@ -2,6 +2,9 @@
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { useState, useEffect } from "react";
 import { ShippingAddressContext } from "../../context/ShippingAddressContext";
+import { TrashIcon, PencilIcon } from "@heroicons/react/24/solid";
+import DeleteDialog from "~/components/deleteDialog";
+import EditDialogShippinAddress from "~/components/editDialogShippingAddress";
 
 export default function ShippingAddress() {
   const { auth } = useGlobalContext(); // Accede a la info del usuario
@@ -9,8 +12,12 @@ export default function ShippingAddress() {
   console.log("user", user);
   const [selectedAddress, setSelectedAddress] = useState<number | null>(null);
 
-  const { createShippingAddress, getShippingAddresses } =
-    ShippingAddressContext();
+  const {
+    createShippingAddress,
+    getShippingAddresses,
+    deleteShippingAddresses,
+    editShippingAddress,
+  } = ShippingAddressContext();
   const [formData, setFormData] = useState({
     country: "",
     state: "",
@@ -58,6 +65,30 @@ export default function ShippingAddress() {
       street_address: "",
       apartment: "",
     }); // Limpia el formulario
+  };
+
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [addressToDelete, setAddressToDelete] = useState<number | null>(null);
+
+  const handleDelete = async () => {
+    if (addressToDelete !== null) {
+      await deleteShippingAddresses(addressToDelete);
+      const updatedAddresses = await getShippingAddresses(user.id); // Llamamos de nuevo al GET
+      setAddresses(await updatedAddresses.json());
+      setIsDeleteDialogOpen(false);
+    }
+  };
+
+  const [addressToEdit, setAddressToEdit] = useState<any | null>(null);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+
+  const handleEdit = async (updatedData: any) => {
+    if (!addressToEdit) return;
+
+    await editShippingAddress(addressToEdit.id, updatedData);
+    const updatedAddresses = await getShippingAddresses(user.id);
+    setAddresses(await updatedAddresses.json());
+    setIsEditDialogOpen(false);
   };
 
   return (
@@ -164,11 +195,31 @@ export default function ShippingAddress() {
                     onChange={() => setSelectedAddress(index)}
                   />
                 </div>
-                <div className="ms-2">
+                <div className="ms-2 flex justify-between items-center">
                   <div>
                     {address.country}, {address.state}, {address.city},{" "}
                     {address.street_address}, {address.apartment},{" "}
                     {address.postal_code}.
+                  </div>
+                  <div className="flex">
+                    <div>
+                      <TrashIcon
+                        className="h-6 w-6"
+                        onClick={() => {
+                          setAddressToDelete(address.id);
+                          setIsDeleteDialogOpen(true);
+                        }}
+                      />
+                    </div>
+                    <div className="ms-2">
+                      <PencilIcon
+                        className="h-6 w-6"
+                        onClick={() => {
+                          setAddressToEdit(address);
+                          setIsEditDialogOpen(true);
+                        }}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -182,6 +233,22 @@ export default function ShippingAddress() {
       <div className="ms-2">
         <img src="https://files.oaiusercontent.com/file-Qc9kJhU2rmRYFr3R3A8hWW?se=2025-02-12T16%3A47%3A01Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Dea5f3a76-78bc-4546-b6ab-85db3b06c781.webp&sig=ixCsgxFxaMUL7TiZQKNG1%2BAv7wDmEsy1MPfWmlaWBY0%3D" />
       </div>
+
+      <DeleteDialog
+        isOpen={isDeleteDialogOpen}
+        onClose={() => setIsDeleteDialogOpen(false)}
+        onConfirm={handleDelete}
+        itemName="TESTTTT"
+      />
+
+      {addressToEdit && (
+        <EditDialogShippinAddress
+          isOpen={isEditDialogOpen}
+          onClose={() => setIsEditDialogOpen(false)}
+          onSave={handleEdit}
+          initialData={addressToEdit}
+        />
+      )}
     </div>
   );
 }

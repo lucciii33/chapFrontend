@@ -57,5 +57,46 @@ export const ShippingAddressContext = () => {
     return res;
   };
 
-  return { createShippingAddress, getShippingAddresses };
+  const deleteShippingAddresses = async (shippingAddressId: number) => {
+    console.log(",,anadp ");
+    const token = getToken();
+    const res = await fetch(
+      `http://127.0.0.1:8000/api/shipping_address/${shippingAddressId}/delete`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return res;
+  };
+
+  const editShippingAddress = async (
+    shippingAddressId: number,
+    data: ShippingAddress
+  ) => {
+    const token = getToken();
+    const res = await fetch(
+      `http://127.0.0.1:8000/api/shipping_address/${shippingAddressId}/edit`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      }
+    );
+
+    return res;
+  };
+
+  return {
+    createShippingAddress,
+    getShippingAddresses,
+    deleteShippingAddresses,
+    editShippingAddress,
+  };
 };
