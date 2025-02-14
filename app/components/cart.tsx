@@ -1,8 +1,9 @@
 import { Link } from "@remix-run/react";
 // import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useGlobalContext } from "../context/GlobalProvider";
 import { TrashIcon, PlusIcon } from "@heroicons/react/24/outline";
+import DeleteDialog from "./deleteDialog";
 
 export default function Cart() {
   const { auth, cart } = useGlobalContext();
@@ -40,6 +41,17 @@ export default function Cart() {
     getCartByUser(user.id); // Envía todos los campos necesarios
   };
 
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [cartItemToDelete, setCartItemToDelete] = useState<number | null>(null);
+
+  const handleDelete = async () => {
+    if (cartItemToDelete !== null) {
+      await deleteCartById(cartItemToDelete);
+      await getCartByUser(user.id);
+      setIsDeleteDialogOpen(false);
+    }
+  };
+
   return (
     <div className="ms-2">
       <div>
@@ -74,9 +86,13 @@ export default function Cart() {
                 <button className="border-none py-3 px-4 bg-cyan-500 text-white rounded-lg">
                   <TrashIcon
                     className="h-6 w-6 text-gray-500"
-                    onClick={async () => {
-                      await deleteCartById(item.id);
-                      getCartByUser(user.id);
+                    // onClick={async () => {
+                    //   await deleteCartById(item.id);
+                    //   getCartByUser(user.id);
+                    // }}
+                    onClick={() => {
+                      setCartItemToDelete(item.id);
+                      setIsDeleteDialogOpen(true);
                     }}
                   />
                 </button>
@@ -104,6 +120,13 @@ export default function Cart() {
           Pay now
         </button>
       </Link>
+
+      <DeleteDialog
+        isOpen={isDeleteDialogOpen}
+        onClose={() => setIsDeleteDialogOpen(false)}
+        onConfirm={handleDelete}
+        itemName="this cart item"
+      />
     </div>
   );
 }
