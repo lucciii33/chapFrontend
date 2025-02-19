@@ -91,6 +91,37 @@ export default function ShippingAddress() {
     setIsEditDialogOpen(false);
   };
 
+  const selectAddress = async (addressId: number) => {
+    try {
+      // 1️⃣ Actualiza el estado local antes de llamar a la API para reflejar el cambio en el frontend
+      setAddresses((prevAddresses) =>
+        prevAddresses.map((addr) => ({
+          ...addr,
+          is_selected: addr.id === addressId, // ✅ Solo marcar el seleccionado
+        }))
+      );
+
+      // 2️⃣ Encuentra la dirección a actualizar
+      const addressToUpdate = addresses.find((addr) => addr.id === addressId);
+      if (!addressToUpdate) {
+        console.error("Dirección no encontrada en el estado local.");
+        return;
+      }
+
+      // 3️⃣ Llamar al backend para actualizar `is_selected`
+      await editShippingAddress(addressId, {
+        ...addressToUpdate,
+        is_selected: true, // ✅ Solo actualizamos is_selected
+      });
+
+      // 4️⃣ Refrescar direcciones después de actualizar desde el backend
+      const response = await getShippingAddresses(user.id);
+      setAddresses(await response.json());
+    } catch (error) {
+      console.error("Error al actualizar la dirección seleccionada:", error);
+    }
+  };
+
   return (
     <div className="p-[120px] flex items-center">
       <div className="">
@@ -192,7 +223,8 @@ export default function ShippingAddress() {
                     type="radio"
                     name="radio-4"
                     className="radio radio-accent"
-                    onChange={() => setSelectedAddress(index)}
+                    checked={address.is_selected}
+                    onChange={() => selectAddress(address.id)} // Llama al PUT inmediatamente
                   />
                 </div>
                 <div className="ms-2 flex justify-between items-center">

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link, useNavigate } from "@remix-run/react";
 
 type User = {
   access_token: string;
@@ -37,6 +38,7 @@ type LoginResponse = {
 
 export const useAuthContext = () => {
   const [user, setUser] = useState<User | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -97,7 +99,8 @@ export const useAuthContext = () => {
 
   const logout = () => {
     setUser(null); // Eliminar el usuario del estado
-    localStorage.removeItem("access_token"); // Eliminar el token del Local Storage
+    localStorage.removeItem("user"); // Eliminar el token del Local Storage
+    navigate("/");
   };
 
   return { user, login, register, logout };
