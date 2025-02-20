@@ -5,6 +5,7 @@ import { useTagContext } from "./tagContext";
 import { useCartContext } from "./CartContext";
 import { useMedicalPetContext } from "./MedicalPetContext";
 import { useAuthAdminContext } from "./AuthAdminContext";
+import { useOrdersContext } from "./OrdersContexts";
 
 type GlobalContextType = {
   auth: ReturnType<typeof useAuthContext>;
@@ -13,6 +14,7 @@ type GlobalContextType = {
   cart: ReturnType<typeof useCartContext>;
   medicalHistory: ReturnType<typeof useMedicalPetContext>;
   authAdmin: ReturnType<typeof useAuthAdminContext>;
+  orders: ReturnType<typeof useOrdersContext>;
 };
 
 const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
@@ -24,9 +26,10 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
   const cart = useCartContext();
   const medicalHistory = useMedicalPetContext();
   const authAdmin = useAuthAdminContext();
+  const orders = useOrdersContext();
   return (
     <GlobalContext.Provider
-      value={{ auth, pet, tag, cart, medicalHistory, authAdmin }}
+      value={{ auth, pet, tag, cart, medicalHistory, authAdmin, orders }}
     >
       {children}
     </GlobalContext.Provider>

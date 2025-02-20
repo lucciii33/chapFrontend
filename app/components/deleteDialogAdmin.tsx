@@ -7,7 +7,7 @@ type DeleteDialogProps = {
   itemName?: string;
 };
 
-export default function DeleteDialog({
+export default function DeleteDialogAdmin({
   isOpen,
   onClose,
   onConfirm,
@@ -16,14 +16,14 @@ export default function DeleteDialog({
   console.log("isOpen", isOpen);
   useEffect(() => {
     if (isOpen) {
-      document.getElementById("delete-modal")?.showModal();
+      document.getElementById("delete-modal-admin")?.showModal();
     } else {
-      document.getElementById("delete-modal")?.close();
+      document.getElementById("delete-modal-admin")?.close();
     }
   }, [isOpen]);
 
   return (
-    <dialog id="delete-modal" className="modal">
+    <dialog id="delete-modal-admin" className="modal">
       <div className="modal-box">
         <h3 className="font-bold text-lg">Confirm Deletion</h3>
         <p className="py-4">Are you sure you want to delete {itemName}?</p>
