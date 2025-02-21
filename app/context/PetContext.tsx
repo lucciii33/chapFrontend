@@ -212,40 +212,87 @@ export const usePetContext = () => {
   //   }
   // };
 
+  // const editPet = async (
+  //   petId: number,
+  //   petData: Pet // Recibe el objeto `Pet` como argumento
+  // ): Promise<CreatePetResponse | null> => {
+  //   try {
+  //     const token = getToken();
+  //     if (!token) throw new Error("Usuario no autenticado");
+
+  //     // Crear FormData
+  //     const formData = new FormData();
+  //     if (petData.profile_photo) {
+  //       formData.append("profile_photo", petData.profile_photo); // Agrega el archivo de foto
+  //     }
+  //     const { profile_photo, ...petDataWithoutFile } = petData;
+  //     formData.append("pet_update", JSON.stringify(petDataWithoutFile)); // Agrega los demás datos
+
+  //     // Hacer el fetch
+  //     const response = await fetch(
+  //       `http://127.0.0.1:8000/api/pets/${petId}/edit`,
+  //       {
+  //         method: "PUT",
+  //         headers: {
+  //           Authorization: `Bearer ${token}`, // Agregar token
+  //         },
+  //         body: formData, // Enviar FormData como body
+  //       }
+  //     );
+
+  //     if (!response.ok) {
+  //       throw new Error("Error al editar la mascota");
+  //     }
+
+  //     const responseData: CreatePetResponse = await response.json();
+  //     return responseData; // Devuelve la respuesta
+  //   } catch (error) {
+  //     console.error("Error al editar la mascota:", error);
+  //     return null;
+  //   }
+  // };
+
   const editPet = async (
     petId: number,
-    petData: Pet // Recibe el objeto `Pet` como argumento
+    petData: Pet
   ): Promise<CreatePetResponse | null> => {
     try {
+      console.log("petDatapetData", petData);
       const token = getToken();
       if (!token) throw new Error("Usuario no autenticado");
 
-      // Crear FormData
+      // ✅ Crear FormData
       const formData = new FormData();
-      if (petData.profile_photo) {
-        formData.append("profile_photo", petData.profile_photo); // Agrega el archivo de foto
-      }
-      const { profile_photo, ...petDataWithoutFile } = petData;
-      formData.append("pet_update", JSON.stringify(petDataWithoutFile)); // Agrega los demás datos
 
-      // Hacer el fetch
+      // ✅ SOLO si es un archivo, se agrega al formData
+      if (petData.profile_photo instanceof File) {
+        formData.append("profile_photo", petData.profile_photo);
+      }
+
+      // ✅ Agregar pet_update como string JSON
+      const { profile_photo, ...petDataWithoutFile } = petData;
+      formData.append("pet_update", JSON.stringify(petDataWithoutFile));
+
+      // ✅ Hacer el fetch
       const response = await fetch(
         `http://127.0.0.1:8000/api/pets/${petId}/edit`,
         {
           method: "PUT",
           headers: {
-            Authorization: `Bearer ${token}`, // Agregar token
+            Authorization: `Bearer ${token}`, // Solo el token, sin Content-Type aquí
           },
-          body: formData, // Enviar FormData como body
+          body: formData,
         }
       );
 
       if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Backend error:", errorData); // ✅ Ve el error real del backend
         throw new Error("Error al editar la mascota");
       }
 
       const responseData: CreatePetResponse = await response.json();
-      return responseData; // Devuelve la respuesta
+      return responseData;
     } catch (error) {
       console.error("Error al editar la mascota:", error);
       return null;
