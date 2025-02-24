@@ -49,6 +49,19 @@ export default function PetDetail() {
   console.log("cartProfile", cartProfile);
   const [medicalHistoryData, setMedicalHistoryData] = useState({
     description: "",
+    current_treatment: "",
+    last_doctor_visit: null,
+    important_notes: "",
+    allergies: "",
+    weight: null,
+    height: null,
+    chronic_conditions: "",
+    medications: "",
+    surgical_history: "",
+    vaccination_status: "",
+    blood_type: "",
+    diet: "",
+    behavior_notes: "",
   });
 
   const [petInfo, setPetInfo] = useState({
@@ -104,6 +117,37 @@ export default function PetDetail() {
       const existingMedicalHistory = petByID.medical_history[0];
       setMedicalHistoryData({
         description: existingMedicalHistory.description || "",
+        current_treatment: existingMedicalHistory.current_treatment || "",
+        last_doctor_visit: existingMedicalHistory.last_doctor_visit || null,
+        important_notes: existingMedicalHistory.important_notes || "",
+        allergies: existingMedicalHistory.allergies || "",
+        weight: existingMedicalHistory.weight || null,
+        height: existingMedicalHistory.height || null,
+        chronic_conditions: existingMedicalHistory.chronic_conditions || "",
+        medications: existingMedicalHistory.medications || "",
+        surgical_history: existingMedicalHistory.surgical_history || "",
+        vaccination_status: existingMedicalHistory.vaccination_status || "",
+        blood_type: existingMedicalHistory.blood_type || "",
+        diet: existingMedicalHistory.diet || "",
+        behavior_notes: existingMedicalHistory.behavior_notes || "",
+      });
+    } else {
+      // Si no hay historial médico, limpiar el formulario
+      setMedicalHistoryData({
+        description: "",
+        current_treatment: "",
+        last_doctor_visit: null,
+        important_notes: "",
+        allergies: "",
+        weight: null,
+        height: null,
+        chronic_conditions: "",
+        medications: "",
+        surgical_history: "",
+        vaccination_status: "",
+        blood_type: "",
+        diet: "",
+        behavior_notes: "",
       });
     }
   }, [petByID]);
@@ -172,13 +216,22 @@ export default function PetDetail() {
   };
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target;
+    const { name, value, type } = e.target;
 
     setMedicalHistoryData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]:
+        type === "date"
+          ? value === ""
+            ? null
+            : value // Si la fecha está vacía, usa null
+          : type === "number"
+          ? value === ""
+            ? null
+            : parseFloat(value)
+          : value,
     }));
   };
 
@@ -554,6 +607,122 @@ export default function PetDetail() {
             className="w-full p-2 border rounded-lg mb-4"
             placeholder="Escribe la descripción del historial médico aquí..."
             rows={5}
+          />
+
+          <input
+            type="text"
+            name="current_treatment"
+            value={medicalHistoryData.current_treatment}
+            onChange={handleInputChange}
+            className="w-full p-2 border rounded-lg mb-4"
+            placeholder="Tratamiento actual"
+          />
+
+          <input
+            type="date"
+            name="last_doctor_visit"
+            value={medicalHistoryData.last_doctor_visit}
+            onChange={handleInputChange}
+            className="w-full p-2 border rounded-lg mb-4"
+          />
+
+          <input
+            type="text"
+            name="important_notes"
+            value={medicalHistoryData.important_notes}
+            onChange={handleInputChange}
+            className="w-full p-2 border rounded-lg mb-4"
+            placeholder="Notas importantes"
+          />
+
+          <input
+            type="text"
+            name="allergies"
+            value={medicalHistoryData.allergies}
+            onChange={handleInputChange}
+            className="w-full p-2 border rounded-lg mb-4"
+            placeholder="Alergias"
+          />
+
+          <input
+            type="number"
+            name="weight"
+            value={medicalHistoryData.weight}
+            onChange={handleInputChange}
+            className="w-full p-2 border rounded-lg mb-4"
+            placeholder="Peso (kg)"
+          />
+
+          <input
+            type="number"
+            name="height"
+            value={medicalHistoryData.height}
+            onChange={handleInputChange}
+            className="w-full p-2 border rounded-lg mb-4"
+            placeholder="Altura (cm)"
+          />
+
+          <input
+            type="text"
+            name="chronic_conditions"
+            value={medicalHistoryData.chronic_conditions}
+            onChange={handleInputChange}
+            className="w-full p-2 border rounded-lg mb-4"
+            placeholder="Condiciones crónicas"
+          />
+
+          <input
+            type="text"
+            name="medications"
+            value={medicalHistoryData.medications}
+            onChange={handleInputChange}
+            className="w-full p-2 border rounded-lg mb-4"
+            placeholder="Medicamentos actuales"
+          />
+
+          <input
+            type="text"
+            name="surgical_history"
+            value={medicalHistoryData.surgical_history}
+            onChange={handleInputChange}
+            className="w-full p-2 border rounded-lg mb-4"
+            placeholder="Historial de cirugías"
+          />
+
+          <input
+            type="text"
+            name="vaccination_status"
+            value={medicalHistoryData.vaccination_status}
+            onChange={handleInputChange}
+            className="w-full p-2 border rounded-lg mb-4"
+            placeholder="Estado de vacunación"
+          />
+
+          <input
+            type="text"
+            name="blood_type"
+            value={medicalHistoryData.blood_type}
+            onChange={handleInputChange}
+            className="w-full p-2 border rounded-lg mb-4"
+            placeholder="Tipo de sangre"
+          />
+
+          <input
+            type="text"
+            name="diet"
+            value={medicalHistoryData.diet}
+            onChange={handleInputChange}
+            className="w-full p-2 border rounded-lg mb-4"
+            placeholder="Dieta"
+          />
+
+          <input
+            type="text"
+            name="behavior_notes"
+            value={medicalHistoryData.behavior_notes}
+            onChange={handleInputChange}
+            className="w-full p-2 border rounded-lg mb-4"
+            placeholder="Notas de comportamiento"
           />
 
           {/* Botón para crear el historial */}

@@ -132,7 +132,9 @@ export default function PublicQr() {
     const obtenerUbicacionGoogle = async () => {
       try {
         const response = await fetch(
-          `https://www.googleapis.com/geolocation/v1/geolocate?key=apikey`,
+          `https://www.googleapis.com/geolocation/v1/geolocate?key=${
+            import.meta.env.VITE_REACT_APP_GEOLOCATION_KEY
+          }`,
           { method: "POST" }
         );
         const data = await response.json();
@@ -154,7 +156,9 @@ export default function PublicQr() {
       if (!document.querySelector('[src*="maps.googleapis.com"]')) {
         const script = document.createElement("script");
 
-        script.src = `https://maps.googleapis.com/maps/api/js?key=apikey&callback=initMap`;
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${
+          import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_KEY
+        }&callback=initMap`;
         script.async = true;
 
         window.initMap = () => inicializarMapa(ubicacion.lat, ubicacion.lng);
@@ -295,8 +299,54 @@ export default function PublicQr() {
           petData.show_medical_history > 0 ? (
             <ul className="list-disc ml-6">
               {petData.medical_history.map((note) => (
-                <li key={note.id} className="text-base mb-2">
-                  {note.description}
+                <li key={note.id} className="text-base mb-4 border-b pb-2">
+                  <p>
+                    <strong>Description:</strong> {note.description || "N/A"}
+                  </p>
+                  <p>
+                    <strong>Allergies:</strong> {note.allergies || "N/A"}
+                  </p>
+                  <p>
+                    <strong>Behavior Notes:</strong>{" "}
+                    {note.behavior_notes || "N/A"}
+                  </p>
+                  <p>
+                    <strong>Blood Type:</strong> {note.blood_type || "N/A"}
+                  </p>
+                  <p>
+                    <strong>Chronic Conditions:</strong>{" "}
+                    {note.chronic_conditions || "N/A"}
+                  </p>
+                  <p>
+                    <strong>Current Treatment:</strong>{" "}
+                    {note.current_treatment || "N/A"}
+                  </p>
+                  <p>
+                    <strong>Diet:</strong> {note.diet || "N/A"}
+                  </p>
+                  <p>
+                    <strong>Height:</strong>{" "}
+                    {note.height !== null ? `${note.height} cm` : "N/A"}
+                  </p>
+                  <p>
+                    <strong>Important Notes:</strong>{" "}
+                    {note.important_notes || "N/A"}
+                  </p>
+                  <p>
+                    <strong>Last Doctor Visit:</strong>{" "}
+                    {note.last_doctor_visit || "N/A"}
+                  </p>
+                  <p>
+                    <strong>Medications:</strong> {note.medications || "N/A"}
+                  </p>
+                  <p>
+                    <strong>Surgical History:</strong>{" "}
+                    {note.surgical_history || "N/A"}
+                  </p>
+                  <p>
+                    <strong>Vaccination Status:</strong>{" "}
+                    {note.vaccination_status || "N/A"}
+                  </p>
                 </li>
               ))}
             </ul>
