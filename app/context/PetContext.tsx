@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { showErrorToast, showSuccessToast } from "~/utils/toast";
 
 type Pet = {
   name: string;
@@ -88,9 +89,11 @@ export const usePetContext = () => {
 
       const responseData: CreatePetResponse = await response.json();
       setPetProfile(responseData); // Guardamos la mascota creada en el estado
+      showSuccessToast("Tu mascota ha sido creada con exito");
       return responseData;
     } catch (error) {
       console.error("Error al crear la mascota:", error);
+      showErrorToast("Error al crear la mascota");
       return null;
     }
   };
@@ -173,9 +176,11 @@ export const usePetContext = () => {
 
       const responseData: CreatePetResponse = await response.json();
       setPetByID(responseData); // Guardamos la mascota creada en el estado
+      showSuccessToast("Tu mascota ha sido eliminada con exito");
       return responseData;
     } catch (error) {
       console.error("Error al crear la mascota:", error);
+      showErrorToast("Error al eliminar la mascota");
       return null;
     }
   };
@@ -292,9 +297,11 @@ export const usePetContext = () => {
       }
 
       const responseData: CreatePetResponse = await response.json();
+      showSuccessToast("Tu mascota ha sido editada con exito");
       return responseData;
     } catch (error) {
       console.error("Error al editar la mascota:", error);
+      showErrorToast("Error al editar la mascota");
       return null;
     }
   };

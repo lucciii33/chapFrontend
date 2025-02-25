@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { showErrorToast, showSuccessToast } from "~/utils/toast";
 
 type Cart = {
   tag_id: number;
@@ -96,10 +97,13 @@ export const useCartContext = () => {
       }
 
       const responseData: CreateCartResponse = await response.json();
+      showSuccessToast("Tu tag ha sido agregado a tu carrito con exito");
       setCartProfile(responseData); // Guardamos la mascota creada en el estado
       return responseData;
     } catch (error) {
       console.error("Error al crear la mascota:", error);
+      showErrorToast("Error al agregar el tag al carrito");
+
       return null;
     }
   };
@@ -156,9 +160,11 @@ export const useCartContext = () => {
       }
 
       const responseData: CreateCartResponse = await response.json();
+      showSuccessToast("Tu tag ha sido eliminado con exito");
       return responseData;
     } catch (error) {
       console.error("Error al crear la mascota:", error);
+      showErrorToast("Error al eliminar el tag del carrito");
       return null;
     }
   };
@@ -187,10 +193,12 @@ export const useCartContext = () => {
       }
 
       const responseData: CreateCartResponse = await response.json();
+      showSuccessToast("Tu carrito ha sido editado con exito");
       // setPetProfile(responseData); // Guardamos la mascota creada en el estado
       return responseData;
     } catch (error) {
       console.error("Error al crear la mascota:", error);
+      showErrorToast("Error al editar el tag del carrito");
       return null;
     }
   };

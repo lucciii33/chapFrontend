@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { showErrorToast, showSuccessToast } from "~/utils/toast";
 
 type ShippingAddress = {
   country: string;
@@ -26,19 +27,25 @@ export const ShippingAddressContext = () => {
     data: ShippingAddress
   ) => {
     const token = getToken();
-    const res = await fetch(
-      `http://127.0.0.1:8000/api/users/${userId}/shipping_address`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(data),
-      }
-    );
+    try {
+      const res = await fetch(
+        `http://127.0.0.1:8000/api/users/${userId}/shipping_address`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      showSuccessToast("Dirección creada exitosamente");
 
-    return res;
+      return res;
+    } catch (error) {
+      console.error(error);
+      showErrorToast("Error al crear la dirección");
+    }
   };
 
   const getShippingAddresses = async (userId: number) => {
@@ -60,17 +67,22 @@ export const ShippingAddressContext = () => {
   const deleteShippingAddresses = async (shippingAddressId: number) => {
     console.log(",,anadp ");
     const token = getToken();
-    const res = await fetch(
-      `http://127.0.0.1:8000/api/shipping_address/${shippingAddressId}/delete`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    return res;
+    try {
+      const res = await fetch(
+        `http://127.0.0.1:8000/api/shipping_address/${shippingAddressId}/delete`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      showSuccessToast("Dirección eliminada exitosamente");
+      return res;
+    } catch (error) {
+      console.error("Error al crear la mascota:", error);
+      showErrorToast("Error al eliminar la direecion");
+    }
   };
 
   const editShippingAddress = async (
@@ -78,19 +90,25 @@ export const ShippingAddressContext = () => {
     data: ShippingAddress
   ) => {
     const token = getToken();
-    const res = await fetch(
-      `http://127.0.0.1:8000/api/shipping_address/${shippingAddressId}/edit`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(data),
-      }
-    );
-
-    return res;
+    try {
+      const res = await fetch(
+        `http://127.0.0.1:8000/api/shipping_address/${shippingAddressId}/edit`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      showSuccessToast("Dirección editada exitosamente");
+      return res;
+    } catch (error) {
+      console.error(error);
+      showErrorToast("Error al crear la dirección");
+      return null;
+    }
   };
 
   return {

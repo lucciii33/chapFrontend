@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { showErrorToast, showSuccessToast } from "~/utils/toast";
 
 type Tag = {
   shape: string;
@@ -54,9 +55,11 @@ export const useTagContext = () => {
 
       const responseData: CreateTagResponse = await response.json();
       setTagInfo(responseData); // Guardamos la mascota creada en el estado
+      showSuccessToast("Tu tag ha sido creado con exito");
       return responseData;
     } catch (error) {
       console.error("Error al crear la mascota:", error);
+      showErrorToast("Error al crear el tag");
       return null;
     }
   };

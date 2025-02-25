@@ -9,6 +9,8 @@ import type { LinksFunction } from "@remix-run/node";
 import { useMatches } from "@remix-run/react";
 import { Elements } from "@stripe/react-stripe-js";
 import { stripePromise } from "./stripeConfig";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // import resolveConfig from "tailwindcss/resolveConfig";
 // import tailwindConfig from "../tailwind.config";
@@ -72,6 +74,7 @@ export default function App() {
       <Elements stripe={stripePromise}>
         <Navbar />
         <Outlet />
+        <ToastContainer />
       </Elements>
     </GlobalProvider>
   );

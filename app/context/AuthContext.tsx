@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "@remix-run/react";
+import { showErrorToast, showSuccessToast } from "~/utils/toast";
 
 type User = {
   access_token: string;
@@ -68,9 +69,11 @@ export const useAuthContext = () => {
       };
       setUser(userData);
       localStorage.setItem("user", JSON.stringify(userData));
+      showSuccessToast("Login exitoso");
       return responseData;
     } catch (error) {
       console.error("Error en login:", error);
+      showErrorToast("Error en el login");
       return null;
     }
   };
@@ -90,9 +93,11 @@ export const useAuthContext = () => {
       }
 
       const responseData: RegisterResponse = await response.json(); // Recibir RegisterResponse
+      showSuccessToast("register exitoso");
       return responseData;
     } catch (error) {
       console.error("Error en registro:", error);
+      showErrorToast("Error en el register");
       return null;
     }
   };
@@ -100,6 +105,7 @@ export const useAuthContext = () => {
   const logout = () => {
     setUser(null); // Eliminar el usuario del estado
     localStorage.removeItem("user"); // Eliminar el token del Local Storage
+    showSuccessToast("cerrando session...");
     navigate("/");
   };
 
