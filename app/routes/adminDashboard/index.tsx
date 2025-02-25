@@ -194,6 +194,9 @@ export default function AdminDashboard() {
                       {item.tag.material}
                     </p>
                     <p>
+                      <strong>Quantity</strong> ${item.quantity}
+                    </p>
+                    <p>
                       <strong>Precio:</strong> ${item.price}
                     </p>
                     <img
