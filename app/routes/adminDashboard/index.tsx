@@ -8,7 +8,6 @@
 // import Card from "~/components/card";
 // import tagImg from "../../images/tag.png";
 // import "../../../styles/dashboard.css";
-import DeleteDialog from "~/components/deleteDialog";
 import { useGlobalContext } from "../../context/GlobalProvider";
 
 import { useState, useEffect } from "react";

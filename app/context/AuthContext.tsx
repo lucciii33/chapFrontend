@@ -53,14 +53,14 @@ export const useAuthContext = () => {
       const response = await fetch("http://127.0.0.1:8000/users/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data), // Enviar LoginData
+        body: JSON.stringify(data),
       });
 
       if (!response.ok) {
         throw new Error("Error en login");
       }
 
-      const responseData: LoginResponse = await response.json(); // Recibir LoginResponse
+      const responseData: LoginResponse = await response.json();
       const userData: User = {
         access_token: responseData.access_token,
         token_type: responseData.token_type,
@@ -85,14 +85,14 @@ export const useAuthContext = () => {
       const response = await fetch("http://127.0.0.1:8000/users/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data), // Enviar RegisterData
+        body: JSON.stringify(data),
       });
 
       if (!response.ok) {
         throw new Error("Error al registrar");
       }
 
-      const responseData: RegisterResponse = await response.json(); // Recibir RegisterResponse
+      const responseData: RegisterResponse = await response.json();
       showSuccessToast("register exitoso");
       return responseData;
     } catch (error) {
@@ -103,8 +103,8 @@ export const useAuthContext = () => {
   };
 
   const logout = () => {
-    setUser(null); // Eliminar el usuario del estado
-    localStorage.removeItem("user"); // Eliminar el token del Local Storage
+    setUser(null);
+    localStorage.removeItem("user");
     showSuccessToast("cerrando session...");
     navigate("/");
   };

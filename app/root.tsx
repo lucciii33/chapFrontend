@@ -11,6 +11,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { stripePromise } from "./stripeConfig";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "~/utils/interceptFetch";
 
 // import resolveConfig from "tailwindcss/resolveConfig";
 // import tailwindConfig from "../tailwind.config";

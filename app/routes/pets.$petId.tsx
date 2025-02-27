@@ -4,6 +4,7 @@ import { TrashIcon } from "@heroicons/react/24/solid";
 
 import { useGlobalContext } from "../context/GlobalProvider";
 import { CameraIcon } from "@heroicons/react/24/solid";
+import DeleteDialog from "~/components/deleteDialog";
 
 export default function PetDetail() {
   const { pet, cart, auth, medicalHistory } = useGlobalContext();
@@ -20,6 +21,8 @@ export default function PetDetail() {
   const [message, setMessage] = useState("");
   const [showCamara, setShowCamara] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [vetIdToDelete, setVetIdToDelete] = useState<number | null>(null);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
   const [petVetInfo, setPetVetInfo] = useState({
     address: "",
@@ -314,12 +317,12 @@ export default function PetDetail() {
     }
   };
 
-  const handleDeleteVetSession = async (vetId: number) => {
-    if (!vetId) return;
+  const handleDeleteVetSession = async () => {
+    if (!vetIdToDelete) return;
 
     setLoading(true);
     try {
-      const response = await deleteVetSession(vetId);
+      const response = await deleteVetSession(vetIdToDelete);
 
       if (response) {
         setMessage("Sesión veterinaria eliminada con éxito.");
@@ -863,7 +866,10 @@ export default function PetDetail() {
                 <div>
                   <TrashIcon
                     className="h-6 w-6 text-red-500"
-                    onClick={() => handleDeleteVetSession(vetSession.id)}
+                    onClick={() => {
+                      setVetIdToDelete(vetSession.id);
+                      setIsDeleteDialogOpen(true);
+                    }}
                   />
                 </div>
               </div>
@@ -942,6 +948,12 @@ export default function PetDetail() {
           </div>
         </div>
       </dialog>
+      <DeleteDialog
+        isOpen={isDeleteDialogOpen}
+        onClose={() => setIsDeleteDialogOpen(false)}
+        onConfirm={handleDeleteVetSession}
+        itemName={`Visita ID: ${vetIdToDelete ?? ""}`}
+      />
     </div>
   );
 }

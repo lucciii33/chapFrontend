@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 type DeleteDialogProps = {
   isOpen: boolean;
@@ -7,33 +7,23 @@ type DeleteDialogProps = {
   itemName?: string;
 };
 
-export default function DeleteDialog({
+export default function DeleteDialogAddress({
   isOpen,
   onClose,
   onConfirm,
   itemName = "this item",
 }: DeleteDialogProps) {
   console.log("isOpen", isOpen);
-  // useEffect(() => {
-  //   if (isOpen) {
-  //     document.getElementById("delete-modal")?.showModal();
-  //   } else {
-  //     document.getElementById("delete-modal")?.close();
-  //   }
-  // }, [isOpen]);
-
-  const dialogRef = useRef<HTMLDialogElement>(null);
-
   useEffect(() => {
     if (isOpen) {
-      dialogRef.current?.showModal();
+      document.getElementById("delete-modal-address")?.showModal();
     } else {
-      dialogRef.current?.close();
+      document.getElementById("delete-modal-address")?.close();
     }
   }, [isOpen]);
 
   return (
-    <dialog ref={dialogRef} className="modal">
+    <dialog id="delete-modal-address" className="modal">
       <div className="modal-box">
         <h3 className="font-bold text-lg">Confirm Deletion</h3>
         <p className="py-4">Are you sure you want to delete {itemName}?</p>

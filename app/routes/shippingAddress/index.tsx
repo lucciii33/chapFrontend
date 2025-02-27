@@ -3,8 +3,8 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 import { useState, useEffect } from "react";
 import { ShippingAddressContext } from "../../context/ShippingAddressContext";
 import { TrashIcon, PencilIcon } from "@heroicons/react/24/solid";
-import DeleteDialog from "~/components/deleteDialog";
 import EditDialogShippinAddress from "~/components/editDialogShippingAddress";
+import DeleteDialogAddress from "~/components/deleteDialogAddress";
 
 export default function ShippingAddress() {
   const { auth } = useGlobalContext(); // Accede a la info del usuario
@@ -28,13 +28,13 @@ export default function ShippingAddress() {
   });
 
   useEffect(() => {
-    if (!user?.id) return; // Si user.id no está disponible, no ejecuta nada
+    if (!user?.id) return;
 
     const fetchAddresses = async () => {
       try {
         const response = await getShippingAddresses(user.id);
-        const data = await response.json(); // 🔥 Aquí extraemos el JSON
-        console.log("addresses", data); // Debug para ver qué devuelve
+        const data = await response.json();
+        console.log("addresses", data);
         if (data) setAddresses(data);
       } catch (error) {
         console.error("Error fetching addresses:", error);
@@ -42,7 +42,7 @@ export default function ShippingAddress() {
     };
 
     fetchAddresses();
-  }, [user]); // S
+  }, [user]);
 
   console.log("formData", formData);
 
@@ -266,7 +266,7 @@ export default function ShippingAddress() {
         <img src="https://files.oaiusercontent.com/file-Qc9kJhU2rmRYFr3R3A8hWW?se=2025-02-12T16%3A47%3A01Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Dea5f3a76-78bc-4546-b6ab-85db3b06c781.webp&sig=ixCsgxFxaMUL7TiZQKNG1%2BAv7wDmEsy1MPfWmlaWBY0%3D" />
       </div>
 
-      <DeleteDialog
+      <DeleteDialogAddress
         isOpen={isDeleteDialogOpen}
         onClose={() => setIsDeleteDialogOpen(false)}
         onConfirm={handleDelete}
