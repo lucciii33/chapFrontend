@@ -122,30 +122,74 @@ export const useMedicalPetContext = () => {
     }
   };
 
+  // const createVetSession = async (
+  //   medicalHistoryId: number,
+  //   data: VetSession
+  // ): Promise<VetSession | null> => {
+  //   const token = getToken();
+  //   try {
+  //     const response = await fetch(
+  //       `http://127.0.0.1:8000/api/medical_history/${medicalHistoryId}/vet`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //         body: JSON.stringify(data),
+  //       }
+  //     );
+
+  //     if (!response.ok) throw new Error("Error creating medical history");
+  //     showSuccessToast("Tu visita al veterinario ha sido creada con exito");
+  //     return await response.json();
+  //   } catch (error) {
+  //     showErrorToast("no pudimos crear tu visita al veterinario");
+  //     console.error("Error creating medical history:", error);
+  //     return null;
+  //   }
+  // };
+
   const createVetSession = async (
     medicalHistoryId: number,
     data: VetSession
   ): Promise<VetSession | null> => {
     const token = getToken();
+
+    // Convertir datos a FormData
+    const formData = new FormData();
+    formData.append("address", data.address || "");
+    formData.append("treatment", data.treatment || "");
+    formData.append("notes", data.notes || "");
+    formData.append("cause", data.cause || "");
+    formData.append("cost", data.cost ? String(data.cost) : "");
+    formData.append("medical_notes", data.medical_notes || "");
+
+    // Agregar archivos a FormData
+    if (data.files && data.files.length > 0) {
+      data.files.forEach((file) => {
+        formData.append("files", file);
+      });
+    }
+
     try {
       const response = await fetch(
         `http://127.0.0.1:8000/api/medical_history/${medicalHistoryId}/vet`,
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`, // ❌ NO pongas "Content-Type": "application/json"
           },
-          body: JSON.stringify(data),
+          body: formData, // ✅ Enviar como FormData
         }
       );
 
-      if (!response.ok) throw new Error("Error creating medical history");
-      showSuccessToast("Tu visita al veterinario ha sido creada con exito");
+      if (!response.ok) throw new Error("Error creando la sesión veterinaria");
+      showSuccessToast("Tu visita al veterinario ha sido creada con éxito");
       return await response.json();
     } catch (error) {
-      showErrorToast("no pudimos crear tu visita al veterinario");
-      console.error("Error creating medical history:", error);
+      showErrorToast("No pudimos crear tu visita al veterinario");
+      console.error("Error creando sesión veterinaria:", error);
       return null;
     }
   };

@@ -30,9 +30,24 @@ export default function PetDetail() {
     notes: "",
     cause: "",
     medical_notes: "",
+    files: [],
   });
   console.log("petVetInfo", petVetInfo);
-  const handleChangeVet = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // const handleChangeVet = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value, type, checked, files } = e.target;
+
+  //   setPetVetInfo((prevInfo) => ({
+  //     ...prevInfo,
+  //     [name]:
+  //       type === "checkbox"
+  //         ? checked
+  //         : type === "file" && files
+  //         ? files[0] // Si es un archivo, guarda el primero seleccionado
+  //         : value,
+  //   }));
+  // };
+
+  const handleChangeVet = (e) => {
     const { name, value, type, checked, files } = e.target;
 
     setPetVetInfo((prevInfo) => ({
@@ -41,7 +56,7 @@ export default function PetDetail() {
         type === "checkbox"
           ? checked
           : type === "file" && files
-          ? files[0] // Si es un archivo, guarda el primero seleccionado
+          ? Array.from(files) // Guardar múltiples archivos como array
           : value,
     }));
   };
@@ -273,6 +288,50 @@ export default function PetDetail() {
     }
   };
 
+  // const handleCreateVetSession = async () => {
+  //   if (
+  //     !petByID ||
+  //     !petByID.medical_history ||
+  //     petByID.medical_history.length === 0
+  //   ) {
+  //     setMessage("No hay historial médico para asociar la sesión veterinaria.");
+  //     return;
+  //   }
+
+  //   const medicalHistoryId = petByID.medical_history[0].id;
+
+  //   if (!petVetInfo.address.trim() || !petVetInfo.treatment.trim()) {
+  //     setMessage("La dirección y el tratamiento son obligatorios.");
+  //     return;
+  //   }
+
+  //   setLoading(true);
+  //   try {
+  //     const vetSessionData = {
+  //       address: petVetInfo.address,
+  //       treatment: petVetInfo.treatment,
+  //       notes: petVetInfo.notes,
+  //       cause: petVetInfo.cause,
+  //       cost: Number(petVetInfo.cost), // Asegura que el costo sea un número
+  //       medical_notes: petVetInfo.medical_notes,
+  //     };
+
+  //     const response = await createVetSession(medicalHistoryId, vetSessionData);
+
+  //     if (response) {
+  //       setMessage("Sesión veterinaria creada con éxito.");
+  //       getPetById(Number(petId)); // Refrescar datos de la mascota
+  //     } else {
+  //       setMessage("No se pudo crear la sesión veterinaria.");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error creando sesión veterinaria:", error);
+  //     setMessage("Ocurrió un error al crear la sesión veterinaria.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
   const handleCreateVetSession = async () => {
     if (
       !petByID ||
@@ -292,20 +351,11 @@ export default function PetDetail() {
 
     setLoading(true);
     try {
-      const vetSessionData = {
-        address: petVetInfo.address,
-        treatment: petVetInfo.treatment,
-        notes: petVetInfo.notes,
-        cause: petVetInfo.cause,
-        cost: Number(petVetInfo.cost), // Asegura que el costo sea un número
-        medical_notes: petVetInfo.medical_notes,
-      };
-
-      const response = await createVetSession(medicalHistoryId, vetSessionData);
+      const response = await createVetSession(medicalHistoryId, petVetInfo); // Enviar datos sin transformar
 
       if (response) {
         setMessage("Sesión veterinaria creada con éxito.");
-        getPetById(Number(petId)); // Refrescar datos de la mascota
+        getPetById(Number(petId)); // Refrescar datos
       } else {
         setMessage("No se pudo crear la sesión veterinaria.");
       }
@@ -822,6 +872,17 @@ export default function PetDetail() {
             />
           </div>
 
+          <div className="mb-4 w-full">
+            <label>Documentos (PDF, imágenes, etc.)</label>
+            <input
+              type="file"
+              name="files"
+              multiple
+              onChange={handleChangeVet} // Maneja la carga de archivos
+              className="w-full px-4 py-2 border rounded-lg"
+            />
+          </div>
+
           {/* Botón para crear el historial */}
           <div className="flex justify-end">
             {" "}
@@ -862,6 +923,16 @@ export default function PetDetail() {
                 <p>
                   <strong>Costo:</strong>{" "}
                   {vetSession.cost ? `$${vetSession.cost}` : "N/A"}
+                </p>
+                <p>
+                  <strong>url</strong>{" "}
+                  {vetSession?.documents?.map((item, index) => {
+                    return (
+                      <div key={index}>
+                        <p>{item.file_url}</p>
+                      </div>
+                    );
+                  })}
                 </p>
                 <div>
                   <TrashIcon
