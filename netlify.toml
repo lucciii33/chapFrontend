@@ -1,9 +1,8 @@
 [build]
 command = "npm run build"
-publish = "public"
-functions = "netlify/functions"
+publish = "build/client" # <-- Esto es lo que Netlify necesita
 
 [[redirects]]
 from = "/*"
-to = "/.netlify/functions/server"
+to = "/index.html"
 status = 200
