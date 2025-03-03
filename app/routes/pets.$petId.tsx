@@ -26,6 +26,9 @@ export default function PetDetail() {
   const [vetIdToDelete, setVetIdToDelete] = useState<number | null>(null);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
+  const [docIdToDelete, setDocIdToDelete] = useState<number | null>(null);
+  const [isDeleteDocDialogOpen, setIsDeleteDocDialogOpen] = useState(false);
+
   const [petVetInfo, setPetVetInfo] = useState({
     address: "",
     treatment: "",
@@ -322,6 +325,7 @@ export default function PetDetail() {
       if (response) {
         setMessage("Sesión veterinaria eliminada con éxito.");
         getPetById(Number(petId)); // Recargar datos de la mascota
+        setIsDeleteDialogOpen(false);
       } else {
         setMessage("No se pudo eliminar la sesión veterinaria.");
       }
@@ -350,6 +354,7 @@ export default function PetDetail() {
       if (response) {
         setMessage("Sesión veterinaria editada con éxito.");
         getPetById(Number(petId)); // 🔄 Refrescar datos
+        document.getElementById("my_modal_4_pet_id").close();
       } else {
         setMessage("No se pudo editar la sesión veterinaria.");
       }
@@ -377,19 +382,22 @@ export default function PetDetail() {
     document.getElementById("my_modal_4_pet_id").showModal();
   };
 
-  const handleDeleteVetDocument = async (vetId: number, documentId: number) => {
+  const handleDeleteVetDocument = async () => {
     setLoading(true);
     try {
-      const response = await deleteVetDocument(vetId, documentId);
+      const response = await deleteVetDocument(petVetInfo.id, docIdToDelete);
 
       if (response) {
         setMessage("Documento eliminado con éxito.");
+        setIsDeleteDocDialogOpen(false);
+        document.getElementById("my_modal_4_pet_id").close();
+        getPetById(Number(petId));
 
         // 🔥 Actualizamos la lista para que desaparezca el documento sin recargar la página
         setPetVetInfo((prevInfo) => ({
           ...prevInfo,
           existingFiles: prevInfo.existingFiles.filter(
-            (file) => file.id !== documentId
+            (file) => file.id !== docIdToDelete
           ),
         }));
       } else {
@@ -408,22 +416,6 @@ export default function PetDetail() {
       <div className="mt-2 p-5">
         {message && <div className="alert">{message}</div>}{" "}
         {/* Mostrar mensaje */}
-        <div>
-          {petByID.medical_history.length > 0 ? (
-            <div>
-              <button
-                className="btn bg-teal-500 mt-2 me-2 color-white"
-                onClick={() =>
-                  document.getElementById("my_modal_4_pet_id").showModal()
-                }
-              >
-                Add vet history here
-              </button>
-            </div>
-          ) : (
-            ""
-          )}
-        </div>
         <form
           method="dialog"
           onSubmit={handleSubmit}
@@ -1088,9 +1080,10 @@ export default function PetDetail() {
                   </a>
                   <button
                     className="text-red-500"
-                    onClick={() =>
-                      handleDeleteVetDocument(petVetInfo.id, file.id)
-                    }
+                    onClick={() => {
+                      setDocIdToDelete(file.id);
+                      setIsDeleteDocDialogOpen(true);
+                    }}
                   >
                     🗑
                   </button>
@@ -1100,6 +1093,13 @@ export default function PetDetail() {
               <p className="text-gray-500">No hay documentos adjuntos.</p>
             )}
           </div>
+
+          <DeleteDialog
+            isOpen={isDeleteDocDialogOpen}
+            onClose={() => setIsDeleteDocDialogOpen(false)}
+            onConfirm={handleDeleteVetDocument}
+            itemName="este documento"
+          />
 
           {/* Subir nuevos archivos */}
           <h4 className="font-semibold mt-4">Agregar Nuevos Documentos:</h4>
