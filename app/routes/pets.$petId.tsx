@@ -16,6 +16,8 @@ export default function PetDetail() {
     editMedicalHistory,
     createVetSession,
     deleteVetSession,
+    editVetSession,
+    deleteVetDocument,
   } = medicalHistory;
   const { user } = auth;
   const [message, setMessage] = useState("");
@@ -33,19 +35,6 @@ export default function PetDetail() {
     files: [],
   });
   console.log("petVetInfo", petVetInfo);
-  // const handleChangeVet = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value, type, checked, files } = e.target;
-
-  //   setPetVetInfo((prevInfo) => ({
-  //     ...prevInfo,
-  //     [name]:
-  //       type === "checkbox"
-  //         ? checked
-  //         : type === "file" && files
-  //         ? files[0] // Si es un archivo, guarda el primero seleccionado
-  //         : value,
-  //   }));
-  // };
 
   const handleChangeVet = (e) => {
     const { name, value, type, checked, files } = e.target;
@@ -288,50 +277,6 @@ export default function PetDetail() {
     }
   };
 
-  // const handleCreateVetSession = async () => {
-  //   if (
-  //     !petByID ||
-  //     !petByID.medical_history ||
-  //     petByID.medical_history.length === 0
-  //   ) {
-  //     setMessage("No hay historial médico para asociar la sesión veterinaria.");
-  //     return;
-  //   }
-
-  //   const medicalHistoryId = petByID.medical_history[0].id;
-
-  //   if (!petVetInfo.address.trim() || !petVetInfo.treatment.trim()) {
-  //     setMessage("La dirección y el tratamiento son obligatorios.");
-  //     return;
-  //   }
-
-  //   setLoading(true);
-  //   try {
-  //     const vetSessionData = {
-  //       address: petVetInfo.address,
-  //       treatment: petVetInfo.treatment,
-  //       notes: petVetInfo.notes,
-  //       cause: petVetInfo.cause,
-  //       cost: Number(petVetInfo.cost), // Asegura que el costo sea un número
-  //       medical_notes: petVetInfo.medical_notes,
-  //     };
-
-  //     const response = await createVetSession(medicalHistoryId, vetSessionData);
-
-  //     if (response) {
-  //       setMessage("Sesión veterinaria creada con éxito.");
-  //       getPetById(Number(petId)); // Refrescar datos de la mascota
-  //     } else {
-  //       setMessage("No se pudo crear la sesión veterinaria.");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error creando sesión veterinaria:", error);
-  //     setMessage("Ocurrió un error al crear la sesión veterinaria.");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
   const handleCreateVetSession = async () => {
     if (
       !petByID ||
@@ -383,6 +328,76 @@ export default function PetDetail() {
     } catch (error) {
       console.error("Error eliminando sesión veterinaria:", error);
       setMessage("Ocurrió un error al eliminar la sesión veterinaria.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleEditVetSession = async (vetId: number) => {
+    if (
+      !petByID ||
+      !petByID.medical_history ||
+      petByID.medical_history.length === 0
+    ) {
+      setMessage("No hay historial médico asociado.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await editVetSession(vetId, petVetInfo); // 🚀 DIRECTO, SIN FORM DATA
+
+      if (response) {
+        setMessage("Sesión veterinaria editada con éxito.");
+        getPetById(Number(petId)); // 🔄 Refrescar datos
+      } else {
+        setMessage("No se pudo editar la sesión veterinaria.");
+      }
+    } catch (error) {
+      console.error("Error editando sesión veterinaria:", error);
+      setMessage("Ocurrió un error al editar la sesión veterinaria.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const openEditModal = (vetSession) => {
+    setPetVetInfo({
+      address: vetSession.address || "",
+      treatment: vetSession.treatment || "",
+      notes: vetSession.notes || "",
+      cause: vetSession.cause || "",
+      cost: vetSession.cost ? String(vetSession.cost) : "",
+      medical_notes: vetSession.medical_notes || "",
+      files: [], // No tocar archivos nuevos aquí
+      existingFiles: vetSession.documents || [], // Cargar documentos actuales
+      id: vetSession.id, // Guardar el ID de la sesión para editar
+    });
+
+    document.getElementById("my_modal_4_pet_id").showModal();
+  };
+
+  const handleDeleteVetDocument = async (vetId: number, documentId: number) => {
+    setLoading(true);
+    try {
+      const response = await deleteVetDocument(vetId, documentId);
+
+      if (response) {
+        setMessage("Documento eliminado con éxito.");
+
+        // 🔥 Actualizamos la lista para que desaparezca el documento sin recargar la página
+        setPetVetInfo((prevInfo) => ({
+          ...prevInfo,
+          existingFiles: prevInfo.existingFiles.filter(
+            (file) => file.id !== documentId
+          ),
+        }));
+      } else {
+        setMessage("No se pudo eliminar el documento.");
+      }
+    } catch (error) {
+      console.error("Error eliminando documento:", error);
+      setMessage("Ocurrió un error al eliminar el documento.");
     } finally {
       setLoading(false);
     }
@@ -943,6 +958,12 @@ export default function PetDetail() {
                     }}
                   />
                 </div>
+                <button
+                  className="border-none py-2 px-4 mt-3 bg-yellow-500 text-white rounded-lg"
+                  onClick={() => openEditModal(vetSession)}
+                >
+                  Editar sesión
+                </button>
               </div>
             ))
           ) : (
@@ -1008,17 +1029,100 @@ export default function PetDetail() {
 
       {/* //modal here to create or edit medical vet session   */}
       <dialog id="my_modal_4_pet_id" className="modal">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">Hello!</h3>
-          <p>here you can add your vet session</p>
+        <div className="modal-box max-w-4xl">
+          <h3 className="font-bold text-lg">Editar Sesión Veterinaria</h3>
+
+          {/* Inputs para editar */}
+          <input
+            type="text"
+            name="address"
+            value={petVetInfo.address}
+            onChange={handleChangeVet}
+            className="w-full px-4 py-2 border rounded-lg mb-2"
+            placeholder="Dirección"
+          />
+
+          <input
+            type="text"
+            name="treatment"
+            value={petVetInfo.treatment}
+            onChange={handleChangeVet}
+            className="w-full px-4 py-2 border rounded-lg mb-2"
+            placeholder="Tratamiento"
+          />
+
+          <input
+            type="text"
+            name="cause"
+            value={petVetInfo.cause}
+            onChange={handleChangeVet}
+            className="w-full px-4 py-2 border rounded-lg mb-2"
+            placeholder="Causa"
+          />
+
+          <input
+            type="text"
+            name="medical_notes"
+            value={petVetInfo.medical_notes}
+            onChange={handleChangeVet}
+            className="w-full px-4 py-2 border rounded-lg mb-2"
+            placeholder="Notas médicas"
+          />
+
+          {/* Archivos actuales */}
+          <h4 className="font-semibold mt-4">Documentos Actuales:</h4>
+          <div className="flex flex-wrap gap-2">
+            {petVetInfo.existingFiles?.length > 0 ? (
+              petVetInfo.existingFiles?.map((file, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-2 border p-2 rounded"
+                >
+                  <a
+                    href={file.file_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500"
+                  >
+                    {file.file_url}
+                  </a>
+                  <button
+                    className="text-red-500"
+                    onClick={() =>
+                      handleDeleteVetDocument(petVetInfo.id, file.id)
+                    }
+                  >
+                    🗑
+                  </button>
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-500">No hay documentos adjuntos.</p>
+            )}
+          </div>
+
+          {/* Subir nuevos archivos */}
+          <h4 className="font-semibold mt-4">Agregar Nuevos Documentos:</h4>
+          <input
+            type="file"
+            name="files"
+            multiple
+            onChange={handleChangeVet}
+            className="w-full px-4 py-2 border rounded-lg mb-4"
+          />
+
+          {/* Botones */}
           <div className="modal-action">
+            <button className="btn btn-primary" onClick={handleEditVetSession}>
+              Guardar Cambios
+            </button>
             <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
-              <button className="btn">Close</button>
+              <button className="btn">Cerrar</button>
             </form>
           </div>
         </div>
       </dialog>
+
       <DeleteDialog
         isOpen={isDeleteDialogOpen}
         onClose={() => setIsDeleteDialogOpen(false)}

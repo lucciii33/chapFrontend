@@ -194,6 +194,47 @@ export const useMedicalPetContext = () => {
     }
   };
 
+  const editVetSession = async (
+    vetId: number,
+    data: VetSession
+  ): Promise<VetSession | null> => {
+    const token = getToken();
+
+    // Convertir datos a FormData
+    const formData = new FormData();
+    formData.append("address", data.address || "");
+    formData.append("treatment", data.treatment || "");
+    formData.append("notes", data.notes || "");
+    formData.append("cause", data.cause || "");
+    formData.append("cost", data.cost ? String(data.cost) : "");
+    formData.append("medical_notes", data.medical_notes || "");
+
+    // Agregar archivos a FormData si existen
+    if (data.files && data.files.length > 0) {
+      data.files.forEach((file) => {
+        formData.append("files", file);
+      });
+    }
+
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/vet/${data.id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`, // No poner "Content-Type"
+        },
+        body: formData, // Enviar como FormData
+      });
+
+      if (!response.ok) throw new Error("Error editando la sesión veterinaria");
+      showSuccessToast("Tu visita al veterinario ha sido editada con éxito");
+      return await response.json();
+    } catch (error) {
+      console.error("Error editando sesión veterinaria:", error);
+      showErrorToast("No pudimos editar tu visita al veterinario");
+      return null;
+    }
+  };
+
   const deleteVetSession = async (
     vetId: number
   ): Promise<VetSession | null> => {
@@ -217,11 +258,39 @@ export const useMedicalPetContext = () => {
     }
   };
 
+  const deleteVetDocument = async (
+    vetId: number,
+    documentId: number
+  ): Promise<boolean> => {
+    const token = getToken();
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/vet/${vetId}/document/${documentId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) throw new Error("Error eliminando el documento");
+      showSuccessToast("El documento ha sido eliminado con éxito");
+      return true;
+    } catch (error) {
+      console.error("Error eliminando el documento:", error);
+      showErrorToast("No pudimos eliminar el documento");
+      return false;
+    }
+  };
+
   return {
     createMedicalHistory,
     deleteMedicalHistory,
     editMedicalHistory,
     createVetSession,
     deleteVetSession,
+    editVetSession,
+    deleteVetDocument,
   };
 };
