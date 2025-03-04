@@ -49,22 +49,19 @@ const CheckoutForm: React.FC = () => {
   };
 
   const createOrder = async () => {
-    // Obtener la dirección seleccionada (is_selected: true)
     const selectedAddress = addresses.find((addr) => addr.is_selected);
     if (!selectedAddress) {
       console.error("No se ha seleccionado ninguna dirección");
       return;
     }
 
-    // Calcular el total del carrito
     const totalPrice = allCarts.reduce((acc, item) => acc + item.subtotal, 0);
 
-    // Estructura de la orden
     const orderData = {
       user_id: user.id,
       full_name: user.full_name,
-      order_data: allCarts, // Incluye todos los carritos seleccionados
-      shipping_address: selectedAddress, // Dirección seleccionada
+      order_data: allCarts,
+      shipping_address: selectedAddress,
       total_price: totalPrice,
     };
 
@@ -73,7 +70,7 @@ const CheckoutForm: React.FC = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${user.access_token}`, // 🔥 Token para autenticación
+          Authorization: `Bearer ${user.access_token}`,
         },
         body: JSON.stringify(orderData),
       });
@@ -84,8 +81,6 @@ const CheckoutForm: React.FC = () => {
 
       const data = await response.json();
       console.log("Orden creada:", data);
-
-      // Vaciar carrito después de crear la orde
     } catch (error) {
       console.error("Error al crear la orden:", error);
     }
@@ -94,14 +89,12 @@ const CheckoutForm: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    // Valida que Stripe y los elementos estén cargados
     if (!stripe || !elements) {
       console.error("Stripe no está cargado correctamente");
       return;
     }
 
     try {
-      // Crear PaymentIntent y obtener client_secret
       const clientSecret = await createPaymentIntent(user.id, 1000); // $10.00
 
       // Confirmar el pago
@@ -126,15 +119,27 @@ const CheckoutForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ maxWidth: 400, margin: "auto" }}>
-      <CardElement />
-      <button
-        type="submit"
-        disabled={!stripe || !elements}
-        style={{ marginTop: 20 }}
+    <form onSubmit={handleSubmit} style={{}}>
+      <div
+        style={{
+          border: "1px solid #ccc",
+          padding: "10px",
+          borderRadius: "5px",
+          width: "100%",
+        }}
       >
-        Pagar $10
-      </button>
+        <CardElement options={{ style: { base: { fontSize: "16px" } } }} />
+      </div>
+      <div className="w-full">
+        <button
+          type="submit"
+          disabled={!stripe || !elements}
+          style={{ marginTop: 20 }}
+          className="btn  bg-teal-500 w-full"
+        >
+          Pagar $10
+        </button>
+      </div>
     </form>
   );
 };

@@ -5,6 +5,7 @@ import { ShippingAddressContext } from "../../context/ShippingAddressContext";
 import { TrashIcon, PencilIcon } from "@heroicons/react/24/solid";
 import EditDialogShippinAddress from "~/components/editDialogShippingAddress";
 import DeleteDialogAddress from "~/components/deleteDialogAddress";
+import CheckoutPage from "../checkout";
 
 export default function ShippingAddress() {
   const { auth } = useGlobalContext(); // Accede a la info del usuario
