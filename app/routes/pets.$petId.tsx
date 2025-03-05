@@ -18,6 +18,9 @@ export default function PetDetail() {
     deleteVetSession,
     editVetSession,
     deleteVetDocument,
+    editVaccine,
+    deleteVetVaccine,
+    createVaccine,
   } = medicalHistory;
   const { user } = auth;
   const [message, setMessage] = useState("");
@@ -28,6 +31,11 @@ export default function PetDetail() {
 
   const [docIdToDelete, setDocIdToDelete] = useState<number | null>(null);
   const [isDeleteDocDialogOpen, setIsDeleteDocDialogOpen] = useState(false);
+  const [vaccineIdToDelete, setVaccineIdToDelete] = useState<number | null>(
+    null
+  );
+  const [isDeleteVaccineDialogOpen, setIsDeleteVaccineDialogOpen] =
+    useState(false);
 
   const [petVetInfo, setPetVetInfo] = useState({
     address: "",
@@ -37,6 +45,68 @@ export default function PetDetail() {
     medical_notes: "",
     files: [],
   });
+
+  const [collapseBox, setCollapseBox] = useState({
+    generalInfo: false,
+    medicalHistory2: false,
+    vetSession: false,
+    vaccines: false,
+  });
+
+  const [vaccineData, setVaccineData] = useState({
+    name: "",
+    vaccine_type: "",
+    date_administered: "",
+    expiration_date: "",
+  });
+
+  console.log("vaccineDatavaccineData", vaccineData);
+
+  const handleVaccineInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setVaccineData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleCreateVaccine = async () => {
+    if (
+      !petByID ||
+      !petByID.medical_history ||
+      petByID.medical_history.length === 0
+    ) {
+      setMessage("No hay historial médico asociado para agregar la vacuna.");
+      return;
+    }
+
+    const medicalHistoryId = petByID.medical_history[0].id;
+
+    setLoading(true);
+    try {
+      const response = await createVaccine(medicalHistoryId, vaccineData);
+
+      if (response) {
+        setMessage("Vacuna creada con éxito.");
+        getPetById(Number(petId)); // Recargar datos de la mascota
+        setVaccineData({
+          name: "",
+          vaccine_type: "",
+          date_administered: "",
+          expiration_date: "",
+        }); // Resetear formulario
+      } else {
+        setMessage("No se pudo crear la vacuna.");
+      }
+    } catch (error) {
+      console.error("Error creando vacuna:", error);
+      setMessage("Ocurrió un error al crear la vacuna.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   console.log("petVetInfo", petVetInfo);
 
   const handleChangeVet = (e) => {
@@ -54,9 +124,7 @@ export default function PetDetail() {
   };
 
   const { petId } = useParams();
-  console.log("petttttt", petId);
   console.log("petByID", petByID);
-  console.log("cartProfile", cartProfile);
   const [medicalHistoryData, setMedicalHistoryData] = useState({
     description: "",
     current_treatment: "",
@@ -245,7 +313,6 @@ export default function PetDetail() {
     }));
   };
 
-  // Crear historial médico con datos dinámicos
   const handleCreateOrEditMedicalHistory = async () => {
     if (!petByID || !petId || !medicalHistoryData.description.trim()) {
       setMessage("La descripción no puede estar vacía.");
@@ -411,8 +478,55 @@ export default function PetDetail() {
     }
   };
 
+  const toggleCollapse = (section) => {
+    setCollapseBox((prev) => ({
+      ...prev,
+      [section]: !prev[section],
+    }));
+  };
+
+  const handleDeleteVaccineFunc = async () => {
+    if (!vaccineIdToDelete) return;
+
+    setLoading(true);
+    try {
+      const medicalHistoryId = petByID.medical_history[0].id;
+      const response = await deleteVetVaccine(
+        vaccineIdToDelete,
+        medicalHistoryId
+      );
+
+      if (response) {
+        setMessage("Vacuna eliminada con éxito.");
+        getPetById(Number(petId)); // Recargar los datos de la mascota
+        setIsDeleteVaccineDialogOpen(false);
+      } else {
+        setMessage("No se pudo eliminar la vacuna.");
+      }
+    } catch (error) {
+      console.error("Error eliminando vacuna:", error);
+      setMessage("Ocurrió un error al eliminar la vacuna.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="">
+      {/* <div>
+        <button className=" border-none py-3 px-4 ms-3 bg-cyan-500 text-white rounded-lg">
+          General Info
+        </button>{" "}
+        <button className=" border-none py-3 px-4 ms-3 bg-cyan-500 text-white rounded-lg">
+          medical history
+        </button>{" "}
+        <button className=" border-none py-3 px-4 ms-3 bg-cyan-500 text-white rounded-lg">
+          vet sessions
+        </button>{" "}
+        <button className=" border-none py-3 px-4 ms-3 bg-cyan-500 text-white rounded-lg">
+          vaccines
+        </button>
+      </div> */}
       <div className="mt-2 p-5">
         {message && <div className="alert">{message}</div>}{" "}
         {/* Mostrar mensaje */}
@@ -421,547 +535,713 @@ export default function PetDetail() {
           onSubmit={handleSubmit}
           className="border -2 border-[#65bcbb] rounded-lg p-5"
         >
-          <h1>General info</h1>
-          <div className="relative flex justify-center">
-            <div
-              className="mb-4"
-              onMouseEnter={() => setShowCamara(true)}
-              onMouseLeave={() => setShowCamara(false)}
-            >
-              {/* <p>Profile Photo</p> */}
-              {petInfo.profile_photo && (
-                <img
-                  src={petInfo.profile_photo} // Mostrará la foto actual
-                  alt="defdefe"
-                  className={
-                    showCamara
-                      ? "w-32 h-32 object-cover rounded-full opacity-80 group-hover:opacity-60 transition-opacity duration-200"
-                      : "w-32 h-32 object-cover rounded-full mb-2"
-                  }
-                />
-              )}
-              {showCamara && (
-                <CameraIcon
-                  className="absolute inset-0 m-auto h-8 w-8 text-white bg-black bg-opacity-50 rounded-full p-1 cursor-pointer"
-                  onClick={() =>
-                    document.getElementById("my_modal_3_pet_id").showModal()
-                  }
-                />
-              )}
-            </div>
-          </div>
-
-          <div className="flex">
-            <div className="mb-4 w-full">
-              <label>Mom's Name</label>
-              <input
-                type="text"
-                name="mom_name"
-                value={petInfo.mom_name}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg"
-                placeholder="Mom's Name"
-              />
-            </div>
-
-            <div className="mb-4 w-full ms-2">
-              <label>Dad's Name</label>
-              <input
-                type="text"
-                name="dad_name"
-                value={petInfo.dad_name}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg"
-                placeholder="Dad's Name"
-              />
-            </div>
-          </div>
-          <div className="flex">
-            <div className="mb-4 w-full">
-              <label>Name</label>
-              <input
-                type="text"
-                name="name"
-                value={petInfo.name}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg"
-                placeholder="Pet's Name"
-              />
-            </div>
-
-            <div className="mb-4 w-full ms-2">
-              <label>Age</label>
-              <input
-                type="number"
-                name="age"
-                value={petInfo.age}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg"
-                placeholder="Pet's Age"
-              />
-            </div>
-          </div>
-
-          <div className="mb-4">
-            <label>Personality</label>
-            <input
-              type="text"
-              name="personality"
-              value={petInfo.personality}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-lg"
-              placeholder="Personality"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label>Address</label>
-            <input
-              type="text"
-              name="address"
-              value={petInfo.address}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-lg"
-              placeholder="Address"
-            />
-          </div>
-
-          <div className="flex">
-            <div className="mb-4 w-full">
-              <label>Phone Number</label>
-              <input
-                type="number"
-                name="phone_number"
-                value={petInfo.phone_number}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg"
-                placeholder="Phone Number"
-              />
-            </div>
-
-            <div className="mb-4 w-full ms-2">
-              <label>Phone Number (Optional)</label>
-              <input
-                type="number"
-                name="phone_number_optional"
-                value={petInfo.phone_number_optional || ""}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg"
-                placeholder="Optional Phone Number"
-              />
-            </div>
-          </div>
-
-          <div className="flex">
-            <div className="mb-4 w-full">
-              <label>Pet Color</label>
-              <input
-                type="text"
-                name="pet_color"
-                value={petInfo.pet_color}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg"
-                placeholder="Pet's Color"
-              />
-            </div>
-
-            <div className="mb-4 w-full ms-2">
-              <label>Breed</label>
-              <input
-                type="text"
-                name="breed"
-                value={petInfo.breed}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg"
-                placeholder="Breed"
-              />
-            </div>
-          </div>
-
-          <div className="mb-4 flex">
+          <div className="flex justify-between">
             <div>
-              <label>Lost</label>
+              {" "}
+              <h1>General info</h1>
             </div>
             <div>
-              <input
-                type="checkbox"
-                name="lost"
-                checked={petInfo.lost}
-                onChange={(e) =>
-                  setPetInfo((prevInfo) => ({
-                    ...prevInfo,
-                    lost: e.target.checked,
-                  }))
-                }
-                className="w-full px-4 py-2 border rounded-lg"
-              />
-            </div>
-
-            <div className="mb-4 flex items-center">
-              <label className="mr-2">Show Medical History</label>
-              <input
-                type="checkbox"
-                name="show_medical_history"
-                checked={petInfo.show_medical_history}
-                onChange={handleChange}
-              />
+              {" "}
+              <h1 onClick={() => toggleCollapse("generalInfo")}>icon</h1>
             </div>
           </div>
+          {collapseBox.generalInfo ? (
+            <div>
+              <div className="relative flex justify-center">
+                <div
+                  className="mb-4"
+                  onMouseEnter={() => setShowCamara(true)}
+                  onMouseLeave={() => setShowCamara(false)}
+                >
+                  {/* <p>Profile Photo</p> */}
+                  {petInfo.profile_photo && (
+                    <img
+                      src={petInfo.profile_photo} // Mostrará la foto actual
+                      alt="defdefe"
+                      className={
+                        showCamara
+                          ? "w-32 h-32 object-cover rounded-full opacity-80 group-hover:opacity-60 transition-opacity duration-200"
+                          : "w-32 h-32 object-cover rounded-full mb-2"
+                      }
+                    />
+                  )}
+                  {showCamara && (
+                    <CameraIcon
+                      className="absolute inset-0 m-auto h-8 w-8 text-white bg-black bg-opacity-50 rounded-full p-1 cursor-pointer"
+                      onClick={() =>
+                        document.getElementById("my_modal_3_pet_id").showModal()
+                      }
+                    />
+                  )}
+                </div>
+              </div>
 
-          <div className="mb-4">
-            <label>Vet Address</label>
-            <input
-              type="text"
-              name="vet_address"
-              value={petInfo.vet_address}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-lg"
-              placeholder="Vet Address"
-            />
-          </div>
+              <div className="flex">
+                <div className="mb-4 w-full">
+                  <label>Mom's Name</label>
+                  <input
+                    type="text"
+                    name="mom_name"
+                    value={petInfo.mom_name}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border rounded-lg"
+                    placeholder="Mom's Name"
+                  />
+                </div>
 
-          <div className="mb-4">
-            <label>Neighbourhood</label>
-            <input
-              type="text"
-              name="neighbourhood"
-              value={petInfo.neighbourhood}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-lg"
-              placeholder="Neighbourhood"
-            />
-          </div>
+                <div className="mb-4 w-full ms-2">
+                  <label>Dad's Name</label>
+                  <input
+                    type="text"
+                    name="dad_name"
+                    value={petInfo.dad_name}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border rounded-lg"
+                    placeholder="Dad's Name"
+                  />
+                </div>
+              </div>
 
-          <div className="mb-4">
-            <label>Chip Number</label>
-            <input
-              type="number"
-              name="chip_number"
-              value={petInfo.chip_number}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-lg"
-              placeholder="Chip Number"
-            />
-          </div>
+              <div className="flex">
+                <div className="mb-4 w-full">
+                  <label>Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={petInfo.name}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border rounded-lg"
+                    placeholder="Pet's Name"
+                  />
+                </div>
 
-          <div className="modal-action">
-            <button
-              className=" border-none py-3 px-4 ms-3 bg-cyan-500 text-white rounded-lg"
-              onClick={handleSubmit}
-            >
-              create{" "}
-            </button>
-          </div>
+                <div className="mb-4 w-full ms-2">
+                  <label>Age</label>
+                  <input
+                    type="number"
+                    name="age"
+                    value={petInfo.age}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border rounded-lg"
+                    placeholder="Pet's Age"
+                  />
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <label>Personality</label>
+                <input
+                  type="text"
+                  name="personality"
+                  value={petInfo.personality}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border rounded-lg"
+                  placeholder="Personality"
+                />
+              </div>
+
+              <div className="mb-4">
+                <label>Address</label>
+                <input
+                  type="text"
+                  name="address"
+                  value={petInfo.address}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border rounded-lg"
+                  placeholder="Address"
+                />
+              </div>
+
+              <div className="flex">
+                <div className="mb-4 w-full">
+                  <label>Phone Number</label>
+                  <input
+                    type="number"
+                    name="phone_number"
+                    value={petInfo.phone_number}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border rounded-lg"
+                    placeholder="Phone Number"
+                  />
+                </div>
+
+                <div className="mb-4 w-full ms-2">
+                  <label>Phone Number (Optional)</label>
+                  <input
+                    type="number"
+                    name="phone_number_optional"
+                    value={petInfo.phone_number_optional || ""}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border rounded-lg"
+                    placeholder="Optional Phone Number"
+                  />
+                </div>
+              </div>
+
+              <div className="flex">
+                <div className="mb-4 w-full">
+                  <label>Pet Color</label>
+                  <input
+                    type="text"
+                    name="pet_color"
+                    value={petInfo.pet_color}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border rounded-lg"
+                    placeholder="Pet's Color"
+                  />
+                </div>
+
+                <div className="mb-4 w-full ms-2">
+                  <label>Breed</label>
+                  <input
+                    type="text"
+                    name="breed"
+                    value={petInfo.breed}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border rounded-lg"
+                    placeholder="Breed"
+                  />
+                </div>
+              </div>
+
+              <div className="mb-4 flex">
+                <div>
+                  <label>Lost</label>
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    name="lost"
+                    checked={petInfo.lost}
+                    onChange={(e) =>
+                      setPetInfo((prevInfo) => ({
+                        ...prevInfo,
+                        lost: e.target.checked,
+                      }))
+                    }
+                    className="w-full px-4 py-2 border rounded-lg"
+                  />
+                </div>
+
+                <div className="mb-4 flex items-center">
+                  <label className="mr-2">Show Medical History</label>
+                  <input
+                    type="checkbox"
+                    name="show_medical_history"
+                    checked={petInfo.show_medical_history}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <label>Vet Address</label>
+                <input
+                  type="text"
+                  name="vet_address"
+                  value={petInfo.vet_address}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border rounded-lg"
+                  placeholder="Vet Address"
+                />
+              </div>
+
+              <div className="mb-4">
+                <label>Neighbourhood</label>
+                <input
+                  type="text"
+                  name="neighbourhood"
+                  value={petInfo.neighbourhood}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border rounded-lg"
+                  placeholder="Neighbourhood"
+                />
+              </div>
+
+              <div className="mb-4">
+                <label>Chip Number</label>
+                <input
+                  type="number"
+                  name="chip_number"
+                  value={petInfo.chip_number}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border rounded-lg"
+                  placeholder="Chip Number"
+                />
+              </div>
+
+              <div className="modal-action">
+                <button
+                  className=" border-none py-3 px-4 ms-3 bg-cyan-500 text-white rounded-lg"
+                  onClick={handleSubmit}
+                >
+                  create{" "}
+                </button>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
         </form>
       </div>
 
       <div className="px-5">
         <div className="border -2 border-[#65bcbb] rounded-lg p-5">
-          <h2 className="font-bold text-lg mb-2">Crear historial médico</h2>
-
-          {/* Textarea para descripción */}
-          <textarea
-            name="description"
-            value={medicalHistoryData.description}
-            onChange={handleInputChange}
-            className="w-full p-2 border rounded-lg mb-4"
-            placeholder="Escribe la descripción del historial médico aquí..."
-            rows={5}
-          />
-
-          <input
-            type="text"
-            name="current_treatment"
-            value={medicalHistoryData.current_treatment}
-            onChange={handleInputChange}
-            className="w-full p-2 border rounded-lg mb-4"
-            placeholder="Tratamiento actual"
-          />
-
-          <input
-            type="date"
-            name="last_doctor_visit"
-            value={medicalHistoryData.last_doctor_visit}
-            onChange={handleInputChange}
-            className="w-full p-2 border rounded-lg mb-4"
-          />
-
-          <input
-            type="text"
-            name="important_notes"
-            value={medicalHistoryData.important_notes}
-            onChange={handleInputChange}
-            className="w-full p-2 border rounded-lg mb-4"
-            placeholder="Notas importantes"
-          />
-
-          <input
-            type="text"
-            name="allergies"
-            value={medicalHistoryData.allergies}
-            onChange={handleInputChange}
-            className="w-full p-2 border rounded-lg mb-4"
-            placeholder="Alergias"
-          />
-
-          <input
-            type="number"
-            name="weight"
-            value={medicalHistoryData.weight}
-            onChange={handleInputChange}
-            className="w-full p-2 border rounded-lg mb-4"
-            placeholder="Peso (kg)"
-          />
-
-          <input
-            type="number"
-            name="height"
-            value={medicalHistoryData.height}
-            onChange={handleInputChange}
-            className="w-full p-2 border rounded-lg mb-4"
-            placeholder="Altura (cm)"
-          />
-
-          <input
-            type="text"
-            name="chronic_conditions"
-            value={medicalHistoryData.chronic_conditions}
-            onChange={handleInputChange}
-            className="w-full p-2 border rounded-lg mb-4"
-            placeholder="Condiciones crónicas"
-          />
-
-          <input
-            type="text"
-            name="medications"
-            value={medicalHistoryData.medications}
-            onChange={handleInputChange}
-            className="w-full p-2 border rounded-lg mb-4"
-            placeholder="Medicamentos actuales"
-          />
-
-          <input
-            type="text"
-            name="surgical_history"
-            value={medicalHistoryData.surgical_history}
-            onChange={handleInputChange}
-            className="w-full p-2 border rounded-lg mb-4"
-            placeholder="Historial de cirugías"
-          />
-
-          <input
-            type="text"
-            name="vaccination_status"
-            value={medicalHistoryData.vaccination_status}
-            onChange={handleInputChange}
-            className="w-full p-2 border rounded-lg mb-4"
-            placeholder="Estado de vacunación"
-          />
-
-          <input
-            type="text"
-            name="blood_type"
-            value={medicalHistoryData.blood_type}
-            onChange={handleInputChange}
-            className="w-full p-2 border rounded-lg mb-4"
-            placeholder="Tipo de sangre"
-          />
-
-          <input
-            type="text"
-            name="diet"
-            value={medicalHistoryData.diet}
-            onChange={handleInputChange}
-            className="w-full p-2 border rounded-lg mb-4"
-            placeholder="Dieta"
-          />
-
-          <input
-            type="text"
-            name="behavior_notes"
-            value={medicalHistoryData.behavior_notes}
-            onChange={handleInputChange}
-            className="w-full p-2 border rounded-lg mb-4"
-            placeholder="Notas de comportamiento"
-          />
-
-          {/* Botón para crear el historial */}
-          <div className="flex justify-end">
-            {" "}
-            <button
-              className="border-none py-3 px-4 bg-blue-500 text-white rounded-lg"
-              onClick={handleCreateOrEditMedicalHistory}
-              disabled={loading}
-            >
-              {loading
-                ? "Creando historial médico..."
-                : "Crear Historial Médico"}
-            </button>
+          <div className="flex justify-between">
+            <div>
+              {" "}
+              <h2 className="font-bold text-lg mb-2">Crear historial médico</h2>
+            </div>
+            <div>
+              {" "}
+              <h1 onClick={() => toggleCollapse("medicalHistory2")}>icon</h1>
+            </div>
           </div>
+
+          {collapseBox.medicalHistory2 ? (
+            <div>
+              <textarea
+                name="description"
+                value={medicalHistoryData.description}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded-lg mb-4"
+                placeholder="Escribe la descripción del historial médico aquí..."
+                rows={5}
+              />
+
+              <input
+                type="text"
+                name="current_treatment"
+                value={medicalHistoryData.current_treatment}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded-lg mb-4"
+                placeholder="Tratamiento actual"
+              />
+
+              <input
+                type="date"
+                name="last_doctor_visit"
+                value={medicalHistoryData.last_doctor_visit}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded-lg mb-4"
+              />
+
+              <input
+                type="text"
+                name="important_notes"
+                value={medicalHistoryData.important_notes}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded-lg mb-4"
+                placeholder="Notas importantes"
+              />
+
+              <input
+                type="text"
+                name="allergies"
+                value={medicalHistoryData.allergies}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded-lg mb-4"
+                placeholder="Alergias"
+              />
+
+              <input
+                type="number"
+                name="weight"
+                value={medicalHistoryData.weight}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded-lg mb-4"
+                placeholder="Peso (kg)"
+              />
+
+              <input
+                type="number"
+                name="height"
+                value={medicalHistoryData.height}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded-lg mb-4"
+                placeholder="Altura (cm)"
+              />
+
+              <input
+                type="text"
+                name="chronic_conditions"
+                value={medicalHistoryData.chronic_conditions}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded-lg mb-4"
+                placeholder="Condiciones crónicas"
+              />
+
+              <input
+                type="text"
+                name="medications"
+                value={medicalHistoryData.medications}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded-lg mb-4"
+                placeholder="Medicamentos actuales"
+              />
+
+              <input
+                type="text"
+                name="surgical_history"
+                value={medicalHistoryData.surgical_history}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded-lg mb-4"
+                placeholder="Historial de cirugías"
+              />
+
+              <input
+                type="text"
+                name="vaccination_status"
+                value={medicalHistoryData.vaccination_status}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded-lg mb-4"
+                placeholder="Estado de vacunación"
+              />
+
+              <input
+                type="text"
+                name="blood_type"
+                value={medicalHistoryData.blood_type}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded-lg mb-4"
+                placeholder="Tipo de sangre"
+              />
+
+              <input
+                type="text"
+                name="diet"
+                value={medicalHistoryData.diet}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded-lg mb-4"
+                placeholder="Dieta"
+              />
+
+              <input
+                type="text"
+                name="behavior_notes"
+                value={medicalHistoryData.behavior_notes}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded-lg mb-4"
+                placeholder="Notas de comportamiento"
+              />
+
+              {/* Botón para crear el historial */}
+              <div className="flex justify-end">
+                {" "}
+                <button
+                  className="border-none py-3 px-4 bg-blue-500 text-white rounded-lg"
+                  onClick={handleCreateOrEditMedicalHistory}
+                  disabled={loading}
+                >
+                  {loading
+                    ? "Creando historial médico..."
+                    : "Crear Historial Médico"}
+                </button>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
 
       <div className="px-5 mt-5">
         <div className="border -2 border-[#65bcbb] rounded-lg p-5">
-          <h2 className="font-bold text-lg mb-2">
-            Crear visita al veterinario
-          </h2>
-
-          <div className="mb-4 w-full">
-            <label>address</label>
-            <input
-              type="text"
-              name="address"
-              value={petVetInfo.address}
-              onChange={handleChangeVet}
-              className="w-full px-4 py-2 border rounded-lg"
-              placeholder="address"
-            />
+          <div className="flex justify-between">
+            <div>
+              {" "}
+              <h2 className="font-bold text-lg mb-2">
+                Crear visita al veterinario
+              </h2>
+            </div>
+            <div>
+              {" "}
+              <h1 onClick={() => toggleCollapse("vetSession")}>icon</h1>
+            </div>
           </div>
 
-          <div className="mb-4 w-full ms-2">
-            <label>treatment</label>
-            <input
-              type="text"
-              name="treatment"
-              value={petVetInfo.treatment}
-              onChange={handleChangeVet}
-              className="w-full px-4 py-2 border rounded-lg"
-              placeholder="treatment"
-            />
-          </div>
+          {collapseBox.vetSession ? (
+            <div>
+              <div className="mb-4 w-full">
+                <label>address</label>
+                <input
+                  type="text"
+                  name="address"
+                  value={petVetInfo.address}
+                  onChange={handleChangeVet}
+                  className="w-full px-4 py-2 border rounded-lg"
+                  placeholder="address"
+                />
+              </div>
 
-          <div className="mb-4 w-full ms-2">
-            <label>notes</label>
-            <input
-              type="text"
-              name="notes"
-              value={petVetInfo.notes}
-              onChange={handleChangeVet}
-              className="w-full px-4 py-2 border rounded-lg"
-              placeholder="notes"
-            />
-          </div>
+              <div className="mb-4 w-full ms-2">
+                <label>treatment</label>
+                <input
+                  type="text"
+                  name="treatment"
+                  value={petVetInfo.treatment}
+                  onChange={handleChangeVet}
+                  className="w-full px-4 py-2 border rounded-lg"
+                  placeholder="treatment"
+                />
+              </div>
 
-          <div className="mb-4 w-full ms-2">
-            <label>cause</label>
-            <input
-              type="text"
-              name="cause"
-              value={petVetInfo.cause}
-              onChange={handleChangeVet}
-              className="w-full px-4 py-2 border rounded-lg"
-              placeholder="cause"
-            />
-          </div>
+              <div className="mb-4 w-full ms-2">
+                <label>notes</label>
+                <input
+                  type="text"
+                  name="notes"
+                  value={petVetInfo.notes}
+                  onChange={handleChangeVet}
+                  className="w-full px-4 py-2 border rounded-lg"
+                  placeholder="notes"
+                />
+              </div>
 
-          <div className="mb-4 w-full ms-2">
-            <label>cost</label>
-            <input
-              type="text"
-              name="cost"
-              value={petVetInfo.cost}
-              onChange={handleChangeVet}
-              className="w-full px-4 py-2 border rounded-lg"
-              placeholder="cost"
-            />
-          </div>
+              <div className="mb-4 w-full ms-2">
+                <label>cause</label>
+                <input
+                  type="text"
+                  name="cause"
+                  value={petVetInfo.cause}
+                  onChange={handleChangeVet}
+                  className="w-full px-4 py-2 border rounded-lg"
+                  placeholder="cause"
+                />
+              </div>
 
-          <div className="mb-4 w-full ms-2">
-            <label>medical_notes:</label>
-            <input
-              type="text"
-              name="medical_notes"
-              value={petVetInfo.medical_notes}
-              onChange={handleChangeVet}
-              className="w-full px-4 py-2 border rounded-lg"
-              placeholder="Dad's Name"
-            />
-          </div>
+              <div className="mb-4 w-full ms-2">
+                <label>cost</label>
+                <input
+                  type="text"
+                  name="cost"
+                  value={petVetInfo.cost}
+                  onChange={handleChangeVet}
+                  className="w-full px-4 py-2 border rounded-lg"
+                  placeholder="cost"
+                />
+              </div>
 
-          <div className="mb-4 w-full">
-            <label>Documentos (PDF, imágenes, etc.)</label>
-            <input
-              type="file"
-              name="files"
-              multiple
-              onChange={handleChangeVet} // Maneja la carga de archivos
-              className="w-full px-4 py-2 border rounded-lg"
-            />
-          </div>
+              <div className="mb-4 w-full ms-2">
+                <label>medical_notes:</label>
+                <input
+                  type="text"
+                  name="medical_notes"
+                  value={petVetInfo.medical_notes}
+                  onChange={handleChangeVet}
+                  className="w-full px-4 py-2 border rounded-lg"
+                  placeholder="Dad's Name"
+                />
+              </div>
 
-          {/* Botón para crear el historial */}
-          <div className="flex justify-end">
-            {" "}
-            <button
-              className="border-none py-3 px-4 bg-blue-500 text-white rounded-lg"
-              onClick={handleCreateVetSession}
-              // disabled={loading}
-            >
-              vet session
-            </button>
-          </div>
+              <div className="mb-4 w-full">
+                <label>Documentos (PDF, imágenes, etc.)</label>
+                <input
+                  type="file"
+                  name="files"
+                  multiple
+                  onChange={handleChangeVet} // Maneja la carga de archivos
+                  className="w-full px-4 py-2 border rounded-lg"
+                />
+              </div>
 
-          {petByID?.medical_history?.length > 0 &&
-          petByID.medical_history[0].vets.length > 0 ? (
-            petByID.medical_history[0].vets.map((vetSession) => (
-              <div
-                key={vetSession.id}
-                className="border p-4 rounded-lg mb-3 shadow-md"
-              >
-                <h3 className="text-md font-semibold">
-                  Visita ID: {vetSession.id}
-                </h3>
-                <p>
-                  <strong>Dirección:</strong> {vetSession.address}
-                </p>
-                <p>
-                  <strong>Tratamiento:</strong> {vetSession.treatment}
-                </p>
-                <p>
-                  <strong>Causa:</strong> {vetSession.cause}
-                </p>
-                <p>
-                  <strong>Notas:</strong> {vetSession.notes}
-                </p>
-                <p>
-                  <strong>Notas Médicas:</strong> {vetSession.medical_notes}
-                </p>
-                <p>
-                  <strong>Costo:</strong>{" "}
-                  {vetSession.cost ? `$${vetSession.cost}` : "N/A"}
-                </p>
-                <p>
-                  <strong>url</strong>{" "}
-                  {vetSession?.documents?.map((item, index) => {
-                    return (
-                      <div key={index}>
-                        <p>{item.file_url}</p>
-                      </div>
-                    );
-                  })}
-                </p>
-                <div>
-                  <TrashIcon
-                    className="h-6 w-6 text-red-500"
-                    onClick={() => {
-                      setVetIdToDelete(vetSession.id);
-                      setIsDeleteDialogOpen(true);
-                    }}
-                  />
-                </div>
+              {/* Botón para crear el historial */}
+              <div className="flex justify-end">
+                {" "}
                 <button
-                  className="border-none py-2 px-4 mt-3 bg-yellow-500 text-white rounded-lg"
-                  onClick={() => openEditModal(vetSession)}
+                  className="border-none py-3 px-4 bg-blue-500 text-white rounded-lg"
+                  onClick={handleCreateVetSession}
+                  // disabled={loading}
                 >
-                  Editar sesión
+                  vet session
                 </button>
               </div>
-            ))
+
+              {petByID?.medical_history?.length > 0 &&
+              petByID.medical_history[0].vets.length > 0 ? (
+                petByID.medical_history[0].vets.map((vetSession) => (
+                  <div
+                    key={vetSession.id}
+                    className="border p-4 rounded-lg mb-3 shadow-md"
+                  >
+                    <h3 className="text-md font-semibold">
+                      Visita ID: {vetSession.id}
+                    </h3>
+                    <p>
+                      <strong>Dirección:</strong> {vetSession.address}
+                    </p>
+                    <p>
+                      <strong>Tratamiento:</strong> {vetSession.treatment}
+                    </p>
+                    <p>
+                      <strong>Causa:</strong> {vetSession.cause}
+                    </p>
+                    <p>
+                      <strong>Notas:</strong> {vetSession.notes}
+                    </p>
+                    <p>
+                      <strong>Notas Médicas:</strong> {vetSession.medical_notes}
+                    </p>
+                    <p>
+                      <strong>Costo:</strong>{" "}
+                      {vetSession.cost ? `$${vetSession.cost}` : "N/A"}
+                    </p>
+                    <p>
+                      <strong>url</strong>{" "}
+                      {vetSession?.documents?.map((item, index) => {
+                        return (
+                          <div key={index}>
+                            <p>{item.file_url}</p>
+                          </div>
+                        );
+                      })}
+                    </p>
+                    <div>
+                      <TrashIcon
+                        className="h-6 w-6 text-red-500"
+                        onClick={() => {
+                          setVetIdToDelete(vetSession.id);
+                          setIsDeleteDialogOpen(true);
+                        }}
+                      />
+                    </div>
+                    <button
+                      className="border-none py-2 px-4 mt-3 bg-yellow-500 text-white rounded-lg"
+                      onClick={() => openEditModal(vetSession)}
+                    >
+                      Editar sesión
+                    </button>
+                  </div>
+                ))
+              ) : (
+                <p className="text-gray-500">
+                  No hay sesiones veterinarias registradas.
+                </p>
+              )}
+            </div>
           ) : (
-            <p className="text-gray-500">
-              No hay sesiones veterinarias registradas.
-            </p>
+            ""
+          )}
+        </div>
+      </div>
+
+      <div className="px-5 mt-5">
+        <div className="border -2 border-[#65bcbb] rounded-lg p-5">
+          <div className="flex justify-between">
+            <div>
+              {" "}
+              <h2 className="font-bold text-lg mb-2"> Create Vaccines</h2>
+            </div>
+            <div>
+              {" "}
+              <h1 onClick={() => toggleCollapse("vaccines")}>icon</h1>
+            </div>
+          </div>
+
+          {collapseBox.vaccines ? (
+            <div>
+              <div className="flex justify-between gap-2">
+                <div className="w-full mt-2">
+                  <div>
+                    <label>name of the vaccine</label>
+                  </div>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2 border rounded-lg"
+                    placeholder="name of the vaccine"
+                    name="name"
+                    value={vaccineData.name}
+                    onChange={handleVaccineInputChange}
+                  />
+                </div>
+                <div className="w-full mt-2">
+                  <div>
+                    <label>vaccine type</label>
+                  </div>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2 border rounded-lg"
+                    placeholder="vaccine type"
+                    name="vaccine_type"
+                    value={vaccineData.vaccine_type}
+                    onChange={handleVaccineInputChange}
+                  />
+                </div>
+              </div>
+              <div className="flex justify-between gap-2">
+                {" "}
+                <div className="w-full mt-2">
+                  <div>
+                    <label>date_administered</label>
+                  </div>
+                  <input
+                    type="date"
+                    className="w-full px-4 py-2 border rounded-lg"
+                    placeholder="date_administered"
+                    name="date_administered"
+                    value={vaccineData.date_administered}
+                    onChange={handleVaccineInputChange}
+                  />
+                </div>
+                <div className="w-full mt-2">
+                  <div>
+                    <label>expiration_date</label>
+                  </div>
+                  <input
+                    type="date"
+                    className="w-full px-4 py-2 border rounded-lg"
+                    placeholder="expiration_date"
+                    name="expiration_date"
+                    value={vaccineData.expiration_date}
+                    onChange={handleVaccineInputChange}
+                  />
+                </div>
+              </div>
+              <button
+                className="border-none py-3 px-4 bg-blue-500 text-white rounded-lg"
+                onClick={handleCreateVaccine}
+                disabled={loading}
+              >
+                {loading ? "Creando vacuna..." : "Crear Vacuna"}
+              </button>
+
+              <div>
+                Your vaccines:
+                {petByID.medical_history?.length > 0 &&
+                petByID.medical_history[0].vaccines?.length > 0 ? (
+                  petByID.medical_history[0].vaccines.map((vaccine) => (
+                    <div
+                      key={vaccine.id}
+                      className="border p-4 rounded-lg mb-3 shadow-md"
+                    >
+                      <p>Nombre: {vaccine.name}</p>
+                      <p>Tipo: {vaccine.vaccine_type}</p>
+                      <p>
+                        Fecha de administración: {vaccine.date_administered}
+                      </p>
+                      <p>Fecha de expiración: {vaccine.expiration_date}</p>
+                      <TrashIcon
+                        className="h-6 w-6 text-red-500 cursor-pointer"
+                        onClick={() => {
+                          setVaccineIdToDelete(vaccine.id);
+                          setIsDeleteVaccineDialogOpen(true);
+                        }}
+                      />
+                    </div>
+                  ))
+                ) : (
+                  <p>No hay vacunas registradas.</p>
+                )}
+              </div>
+              <DeleteDialog
+                isOpen={isDeleteVaccineDialogOpen}
+                onClose={() => setIsDeleteVaccineDialogOpen(false)}
+                onConfirm={handleDeleteVaccineFunc}
+                itemName={`Vacuna: ${vaccineIdToDelete ?? ""}`}
+              />
+            </div>
+          ) : (
+            ""
           )}
         </div>
       </div>
@@ -969,6 +1249,7 @@ export default function PetDetail() {
       <div className="p-3">
         <h1 className="font-bold text-xl">Your tags:</h1>
       </div>
+
       <div className="flex">
         {petByID?.tags.map((tag) => {
           return (

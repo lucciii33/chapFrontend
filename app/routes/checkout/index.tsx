@@ -16,6 +16,7 @@ export default function CheckoutPage() {
   useEffect(() => {
     getCartByUserFunc();
   }, [user]);
+
   return (
     <div className="mt-5 p-5">
       <div className="flex justify-between gap-4">

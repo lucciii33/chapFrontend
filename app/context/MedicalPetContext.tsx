@@ -16,18 +16,27 @@ type VetSession = {
   medical_history_id: number;
 };
 
-type Vaccine = {
-  id: number;
-  name: string;
-  date_administered: string;
-};
-
 type CreatePetMedicalHistoryResponse = {
   description: string;
   id: number;
   pet_id: number;
   vet_sessions: VetSession[];
   vaccines: Vaccine[];
+};
+
+type Vaccine = {
+  name: string;
+  vaccine_type: string;
+  date_administered: string; // o Date si prefieres usar objetos Date
+  expiration_date: string; // o Date si prefieres usar objetos Date
+};
+
+type VaccineResponse = {
+  id: number; // ID único de la vacuna
+  name: string;
+  vaccine_type: string;
+  date_administered: string; // Puede ser Date si prefieres manejarlo así
+  expiration_date: string; // Puede ser Date si prefieres manejarlo así
 };
 
 export const useMedicalPetContext = () => {
@@ -121,34 +130,6 @@ export const useMedicalPetContext = () => {
       return null;
     }
   };
-
-  // const createVetSession = async (
-  //   medicalHistoryId: number,
-  //   data: VetSession
-  // ): Promise<VetSession | null> => {
-  //   const token = getToken();
-  //   try {
-  //     const response = await fetch(
-  //       `http://127.0.0.1:8000/api/medical_history/${medicalHistoryId}/vet`,
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //         body: JSON.stringify(data),
-  //       }
-  //     );
-
-  //     if (!response.ok) throw new Error("Error creating medical history");
-  //     showSuccessToast("Tu visita al veterinario ha sido creada con exito");
-  //     return await response.json();
-  //   } catch (error) {
-  //     showErrorToast("no pudimos crear tu visita al veterinario");
-  //     console.error("Error creating medical history:", error);
-  //     return null;
-  //   }
-  // };
 
   const createVetSession = async (
     medicalHistoryId: number,
@@ -284,6 +265,91 @@ export const useMedicalPetContext = () => {
     }
   };
 
+  const createVaccine = async (
+    medicalHisotryId: number,
+    data: Vaccine
+  ): Promise<VaccineResponse | null> => {
+    const token = getToken();
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/medical_history/${medicalHisotryId}/vaccines`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (!response.ok)
+        throw new Error("Error creating medical history VACCINE");
+      showSuccessToast("Tu vacuna ha sido creada con exito");
+      return await response.json();
+    } catch (error) {
+      console.error("Error creating medical history:", error);
+      showErrorToast("Tu vacuna no pudo ser creado");
+      return null;
+    }
+  };
+
+  const deleteVetVaccine = async (
+    vaccineId: number,
+    medicalHisotryId: number
+  ): Promise<boolean> => {
+    const token = getToken();
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/medical_history/${medicalHisotryId}/delete/${vaccineId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) throw new Error("Error eliminando el documento");
+      showSuccessToast("El la vacuna ha sido eliminado con éxito");
+      return true;
+    } catch (error) {
+      console.error("Error eliminando el documento:", error);
+      showErrorToast("No pudimos eliminar la vacuna");
+      return false;
+    }
+  };
+
+  const editVaccine = async (
+    vaccineId: number,
+    medicalHisotryId: number,
+    data: Vaccine
+  ): Promise<VaccineResponse | null> => {
+    const token = getToken();
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/medical_history/${medicalHisotryId}/edit/${vaccineId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (!response.ok) throw new Error("Error editing medical history");
+      showSuccessToast("Tu hsitorial medico ha sido editado con exito");
+      return await response.json();
+    } catch (error) {
+      console.error("Error editing medical history:", error);
+      showErrorToast("Tu hsitorial medico no pudo ser editado");
+
+      return null;
+    }
+  };
+
   return {
     createMedicalHistory,
     deleteMedicalHistory,
@@ -292,5 +358,8 @@ export const useMedicalPetContext = () => {
     deleteVetSession,
     editVetSession,
     deleteVetDocument,
+    deleteVetVaccine,
+    createVaccine,
+    editVaccine,
   };
 };
