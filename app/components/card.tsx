@@ -144,7 +144,7 @@ export default function Card({ petObj }: CardProps) {
             </div>
           </div>
           <div>
-            <Link to="/trackerPet">
+            <Link to={`/trackerPet/${petObj.id}`}>
               <button className="btn btn-primary w-full">Track your dog</button>
             </Link>
           </div>
