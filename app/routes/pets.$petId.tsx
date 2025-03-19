@@ -5,6 +5,7 @@ import { TrashIcon } from "@heroicons/react/24/solid";
 import { useGlobalContext } from "../context/GlobalProvider";
 import { CameraIcon } from "@heroicons/react/24/solid";
 import DeleteDialog from "~/components/deleteDialog";
+import ScheduleAlertForm from "~/components/ScheduleAlertForm";
 
 export default function PetDetail() {
   const { pet, cart, auth, medicalHistory } = useGlobalContext();
@@ -513,20 +514,16 @@ export default function PetDetail() {
 
   return (
     <div className="">
-      {/* <div>
-        <button className=" border-none py-3 px-4 ms-3 bg-cyan-500 text-white rounded-lg">
-          General Info
-        </button>{" "}
-        <button className=" border-none py-3 px-4 ms-3 bg-cyan-500 text-white rounded-lg">
-          medical history
-        </button>{" "}
-        <button className=" border-none py-3 px-4 ms-3 bg-cyan-500 text-white rounded-lg">
-          vet sessions
-        </button>{" "}
-        <button className=" border-none py-3 px-4 ms-3 bg-cyan-500 text-white rounded-lg">
-          vaccines
+      <div>
+        <button
+          className=" border-none py-3 px-4 ms-3 bg-cyan-500 text-white rounded-lg"
+          onClick={() =>
+            document.getElementById("my_modal_5_pet_id_alerts").showModal()
+          }
+        >
+          CREATE ALER
         </button>
-      </div> */}
+      </div>
       <div className="mt-2 p-5">
         {message && <div className="alert">{message}</div>}{" "}
         {/* Mostrar mensaje */}
@@ -1410,6 +1407,20 @@ export default function PetDetail() {
         onConfirm={handleDeleteVetSession}
         itemName={`Visita ID: ${vetIdToDelete ?? ""}`}
       />
+
+      {/* //modal here to create a   */}
+      <dialog id="my_modal_5_pet_id_alerts" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Hello!</h3>
+          <ScheduleAlertForm userId={auth.user?.id} />
+          <div className="modal-action">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 }
