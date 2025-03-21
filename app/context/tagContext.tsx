@@ -64,113 +64,32 @@ export const useTagContext = () => {
     }
   };
 
-  //   const getPets = async (userId: number): Promise<CreatePetResponse | null> => {
-  //     try {
-  //       const response = await fetch(
-  //         `http://127.0.0.1:8000/api/users/${userId}/pets`,
-  //         {
-  //           method: "GET",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //           },
-  //         }
-  //       );
+  const deletePetTag = async (tagId: number): Promise<boolean> => {
+    const token = getToken();
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/pets/${tagId}/tag/delete`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-  //       if (!response.ok) {
-  //         throw new Error("Error al crear la mascota");
-  //       }
-
-  //       const responseData: CreatePetResponse[] = await response.json();
-  //       setAllPets(responseData); // Guardamos la mascota creada en el estado
-  //       return responseData;
-  //     } catch (error) {
-  //       console.error("Error al crear la mascota:", error);
-  //       return null;
-  //     }
-  //   };
-
-  //   const getPetById = async (
-  //     petId: number
-  //   ): Promise<CreatePetResponse | null> => {
-  //     try {
-  //       const response = await fetch(`http://127.0.0.1:8000/api/pets/${petId}`, {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       });
-
-  //       if (!response.ok) {
-  //         throw new Error("Error al crear la mascota");
-  //       }
-
-  //       const responseData: CreatePetResponse = await response.json();
-  //       setPetByID(responseData); // Guardamos la mascota creada en el estado
-  //       return responseData;
-  //     } catch (error) {
-  //       console.error("Error al crear la mascota:", error);
-  //       return null;
-  //     }
-  //   };
-
-  //   const deletePetById = async (
-  //     petId: number
-  //   ): Promise<CreatePetResponse | null> => {
-  //     try {
-  //       const response = await fetch(
-  //         `http://127.0.0.1:8000/api/pets/${petId}/delete`,
-  //         {
-  //           method: "DELETE",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //           },
-  //         }
-  //       );
-
-  //       if (!response.ok) {
-  //         throw new Error("Error al crear la mascota");
-  //       }
-
-  //       const responseData: CreatePetResponse = await response.json();
-  //       setPetByID(responseData); // Guardamos la mascota creada en el estado
-  //       return responseData;
-  //     } catch (error) {
-  //       console.error("Error al crear la mascota:", error);
-  //       return null;
-  //     }
-  //   };
-
-  //   const editPet = async (
-  //     petId: number,
-  //     petData: Pet
-  //   ): Promise<CreatePetResponse | null> => {
-  //     try {
-  //       const response = await fetch(
-  //         `http://127.0.0.1:8000/api/pets/${petId}/edit`,
-  //         {
-  //           method: "PUT",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //           },
-  //           body: JSON.stringify(petData), // Aquí pasamos los datos de la mascota
-  //         }
-  //       );
-
-  //       if (!response.ok) {
-  //         throw new Error("Error al crear la mascota");
-  //       }
-
-  //       const responseData: CreatePetResponse = await response.json();
-  //       // setPetProfile(responseData); // Guardamos la mascota creada en el estado
-  //       return responseData;
-  //     } catch (error) {
-  //       console.error("Error al crear la mascota:", error);
-  //       return null;
-  //     }
-  //   };
+      if (!response.ok) throw new Error("Error eliminando el tag");
+      showSuccessToast("haz eliminado tu tag corectamente");
+      return true;
+    } catch (error) {
+      console.error("Error eliminando el tag:", error);
+      showErrorToast("No pudimos eliminar tu tag");
+      return false;
+    }
+  };
 
   return {
     createTag,
     tagInfo,
+    deletePetTag,
   };
 };

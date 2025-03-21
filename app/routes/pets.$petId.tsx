@@ -1,6 +1,10 @@
 import { useParams } from "@remix-run/react";
 import { useEffect, useState } from "react";
-import { TrashIcon } from "@heroicons/react/24/solid";
+import {
+  TrashIcon,
+  ChevronUpIcon,
+  ChevronDownIcon,
+} from "@heroicons/react/24/solid";
 
 import { useGlobalContext } from "../context/GlobalProvider";
 import { CameraIcon } from "@heroicons/react/24/solid";
@@ -8,9 +12,10 @@ import DeleteDialog from "~/components/deleteDialog";
 import ScheduleAlertForm from "~/components/ScheduleAlertForm";
 
 export default function PetDetail() {
-  const { pet, cart, auth, medicalHistory } = useGlobalContext();
+  const { pet, cart, auth, medicalHistory, tag } = useGlobalContext();
   const { getPetById, petByID, editPet } = pet;
   const { createCart, cartProfile, getCartByUser } = cart;
+  const { deletePetTag } = tag;
   const {
     createMedicalHistory,
     deleteMedicalHistory,
@@ -60,6 +65,29 @@ export default function PetDetail() {
     date_administered: "",
     expiration_date: "",
   });
+
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [tagToDelete, setTagToDelete] = useState<number | null>(null);
+
+  const openDeleteModal = (id: number) => {
+    setTagToDelete(id);
+    setIsDeleteOpen(true);
+  };
+
+  const closeDeleteModal = () => {
+    setIsDeleteOpen(false);
+    setTagToDelete(null);
+  };
+
+  const confirmDelete = async () => {
+    if (tagToDelete !== null) {
+      const success = await deletePetTag(tagToDelete);
+      if (success) {
+        getPetById(Number(petId));
+      }
+      closeDeleteModal();
+    }
+  };
 
   console.log("vaccineDatavaccineData", vaccineData);
 
@@ -516,7 +544,7 @@ export default function PetDetail() {
     <div className="">
       <div>
         <button
-          className=" border-none py-3 px-4 ms-3 bg-cyan-500 text-white rounded-lg"
+          className=" border-none py-3 px-4 ms-3 mt-5 bg-teal-500 text-white rounded-lg"
           onClick={() =>
             document.getElementById("my_modal_5_pet_id_alerts").showModal()
           }
@@ -527,6 +555,9 @@ export default function PetDetail() {
       <div className="mt-2 p-5">
         {message && <div className="alert">{message}</div>}{" "}
         {/* Mostrar mensaje */}
+        <h1 className="font-bold text-lg mb-2">
+          Welcome to {petByID.name} dashbaord
+        </h1>
         <form
           method="dialog"
           onSubmit={handleSubmit}
@@ -535,11 +566,17 @@ export default function PetDetail() {
           <div className="flex justify-between">
             <div>
               {" "}
-              <h1>General info</h1>
+              <h2 className="font-bold text-lg">General info</h2>
             </div>
             <div>
               {" "}
-              <h1 onClick={() => toggleCollapse("generalInfo")}>icon</h1>
+              <span onClick={() => toggleCollapse("generalInfo")}>
+                {collapseBox.generalInfo ? (
+                  <ChevronUpIcon className="h-6 w-6 text-red-500" />
+                ) : (
+                  <ChevronDownIcon className="h-6 w-6 text-red-500" />
+                )}
+              </span>
             </div>
           </div>
           {collapseBox.generalInfo ? (
@@ -787,11 +824,17 @@ export default function PetDetail() {
           <div className="flex justify-between">
             <div>
               {" "}
-              <h2 className="font-bold text-lg mb-2">Crear historial médico</h2>
+              <h2 className="font-bold text-lg">Crear historial médico</h2>
             </div>
             <div>
               {" "}
-              <h1 onClick={() => toggleCollapse("medicalHistory2")}>icon</h1>
+              <span onClick={() => toggleCollapse("medicalHistory2")}>
+                {collapseBox.medicalHistory2 ? (
+                  <ChevronUpIcon className="h-6 w-6 text-red-500" />
+                ) : (
+                  <ChevronDownIcon className="h-6 w-6 text-red-500" />
+                )}
+              </span>
             </div>
           </div>
 
@@ -947,13 +990,17 @@ export default function PetDetail() {
           <div className="flex justify-between">
             <div>
               {" "}
-              <h2 className="font-bold text-lg mb-2">
-                Crear visita al veterinario
-              </h2>
+              <h2 className="font-bold text-lg">Crear visita al veterinario</h2>
             </div>
             <div>
               {" "}
-              <h1 onClick={() => toggleCollapse("vetSession")}>icon</h1>
+              <span onClick={() => toggleCollapse("vetSession")}>
+                {collapseBox.vetSession ? (
+                  <ChevronUpIcon className="h-6 w-6 text-red-500" />
+                ) : (
+                  <ChevronDownIcon className="h-6 w-6 text-red-500" />
+                )}
+              </span>
             </div>
           </div>
 
@@ -1127,11 +1174,17 @@ export default function PetDetail() {
           <div className="flex justify-between">
             <div>
               {" "}
-              <h2 className="font-bold text-lg mb-2"> Create Vaccines</h2>
+              <h2 className="font-bold text-lg"> Create Vaccines</h2>
             </div>
             <div>
               {" "}
-              <h1 onClick={() => toggleCollapse("vaccines")}>icon</h1>
+              <span onClick={() => toggleCollapse("vaccines")}>
+                {collapseBox.vaccines ? (
+                  <ChevronUpIcon className="h-6 w-6 text-red-500" />
+                ) : (
+                  <ChevronDownIcon className="h-6 w-6 text-red-500" />
+                )}
+              </span>
             </div>
           </div>
 
@@ -1247,27 +1300,40 @@ export default function PetDetail() {
         <h1 className="font-bold text-xl">Your tags:</h1>
       </div>
 
-      <div className="flex">
+      <div className="flex gap-5 items-center flex-col md:flex-row p-5">
         {petByID?.tags.map((tag) => {
           return (
-            <div key={tag.id} className="ms-4 border rounded w-[200px] p-3">
+            <div
+              key={tag.id}
+              className="border -2 border-[#65bcbb] rounded-lg p-5 w-full md:w-[250px]"
+            >
               <div className=" ">
                 <img
-                  className="w-[200px]"
-                  src="https://s.alicdn.com/@sc04/kf/H623bd864f88641ab95a88756ed36cd903.jpg_720x720q50.jpg"
+                  className="w-full md:w-[225px]"
+                  src="https://files.oaiusercontent.com/file-KbjTvrX2yEGoKk263cPQUo?se=2025-03-21T14%3A07%3A24Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Deb49cb05-2a39-4000-ac3b-49afab71b857.webp&sig=23bzJlNU90s0s00FPnai60CPDrqSFzBPjbS7eOSUmAs%3D"
                   alt="dd"
                 />
-                <div className="flex mt-2">
-                  <p>{tag.color} - </p>
-                  <p className="ms-2">{tag.shape} - </p>
-                  <p className="ms-2"> {tag.material}</p>
+                <div className="mt-2">
+                  <p>
+                    Color:<strong>{tag.color}</strong>{" "}
+                  </p>
+                  <p className="">
+                    Shape: <strong>{tag.shape}</strong>{" "}
+                  </p>
+                  {/* <p className=""> {tag.material}</p> */}
                 </div>
-                <div className="mt-4">
+                <div className="mt-4 flex justify-between gap-3 w-full">
                   <button
-                    className="border-2 border-cyan-500 rounded-full px-6 py-2 bg-transparent"
+                    className=" border-none py-3 px-4 bg-teal-700 text-white rounded-lg"
                     onClick={() => addToCart(tag.id)}
                   >
                     Add to cart
+                  </button>
+                  <button
+                    onClick={() => openDeleteModal(tag.id)}
+                    className=" border-none py-3 px-4 bg-teal-500 text-white rounded-lg"
+                  >
+                    Delete
                   </button>
                 </div>
               </div>
@@ -1275,6 +1341,13 @@ export default function PetDetail() {
           );
         })}
       </div>
+
+      <DeleteDialog
+        isOpen={isDeleteOpen}
+        onClose={closeDeleteModal}
+        onConfirm={confirmDelete}
+        itemName="este tag"
+      />
 
       {/* //modal here to change image  */}
       <dialog id="my_modal_3_pet_id" className="modal">
