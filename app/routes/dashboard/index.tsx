@@ -4,6 +4,7 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 import { useEffect, useState } from "react";
 import Card from "~/components/card";
 import "../../../styles/dashboard.css";
+import { Link } from "@remix-run/react";
 
 export default function Dashboard() {
   const { auth, pet, tag, cart } = useGlobalContext(); // Accede a la info del usuario
@@ -170,13 +171,26 @@ export default function Dashboard() {
           )}
         </div>
 
-        <div>
-          <button
-            className="btn  bg-teal-500"
-            onClick={() => document.getElementById("my_modal_1").showModal()}
-          >
-            Crea tu Mascota aqui
-          </button>
+        <div className="flex gap-2">
+          <div>
+            <button
+              className="btn  bg-teal-500"
+              onClick={() => document.getElementById("my_modal_1").showModal()}
+            >
+              Crea tu Mascota aqui
+            </button>
+          </div>
+          {allPets ? (
+            <div>
+              <Link to={`/finances`}>
+                <button className="btn  bg-teal-500">
+                  Track your finances
+                </button>
+              </Link>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
 
         <dialog id="my_modal_1" className="modal">
