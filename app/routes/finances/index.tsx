@@ -1,30 +1,27 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useState, useEffect } from "react";
 import { useGlobalContext } from "../../context/GlobalProvider";
+import Pagination from "../../components/pagination";
+import DeleteDialog from "~/components/deleteDialog";
+import { TrashIcon } from "@heroicons/react/24/solid";
 
 export default function Finances() {
-  const { auth, pet, finances } = useGlobalContext(); // Accede a la info del usuario
+  const { auth, pet, finances } = useGlobalContext();
   const { getPets, allPets } = pet;
   const user = auth.user;
   const [allFinances, setAllFinances] = useState([]);
-  console.log("allFinances", allFinances);
+  const [filteredFinances, setFilteredFinances] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const indexOfLastItem = currentPage * itemsPerPage;
 
-  useEffect(() => {
-    const token = localStorage.getItem("user");
-    if (token && user) {
-      getPets(user.id)
-        .then(() => {
-          console.log("Mascotas cargadas al refrescar");
-        })
-        .catch((error) => {
-          console.error("Error al cargar mascotas:", error);
-        });
-    } else {
-      console.warn("Token no encontrado o usuario no autenticado");
-    }
-  }, [user]);
-  console.log("allPets", allPets);
-  console.log("user MMGBUEVO", user);
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  const currentFinances = filteredFinances.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+  const totalPages = Math.ceil(filteredFinances.length / itemsPerPage);
 
   const [expenseData, setExpenseData] = useState({
     user_id: null,
@@ -38,6 +35,13 @@ export default function Finances() {
     receipt_photo_url: "dddd",
     recurring: false,
   });
+  const [filterData, setFilterData] = useState({
+    start_date: "",
+    end_date: "",
+  });
+  const [isDeleteFinancesDialogOpen, setIsDeleteFinancesDialogOpen] =
+    useState(false);
+  const [selectFinancesId, setSelectFinancesId] = useState(null);
 
   useEffect(() => {
     if (user && user.id) {
@@ -55,6 +59,7 @@ export default function Finances() {
         .getUserFinances(user.id)
         .then((data) => {
           setAllFinances(data);
+          // setFilteredFinances(data);
           console.log("Mascotas cargadas al refrescar");
         })
         .catch((error) => {
@@ -65,7 +70,26 @@ export default function Finances() {
     }
   }, [user]);
 
-  console.log("expenseData", expenseData);
+  useEffect(() => {
+    if (user && user.id) {
+      refreshFinances();
+    }
+  }, [user]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("user");
+    if (token && user) {
+      getPets(user.id)
+        .then(() => {
+          console.log("Mascotas cargadas al refrescar");
+        })
+        .catch((error) => {
+          console.error("Error al cargar mascotas:", error);
+        });
+    } else {
+      console.warn("Token no encontrado o usuario no autenticado");
+    }
+  }, [user]);
 
   const handleChangeFinances = (e) => {
     const { name, value, type, checked } = e.target;
@@ -80,21 +104,70 @@ export default function Finances() {
     }));
   };
 
-  const handleSaveExpense = () => {
-    finances.createFinance(expenseData);
+  const handleChangeFilterDate = (e) => {
+    const { name, value } = e.target;
+    setFilterData((prevInfo) => ({
+      ...prevInfo,
+      [name]: value,
+    }));
   };
 
-  const totalSpentThisMonth = allFinances.reduce((total, expense) => {
-    const expenseDate = new Date(expense?.expense_date);
+  const handleSaveExpense = async () => {
+    await finances.createFinance(expenseData);
+    await refreshFinances();
+  };
+
+  const filterDates = () => {
+    const { start_date, end_date } = filterData;
+
+    const filtered = allFinances.filter((finance) => {
+      const expenseDate = new Date(finance.expense_date);
+      const startDate = new Date(start_date);
+      const endDate = new Date(end_date);
+
+      return expenseDate >= startDate && expenseDate <= endDate;
+    });
+
+    setFilteredFinances(filtered);
+  };
+
+  const totalSpentFiltered = filteredFinances.reduce(
+    (total, expense) => total + Number(expense.amount),
+    0
+  );
+
+  const filterCurrentMonth = (data) => {
     const now = new Date();
+    return data.filter((finance) => {
+      const expenseDate = new Date(finance.expense_date);
+      return (
+        expenseDate.getMonth() === now.getMonth() &&
+        expenseDate.getFullYear() === now.getFullYear()
+      );
+    });
+  };
 
-    const isSameMonth =
-      expenseDate.getMonth() === now.getMonth() &&
-      expenseDate.getFullYear() === now.getFullYear();
+  const refreshFinances = async () => {
+    if (user && user.id) {
+      const data = await finances.getUserFinances(user.id);
+      setAllFinances(data);
+      setFilteredFinances(filterCurrentMonth(data)); // ⬅️ aquí la reutilizas
+    }
+  };
 
-    return isSameMonth ? total + Number(expense?.amount) : total;
-  }, 0);
+  const openDeleteDialog = (id) => {
+    setIsDeleteFinancesDialogOpen(true);
+    setSelectFinancesId(id);
+  };
 
+  const handleDeleteFinanceFunc = () => {
+    finances.deleteFinance(selectFinancesId);
+  };
+
+  const closeDeleteModal = () => {
+    setIsDeleteFinancesDialogOpen(false);
+    setSelectFinancesId(null);
+  };
   return (
     <div className="p-5">
       <h2 className="my-5">Track your finances</h2>
@@ -128,7 +201,7 @@ export default function Finances() {
           <div className="mb-2 w-full">
             <label className="block text-slate-50">expense_type</label>
             <input
-              type="password"
+              type="text"
               className="w-full px-4 py-2 border rounded-lg"
               placeholder="expense_type"
               name="expense_type"
@@ -214,17 +287,26 @@ export default function Finances() {
               <input
                 type="date"
                 className="w-full px-4 py-2 border rounded-lg"
+                name="start_date"
+                value={filterData.start_date}
+                onChange={handleChangeFilterDate}
               />
             </div>
             <div className="w-full">
               <input
                 type="date"
                 className="w-full px-4 py-2 border rounded-lg"
+                value={filterData.end_date}
+                name="end_date"
+                onChange={handleChangeFilterDate}
               />
             </div>
             <div>
-              <button className="px-4 py-2 bg-[#65bcbb] text-white rounded-lg">
-                SAVE
+              <button
+                className="px-4 py-2 bg-[#65bcbb] text-white rounded-lg"
+                onClick={filterDates}
+              >
+                Filter
               </button>
             </div>
           </div>
@@ -234,18 +316,19 @@ export default function Finances() {
           <thead>
             <tr>
               <th>Dog name</th>
-              <th>expense_date</th>
-              <th>expense_type</th>
-              <th>amount</th>
-              <th>description</th>
-              <th>category</th>
-              <th>payment_method</th>
-              <th>recurring</th>
+              <th>Expense date</th>
+              <th>Expense type</th>
+              <th>Amount</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th>Payment method</th>
+              <th>Recurring</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {/* row 1 */}
-            {allFinances.map((finance) => (
+            {currentFinances.map((finance) => (
               <tr key={finance.id}>
                 <td>
                   {allPets.find((pet) => pet.id === finance.pet_id)?.name ||
@@ -258,14 +341,31 @@ export default function Finances() {
                 <td>{finance?.category}</td>
                 <td>{finance?.payment_method}</td>
                 <td>{finance?.recurring ? "Sí" : "No"}</td>
+                <td>
+                  <TrashIcon
+                    className="h-6 w-6 text-red-500"
+                    onClick={() => openDeleteDialog(finance.id)}
+                  />
+                </td>
               </tr>
             ))}
             {/* row 2 */}
           </tbody>
         </table>
         {/* //aqui va el monto total gastado AL MES! */}
-        <div>RESUTL HERE:{totalSpentThisMonth}</div>
+        <div>RESUTL HERE:{totalSpentFiltered}</div>
       </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        setCurrentPage={setCurrentPage}
+      />
+      <DeleteDialog
+        isOpen={isDeleteFinancesDialogOpen}
+        onClose={closeDeleteModal}
+        onConfirm={handleDeleteFinanceFunc}
+        itemName={`finance`}
+      />
     </div>
   );
 }
