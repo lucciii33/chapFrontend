@@ -37,6 +37,7 @@ export default function Dashboard() {
     dad_name: "",
     chip_number: 0, // Similar a phone_number, si es número debe estar bien definido
     show_medical_history: false,
+    show_travel_mode: false,
   });
 
   console.log("petInfopetInfopetInfo", petInfo);
@@ -405,6 +406,21 @@ export default function Dashboard() {
                           setPetInfo((prevInfo) => ({
                             ...prevInfo,
                             show_medical_history: e.target.checked, // Actualiza el estado con el valor del checkbox
+                          }))
+                        }
+                      />
+                    </div>
+
+                    <div className="mb-4 flex items-center">
+                      <label className="mr-2">Show Travel Mode</label>
+                      <input
+                        type="checkbox"
+                        name="show_travel_mode"
+                        checked={petInfo.show_travel_mode}
+                        onChange={(e) =>
+                          setPetInfo((prevInfo) => ({
+                            ...prevInfo,
+                            show_travel_mode: e.target.checked,
                           }))
                         }
                       />

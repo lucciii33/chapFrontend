@@ -188,6 +188,7 @@ export default function PetDetail() {
     neighbourhood: "",
     chip_number: 0,
     show_medical_history: false,
+    show_travel_mode: false,
   });
 
   useEffect(() => {
@@ -209,6 +210,7 @@ export default function PetDetail() {
         neighbourhood: petByID.neighbourhood || "",
         chip_number: petByID.chip_number || 0,
         show_medical_history: petByID.show_medical_history || false,
+        show_travel_mode: petByID.show_travel_mode || false, // ✅
       });
     }
   }, [petByID]);
@@ -763,6 +765,16 @@ export default function PetDetail() {
                     type="checkbox"
                     name="show_medical_history"
                     checked={petInfo.show_medical_history}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="mb-4 flex items-center">
+                  <label className="mr-2">Show Travel Mode</label>
+                  <input
+                    type="checkbox"
+                    name="show_travel_mode"
+                    checked={petInfo.show_travel_mode}
                     onChange={handleChange}
                   />
                 </div>
