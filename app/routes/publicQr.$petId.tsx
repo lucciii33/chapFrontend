@@ -127,6 +127,10 @@ export default function PublicQr() {
         .then((data) => setPetData(data))
         .catch((error) => console.error("Error al obtener la mascota:", error));
     }
+    console.log(
+      "import.meta.env.VITE_REACT_APP_GEOLOCATION_KEY",
+      import.meta.env.VITE_REACT_APP_GEOLOCATION_KEY
+    );
 
     // 2. Obtén la ubicación de Google Geolocation
     const obtenerUbicacionGoogle = async () => {
@@ -354,6 +358,33 @@ export default function PublicQr() {
             <p className="text-base">No medical history available.</p>
           )}
         </div>
+
+        <div className="p-6 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-2xl shadow-lg">
+          <h1 className="text-2xl font-bold mb-4 border-b border-white pb-2">
+            TRAVEL MODE
+          </h1>
+          {petData?.care_profile && petData.show_travel_mode ? (
+            <div>
+              <p>
+                feeding_instructions:{" "}
+                {petData?.care_profile.feeding_instructions}
+              </p>
+              <p>
+                fwalk_instructions: {petData?.care_profile.walk_instructions}
+              </p>
+              <p>
+                medication_instructions:{" "}
+                {petData?.care_profile.medication_instructions}
+              </p>
+              <p>allergies: {petData?.care_profile.allergies}</p>
+              <p>notes: {petData?.care_profile.notes}</p>
+              <p>emergency_contac: {petData?.care_profile.emergency_contac}</p>
+            </div>
+          ) : (
+            <p className="text-base">no travel mode at the moment available.</p>
+          )}
+        </div>
+
         <div id="map" style={{ height: "400px", width: "100%" }} />
       </div>
     </div>
