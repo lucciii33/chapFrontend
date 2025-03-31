@@ -10,9 +10,11 @@ import { useGlobalContext } from "../context/GlobalProvider";
 import { CameraIcon } from "@heroicons/react/24/solid";
 import DeleteDialog from "~/components/deleteDialog";
 import ScheduleAlertForm from "~/components/ScheduleAlertForm";
+import TravelModeForm from "~/components/travelMode";
 
 export default function PetDetail() {
-  const { pet, cart, auth, medicalHistory, tag } = useGlobalContext();
+  const { pet, cart, auth, medicalHistory, tag, travelMode } =
+    useGlobalContext();
   const { getPetById, petByID, editPet } = pet;
   const { createCart, cartProfile, getCartByUser } = cart;
   const { deletePetTag } = tag;
@@ -539,6 +541,24 @@ export default function PetDetail() {
       setMessage("Ocurrió un error al eliminar la vacuna.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleCreateOrEditCareProfile = async (formData) => {
+    try {
+      if (petByID.care_profile) {
+        // Ya existe → Editamos
+        await travelMode.updateTravelMode(petByID.care_profile.id, formData);
+      } else {
+        // No existe → Creamos
+        await travelMode.createTravelMode(formData);
+      }
+
+      getPetById(Number(petId));
+      setMessage("Travel Mode actualizado correctamente.");
+    } catch (error) {
+      console.error("Error actualizando Travel Mode:", error);
+      setMessage("Ocurrió un error al actualizar el Travel Mode.");
     }
   };
 
@@ -1306,6 +1326,14 @@ export default function PetDetail() {
             ""
           )}
         </div>
+      </div>
+
+      <div className="p-5">
+        <TravelModeForm
+          travelModeData={petByID?.care_profile}
+          onSubmit={handleCreateOrEditCareProfile}
+          petId={petId}
+        />
       </div>
 
       <div className="p-3">

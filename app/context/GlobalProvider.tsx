@@ -7,6 +7,7 @@ import { useMedicalPetContext } from "./MedicalPetContext";
 import { useAuthAdminContext } from "./AuthAdminContext";
 import { useOrdersContext } from "./OrdersContexts";
 import { useFinanceContext } from "./financesContext";
+import { useTravelModelContext } from "./TravelModeContext";
 
 type GlobalContextType = {
   auth: ReturnType<typeof useAuthContext>;
@@ -17,6 +18,7 @@ type GlobalContextType = {
   authAdmin: ReturnType<typeof useAuthAdminContext>;
   orders: ReturnType<typeof useOrdersContext>;
   finances: ReturnType<typeof useFinanceContext>;
+  travelMode: ReturnType<typeof useTravelModelContext>;
 };
 
 const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
@@ -30,6 +32,7 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
   const authAdmin = useAuthAdminContext();
   const orders = useOrdersContext();
   const finances = useFinanceContext();
+  const travelMode = useTravelModelContext();
   return (
     <GlobalContext.Provider
       value={{
@@ -41,6 +44,7 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
         authAdmin,
         orders,
         finances,
+        travelMode,
       }}
     >
       {children}
