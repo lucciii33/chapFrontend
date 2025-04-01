@@ -40,6 +40,8 @@ type CreatePetResponse = {
 };
 
 export const usePetContext = () => {
+  const baseUrl = import.meta.env.VITE_REACT_APP_URL;
+
   const [petProfile, setPetProfile] = useState<CreatePetResponse | null>(null);
   const [allPets, setAllPets] = useState<CreatePetResponse[]>([]);
   const [petByID, setPetByID] = useState<CreatePetResponse>();
@@ -71,17 +73,14 @@ export const usePetContext = () => {
 
       console.log("formDataformDataformData", formData);
 
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/users/${userId}/pets`,
-        {
-          method: "POST",
-          headers: {
-            // "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Añadimos el token aquí
-          },
-          body: formData, // Aquí pasamos los datos de la mascota
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/users/${userId}/pets`, {
+        method: "POST",
+        headers: {
+          // "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Añadimos el token aquí
+        },
+        body: formData, // Aquí pasamos los datos de la mascota
+      });
 
       if (!response.ok) {
         throw new Error("Error al crear la mascota");
@@ -102,16 +101,13 @@ export const usePetContext = () => {
     try {
       const token = getToken();
       if (!token) throw new Error("Usuario no autenticado");
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/users/${userId}/pets`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Añadimos el token aquí
-          },
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/users/${userId}/pets`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Añadimos el token aquí
+        },
+      });
 
       if (!response.ok) {
         throw new Error("Error al crear la mascota");
@@ -132,7 +128,7 @@ export const usePetContext = () => {
     try {
       const token = getToken();
       if (!token) throw new Error("Usuario no autenticado");
-      const response = await fetch(`http://127.0.0.1:8000/api/pets/${petId}`, {
+      const response = await fetch(`${baseUrl}/api/pets/${petId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -159,16 +155,13 @@ export const usePetContext = () => {
     try {
       const token = getToken();
       if (!token) throw new Error("Usuario no autenticado");
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/pets/${petId}/delete`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Añadimos el token aquí
-          },
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/pets/${petId}/delete`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Añadimos el token aquí
+        },
+      });
 
       if (!response.ok) {
         throw new Error("Error al crear la mascota");
@@ -279,16 +272,13 @@ export const usePetContext = () => {
       formData.append("pet_update", JSON.stringify(petDataWithoutFile));
 
       // ✅ Hacer el fetch
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/pets/${petId}/edit`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`, // Solo el token, sin Content-Type aquí
-          },
-          body: formData,
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/pets/${petId}/edit`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`, // Solo el token, sin Content-Type aquí
+        },
+        body: formData,
+      });
 
       if (!response.ok) {
         const errorData = await response.json();

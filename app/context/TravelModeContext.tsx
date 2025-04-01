@@ -23,6 +23,8 @@ type PetTravelModeResponse = {
 };
 
 export const useTravelModelContext = () => {
+  const baseUrl = import.meta.env.VITE_REACT_APP_URL;
+
   const getToken = (): string | null => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
@@ -38,7 +40,7 @@ export const useTravelModelContext = () => {
     try {
       const token = getToken();
       if (!token) throw new Error("Usuario no autenticado");
-      const response = await fetch("http://127.0.0.1:8000/api/travel_mode", {
+      const response = await fetch(`${baseUrl}/api/travel_mode`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -69,7 +71,7 @@ export const useTravelModelContext = () => {
       console.log("llamando desde conetxttt");
 
       const response = await fetch(
-        `http://127.0.0.1:8000/api/travel_mode/${travelModeId}`,
+        `${baseUrl}/api/travel_mode/${travelModeId}`,
         {
           method: "GET",
           headers: {
@@ -98,7 +100,7 @@ export const useTravelModelContext = () => {
       if (!token) throw new Error("Usuario no autenticado");
 
       const response = await fetch(
-        `http://127.0.0.1:8000/api/travel_mode/${travelModeId}/edit`,
+        `${baseUrl}/api/travel_mode/${travelModeId}/edit`,
         {
           method: "PUT",
           headers: {
@@ -126,7 +128,7 @@ export const useTravelModelContext = () => {
       if (!token) throw new Error("Usuario no autenticado");
 
       const response = await fetch(
-        `http://127.0.0.1:8000/api/travel_mode/${travelModeId}/delete`,
+        `${baseUrl}/api/travel_mode/${travelModeId}/delete`,
         {
           method: "DELETE",
           headers: {

@@ -72,6 +72,8 @@ export const useCartContext = () => {
     return null;
   };
 
+  const baseUrl = import.meta.env.VITE_REACT_APP_URL;
+
   // Función para manejar la creación de una nueva mascota
   const createCart = async (
     userId: number,
@@ -80,17 +82,14 @@ export const useCartContext = () => {
     try {
       const token = getToken();
       if (!token) throw new Error("Usuario no autenticado");
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/users/${userId}/cart`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(cartData),
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/users/${userId}/cart`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(cartData),
+      });
 
       if (!response.ok) {
         throw new Error("Error al crear el cart");
@@ -114,16 +113,13 @@ export const useCartContext = () => {
     try {
       const token = getToken();
       if (!token) throw new Error("Usuario no autenticado");
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/users/${userId}/cart`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Añadimos el token aquí
-          },
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/users/${userId}/cart`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Añadimos el token aquí
+        },
+      });
 
       if (!response.ok) {
         throw new Error("Error al crear la mascota");
@@ -144,16 +140,13 @@ export const useCartContext = () => {
     try {
       const token = getToken();
       if (!token) throw new Error("Usuario no autenticado");
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/cart/${cartId}/delete`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Añadimos el token aquí
-          },
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/cart/${cartId}/delete`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Añadimos el token aquí
+        },
+      });
 
       if (!response.ok) {
         throw new Error("Error al crear la mascota");
@@ -176,17 +169,14 @@ export const useCartContext = () => {
     try {
       const token = getToken();
       if (!token) throw new Error("Usuario no autenticado");
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/cart/${cartId}/edit`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(cartData),
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/cart/${cartId}/edit`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(cartData),
+      });
 
       if (!response.ok) {
         throw new Error("Error al crear la mascota");

@@ -38,6 +38,7 @@ type VaccineResponse = {
   date_administered: string; // Puede ser Date si prefieres manejarlo así
   expiration_date: string; // Puede ser Date si prefieres manejarlo así
 };
+const baseUrl = import.meta.env.VITE_REACT_APP_URL;
 
 export const useMedicalPetContext = () => {
   const getToken = (): string | null => {
@@ -56,7 +57,7 @@ export const useMedicalPetContext = () => {
     const token = getToken();
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/pets/${petId}/medical_history`,
+        `${baseUrl}/api/pets/${petId}/medical_history`,
         {
           method: "POST",
           headers: {
@@ -83,7 +84,7 @@ export const useMedicalPetContext = () => {
     const token = getToken();
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/medical_history/${medicalHistoryId}`,
+        `${baseUrl}/api/medical_history/${medicalHistoryId}`,
         {
           method: "DELETE",
           headers: {
@@ -109,7 +110,7 @@ export const useMedicalPetContext = () => {
     const token = getToken();
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/medical_history/${medicalHistoryId}`,
+        `${baseUrl}/api/medical_history/${medicalHistoryId}`,
         {
           method: "PUT",
           headers: {
@@ -155,7 +156,7 @@ export const useMedicalPetContext = () => {
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/medical_history/${medicalHistoryId}/vet`,
+        `${baseUrl}/api/medical_history/${medicalHistoryId}/vet`,
         {
           method: "POST",
           headers: {
@@ -198,7 +199,7 @@ export const useMedicalPetContext = () => {
     }
 
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/vet/${data.id}`, {
+      const response = await fetch(`${baseUrl}/api/vet/${data.id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`, // No poner "Content-Type"
@@ -221,7 +222,7 @@ export const useMedicalPetContext = () => {
   ): Promise<VetSession | null> => {
     const token = getToken();
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/vet/${vetId}`, {
+      const response = await fetch(`${baseUrl}/api/vet/${vetId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -246,7 +247,7 @@ export const useMedicalPetContext = () => {
     const token = getToken();
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/vet/${vetId}/document/${documentId}`,
+        `${baseUrl}/api/vet/${vetId}/document/${documentId}`,
         {
           method: "DELETE",
           headers: {
@@ -272,7 +273,7 @@ export const useMedicalPetContext = () => {
     const token = getToken();
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/medical_history/${medicalHisotryId}/vaccines`,
+        `${baseUrl}/api/medical_history/${medicalHisotryId}/vaccines`,
         {
           method: "POST",
           headers: {
@@ -301,7 +302,7 @@ export const useMedicalPetContext = () => {
     const token = getToken();
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/medical_history/${medicalHisotryId}/delete/${vaccineId}`,
+        `${baseUrl}/api/medical_history/${medicalHisotryId}/delete/${vaccineId}`,
         {
           method: "DELETE",
           headers: {
@@ -328,7 +329,7 @@ export const useMedicalPetContext = () => {
     const token = getToken();
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/medical_history/${medicalHisotryId}/edit/${vaccineId}`,
+        `${baseUrl}/api/medical_history/${medicalHisotryId}/edit/${vaccineId}`,
         {
           method: "PUT",
           headers: {

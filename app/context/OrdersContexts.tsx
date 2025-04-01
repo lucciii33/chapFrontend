@@ -57,6 +57,7 @@ export const useOrdersContext = () => {
   const [allOrders, setAllOrders] = useState<Order[]>([]);
   const [userOrders, setUserOrders] = useState<Order[]>([]);
   const [singleOrder, setSingleOrder] = useState<Order | null>(null);
+  const baseUrl = import.meta.env.VITE_REACT_APP_URL;
 
   const getToken = (): string | null => {
     const storedUser = localStorage.getItem("adminUser");
@@ -73,7 +74,7 @@ export const useOrdersContext = () => {
       const token = getToken();
       if (!token) throw new Error("Usuario no autenticado");
 
-      const response = await fetch("http://127.0.0.1:8000/api/order/create", {
+      const response = await fetch(`${baseUrl}/api/order/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -101,7 +102,7 @@ export const useOrdersContext = () => {
       const token = getToken();
       if (!token) throw new Error("Usuario no autenticado");
 
-      const response = await fetch("http://127.0.0.1:8000/api/order/orders", {
+      const response = await fetch(`${baseUrl}/api/order/orders`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -128,16 +129,13 @@ export const useOrdersContext = () => {
       const token = getToken();
       if (!token) throw new Error("Usuario no autenticado");
 
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/order/orders/${userId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/order/orders/${userId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!response.ok) {
         throw new Error("Error al obtener las órdenes del usuario");
@@ -158,16 +156,13 @@ export const useOrdersContext = () => {
       const token = getToken();
       if (!token) throw new Error("Usuario no autenticado");
 
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/order/orders/${orderId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/order/orders/${orderId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!response.ok) {
         throw new Error("Error al obtener la orden");
@@ -191,7 +186,7 @@ export const useOrdersContext = () => {
       if (!token) throw new Error("Usuario no autenticado");
 
       const response = await fetch(
-        `http://127.0.0.1:8000/api/order/orders/${orderId}/update-status`,
+        `${baseUrl}/api/order/orders/${orderId}/update-status`,
         {
           method: "PUT",
           headers: {
@@ -222,7 +217,7 @@ export const useOrdersContext = () => {
       if (!token) throw new Error("Usuario no autenticado");
 
       const response = await fetch(
-        `http://127.0.0.1:8000/api/order/orders/delete/${orderId}`,
+        `${baseUrl}/api/order/orders/delete/${orderId}`,
         {
           method: "DELETE",
           headers: {

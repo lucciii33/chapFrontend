@@ -30,6 +30,7 @@ type FinanceResponse = {
 
 export const useFinanceContext = () => {
   const [financeInfo, setFinanceInfo] = useState<FinanceResponse | null>(null);
+  const baseUrl = import.meta.env.VITE_REACT_APP_URL;
 
   const getToken = (): string | null => {
     const storedUser = localStorage.getItem("user");
@@ -47,7 +48,7 @@ export const useFinanceContext = () => {
       const token = getToken();
       if (!token) throw new Error("Usuario no autenticado");
 
-      const response = await fetch("http://127.0.0.1:8000/api/financial", {
+      const response = await fetch(`${baseUrl}/api/financial`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -77,15 +78,12 @@ export const useFinanceContext = () => {
       if (!token) throw new Error("Usuario no autenticado");
       console.log("llamando desde conetxttt");
 
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/financial/${userId}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/financial/${userId}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!response.ok) throw new Error("Error al obtener los gastos");
 
@@ -106,17 +104,14 @@ export const useFinanceContext = () => {
       const token = getToken();
       if (!token) throw new Error("Usuario no autenticado");
 
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/financial/${financeId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(financeData),
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/financial/${financeId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(financeData),
+      });
 
       if (!response.ok) throw new Error("Error al actualizar el gasto");
 
@@ -134,15 +129,12 @@ export const useFinanceContext = () => {
       const token = getToken();
       if (!token) throw new Error("Usuario no autenticado");
 
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/financial/${financeId}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/financial/${financeId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!response.ok) throw new Error("Error al eliminar el gasto");
 

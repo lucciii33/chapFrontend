@@ -20,6 +20,8 @@ export interface PetFormData {
 }
 
 export const PetTrackerContext = () => {
+  const baseUrl = import.meta.env.VITE_REACT_APP_URL;
+
   const getToken = (): string | null => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
@@ -37,7 +39,7 @@ export const PetTrackerContext = () => {
     }
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/pet_tracker", {
+      const response = await fetch(`${baseUrl}/api/pet_tracker`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -63,12 +65,9 @@ export const PetTrackerContext = () => {
     }
 
     try {
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/pet_tracker/${petId}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/pet_tracker/${petId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       if (!response.ok) throw new Error("Network response was not ok");
 

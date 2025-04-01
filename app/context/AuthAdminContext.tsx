@@ -33,6 +33,7 @@ type LoginResponse = {
 
 export const useAuthAdminContext = () => {
   const [adminUser, setAdminUser] = useState<AdminUser | null>(null);
+  const baseUrl = import.meta.env.VITE_REACT_APP_URL;
 
   useEffect(() => {
     const storedUser = localStorage.getItem("adminUser");
@@ -44,7 +45,7 @@ export const useAuthAdminContext = () => {
   const loginAdmin = async (data: LoginData): Promise<LoginResponse | null> => {
     console.log("data", data);
     try {
-      const response = await fetch("http://127.0.0.1:8000/admin/user/login", {
+      const response = await fetch(`${baseUrl}/admin/user/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data), // Enviar LoginData
@@ -74,14 +75,11 @@ export const useAuthAdminContext = () => {
     data: RegisterData
   ): Promise<RegisterResponse | null> => {
     try {
-      const response = await fetch(
-        "http://127.0.0.1:8000/admin/user/register",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data), // Enviar RegisterData
-        }
-      );
+      const response = await fetch(`${baseUrl}/admin/user/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data), // Enviar RegisterData
+      });
 
       if (!response.ok) {
         throw new Error("Error al registrar");

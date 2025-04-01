@@ -13,6 +13,8 @@ type ShippingAddress = {
 };
 
 export const ShippingAddressContext = () => {
+  const baseUrl = import.meta.env.VITE_REACT_APP_URL;
+
   const getToken = (): string | null => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
@@ -29,7 +31,7 @@ export const ShippingAddressContext = () => {
     const token = getToken();
     try {
       const res = await fetch(
-        `http://127.0.0.1:8000/api/users/${userId}/shipping_address`,
+        `${baseUrl}/api/users/${userId}/shipping_address`,
         {
           method: "POST",
           headers: {
@@ -51,15 +53,12 @@ export const ShippingAddressContext = () => {
   const getShippingAddresses = async (userId: number) => {
     console.log(",,anadp ");
     const token = getToken();
-    const res = await fetch(
-      `http://127.0.0.1:8000/api/users/${userId}/shipping_address`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await fetch(`${baseUrl}/api/users/${userId}/shipping_address`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return res;
   };
@@ -69,7 +68,7 @@ export const ShippingAddressContext = () => {
     const token = getToken();
     try {
       const res = await fetch(
-        `http://127.0.0.1:8000/api/shipping_address/${shippingAddressId}/delete`,
+        `${baseUrl}/api/shipping_address/${shippingAddressId}/delete`,
         {
           method: "DELETE",
           headers: {
@@ -92,7 +91,7 @@ export const ShippingAddressContext = () => {
     const token = getToken();
     try {
       const res = await fetch(
-        `http://127.0.0.1:8000/api/shipping_address/${shippingAddressId}/edit`,
+        `${baseUrl}/api/shipping_address/${shippingAddressId}/edit`,
         {
           method: "PUT",
           headers: {

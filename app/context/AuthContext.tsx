@@ -40,6 +40,7 @@ type LoginResponse = {
 export const useAuthContext = () => {
   const [user, setUser] = useState<User | null>(null);
   const navigate = useNavigate();
+  const baseUrl = import.meta.env.VITE_REACT_APP_URL;
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -50,7 +51,7 @@ export const useAuthContext = () => {
 
   const login = async (data: LoginData): Promise<LoginResponse | null> => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/users/login", {
+      const response = await fetch(`${baseUrl}/users/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -82,7 +83,7 @@ export const useAuthContext = () => {
     data: RegisterData
   ): Promise<RegisterResponse | null> => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/users/register", {
+      const response = await fetch(`${baseUrl}/users/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
