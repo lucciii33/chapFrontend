@@ -6,6 +6,7 @@ import { ShippingAddressContext } from "../context/ShippingAddressContext";
 // Función auxiliar para llamar al backend
 
 const CheckoutForm: React.FC = () => {
+  const baseUrl = import.meta.env.VITE_REACT_APP_URL;
   const { auth, cart } = useGlobalContext();
   const { user } = auth;
   const { allCarts } = cart;
@@ -40,14 +41,11 @@ const CheckoutForm: React.FC = () => {
     amount: number,
     petIds: number[]
   ) => {
-    const response = await fetch(
-      "http://127.0.0.1:8000/stripe/create-payment-intent",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_id: userId, amount, pet_ids: petIds }), // Incluye el user_id y el monto
-      }
-    );
+    const response = await fetch(`${baseUrl}/stripe/create-payment-intent`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ user_id: userId, amount, pet_ids: petIds }), // Incluye el user_id y el monto
+    });
     const data = await response.json();
     return data.client_secret;
   };
