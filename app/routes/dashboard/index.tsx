@@ -25,8 +25,8 @@ export default function Dashboard() {
     age: 0, // Asegúrate de que sea un número
     personality: "",
     address: "",
-    phone_number: 0, // Esto puede ser string, pero no deberías cambiarlo a número si no es necesario
-    phone_number_optional: null,
+    phone_number: "", // Esto puede ser string, pero no deberías cambiarlo a número si no es necesario
+    phone_number_optional: "",
     profile_photo: undefined,
     pet_color: "",
     breed: "",
@@ -318,7 +318,7 @@ export default function Dashboard() {
                     <div className="mb-4 w-full">
                       <label>Phone Number</label>
                       <input
-                        type="number"
+                        type="text"
                         name="phone_number"
                         value={petInfo.phone_number}
                         onChange={handleChange}
@@ -330,7 +330,7 @@ export default function Dashboard() {
                     <div className="mb-4 w-full ms-2">
                       <label>Phone Number (Optional)</label>
                       <input
-                        type="number"
+                        type="text"
                         name="phone_number_optional"
                         value={petInfo.phone_number_optional || ""}
                         onChange={handleChange}

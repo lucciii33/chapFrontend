@@ -59,6 +59,7 @@ export default function PetDetail() {
     medicalHistory2: false,
     vetSession: false,
     vaccines: false,
+    travelMode: false,
   });
 
   const [vaccineData, setVaccineData] = useState({
@@ -180,8 +181,8 @@ export default function PetDetail() {
     age: 0,
     personality: "",
     address: "",
-    phone_number: 0,
-    phone_number_optional: 0,
+    phone_number: "",
+    phone_number_optional: "",
     profile_photo: null,
     pet_color: "",
     breed: "",
@@ -202,8 +203,8 @@ export default function PetDetail() {
         age: petByID.age || 0,
         personality: petByID.personality || "",
         address: petByID.address || "",
-        phone_number: petByID.phone_number || 0,
-        phone_number_optional: petByID.phone_number_optional || 0,
+        phone_number: petByID.phone_number || "",
+        phone_number_optional: petByID.phone_number_optional || "",
         profile_photo: petByID.profile_photo || null,
         pet_color: petByID.pet_color || "",
         breed: petByID.breed || "",
@@ -594,9 +595,9 @@ export default function PetDetail() {
               {" "}
               <span onClick={() => toggleCollapse("generalInfo")}>
                 {collapseBox.generalInfo ? (
-                  <ChevronUpIcon className="h-6 w-6 text-red-500" />
+                  <ChevronUpIcon className="h-6 w-6 text-[#65bcbb]" />
                 ) : (
-                  <ChevronDownIcon className="h-6 w-6 text-red-500" />
+                  <ChevronDownIcon className="h-6 w-6 text-[#65bcbb]" />
                 )}
               </span>
             </div>
@@ -712,7 +713,7 @@ export default function PetDetail() {
                 <div className="mb-4 w-full">
                   <label>Phone Number</label>
                   <input
-                    type="number"
+                    type="text"
                     name="phone_number"
                     value={petInfo.phone_number}
                     onChange={handleChange}
@@ -724,7 +725,7 @@ export default function PetDetail() {
                 <div className="mb-4 w-full ms-2">
                   <label>Phone Number (Optional)</label>
                   <input
-                    type="number"
+                    type="text"
                     name="phone_number_optional"
                     value={petInfo.phone_number_optional || ""}
                     onChange={handleChange}
@@ -862,9 +863,9 @@ export default function PetDetail() {
               {" "}
               <span onClick={() => toggleCollapse("medicalHistory2")}>
                 {collapseBox.medicalHistory2 ? (
-                  <ChevronUpIcon className="h-6 w-6 text-red-500" />
+                  <ChevronUpIcon className="h-6 w-6 text-[#65bcbb]" />
                 ) : (
-                  <ChevronDownIcon className="h-6 w-6 text-red-500" />
+                  <ChevronDownIcon className="h-6 w-6 text-[#65bcbb]" />
                 )}
               </span>
             </div>
@@ -1028,9 +1029,9 @@ export default function PetDetail() {
               {" "}
               <span onClick={() => toggleCollapse("vetSession")}>
                 {collapseBox.vetSession ? (
-                  <ChevronUpIcon className="h-6 w-6 text-red-500" />
+                  <ChevronUpIcon className="h-6 w-6 text-[#65bcbb]" />
                 ) : (
-                  <ChevronDownIcon className="h-6 w-6 text-red-500" />
+                  <ChevronDownIcon className="h-6 w-6 text-[#65bcbb]" />
                 )}
               </span>
             </div>
@@ -1174,7 +1175,7 @@ export default function PetDetail() {
                     </p>
                     <div>
                       <TrashIcon
-                        className="h-6 w-6 text-red-500"
+                        className="h-6 w-6 text-[#65bcbb]"
                         onClick={() => {
                           setVetIdToDelete(vetSession.id);
                           setIsDeleteDialogOpen(true);
@@ -1212,9 +1213,9 @@ export default function PetDetail() {
               {" "}
               <span onClick={() => toggleCollapse("vaccines")}>
                 {collapseBox.vaccines ? (
-                  <ChevronUpIcon className="h-6 w-6 text-red-500" />
+                  <ChevronUpIcon className="h-6 w-6 text-[#65bcbb]" />
                 ) : (
-                  <ChevronDownIcon className="h-6 w-6 text-red-500" />
+                  <ChevronDownIcon className="h-6 w-6 text-[#65bcbb]" />
                 )}
               </span>
             </div>
@@ -1333,6 +1334,8 @@ export default function PetDetail() {
           travelModeData={petByID?.care_profile}
           onSubmit={handleCreateOrEditCareProfile}
           petId={petId}
+          isCollapsed={collapseBox.travelMode}
+          onToggleCollapse={() => toggleCollapse("travelMode")}
         />
       </div>
 
