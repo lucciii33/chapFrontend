@@ -67,7 +67,7 @@ export default function PetTracker() {
     <div className="p-5">
       <h2>Track your pet</h2>
 
-      <div className="flex gap-3 mt-3 mb-3">
+      <div className="flex flex-col md:flex-row gap-3 mt-3 mb-3">
         <div className="w-full">
           <label className="block text-slate-50">Poop Quality</label>
           <input
@@ -90,7 +90,7 @@ export default function PetTracker() {
         </div>
       </div>
 
-      <div className="flex gap-3">
+      <div className="flex flex-col md:flex-row gap-3">
         <div className="w-full">
           <label className="block text-slate-50">Walked Minutes</label>
           <input
@@ -123,7 +123,7 @@ export default function PetTracker() {
         </div>
       </div>
 
-      <div className="flex gap-3 mt-3 mb-3">
+      <div className="flex flex-col md:flex-row gap-3 mt-3 mb-3">
         <div className="w-full">
           <label className="block text-slate-50">Medication Given</label>
           <input
@@ -155,7 +155,7 @@ export default function PetTracker() {
         </div>
       </div>
 
-      <div className="flex gap-3 mt-3">
+      <div className="flex flex-col md:flex-row gap-3 mt-3">
         {[
           "urinated",
           "pooped",

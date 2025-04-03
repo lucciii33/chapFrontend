@@ -2,6 +2,7 @@ import { Link } from "@remix-run/react"; // Importa Link de Remix
 import { useState } from "react";
 import { useGlobalContext } from "../context/GlobalProvider";
 import tagImg from "../images/tag.png";
+import "../../styles/dashboard.css";
 
 type CardProps = {
   petObj: {
@@ -117,7 +118,12 @@ export default function Card({ petObj }: CardProps) {
           />
         </figure>
         <div className="card-body">
-          <h2 className="card-title">{petObj.name}</h2>
+          <h2
+            className="card-title text-[22px]"
+            style={{ fontFamily: "chapFont" }}
+          >
+            {petObj.name}
+          </h2>
           <p>{petObj.personality}</p>
           <div className="flex">
             <div className="card-actions justify-end me-2">

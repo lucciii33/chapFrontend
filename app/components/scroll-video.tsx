@@ -67,6 +67,7 @@ export default function ScrollVideo() {
           data-time-end="4"
           data-position="left"
           ref={(el) => (textsRef.current[0] = el)}
+          style={{ fontFamily: "chapFont" }}
         >
           Tu perro <strong className="text-color-bg">es único</strong>. Su Dog
           Tag también. 🐾✨
@@ -77,6 +78,7 @@ export default function ScrollVideo() {
           data-time-end="7"
           data-position="right"
           ref={(el) => (textsRef.current[1] = el)}
+          style={{ fontFamily: "chapFont" }}
         >
           El mundo puede ser enorme, pero con un{" "}
           <strong className="text-color-bg">simple escaneo</strong>,
@@ -88,6 +90,7 @@ export default function ScrollVideo() {
           data-time-end="10"
           data-position="left"
           ref={(el) => (textsRef.current[2] = el)}
+          style={{ fontFamily: "chapFont" }}
         >
           Todo su <strong className="text-color-bg">cuidado</strong>, sus{" "}
           <strong className="text-color-bg-2">aventuras</strong>, su{" "}
@@ -107,6 +110,7 @@ export default function ScrollVideo() {
           data-time-start="12"
           data-time-end="16"
           ref={(el) => (textsRef.current[4] = el)}
+          style={{ fontFamily: "chapFont" }}
         >
           Dog Tags inteligentes: seguridad, amor y conexión en cada paso que
           dan. 💫

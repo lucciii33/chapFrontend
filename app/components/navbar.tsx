@@ -29,7 +29,12 @@ export default function Navbar() {
       <nav className="p-4 flex justify-between items-center bg-zinc-950">
         <div>
           <Link to="/">
-            <h1 className="text-xl font-bold text-white">Chap</h1>
+            <h1
+              className="text-[20px] font-bold text-white"
+              style={{ fontFamily: "chapFont" }}
+            >
+              Chap
+            </h1>
           </Link>
         </div>
         <div className="text-white flex">

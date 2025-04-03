@@ -11,6 +11,7 @@ import { CameraIcon } from "@heroicons/react/24/solid";
 import DeleteDialog from "~/components/deleteDialog";
 import ScheduleAlertForm from "~/components/ScheduleAlertForm";
 import TravelModeForm from "~/components/travelMode";
+import "../../styles/dashboard.css";
 
 export default function PetDetail() {
   const { pet, cart, auth, medicalHistory, tag, travelMode } =
@@ -578,7 +579,7 @@ export default function PetDetail() {
       <div className="mt-2 p-5">
         {message && <div className="alert">{message}</div>}{" "}
         {/* Mostrar mensaje */}
-        <h1 className="font-bold text-lg mb-2">
+        <h1 className=" text-4xl mb-2" style={{ fontFamily: "chapFont" }}>
           Welcome to {petByID.name} dashbaord
         </h1>
         <form
@@ -589,7 +590,7 @@ export default function PetDetail() {
           <div className="flex justify-between">
             <div>
               {" "}
-              <h2 className="font-bold text-lg">General info</h2>
+              <h2 className="text-lg">General info</h2>
             </div>
             <div>
               {" "}
@@ -857,7 +858,7 @@ export default function PetDetail() {
           <div className="flex justify-between">
             <div>
               {" "}
-              <h2 className="font-bold text-lg">Crear historial médico</h2>
+              <h2 className="text-lg">Crear historial médico</h2>
             </div>
             <div>
               {" "}
@@ -1023,7 +1024,7 @@ export default function PetDetail() {
           <div className="flex justify-between">
             <div>
               {" "}
-              <h2 className="font-bold text-lg">Crear visita al veterinario</h2>
+              <h2 className="text-lg">Crear visita al veterinario</h2>
             </div>
             <div>
               {" "}
@@ -1207,7 +1208,7 @@ export default function PetDetail() {
           <div className="flex justify-between">
             <div>
               {" "}
-              <h2 className="font-bold text-lg"> Create Vaccines</h2>
+              <h2 className=" text-lg"> Create Vaccines</h2>
             </div>
             <div>
               {" "}
@@ -1340,7 +1341,9 @@ export default function PetDetail() {
       </div>
 
       <div className="p-3">
-        <h1 className="font-bold text-xl">Your tags:</h1>
+        <h1 className="font-bold text-4xl" style={{ fontFamily: "chapFont" }}>
+          Your tags:
+        </h1>
       </div>
 
       <div className="flex gap-5 items-center flex-col md:flex-row p-5">
@@ -1416,7 +1419,9 @@ export default function PetDetail() {
       {/* //modal here to create or edit medical vet session   */}
       <dialog id="my_modal_4_pet_id" className="modal">
         <div className="modal-box max-w-4xl">
-          <h3 className="font-bold text-lg">Editar Sesión Veterinaria</h3>
+          <h3 className=" text-lg" style={{ fontFamily: "chapFont" }}>
+            Editar Sesión Veterinaria
+          </h3>
 
           {/* Inputs para editar */}
           <input

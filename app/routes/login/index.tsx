@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "@remix-run/react";
 import { useGlobalContext } from "../../context/GlobalProvider"; // Ajusta el path
 import loginImage from "../../images/imageLogin4.png";
+import "../../../styles/dashboard.css";
 
 export default function Login() {
   const { auth } = useGlobalContext();
@@ -35,18 +36,23 @@ export default function Login() {
     }
   };
   return (
-    <div className="flex ">
-      <div className="w-1/2 flex items-center justify-center">
+    <div className="flex flex-col md:flex-row">
+      <div className=" w-full md:w-1/2 flex items-center justify-center">
         <img
           src={loginImage}
           alt="Login"
-          className="min-w-full h-screen object-cover"
+          className="min-w-full h-80 md:h-screen object-cover"
         />
       </div>
-      <div className="w-1/2 flex items-center justify-center bg-neutral-950">
-        <div className="w-full max-w-lg px-4 ">
+      <div className=" w-full md:w-1/2 flex items-center justify-center bg-neutral-950">
+        <div className="w-full max-w-lg px-4 py-5 md:py-0">
           <div className="flex items-center justify-center">
-            <h1 className="text-2xl font-bold mb-4 text-slate-50">Login</h1>
+            <h1
+              className="text-4xl font-bold mb-4 text-slate-50"
+              style={{ fontFamily: "chapFont" }}
+            >
+              LOGIN
+            </h1>
           </div>
           <div className="mb-4">
             <label className="block text-slate-50">Email</label>

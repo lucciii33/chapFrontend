@@ -75,3 +75,10 @@
   bottom: -25px;
   right: -25px;
 }
+
+@font-face {
+  font-family: "chapFont";
+  src: url("../public/fonts/Super\ Cottage.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
