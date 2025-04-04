@@ -5,6 +5,7 @@ import dogSitting from "../images/dogSitting.png";
 import { Link } from "@remix-run/react";
 import ScrollVideo from "~/components/scroll-video";
 import "../../styles/dashboard.css";
+import { useTranslation } from "react-i18next";
 
 export const meta: MetaFunction = () => {
   return [
@@ -15,6 +16,7 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleResize = () => {
@@ -50,16 +52,12 @@ export default function Index() {
             className="text-4xl lg:text-6xl font-bold text-white"
             style={{ fontFamily: "chapFont" }}
           >
-            Un QR, toda la vida de tu perro al alcance de un escaneo.
+            {t("hero.title")}
           </h1>
           <p className="text-1xl lg:text-3xl font-medium text-white mb-4">
-            Porque su seguridad no debería quedarse atrás.
+            {t("hero.subtitle")}
           </p>
-          <p className="text-base text-white max-w-lg">
-            Imagina un mundo donde nunca tengas que preocuparte por actualizar
-            el tag de tu perro. Con nuestra app y collar inteligente, toda la
-            información de tu mejor amigo está a un escaneo de distancia.
-          </p>{" "}
+          <p className="text-base text-white max-w-lg">{t("hero.paragraph")}</p>{" "}
           <div className="mt-5">
             <Link to="/login">
               <button className=" border-none py-3 px-4  bg-slate-950 text-white rounded-lg">

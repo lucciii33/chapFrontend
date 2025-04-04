@@ -43,25 +43,30 @@ export default function Register() {
     }
   };
   return (
-    <div className="flex ">
+    <div className="flex flex-col md:flex-row">
       {/* Imagen a la izquierda */}
-      <div className="w-1/2 flex items-center justify-center">
+      <div className="w-full md:w-1/2 flex items-center justify-center">
         <img
           src={loginImage}
           alt="Login"
-          className="min-w-full h-screen object-cover"
+          className="min-w-full h-80 md:h-screen object-cover"
         />
       </div>
 
       {/* Formulario a la derecha */}
-      <div className="w-1/2 flex items-center justify-center bg-neutral-950">
-        <div className="w-full max-w-lg px-4 ">
+      <div className="w-full md:w-1/2 flex items-center justify-center bg-neutral-950">
+        <div className="w-full max-w-lg px-5 py-5 md:py-0">
           <div className="flex items-center justify-center">
-            <h1 className="text-2xl font-bold mb-4 text-slate-50">Register</h1>
+            <h1
+              className="text-4xl font-bold mb-4 text-slate-50"
+              style={{ fontFamily: "chapFont" }}
+            >
+              Register
+            </h1>
           </div>
 
           {/* Aquí puedes agregar tus campos de formulario */}
-          <div className="mb-4">
+          <div className="mb-4 ">
             <label className="block text-slate-50">Full Name</label>
             <input
               type="text"
@@ -134,7 +139,7 @@ export default function Register() {
             <Link to="/login">Alredy have an account? Login here</Link>
           </div>
 
-          <div className="w-full">
+          <div className="w-full mb-4 md:mb-0">
             <button
               className="w-full border-none py-3 px-4  bg-teal-500 text-white rounded-lg"
               onClick={handleRegisterClick}

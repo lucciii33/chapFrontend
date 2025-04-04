@@ -9,12 +9,19 @@ import {
 import { useGlobalContext } from "../context/GlobalProvider"; // Ajusta el path
 import { Link } from "@remix-run/react";
 import Cart from "./cart";
+import { useTranslation } from "react-i18next";
 
 export default function Navbar() {
   const [theme, setTheme] = useState("light");
   const { auth, cart } = useGlobalContext();
   const { activateSideBar, actSideBar, closeSideBar } = cart;
   console.log("actSideBar", actSideBar);
+  const { t, i18n } = useTranslation();
+
+  const toggleLang = () => {
+    const nextLang = i18n.language === "es" ? "en" : "es";
+    i18n.changeLanguage(nextLang);
+  };
 
   const { logout, user } = auth;
 
@@ -38,9 +45,9 @@ export default function Navbar() {
           </Link>
         </div>
         <div className="text-white flex">
-          <div className="border-r pe-2">
+          <div className="ms-2">
             {" "}
-            <p>The Founders</p>
+            <p>the foudners</p>
           </div>
           <div className="ms-2">
             {" "}
@@ -67,10 +74,32 @@ export default function Navbar() {
               >
                 <ShoppingCartIcon className="h-6 w-6 text-blue-500" />
               </label>
+              <button
+                onClick={toggleLang}
+                className="text-2xl ms-2"
+                title={
+                  i18n.language === "es"
+                    ? "Cambiar a inglés"
+                    : "Switch to Spanish"
+                }
+              >
+                {i18n.language === "es" ? "🇪🇸" : "🇺🇸"}
+              </button>
             </div>
           ) : (
-            <div>
+            <div className="flex">
               <UserIcon className="h-6 w-6 text-blue-500" />
+              <button
+                onClick={toggleLang}
+                className="text-2xl ms-2"
+                title={
+                  i18n.language === "es"
+                    ? "Cambiar a inglés"
+                    : "Switch to Spanish"
+                }
+              >
+                {i18n.language === "es" ? "🇪🇸" : "🇺🇸"}
+              </button>
             </div>
           )}
         </div>
