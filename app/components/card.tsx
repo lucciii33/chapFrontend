@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useGlobalContext } from "../context/GlobalProvider";
 import tagImg from "../images/tag.png";
 import "../../styles/dashboard.css";
+import { MapPinIcon } from "@heroicons/react/24/solid";
+import { TrashIcon } from "@heroicons/react/24/outline";
 
 type CardProps = {
   petObj: {
@@ -101,11 +103,20 @@ export default function Card({ petObj }: CardProps) {
   };
 
   return (
-    <div className="ms-2">
+    <div className="ms-2 ">
       <div
-        className="card bg-base-100 w-96 shadow-xl"
+        className=" relative card bg-base-100 w-96 shadow-xl border-[5px] border-[#65bcbb]"
         style={{ zIndex: actSideBar ? -10 : "auto" }}
       >
+        <div className="absolute bottom-[88%] left-[64%] transform -translate-x-1/2 w-[90%]">
+          <Link to={`/trackerPet/${petObj.id}`}>
+            <button className=" bg-white text-emerald-800 shadow-md rounded-md px-2 py-2 w-full flex justify-center items-center gap-2">
+              <MapPinIcon className="h-5 w-5" />
+              ¡Trackea aquí tu perro!
+            </button>
+          </Link>
+        </div>
+
         <figure>
           <img
             src={
@@ -118,29 +129,35 @@ export default function Card({ petObj }: CardProps) {
           />
         </figure>
         <div className="card-body">
-          <h2
-            className="card-title text-[22px]"
-            style={{ fontFamily: "chapFont" }}
-          >
-            {petObj.name}
-          </h2>
+          <div className="flex justify-between">
+            <div>
+              <h2
+                className="card-title text-[22px]"
+                style={{ fontFamily: "chapFont" }}
+              >
+                {petObj.name}
+              </h2>
+            </div>
+
+            <div className="card-actions justify-end ms-2">
+              <button
+                className="h-6 w-6 text-cyan-500"
+                onClick={() => grabpetIdToDelete(petObj.id)}
+              >
+                <TrashIcon />
+              </button>
+            </div>
+          </div>
           <p>{petObj.personality}</p>
-          <div className="flex">
-            <div className="card-actions justify-end me-2">
+          <p>{petObj.age}</p>
+          {/* <div className="flex flex-col w-full">
+            <div className=" ">
               <Link to={`/pets/${petObj.id}`}>
                 <button className="btn btn-primary">Pet's Details</button>
               </Link>
             </div>
 
-            <div className="card-actions justify-end ms-2">
-              <button
-                className="btn btn-primary"
-                onClick={() => grabpetIdToDelete(petObj.id)}
-              >
-                Delete Pet
-              </button>
-            </div>
-            <div className="card-actions ms-2">
+            <div className="mt-2 w-full">
               <button
                 className="btn btn-primary"
                 onClick={() => handleBuyTag(petObj.id)}
@@ -148,11 +165,20 @@ export default function Card({ petObj }: CardProps) {
                 Buy A tag
               </button>
             </div>
-          </div>
-          <div>
-            <Link to={`/trackerPet/${petObj.id}`}>
-              <button className="btn btn-primary w-full">Track your dog</button>
+          </div> */}
+          <div className="flex flex-col gap-2 mt-2">
+            <Link to={`/pets/${petObj.id}`}>
+              <button className=" border-none py-3 px-4  bg-teal-500 text-white rounded-lg w-full">
+                Pet's Details
+              </button>
             </Link>
+
+            <button
+              className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full"
+              onClick={() => handleBuyTag(petObj.id)}
+            >
+              Buy A tag
+            </button>
           </div>
         </div>
       </div>

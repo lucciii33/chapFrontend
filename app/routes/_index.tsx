@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import type { MetaFunction } from "@remix-run/node";
 import dogHi from "../images/hidog.png";
+import nobgtag from "../images/testtag.png";
 import dogSitting from "../images/dogSitting.png";
+import dogTag from "../images/test2.png";
 import { Link } from "@remix-run/react";
 import ScrollVideo from "~/components/scroll-video";
 import "../../styles/dashboard.css";
 import { useTranslation } from "react-i18next";
+import WhyChap from "~/components/whyChap";
 
 export const meta: MetaFunction = () => {
   return [
@@ -33,15 +36,15 @@ export default function Index() {
           {/* order-2 lg:order-1 */}
           {isSmallScreen ? (
             <img
-              src={dogSitting}
+              src={dogTag}
               alt="homepageimage"
-              className="h-[343px] lg:h-full"
+              className="h-full"
               style={{ filter: "drop-shadow(0px 8px 10px rgba(0, 0, 0, 0.2))" }}
             />
           ) : (
             <img
-              src={dogHi}
-              alt="homepageimage"
+              src={dogTag}
+              alt="homepageimage mix-blend-multiply"
               style={{ filter: "drop-shadow(0px 8px 10px rgba(0, 0, 0, 0.2))" }}
             />
           )}
@@ -72,37 +75,10 @@ export default function Index() {
           </div>
         </div>
       </div>
-      <div className="mt-0 lg:mt-3">
-        <div className="absolute -bottom-32 left-0 w-full hidden lg:block">
-          <svg
-            className="w-full h-100"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 1440 320"
-          >
-            <path
-              fill="#fff"
-              fillOpacity="1"
-              d="M0,256L48,240C96,224,192,192,288,186.7C384,181,480,203,576,224C672,245,768,267,864,250.7C960,235,1056,181,1152,154.7C1248,128,1344,128,1392,128L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-              style={{ filter: "drop-shadow(0px 8px 10px rgba(0, 0, 0, 0.2))" }}
-            ></path>
-          </svg>
-        </div>
-        <div className="absolute -bottom-40 left-0 w-full hidden lg:block">
-          <svg
-            className="w-full h-100"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 1440 290"
-          >
-            <path
-              fill="#65BCBB" /* Azul claro (#60a5fa es el azul de Tailwind `blue-400`) */
-              fillOpacity="1"
-              d="M0,64L48,96C96,128,192,192,288,224C384,256,480,256,576,224C672,192,768,128,864,96C960,64,1056,64,1152,96C1248,128,1344,192,1392,224L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-            ></path>
-          </svg>
-        </div>
-
-        <div className="bg-[#65BCBB] h-[120vh] lg:h-[70vh] ">
-          <div className="block lg:hidden">
+      <div className="mt-0">
+        <WhyChap />
+        <div className="bg-[#65BCBB] h-[120vh] lg:h-[55vh]">
+          <div className="">
             <h1
               className="text-[70px] font-bold text-black p-5 text-center"
               style={{ fontFamily: "chapFont" }}
@@ -110,8 +86,8 @@ export default function Index() {
               Chap
             </h1>
           </div>
-          <div className=" flex  justify-between items-center px-5">
-            <div className="w-full h-100 lg:h-64 mt-0 lg:mt-[70px] flex flex-col items-center justify-center lg:justify-start lg:flex-row gap-5 z-10 relative">
+          <div className=" flex  justify-center items-center px-5">
+            <div className="w-full h-100 lg:h-[14rem] mt-0 lg:mt-[0px] flex flex-col items-center justify-center lg:justify-center lg:flex-row gap-5 z-10 relative">
               <div className="w-[200px] h-[200px] ml-5 mt-3 bg-zinc-900 flex flex-col items-center justify-center rounded-lg text-center">
                 <h2
                   className="text-white text-4xl font-bold"

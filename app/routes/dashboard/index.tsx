@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Card from "~/components/card";
 import "../../../styles/dashboard.css";
 import { Link } from "@remix-run/react";
+import { PlusIcon } from "@heroicons/react/24/outline";
 
 export default function Dashboard() {
   const { auth, pet, tag, cart } = useGlobalContext(); // Accede a la info del usuario
@@ -156,14 +157,26 @@ export default function Dashboard() {
           {user ? (
             <div className="flex items-center">
               <div>
-                <div className="avatar placeholder">
-                  <div className="bg-neutral text-neutral-content w-12 rounded-full">
-                    <span className="text-1xl">{firstTwoLater()}</span>
+                <div className="placeholder ">
+                  <div className="bg-neutral text-neutral-content flex justify-center items-center h-12 w-12 rounded-full">
+                    <div>
+                      <span
+                        className="text-1xl"
+                        style={{ fontFamily: "chapFont" }}
+                      >
+                        {firstTwoLater()}{" "}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
               <div>
-                <p className="ms-2">Hola, {user.full_name}!</p>
+                <p
+                  className="text-2xl font-semibold text-white ms-2"
+                  style={{ fontFamily: "chapFont" }}
+                >
+                  Hola, {user.full_name}!
+                </p>
               </div>
             </div>
           ) : (
@@ -173,15 +186,21 @@ export default function Dashboard() {
         </div>
 
         <div className="flex gap-2">
-          <div>
-            <button
-              className="btn  bg-teal-500"
-              onClick={() => document.getElementById("my_modal_1").showModal()}
-            >
-              Crea tu Mascota aqui
-            </button>
-          </div>
-          {allPets ? (
+          {allPets.length > 0 ? (
+            <div className="tooltip" data-tip="Crea Tu mascota">
+              <div
+                className="h-10 w-10 rounded-full flex justify-center items-center bg-teal-500"
+                onClick={() =>
+                  document.getElementById("my_modal_1").showModal()
+                }
+              >
+                <PlusIcon className="w-6 h-6" />
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+          {allPets.length > 0 ? (
             <div>
               <Link to={`/finances`}>
                 <button className="btn  bg-teal-500">
@@ -614,7 +633,7 @@ export default function Dashboard() {
         </dialog>
       </div>
 
-      <div className="flex flex-wrap justify-center gap-4 mt-4">
+      {/* <div className="flex flex-wrap justify-center gap-4 mt-4">
         {allPets.map((pet) => {
           return (
             <div key={pet.id} className="flex">
@@ -622,6 +641,36 @@ export default function Dashboard() {
             </div>
           );
         })}
+      </div> */}
+      <div className="flex justify-center items-center  min-h-[80vh] ">
+        {allPets.length === 0 ? (
+          <div className="text-center text-black bg-slate-100 w-[500px] max-w-full p-6 shadow-md border border-slate-200 rounded-2xl">
+            <h2
+              style={{ fontFamily: "chapFont" }}
+              className="text-2xl font-semibold text-teal-700 mb-2"
+            >
+              ¡Crea tu primera Mascota!
+            </h2>
+            <p className="text-sm text-gray-500 mb-4">
+              A partir de aquí podrás cuidar, disfrutar y mejorar a tus
+              mascotas.
+            </p>
+            <button
+              className="btn bg-teal-500 hover:bg-teal-600 text-white px-6 py-2 rounded-md transition duration-300 border-none"
+              onClick={() => document.getElementById("my_modal_1").showModal()}
+            >
+              Crear Mascota
+            </button>
+          </div>
+        ) : (
+          <div className="flex flex-wrap justify-center gap-4 mt-4">
+            {allPets.map((pet) => (
+              <div key={pet.id} className="flex">
+                <Card petObj={pet} />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
