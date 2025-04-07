@@ -78,7 +78,15 @@
 
 @font-face {
   font-family: "chapFont";
-  src: url("../public/fonts/Super\ Cottage.ttf") format("truetype");
+  /* src: url("../public/fonts/Super\ Cottage.ttf") format("truetype"); */
+  src: url("/fonts/Super%20Cottage.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
+
+/* @font-face {
+  font-family: "chapFont";
+  src: url("/fonts/SuperCottage.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+} */
