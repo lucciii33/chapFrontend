@@ -6,6 +6,15 @@ import Card from "~/components/card";
 import "../../../styles/dashboard.css";
 import { Link } from "@remix-run/react";
 import { PlusIcon } from "@heroicons/react/24/outline";
+import { useNavigate } from "@remix-run/react";
+
+import {
+  ShoppingCartIcon,
+  SparklesIcon,
+  DocumentTextIcon,
+  CheckCircleIcon,
+  WrenchScrewdriverIcon,
+} from "@heroicons/react/24/solid";
 
 export default function Dashboard() {
   const { auth, pet, tag, cart } = useGlobalContext(); // Accede a la info del usuario
@@ -42,15 +51,17 @@ export default function Dashboard() {
   });
 
   console.log("petInfopetInfopetInfo", petInfo);
-  const [petInfoModal, setPetInfoModal] = useState(true);
+  const [welcomeModal, setWelcomeModal] = useState(true);
+  const [petInfoModal, setPetInfoModal] = useState(false);
   const [petChapModal, setPetChapModal] = useState(false);
   const [addTocardOrBuy, setAddTocardOrBuy] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, type, files } = e.target;
     setPetInfo((prevInfo) => ({
       ...prevInfo,
-      [name]: type === "file" ? files?.[0] : e.target.value, // Maneja archivos correctamente
+      [name]: type === "file" ? files?.[0] : e.target.value,
     }));
   };
 
@@ -150,33 +161,58 @@ export default function Dashboard() {
     }
   };
 
+  const handlePetSelect = (e) => {
+    const selectedId = e.target.value;
+    if (selectedId) {
+      navigate(`/trackerPet/${selectedId}`);
+    }
+  };
+
   return (
     <div>
-      <div className="flex justify-between mt-4 align-middle p-3">
+      <div className="mt-4 p-3">
         <div className="">
           {user ? (
-            <div className="flex items-center">
-              <div>
-                <div className="placeholder ">
-                  <div className="bg-neutral text-neutral-content flex justify-center items-center h-12 w-12 rounded-full">
-                    <div>
-                      <span
-                        className="text-1xl"
-                        style={{ fontFamily: "chapFont" }}
-                      >
-                        {firstTwoLater()}{" "}
-                      </span>
+            <div className="flex justify-between items-center">
+              <div className="flex items-center">
+                <div>
+                  <div className="placeholder ">
+                    <div className="bg-neutral text-neutral-content flex justify-center items-center h-12 w-12 rounded-full">
+                      <div>
+                        <span
+                          className="text-1xl"
+                          style={{ fontFamily: "chapFont" }}
+                        >
+                          {firstTwoLater()}{" "}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
+                <div>
+                  <p
+                    className="text-2xl font-semibold text-white ms-2"
+                    style={{ fontFamily: "chapFont" }}
+                  >
+                    Hola, {user.full_name}!
+                  </p>
+                </div>
               </div>
               <div>
-                <p
-                  className="text-2xl font-semibold text-white ms-2"
-                  style={{ fontFamily: "chapFont" }}
-                >
-                  Hola, {user.full_name}!
-                </p>
+                {allPets.length > 0 ? (
+                  <div className="tooltip" data-tip="Crea Tu mascota">
+                    <div
+                      className="h-10 w-10 rounded-full flex justify-center items-center bg-teal-500"
+                      onClick={() =>
+                        document.getElementById("my_modal_1").showModal()
+                      }
+                    >
+                      <PlusIcon className="w-6 h-6" />
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           ) : (
@@ -185,40 +221,12 @@ export default function Dashboard() {
           )}
         </div>
 
-        <div className="flex gap-2">
-          {allPets.length > 0 ? (
-            <div className="tooltip" data-tip="Crea Tu mascota">
-              <div
-                className="h-10 w-10 rounded-full flex justify-center items-center bg-teal-500"
-                onClick={() =>
-                  document.getElementById("my_modal_1").showModal()
-                }
-              >
-                <PlusIcon className="w-6 h-6" />
-              </div>
-            </div>
-          ) : (
-            ""
-          )}
-          {allPets.length > 0 ? (
-            <div>
-              <Link to={`/finances`}>
-                <button className="btn  bg-teal-500">
-                  Track your finances
-                </button>
-              </Link>
-            </div>
-          ) : (
-            ""
-          )}
-        </div>
-
         <dialog id="my_modal_1" className="modal">
           <div className="modal-box w-3/4 max-w-4xl h-auto p-6">
             <div className="flex items-center justify-center">
               <div
                 className={`box-ball w-10 h-10 flex justify-center items-center rounded-full ${
-                  petInfoModal
+                  welcomeModal
                     ? "bg-teal-500 text-white"
                     : "bg-gray-300 text-black"
                 } font-bold`}
@@ -228,7 +236,7 @@ export default function Dashboard() {
               <div className="box-line w-16 h-1 bg-gray-300"></div>
               <div
                 className={`box-ball w-10 h-10 flex justify-center items-center rounded-full ${
-                  petChapModal
+                  petInfoModal
                     ? "bg-teal-500 text-white"
                     : "bg-gray-300 text-black"
                 } font-bold`}
@@ -238,27 +246,146 @@ export default function Dashboard() {
               <div className="box-line w-16 h-1 bg-gray-300"></div>
               <div
                 className={`box-ball w-10 h-10 flex justify-center items-center rounded-full ${
-                  addTocardOrBuy
+                  petChapModal
                     ? "bg-teal-500 text-white"
                     : "bg-gray-300 text-black"
                 } font-bold`}
               >
                 3
               </div>
+              <div className="box-line w-16 h-1 bg-gray-300"></div>
+              <div
+                className={`box-ball w-10 h-10 flex justify-center items-center rounded-full ${
+                  addTocardOrBuy
+                    ? "bg-teal-500 text-white"
+                    : "bg-gray-300 text-black"
+                } font-bold`}
+              >
+                4
+              </div>
             </div>
+            {/* {welcomeModal && <h3 className="font-bold text-lg">Wlecome</h3>}
             {petInfoModal && (
               <h3 className="font-bold text-lg">Agrega Tu Macota aqui</h3>
-            )}
-            {petChapModal && (
+            )} */}
+            {/* {petChapModal && (
               <h3 className="font-bold text-lg">Crea Tu chapa aqui</h3>
-            )}
-            {addTocardOrBuy && (
+            )} */}
+            {/* {addTocardOrBuy && (
               <h3 className="font-bold text-lg">Buy Now or add to card</h3>
+            )} */}
+            {welcomeModal && (
+              <div className="mb-6 mt-5">
+                <div className="flex items-center gap-1 mt-5">
+                  <h2
+                    className="text-2xl font-bold text-teal-700 "
+                    style={{ fontFamily: "chapFont" }}
+                  >
+                    ¡Bienvenido {user?.full_name || ""}!{" "}
+                  </h2>
+                  <div>
+                    <span>
+                      {" "}
+                      <SparklesIcon className="text-teal-700 h-6 w-6" />
+                    </span>
+                  </div>
+                </div>
+
+                <p className="mt-2 text-md">
+                  ¿Estás listo para cuidar y trackear a tu mascota?
+                  <br />
+                  Crea su perfil, diseña su chapa, cómprala y disfruta de todas
+                  las funcionalidades.
+                </p>
+                <button
+                  onClick={() => {
+                    setWelcomeModal(false); // Oculta la bienvenida
+                    setPetInfoModal(true); // Muestra el form de mascota
+                  }}
+                  className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600"
+                >
+                  Crear Mascota
+                </button>
+              </div>
             )}
             {petInfoModal && (
               <div className="mt-2">
-                <form method="dialog">
-                  <div className="flex">
+                <div className="flex items-center gap-1 mt-5">
+                  <h2
+                    className="text-2xl font-bold text-teal-700"
+                    style={{ fontFamily: "chapFont" }}
+                  >
+                    ¡Pon la informacion!
+                  </h2>
+                  <div>
+                    <span>
+                      {" "}
+                      <DocumentTextIcon className="text-teal-700 h-6 w-6" />
+                    </span>
+                  </div>
+                </div>
+                <p className="mt-0 text-md">
+                  mientras mas informacion coloques mejor, asi ayudaremos a
+                  completar tu dahbord mas rapido
+                </p>
+                <form method="dialog" className="mt-5">
+                  <div>
+                    <h2 className="text-1xl font-bold text-white">
+                      Con estos settings podras cambiar como se vialuiza tu
+                      chapa, no te procupes por ellos ahora:
+                    </h2>
+                    <div className="mb-4 flex flex-col md:flex-row gap-3 mt-3">
+                      <div className="mb-4 flex items-center">
+                        <label className="mr-2">Lost</label>
+                        <input
+                          type="checkbox"
+                          name="lost"
+                          checked={petInfo.lost}
+                          onChange={(e) =>
+                            setPetInfo((prevInfo) => ({
+                              ...prevInfo,
+                              lost: e.target.checked,
+                            }))
+                          }
+                          className="radio radio-accent"
+                        />
+                      </div>
+
+                      <div className="mb-4 flex items-center">
+                        <label className="mr-2">Show Medical History</label>
+                        <input
+                          type="checkbox"
+                          name="show_medical_history"
+                          checked={petInfo.show_medical_history} // Conectado al estado
+                          onChange={(e) =>
+                            setPetInfo((prevInfo) => ({
+                              ...prevInfo,
+                              show_medical_history: e.target.checked, // Actualiza el estado con el valor del checkbox
+                            }))
+                          }
+                          className="radio radio-accent"
+                        />
+                      </div>
+
+                      <div className="mb-4 flex items-center">
+                        <label className="mr-2">Show Travel Mode</label>
+                        <input
+                          type="checkbox"
+                          name="show_travel_mode"
+                          checked={petInfo.show_travel_mode}
+                          onChange={(e) =>
+                            setPetInfo((prevInfo) => ({
+                              ...prevInfo,
+                              show_travel_mode: e.target.checked,
+                            }))
+                          }
+                          className="radio radio-accent"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col md:flex-row">
                     <div className="mb-4 w-full">
                       <label>Mom's Name</label>
                       <input
@@ -271,7 +398,7 @@ export default function Dashboard() {
                       />
                     </div>
 
-                    <div className="mb-4 w-full ms-2">
+                    <div className="mb-4 w-full ms-0 md:ms-2">
                       <label>Dad's Name</label>
                       <input
                         type="text"
@@ -283,7 +410,7 @@ export default function Dashboard() {
                       />
                     </div>
                   </div>
-                  <div className="flex">
+                  <div className="flex flex-col md:flex-row">
                     <div className="mb-4 w-full">
                       <label>Name</label>
                       <input
@@ -296,7 +423,7 @@ export default function Dashboard() {
                       />
                     </div>
 
-                    <div className="mb-4 w-full ms-2">
+                    <div className="mb-4 w-full ms-0 md:ms-2">
                       <label>Age</label>
                       <input
                         type="number"
@@ -333,7 +460,7 @@ export default function Dashboard() {
                     />
                   </div>
 
-                  <div className="flex">
+                  <div className="flex flex-col md:flex-row">
                     <div className="mb-4 w-full">
                       <label>Phone Number</label>
                       <input
@@ -346,7 +473,7 @@ export default function Dashboard() {
                       />
                     </div>
 
-                    <div className="mb-4 w-full ms-2">
+                    <div className="mb-4 w-full ms-0 md:ms-2">
                       <label>Phone Number (Optional)</label>
                       <input
                         type="text"
@@ -370,7 +497,7 @@ export default function Dashboard() {
                     />
                   </div>
 
-                  <div className="flex">
+                  <div className="flex flew-row md:flex-col">
                     <div className="mb-4 w-full">
                       <label>Pet Color</label>
                       <input
@@ -383,7 +510,7 @@ export default function Dashboard() {
                       />
                     </div>
 
-                    <div className="mb-4 w-full ms-2">
+                    <div className="mb-4 w-full ms-0 md:ms-2">
                       <label>Breed</label>
                       <input
                         type="text"
@@ -392,56 +519,6 @@ export default function Dashboard() {
                         onChange={handleChange}
                         className="w-full px-4 py-2 border rounded-lg"
                         placeholder="Breed"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="mb-4 flex">
-                    <div>
-                      <label>Lost</label>
-                    </div>
-                    <div>
-                      <input
-                        type="checkbox"
-                        name="lost"
-                        checked={petInfo.lost}
-                        onChange={(e) =>
-                          setPetInfo((prevInfo) => ({
-                            ...prevInfo,
-                            lost: e.target.checked,
-                          }))
-                        }
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-
-                    <div className="mb-4 flex items-center">
-                      <label className="mr-2">Show Medical History</label>
-                      <input
-                        type="checkbox"
-                        name="show_medical_history"
-                        checked={petInfo.show_medical_history} // Conectado al estado
-                        onChange={(e) =>
-                          setPetInfo((prevInfo) => ({
-                            ...prevInfo,
-                            show_medical_history: e.target.checked, // Actualiza el estado con el valor del checkbox
-                          }))
-                        }
-                      />
-                    </div>
-
-                    <div className="mb-4 flex items-center">
-                      <label className="mr-2">Show Travel Mode</label>
-                      <input
-                        type="checkbox"
-                        name="show_travel_mode"
-                        checked={petInfo.show_travel_mode}
-                        onChange={(e) =>
-                          setPetInfo((prevInfo) => ({
-                            ...prevInfo,
-                            show_travel_mode: e.target.checked,
-                          }))
-                        }
                       />
                     </div>
                   </div>
@@ -491,6 +568,24 @@ export default function Dashboard() {
             )}
             {petChapModal && (
               <>
+                <div className="flex items-center gap-1 mt-5">
+                  <h2
+                    className="text-2xl font-bold text-teal-700"
+                    style={{ fontFamily: "chapFont" }}
+                  >
+                    ¡Crea la chapa!
+                  </h2>
+                  <div>
+                    <span>
+                      {" "}
+                      <WrenchScrewdriverIcon className="text-teal-700 h-6 w-6" />
+                    </span>
+                  </div>
+                </div>
+                <p className="mt-0 text-md">
+                  puedes comprarla ahora o mas tarde pero ajuro necesitas tener
+                  la chapa para comenzar, animate!
+                </p>
                 <div className="flex mt-3">
                   <div className="w-1/2 border-r border-gray-500 ">
                     <div className="me-5">
@@ -614,23 +709,99 @@ export default function Dashboard() {
             )}
             {addTocardOrBuy && (
               <div className="font-bold text-lg">
-                Buy Now or add to card
+                <div className="flex items-center gap-1 mt-5">
+                  <h2
+                    className="text-2xl font-bold text-teal-700"
+                    style={{ fontFamily: "chapFont" }}
+                  >
+                    A solo un paso! {user?.full_name || ""}!
+                  </h2>
+                  <div>
+                    <span>
+                      {" "}
+                      <CheckCircleIcon className="text-teal-700 h-6 w-6" />
+                    </span>
+                  </div>
+                </div>
+                <p className="mt-2 text-md">
+                  estas a solo un paso de pomprar la chapa,si quieres seguir
+                  epxlorando o creando mas mascotas y chapas solo guardala en tu
+                  carrito.
+                </p>
+                <small className="text-grey-500">
+                  estas a solo un paso de pomprar la chapa,si quieres seguir
+                  epxlorando o creando mas mascotas y chapas solo guardala en tu
+                  carrito.
+                </small>
+                <div>
+                  <small
+                    className="text-xs text-gray-500 cursor-pointer"
+                    onClick={() => {
+                      document.getElementById("my_modal_1").close(); // Cierra el modal
+                    }}
+                  >
+                    Continue Exploring
+                  </small>
+                </div>
+
                 <div className="modal-action">
                   <button
+                    className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600"
+                    onClick={() => addToCart(tag.id)}
+                  >
+                    <ShoppingCartIcon className="h-6 w-6 text-white" />
+                  </button>
+                  <button className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600">
+                    {" "}
+                    pay now
+                  </button>
+                  <button
+                    className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600"
                     onClick={() => {
                       document.getElementById("my_modal_1").close(); // Cierra el modal
                     }}
                   >
                     Close
                   </button>
-
-                  <button onClick={() => addToCart(tag.id)}>add to cart</button>
-                  <button> pay now</button>
                 </div>
               </div>
             )}
           </div>
         </dialog>
+      </div>
+      <div className="mt-4 p-3">
+        <h2
+          style={{ fontFamily: "chapFont" }}
+          className="text-2xl font-semibold text-teal-700 mb-2"
+        >
+          Extra features:
+        </h2>
+        <div className="flex gap-2">
+          {allPets.length > 0 ? (
+            <div>
+              <Link to={`/finances`}>
+                <button className="btn  bg-teal-500">
+                  Track your finances
+                </button>
+              </Link>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
+        {allPets.length > 0 && (
+          <select
+            onChange={handlePetSelect}
+            className="btn bg-teal-500 text-white px-4 py-2 rounded-md shadow-md cursor-pointer"
+          >
+            <option value="">Selecciona tu mascota</option>
+            {allPets.map((pet) => (
+              <option key={pet.id} value={pet.id}>
+                {pet.name}
+              </option>
+            ))}
+          </select>
+        )}
       </div>
 
       {/* <div className="flex flex-wrap justify-center gap-4 mt-4">
