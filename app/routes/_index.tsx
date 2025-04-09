@@ -9,6 +9,7 @@ import ScrollVideo from "~/components/scroll-video";
 import "../../styles/dashboard.css";
 import { useTranslation } from "react-i18next";
 import WhyChap from "~/components/whyChap";
+import Founders from "~/components/founder";
 
 export const meta: MetaFunction = () => {
   return [
@@ -77,6 +78,7 @@ export default function Index() {
       </div>
       <div className="mt-0">
         <WhyChap />
+        <Founders />
         <div className="bg-[#65BCBB] h-[120vh] lg:h-[55vh]">
           <div className="">
             <h1

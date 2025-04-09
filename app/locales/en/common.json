@@ -9,5 +9,24 @@
     "card.pets": "35 pets found",
     "card.pets.desc": "We still believe in humanity",
     "card.love": "WE LOVE",
-    "card.love.desc": "your pets as much as you"
-  }
+    "card.love.desc": "your pets as much as you",
+
+    "founder": {
+      "2019": {
+        "title": "The Beginning",
+        "desc": "In 2019, we started with just an idea: helping lost pets find their way home faster."
+      },
+      "2022": {
+        "title": "The App",
+        "desc": "In 2022, we launched our mobile app and started connecting QR tags with smart profiles."
+      },
+      "2024": {
+        "title": "Global Reach",
+        "desc": "By 2024, thousands of pets across the world were wearing our tags."
+      },
+      "2025": {
+        "title": "The Future",
+        "desc": "We're building new features with AI to detect and alert owners when pets are found."
+      }
+    }
+}

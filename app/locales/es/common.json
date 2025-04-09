@@ -9,5 +9,24 @@
     "card.pets": "35 mascotas encontradas",
     "card.pets.desc": "Todavía creemos en la humanidad",
     "card.love": "AMAMOS",
-    "card.love.desc": "a tus mascotas tanto como tú"
+    "card.love.desc": "a tus mascotas tanto como tú",
+
+    "founder": {
+      "2019": {
+        "title": "El comienzo",
+        "desc": "En 2019, comenzamos con una idea: ayudar a las mascotas perdidas a volver a casa más rápido."
+      },
+      "2022": {
+        "title": "La App",
+        "desc": "En 2022, lanzamos nuestra app móvil y conectamos chapas QR con perfiles inteligentes."
+      },
+      "2024": {
+        "title": "Alcance Global",
+        "desc": "Para 2024, miles de mascotas en todo el mundo llevaban nuestras chapas."
+      },
+      "2025": {
+        "title": "El Futuro",
+        "desc": "Estamos construyendo nuevas funciones con IA para alertar cuando una mascota es encontrada."
+      }
+    }
   }
