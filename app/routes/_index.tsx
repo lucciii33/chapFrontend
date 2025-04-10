@@ -30,6 +30,7 @@ export default function Index() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
   return (
     <>
       <div className="flex h-[100%] lg:h-screen items-center justify-evenly bg-teal-500 flex-col lg:flex-row py-5 lg:py-0">
@@ -53,26 +54,35 @@ export default function Index() {
         <div className="mt-3 lg:mt-0 p-5 lg:px-4 max-w-xl lg:max-w-2xl z-10">
           {/* order-1 lg:order-2 */}
           <h1
-            className="text-4xl lg:text-6xl font-bold text-white"
+            className="text-3xl lg:text-6xl font-bold text-white"
             style={{ fontFamily: "chapFont" }}
           >
             {t("hero.title")}
           </h1>
-          <p className="text-1xl lg:text-3xl font-medium text-white mb-4">
+          {/* <p className="text-1xl lg:text-3xl font-medium text-white mb-4">
             {t("hero.subtitle")}
-          </p>
-          <p className="text-base text-white max-w-lg">{t("hero.paragraph")}</p>{" "}
+          </p> */}
+          <p className="text-base text-white max-w-lg"> {t("hero.subtitle")}</p>{" "}
+          {/* <p className="text-base text-white max-w-lg">{t("hero.paragraph")}</p>{" "} */}
           <div className="mt-5">
-            <Link to="/login">
-              <button className=" border-none py-3 px-4  bg-slate-950 text-white rounded-lg">
-                Login
-              </button>
-            </Link>
             <Link to="register">
-              <button className=" border-none py-3 px-4 ms-3 bg-cyan-950 text-white rounded-lg">
-                Register
+              <button className=" border-none py-3 px-4 ms-0 md:ms-3 w-full md:w-auto bg-cyan-950 text-white rounded-lg">
+                {t("register")}
               </button>
             </Link>
+            <a
+              href="#why-chap"
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById("why-chap")?.scrollIntoView({
+                  behavior: "smooth",
+                });
+              }}
+            >
+              <button className="border-none py-3 px-4 ms-0 md:ms-3 w-full md:w-auto mt-2 md:mt-0 bg-teal-700 text-white rounded-lg">
+                {t("features")}
+              </button>
+            </a>
           </div>
         </div>
       </div>

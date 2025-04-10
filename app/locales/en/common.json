@@ -1,19 +1,34 @@
 {
-    "hero.title": "One QR, your dog's entire life in one scan.",
-    "hero.subtitle": "Because their safety shouldn't be left behind.",
+    "hero.title": "YOUR PET IS ONE OF A KIND. SO SHOULD THEIR TAG. THEIR ENTIRE LIFE, ONE QR SCAN AWAY.",
+    "hero.subtitle": "A smart tag that saves everything you need to take better care of your pet . Contact information, medical history, routines, expenses, and more... all in one place.",
     "hero.paragraph": "Imagine a world where you never have to worry about updating your dog’s tag. With our app and smart collar, all your best friend's information is just a scan away.",
     "login": "Login",
-    "register": "Register",
+    "register": "Activate your CHAP today!",
+    "features":"Explore all features",
     "card.qr": "100 QR sold",
     "card.qr.desc": "The best tags on the market",
     "card.pets": "35 pets found",
     "card.pets.desc": "We still believe in humanity",
     "card.love": "WE LOVE",
     "card.love.desc": "your pets as much as you",
+    
+    "whyChap": {
+        "title": "Why CHAP? ",
+        "subTitle": "Simple, fast, and hassle-free.",
+        "smalText": "everything your pet needs, all in one place",
+        "featureOne": "Update your information and your pet’s as many times as you need.",
+        "featureTwo": "Get their approximate location if they go missing.",
+        "featureTree": "Track expenses and manage your pet's finances.",
+        "featureFour": "Keep medical history, vet visits, and vaccinations in one place.",
+        "featureFive": "Easily upload files, lab results, and reports.",
+        "featureSix": "Log daily meals, mood, behavior, and health.",
+        "featureSeven": "Activate the travel mode with instructions for personalized care."
+      
+    },
 
     "founder": {
       "2019": {
-        "title": "The Beginning",
+        "title": "the start",
         "desc": "In 2019, we started with just an idea: helping lost pets find their way home faster."
       },
       "2022": {

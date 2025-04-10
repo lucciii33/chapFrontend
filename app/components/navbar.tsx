@@ -44,7 +44,7 @@ export default function Navbar() {
             </h1>
           </Link>
         </div>
-        <div className="text-white flex">
+        {/* <div className="text-white flex">
           <div className="ms-2">
             {" "}
             <p>the foudners</p>
@@ -53,20 +53,20 @@ export default function Navbar() {
             {" "}
             <p>Our bussines</p>
           </div>
-        </div>
+        </div> */}
         <div>
           {user ? (
             <div>
               <button className="btn ms-2" onClick={logout}>
                 <PowerIcon className="h-6 w-6 text-red-500" />
               </button>
-              <button className="btn ms-2" onClick={toggleTheme}>
+              {/* <button className="btn ms-2" onClick={toggleTheme}>
                 {theme === "light" ? (
                   <MoonIcon className="h-6 w-6 text-blue-500" />
                 ) : (
                   <SunIcon className="h-6 w-6 text-yellow-500 " />
                 )}
-              </button>
+              </button> */}
               <label
                 htmlFor="my-drawer-4"
                 className="drawer-button btn btn-primary ms-2"
@@ -88,7 +88,13 @@ export default function Navbar() {
             </div>
           ) : (
             <div className="flex">
-              <UserIcon className="h-6 w-6 text-blue-500" />
+              <Link to="/login">
+                <button className=" border-none py-3 px-4  bg-slate-950 text-white rounded-lg">
+                  {/* {t("login")} */}
+                  <UserIcon className="h-6 w-6 text-blue-500" />
+                </button>
+              </Link>
+
               <button
                 onClick={toggleLang}
                 className="text-2xl ms-2"

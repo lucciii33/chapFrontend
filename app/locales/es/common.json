@@ -1,15 +1,31 @@
 {
-    "hero.title": "Un QR, toda la vida de tu perro al alcance de un escaneo.",
-    "hero.subtitle": "Porque su seguridad no debería quedarse atrás.",
+    "hero.title": "TU MASCOTA ES ÚNICA. SU CHAPA TAMBIEN. TODA SU VIDA, AL ALCANCE DE UN ESCANEO.",
+    "hero.subtitle": "Una chapa inteligente que guarda todo lo que necesitas para cuidarla mejor. Información de contacto, historial médico, rutinas, gastos y más… todo en un solo lugar.",
     "hero.paragraph": "Imagina un mundo donde nunca tengas que preocuparte por actualizar el tag de tu perro. Con nuestra app y collar inteligente, toda la información de tu mejor amigo está a un escaneo de distancia.",
     "login": "Login",
-    "register": "Register",
+    "register": "¡Activa tu CHAP hoy!",
+    "features":"Explora todas sus funciones",
     "card.qr": "100 QR vendidos",
     "card.qr.desc": "Las mejores chapas del mercado",
     "card.pets": "35 mascotas encontradas",
     "card.pets.desc": "Todavía creemos en la humanidad",
     "card.love": "AMAMOS",
     "card.love.desc": "a tus mascotas tanto como tú",
+
+    "whyChap": {
+      "title": "¿Por que CHAP? ",
+      "subTitle": "Simple, rápida y sin complicaciones.",
+      "smalText": "Todo lo que tu mascota necesita, en un solo lugar.",
+      "featureOne": "Modifica tu información y la de tu mascota cuantas veces quieras.",
+      "featureTwo": "Obtén su ubicación aproximada si se pierde.",
+      "featureTree": "Controla gastos y finanzas por mascota.",
+      "featureFour": "Ten a la mano historial médico, visitas veterinarias y vacunas.",
+      "featureFive": "Sube archivos, informes y laboratorios fácilmente.",
+      "featureSix": "Registra a diario su alimentación, salud y conducta.",
+      "featureSeven": "Activa el modo viaje con instrucciones para un cuidado personalizado."
+    
+  },
+
 
     "founder": {
       "2019": {

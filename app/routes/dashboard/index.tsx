@@ -264,21 +264,11 @@ export default function Dashboard() {
                 4
               </div>
             </div>
-            {/* {welcomeModal && <h3 className="font-bold text-lg">Wlecome</h3>}
-            {petInfoModal && (
-              <h3 className="font-bold text-lg">Agrega Tu Macota aqui</h3>
-            )} */}
-            {/* {petChapModal && (
-              <h3 className="font-bold text-lg">Crea Tu chapa aqui</h3>
-            )} */}
-            {/* {addTocardOrBuy && (
-              <h3 className="font-bold text-lg">Buy Now or add to card</h3>
-            )} */}
             {welcomeModal && (
               <div className="mb-6 mt-5">
                 <div className="flex items-center gap-1 mt-5">
                   <h2
-                    className="text-2xl font-bold text-teal-700 "
+                    className="text-2xl font-bold text-teal-500"
                     style={{ fontFamily: "chapFont" }}
                   >
                     ¡Bienvenido {user?.full_name || ""}!{" "}
@@ -286,7 +276,7 @@ export default function Dashboard() {
                   <div>
                     <span>
                       {" "}
-                      <SparklesIcon className="text-teal-700 h-6 w-6" />
+                      <SparklesIcon className="text-teal-500 h-6 w-6" />
                     </span>
                   </div>
                 </div>
@@ -312,7 +302,7 @@ export default function Dashboard() {
               <div className="mt-2">
                 <div className="flex items-center gap-1 mt-5">
                   <h2
-                    className="text-2xl font-bold text-teal-700"
+                    className="text-2xl font-bold text-teal-500"
                     style={{ fontFamily: "chapFont" }}
                   >
                     ¡Pon la informacion!
@@ -320,7 +310,7 @@ export default function Dashboard() {
                   <div>
                     <span>
                       {" "}
-                      <DocumentTextIcon className="text-teal-700 h-6 w-6" />
+                      <DocumentTextIcon className="text-teal-500 h-6 w-6" />
                     </span>
                   </div>
                 </div>
@@ -561,7 +551,12 @@ export default function Dashboard() {
 
                   <div className="modal-action">
                     <button className="btn">Close</button>
-                    <button onClick={handleSubmit}>create </button>
+                    <button
+                      className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600"
+                      onClick={handleSubmit}
+                    >
+                      create{" "}
+                    </button>
                   </div>
                 </form>
               </div>
@@ -625,23 +620,21 @@ export default function Dashboard() {
                       </div>
                     </div>
 
-                    {tagInfoData.material === "acrylic" && (
-                      <div className="me-5">
-                        <div>
-                          <label>Color</label>
-                        </div>
-                        <div>
-                          <input
-                            type="text"
-                            name="color"
-                            value={tagInfoData.color}
-                            onChange={handleTagChange}
-                            className="w-full px-4 py-2 border rounded-lg"
-                            placeholder="Color"
-                          />
-                        </div>
+                    <div className="me-5">
+                      <div>
+                        <label>Color</label>
                       </div>
-                    )}
+                      <div>
+                        <input
+                          type="text"
+                          name="color"
+                          value={tagInfoData.color}
+                          onChange={handleTagChange}
+                          className="w-full px-4 py-2 border rounded-lg"
+                          placeholder="Color"
+                        />
+                      </div>
+                    </div>
 
                     <div className="flex items-center mt-2">
                       <div>
@@ -711,7 +704,7 @@ export default function Dashboard() {
               <div className="font-bold text-lg">
                 <div className="flex items-center gap-1 mt-5">
                   <h2
-                    className="text-2xl font-bold text-teal-700"
+                    className="text-2xl font-bold text-teal-500"
                     style={{ fontFamily: "chapFont" }}
                   >
                     A solo un paso! {user?.full_name || ""}!
@@ -719,7 +712,7 @@ export default function Dashboard() {
                   <div>
                     <span>
                       {" "}
-                      <CheckCircleIcon className="text-teal-700 h-6 w-6" />
+                      <CheckCircleIcon className="text-teal-500 h-6 w-6" />
                     </span>
                   </div>
                 </div>
@@ -769,39 +762,52 @@ export default function Dashboard() {
           </div>
         </dialog>
       </div>
-      <div className="mt-4 p-3">
-        <h2
-          style={{ fontFamily: "chapFont" }}
-          className="text-2xl font-semibold text-teal-700 mb-2"
-        >
-          Extra features:
-        </h2>
-        <div className="flex gap-2">
-          {allPets.length > 0 ? (
+      <div className="px-5">
+        <div className="border-2 border-teal-500 p-4 rounded-md">
+          <div className="flex items-center">
+            <h2
+              style={{ fontFamily: "chapFont" }}
+              className="text-2xl font-semibold text-teal-500"
+            >
+              Extra features
+            </h2>
             <div>
-              <Link to={`/finances`}>
-                <button className="btn  bg-teal-500">
-                  Track your finances
-                </button>
-              </Link>
+              <span>
+                {" "}
+                <SparklesIcon className="text-teal-500 h-6 w-6" />
+              </span>
             </div>
-          ) : (
-            ""
-          )}
+          </div>
+          <p className="m-0">
+            loremp iptusm je dha jdjhfe test and aditional test loremp ipsuom{" "}
+          </p>
+          <div className="flex flex-col md:flex-row gap-2 mt-4">
+            {allPets.length > 0 ? (
+              <div>
+                <Link to={`/finances`}>
+                  <button className="btn  bg-teal-500 w-full md:w-auto">
+                    Track your finances
+                  </button>
+                </Link>
+              </div>
+            ) : (
+              ""
+            )}
+            {allPets.length > 0 && (
+              <select
+                onChange={handlePetSelect}
+                className="btn bg-teal-500 text-white px-4 py-2 w-full md:w-auto rounded-md shadow-md cursor-pointer"
+              >
+                <option value="">Selecciona tu mascota</option>
+                {allPets.map((pet) => (
+                  <option key={pet.id} value={pet.id}>
+                    {pet.name}
+                  </option>
+                ))}
+              </select>
+            )}
+          </div>
         </div>
-        {allPets.length > 0 && (
-          <select
-            onChange={handlePetSelect}
-            className="btn bg-teal-500 text-white px-4 py-2 rounded-md shadow-md cursor-pointer"
-          >
-            <option value="">Selecciona tu mascota</option>
-            {allPets.map((pet) => (
-              <option key={pet.id} value={pet.id}>
-                {pet.name}
-              </option>
-            ))}
-          </select>
-        )}
       </div>
 
       {/* <div className="flex flex-wrap justify-center gap-4 mt-4">
@@ -818,7 +824,7 @@ export default function Dashboard() {
           <div className="text-center text-black bg-slate-100 w-[500px] max-w-full p-6 shadow-md border border-slate-200 rounded-2xl">
             <h2
               style={{ fontFamily: "chapFont" }}
-              className="text-2xl font-semibold text-teal-700 mb-2"
+              className="text-2xl font-semibold text-teal-500 mb-2"
             >
               ¡Crea tu primera Mascota!
             </h2>

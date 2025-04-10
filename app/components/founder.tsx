@@ -3,6 +3,7 @@ import { Link } from "@remix-run/react";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 export default function Founders() {
   const { t } = useTranslation();
@@ -53,7 +54,7 @@ export default function Founders() {
         </div>
 
         {/* Texto */}
-        <div className="order-1 md:order-2  md:col-span-5 flex flex-col p-[30px] md:p-0 md-pb-0 justify-center items-center">
+        <div className="order-1 md:order-2  md:col-span-4 flex flex-col p-[30px] md:p-0 md-pb-0 justify-center items-center">
           <div className="text-center pb-5 md:pb-0">
             <h2
               className="text-[40px] text-black"
@@ -62,6 +63,31 @@ export default function Founders() {
               {t(`founder.${selectedYear}.title`)}
             </h2>
             <p className="text-black">{t(`founder.${selectedYear}.desc`)}</p>
+          </div>
+        </div>
+
+        <div className="order-1 md:order-2   md:col-span-1 hidden md:flex border-x-2 border-cyan-600  flex-col p-[30px] md:p-0 md-pb-0 justify-center items-center gap-3">
+          <div className="text-black">
+            {" "}
+            <a
+              href="https://facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaFacebook className="w-6 h-6 text-cyan-600  hover:scale-110 transition-transform" />
+            </a>
+          </div>
+          <div className="text-black">
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaInstagram className="w-6 h-6 text-cyan-600  hover:scale-110 transition-transform" />
+            </a>
+          </div>
+          <div className="text-black">
+            <FaLinkedin className="w-6 h-6 text-cyan-600  hover:scale-110 transition-transform" />
           </div>
         </div>
       </div>
