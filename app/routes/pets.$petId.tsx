@@ -1,4 +1,4 @@
-import { useParams } from "@remix-run/react";
+import { Link, useParams } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import {
   TrashIcon,
@@ -566,15 +566,25 @@ export default function PetDetail() {
 
   return (
     <div className="">
-      <div>
-        <button
-          className=" border-none py-3 px-4 ms-3 mt-5 bg-teal-500 text-white rounded-lg"
-          onClick={() =>
-            document.getElementById("my_modal_5_pet_id_alerts").showModal()
-          }
-        >
-          CREATE ALER
-        </button>
+      <div className="flex justify-between items-center">
+        <div>
+          <button
+            className=" border-none py-3 px-4 ms-3 mt-5 bg-teal-500 text-white rounded-lg"
+            onClick={() =>
+              document.getElementById("my_modal_5_pet_id_alerts").showModal()
+            }
+          >
+            CREATE ALER
+          </button>
+        </div>
+        <div>
+          <Link
+            to={`/publicQr/${petId}`}
+            className="border-none py-3 px-4 ms-3 mt-5 bg-teal-500 text-white rounded-lg inline-block"
+          >
+            Preview Your QR
+          </Link>
+        </div>
       </div>
       <div className="mt-2 p-5">
         {message && <div className="alert">{message}</div>}{" "}

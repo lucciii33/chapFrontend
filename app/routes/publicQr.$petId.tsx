@@ -23,6 +23,8 @@ export default function PublicQr() {
   console.log("petDatapetDatapetDatapetData", petData);
   const [location, setLocation] = useState(null);
   const [ubicacion, setUbicacion] = useState(null);
+  const [mapError, setMapError] = useState(false);
+
   console.log("ubicacion", ubicacion);
 
   console.log("location", location);
@@ -122,7 +124,7 @@ export default function PublicQr() {
   useEffect(() => {
     // 1. Obtén los detalles de la mascota
     if (petId) {
-      fetch(`http://localhost:8000/api/public/pets/${petId}`)
+      fetch(`${import.meta.env.VITE_REACT_APP_URL}/api/public/pets/${petId}`)
         .then((response) => response.json())
         .then((data) => setPetData(data))
         .catch((error) => console.error("Error al obtener la mascota:", error));
@@ -165,6 +167,11 @@ export default function PublicQr() {
         }&callback=initMap`;
         script.async = true;
 
+        script.onerror = () => {
+          console.error("❌ Error al cargar Google Maps");
+          setMapError(true); // <-- necesitas definir este estado
+        };
+
         window.initMap = () => inicializarMapa(ubicacion.lat, ubicacion.lng);
         document.body.appendChild(script);
       } else {
@@ -181,7 +188,7 @@ export default function PublicQr() {
     const updateLastLatAndLastLong = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8000/api/pets/${petId}/location/`,
+          `${import.meta.env.VITE_REACT_APP_URL}/api/pets/${petId}/location/`,
           {
             method: "PUT",
             headers: {
@@ -385,7 +392,14 @@ export default function PublicQr() {
           )}
         </div>
 
-        <div id="map" style={{ height: "400px", width: "100%" }} />
+        {/* <div id="map" style={{ height: "400px", width: "100%" }} /> */}
+        {mapError ? (
+          <div className="text-center text-red-500 font-bold">
+            ❌ No se pudo cargar Google Maps.
+          </div>
+        ) : (
+          <div id="map" style={{ height: "400px", width: "100%" }} />
+        )}
       </div>
     </div>
   );
