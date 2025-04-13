@@ -566,7 +566,7 @@ export default function PetDetail() {
 
   return (
     <div className="">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center p-4">
         <div>
           <button
             className=" border-none py-3 px-4 ms-3 mt-5 bg-teal-500 text-white rounded-lg"
@@ -577,15 +577,28 @@ export default function PetDetail() {
             CREATE ALER
           </button>
         </div>
-        <div>
-          <Link
-            to={`/publicQr/${petId}`}
-            className="border-none py-3 px-4 ms-3 mt-5 bg-teal-500 text-white rounded-lg inline-block"
-          >
-            Preview Your QR
-          </Link>
+        <div className="flex">
+          <div>
+            <Link
+              to={`/publicQr/${petId}`}
+              className="border-none py-3 px-4 ms-3 mt-5 bg-teal-500 text-white rounded-lg inline-block"
+            >
+              Preview Your QR
+            </Link>
+          </div>
+          <div>
+            <button
+              className="border-none py-3 px-4 ms-3 mt-5 bg-teal-500 text-white rounded-lg inline-block"
+              onClick={() =>
+                document.getElementById("my_modal_6_pet_id").showModal()
+              }
+            >
+              Your Tags
+            </button>
+          </div>
         </div>
       </div>
+
       <div className="mt-2 p-5">
         {message && <div className="alert">{message}</div>}{" "}
         {/* Mostrar mensaje */}
@@ -595,20 +608,20 @@ export default function PetDetail() {
         <form
           method="dialog"
           onSubmit={handleSubmit}
-          className="border -2 border-[#65bcbb] rounded-lg p-5"
+          className="border-2 border-[#0e0f11] bg-[#2b2f38] rounded-lg p-5"
         >
           <div className="flex justify-between">
             <div>
               {" "}
-              <h2 className="text-lg">General info</h2>
+              <h2 className="text-lg text-[#0e0f11]">General info</h2>
             </div>
             <div>
               {" "}
               <span onClick={() => toggleCollapse("generalInfo")}>
                 {collapseBox.generalInfo ? (
-                  <ChevronUpIcon className="h-6 w-6 text-[#65bcbb]" />
+                  <ChevronUpIcon className="h-6 w-6 text-[#0e0f11]" />
                 ) : (
-                  <ChevronDownIcon className="h-6 w-6 text-[#65bcbb]" />
+                  <ChevronDownIcon className="h-6 w-6 text-[#0e0f11]" />
                 )}
               </span>
             </div>
@@ -850,7 +863,7 @@ export default function PetDetail() {
 
               <div className="modal-action">
                 <button
-                  className=" border-none py-3 px-4 ms-3 bg-cyan-500 text-white rounded-lg"
+                  className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full md:w-auto"
                   onClick={handleSubmit}
                 >
                   create{" "}
@@ -864,19 +877,19 @@ export default function PetDetail() {
       </div>
 
       <div className="px-5">
-        <div className="border -2 border-[#65bcbb] rounded-lg p-5">
+        <div className="border-2 border-[#0e0f11] bg-[#2b2f38] rounded-lg p-5">
           <div className="flex justify-between">
             <div>
               {" "}
-              <h2 className="text-lg">Crear historial médico</h2>
+              <h2 className="text-lg text-[#0e0f11]">Crear historial médico</h2>
             </div>
             <div>
               {" "}
               <span onClick={() => toggleCollapse("medicalHistory2")}>
                 {collapseBox.medicalHistory2 ? (
-                  <ChevronUpIcon className="h-6 w-6 text-[#65bcbb]" />
+                  <ChevronUpIcon className="h-6 w-6 text-[#0e0f11]" />
                 ) : (
-                  <ChevronDownIcon className="h-6 w-6 text-[#65bcbb]" />
+                  <ChevronDownIcon className="h-6 w-6 text-[#0e0f11]" />
                 )}
               </span>
             </div>
@@ -884,136 +897,236 @@ export default function PetDetail() {
 
           {collapseBox.medicalHistory2 ? (
             <div>
-              <textarea
-                name="description"
-                value={medicalHistoryData.description}
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded-lg mb-4"
-                placeholder="Escribe la descripción del historial médico aquí..."
-                rows={5}
-              />
+              <div>
+                <div className="">
+                  <label>Description</label>
+                </div>
+                <textarea
+                  name="description"
+                  value={medicalHistoryData.description}
+                  onChange={handleInputChange}
+                  className="w-full p-2 border rounded-lg mb-4"
+                  placeholder="Escribe la descripción del historial médico aquí..."
+                  rows={5}
+                />
+              </div>
 
-              <input
-                type="text"
-                name="current_treatment"
-                value={medicalHistoryData.current_treatment}
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded-lg mb-4"
-                placeholder="Tratamiento actual"
-              />
+              <div className="flex gap-3 flex-col md:flex-row">
+                <div className="w-full">
+                  <div>
+                    <label>current_treatment</label>
+                  </div>
+                  <div className="w-full">
+                    <input
+                      type="text"
+                      name="current_treatment"
+                      value={medicalHistoryData.current_treatment}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border rounded-lg mb-4"
+                      placeholder="Tratamiento actual"
+                    />
+                  </div>
+                </div>
 
-              <input
-                type="date"
-                name="last_doctor_visit"
-                value={medicalHistoryData.last_doctor_visit}
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded-lg mb-4"
-              />
+                <div className="w-full">
+                  <div>
+                    <label>last_doctor_visit</label>
+                  </div>
+                  <div>
+                    <input
+                      type="date"
+                      name="last_doctor_visit"
+                      value={medicalHistoryData.last_doctor_visit}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border rounded-lg mb-4"
+                    />
+                  </div>
+                </div>
+              </div>
 
-              <input
-                type="text"
-                name="important_notes"
-                value={medicalHistoryData.important_notes}
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded-lg mb-4"
-                placeholder="Notas importantes"
-              />
+              <div className="flex gap-3 flex-col md:flex-row">
+                <div className="w-full">
+                  <div>
+                    <label>important_notes</label>
+                  </div>
+                  <div>
+                    <input
+                      type="text"
+                      name="important_notes"
+                      value={medicalHistoryData.important_notes}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border rounded-lg mb-4"
+                      placeholder="Notas importantes"
+                    />
+                  </div>
+                </div>
+                <div className="w-full">
+                  <div>
+                    <label>allergies</label>
+                  </div>
+                  <div>
+                    <input
+                      type="text"
+                      name="allergies"
+                      value={medicalHistoryData.allergies}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border rounded-lg mb-4"
+                      placeholder="Alergias"
+                    />
+                  </div>
+                </div>
+              </div>
 
-              <input
-                type="text"
-                name="allergies"
-                value={medicalHistoryData.allergies}
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded-lg mb-4"
-                placeholder="Alergias"
-              />
+              <div className="flex gap-3 flex-col md:flex-row">
+                <div className="w-full">
+                  <div>
+                    <label>weight</label>
+                  </div>
+                  <div>
+                    <input
+                      type="number"
+                      name="weight"
+                      value={medicalHistoryData.weight}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border rounded-lg mb-4"
+                      placeholder="Peso (kg)"
+                    />
+                  </div>
+                </div>
+                <div className="w-full">
+                  <div>
+                    <label>height</label>
+                  </div>
+                  <div>
+                    <input
+                      type="number"
+                      name="height"
+                      value={medicalHistoryData.height}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border rounded-lg mb-4"
+                      placeholder="Altura (cm)"
+                    />
+                  </div>
+                </div>
+                <div className="w-full">
+                  <div>
+                    <label>blood_type</label>
+                  </div>
+                  <div>
+                    <input
+                      type="text"
+                      name="blood_type"
+                      value={medicalHistoryData.blood_type}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border rounded-lg mb-4"
+                      placeholder="Tipo de sangre"
+                    />
+                  </div>
+                </div>
+              </div>
 
-              <input
-                type="number"
-                name="weight"
-                value={medicalHistoryData.weight}
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded-lg mb-4"
-                placeholder="Peso (kg)"
-              />
+              <div>
+                <div>
+                  <label>chronic_conditions</label>
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    name="chronic_conditions"
+                    value={medicalHistoryData.chronic_conditions}
+                    onChange={handleInputChange}
+                    className="w-full p-2 border rounded-lg mb-4"
+                    placeholder="Condiciones crónicas"
+                  />
+                </div>
+              </div>
 
-              <input
-                type="number"
-                name="height"
-                value={medicalHistoryData.height}
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded-lg mb-4"
-                placeholder="Altura (cm)"
-              />
+              <div>
+                <div>
+                  <label>medications</label>
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    name="medications"
+                    value={medicalHistoryData.medications}
+                    onChange={handleInputChange}
+                    className="w-full p-2 border rounded-lg mb-4"
+                    placeholder="Medicamentos actuales"
+                  />
+                </div>
+              </div>
 
-              <input
-                type="text"
-                name="chronic_conditions"
-                value={medicalHistoryData.chronic_conditions}
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded-lg mb-4"
-                placeholder="Condiciones crónicas"
-              />
+              <div>
+                <div>
+                  <label>surgical_history</label>
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    name="surgical_history"
+                    value={medicalHistoryData.surgical_history}
+                    onChange={handleInputChange}
+                    className="w-full p-2 border rounded-lg mb-4"
+                    placeholder="Historial de cirugías"
+                  />
+                </div>
+              </div>
 
-              <input
-                type="text"
-                name="medications"
-                value={medicalHistoryData.medications}
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded-lg mb-4"
-                placeholder="Medicamentos actuales"
-              />
+              <div className="flex gap-3 flex-col md:flex-row">
+                <div className="w-full ">
+                  <div>
+                    <label>diet</label>
+                  </div>
+                  <div>
+                    <input
+                      type="text"
+                      name="diet"
+                      value={medicalHistoryData.diet}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border rounded-lg mb-4"
+                      placeholder="Dieta"
+                    />
+                  </div>
+                </div>
+                <div className="w-full ">
+                  <div>
+                    <label>vaccination_status</label>
+                  </div>
+                  <div>
+                    <input
+                      type="text"
+                      name="vaccination_status"
+                      value={medicalHistoryData.vaccination_status}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border rounded-lg mb-4"
+                      placeholder="Estado de vacunación"
+                    />
+                  </div>
+                </div>
+              </div>
 
-              <input
-                type="text"
-                name="surgical_history"
-                value={medicalHistoryData.surgical_history}
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded-lg mb-4"
-                placeholder="Historial de cirugías"
-              />
-
-              <input
-                type="text"
-                name="vaccination_status"
-                value={medicalHistoryData.vaccination_status}
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded-lg mb-4"
-                placeholder="Estado de vacunación"
-              />
-
-              <input
-                type="text"
-                name="blood_type"
-                value={medicalHistoryData.blood_type}
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded-lg mb-4"
-                placeholder="Tipo de sangre"
-              />
-
-              <input
-                type="text"
-                name="diet"
-                value={medicalHistoryData.diet}
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded-lg mb-4"
-                placeholder="Dieta"
-              />
-
-              <input
-                type="text"
-                name="behavior_notes"
-                value={medicalHistoryData.behavior_notes}
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded-lg mb-4"
-                placeholder="Notas de comportamiento"
-              />
+              <div>
+                <div>
+                  <label>vaccination_status</label>
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    name="behavior_notes"
+                    value={medicalHistoryData.behavior_notes}
+                    onChange={handleInputChange}
+                    className="w-full p-2 border rounded-lg mb-4"
+                    placeholder="Notas de comportamiento"
+                  />
+                </div>
+              </div>
 
               {/* Botón para crear el historial */}
               <div className="flex justify-end">
                 {" "}
                 <button
-                  className="border-none py-3 px-4 bg-blue-500 text-white rounded-lg"
+                  className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full md:w-auto"
                   onClick={handleCreateOrEditMedicalHistory}
                   disabled={loading}
                 >
@@ -1030,19 +1143,21 @@ export default function PetDetail() {
       </div>
 
       <div className="px-5 mt-5">
-        <div className="border -2 border-[#65bcbb] rounded-lg p-5">
+        <div className="border-2 border-[#0e0f11] bg-[#2b2f38] rounded-lg p-5">
           <div className="flex justify-between">
             <div>
               {" "}
-              <h2 className="text-lg">Crear visita al veterinario</h2>
+              <h2 className="text-lg text-[#0e0f11]">
+                Crear visita al veterinario
+              </h2>
             </div>
             <div>
               {" "}
               <span onClick={() => toggleCollapse("vetSession")}>
                 {collapseBox.vetSession ? (
-                  <ChevronUpIcon className="h-6 w-6 text-[#65bcbb]" />
+                  <ChevronUpIcon className="h-6 w-6 text-[#0e0f11]" />
                 ) : (
-                  <ChevronDownIcon className="h-6 w-6 text-[#65bcbb]" />
+                  <ChevronDownIcon className="h-6 w-6 text-[#0e0f11]" />
                 )}
               </span>
             </div>
@@ -1074,52 +1189,56 @@ export default function PetDetail() {
                 />
               </div>
 
-              <div className="mb-4 w-full ms-2">
-                <label>notes</label>
-                <input
-                  type="text"
-                  name="notes"
-                  value={petVetInfo.notes}
-                  onChange={handleChangeVet}
-                  className="w-full px-4 py-2 border rounded-lg"
-                  placeholder="notes"
-                />
+              <div className="flex gap-3 flex-col md:flex-row">
+                <div className="mb-4 w-full ms-2">
+                  <label>notes</label>
+                  <input
+                    type="text"
+                    name="notes"
+                    value={petVetInfo.notes}
+                    onChange={handleChangeVet}
+                    className="w-full px-4 py-2 border rounded-lg"
+                    placeholder="notes"
+                  />
+                </div>
+
+                <div className="mb-4 w-full ms-2">
+                  <label>medical_notes:</label>
+                  <input
+                    type="text"
+                    name="medical_notes"
+                    value={petVetInfo.medical_notes}
+                    onChange={handleChangeVet}
+                    className="w-full px-4 py-2 border rounded-lg"
+                    placeholder="Dad's Name"
+                  />
+                </div>
               </div>
 
-              <div className="mb-4 w-full ms-2">
-                <label>cause</label>
-                <input
-                  type="text"
-                  name="cause"
-                  value={petVetInfo.cause}
-                  onChange={handleChangeVet}
-                  className="w-full px-4 py-2 border rounded-lg"
-                  placeholder="cause"
-                />
-              </div>
+              <div className="flex gap-3 flex-col md:flex-row">
+                <div className="mb-4 w-full ms-2">
+                  <label>cause</label>
+                  <input
+                    type="text"
+                    name="cause"
+                    value={petVetInfo.cause}
+                    onChange={handleChangeVet}
+                    className="w-full px-4 py-2 border rounded-lg"
+                    placeholder="cause"
+                  />
+                </div>
 
-              <div className="mb-4 w-full ms-2">
-                <label>cost</label>
-                <input
-                  type="text"
-                  name="cost"
-                  value={petVetInfo.cost}
-                  onChange={handleChangeVet}
-                  className="w-full px-4 py-2 border rounded-lg"
-                  placeholder="cost"
-                />
-              </div>
-
-              <div className="mb-4 w-full ms-2">
-                <label>medical_notes:</label>
-                <input
-                  type="text"
-                  name="medical_notes"
-                  value={petVetInfo.medical_notes}
-                  onChange={handleChangeVet}
-                  className="w-full px-4 py-2 border rounded-lg"
-                  placeholder="Dad's Name"
-                />
+                <div className="mb-4 w-full ms-2">
+                  <label>cost</label>
+                  <input
+                    type="text"
+                    name="cost"
+                    value={petVetInfo.cost}
+                    onChange={handleChangeVet}
+                    className="w-full px-4 py-2 border rounded-lg"
+                    placeholder="cost"
+                  />
+                </div>
               </div>
 
               <div className="mb-4 w-full">
@@ -1137,7 +1256,7 @@ export default function PetDetail() {
               <div className="flex justify-end">
                 {" "}
                 <button
-                  className="border-none py-3 px-4 bg-blue-500 text-white rounded-lg"
+                  className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full md:w-auto"
                   onClick={handleCreateVetSession}
                   // disabled={loading}
                 >
@@ -1214,19 +1333,19 @@ export default function PetDetail() {
       </div>
 
       <div className="px-5 mt-5">
-        <div className="border -2 border-[#65bcbb] rounded-lg p-5">
+        <div className="border-2 border-[#0e0f11] bg-[#2b2f38] rounded-lg p-5">
           <div className="flex justify-between">
             <div>
               {" "}
-              <h2 className=" text-lg"> Create Vaccines</h2>
+              <h2 className=" text-lg text-[#0e0f11]"> Create Vaccines</h2>
             </div>
             <div>
               {" "}
               <span onClick={() => toggleCollapse("vaccines")}>
                 {collapseBox.vaccines ? (
-                  <ChevronUpIcon className="h-6 w-6 text-[#65bcbb]" />
+                  <ChevronUpIcon className="h-6 w-6 text-[#0e0f11]" />
                 ) : (
-                  <ChevronDownIcon className="h-6 w-6 text-[#65bcbb]" />
+                  <ChevronDownIcon className="h-6 w-6 text-[#0e0f11]" />
                 )}
               </span>
             </div>
@@ -1291,13 +1410,15 @@ export default function PetDetail() {
                   />
                 </div>
               </div>
-              <button
-                className="border-none py-3 px-4 bg-blue-500 text-white rounded-lg"
-                onClick={handleCreateVaccine}
-                disabled={loading}
-              >
-                {loading ? "Creando vacuna..." : "Crear Vacuna"}
-              </button>
+              <div className="mt-3 flex justify-end">
+                <button
+                  className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full md:w-auto"
+                  onClick={handleCreateVaccine}
+                  disabled={loading}
+                >
+                  {loading ? "Creando vacuna..." : "Crear Vacuna"}
+                </button>
+              </div>
 
               <div>
                 Your vaccines:
@@ -1350,13 +1471,13 @@ export default function PetDetail() {
         />
       </div>
 
-      <div className="p-3">
+      {/* <div className="p-3">
         <h1 className="font-bold text-4xl" style={{ fontFamily: "chapFont" }}>
           Your tags:
         </h1>
-      </div>
+      </div> */}
 
-      <div className="flex gap-5 items-center flex-col md:flex-row p-5">
+      {/* <div className="flex gap-5 items-center flex-col md:flex-row p-5">
         {petByID?.tags.map((tag) => {
           return (
             <div
@@ -1376,7 +1497,6 @@ export default function PetDetail() {
                   <p className="">
                     Shape: <strong>{tag.shape}</strong>{" "}
                   </p>
-                  {/* <p className=""> {tag.material}</p> */}
                 </div>
                 <div className="mt-4 flex justify-between gap-3 w-full">
                   <button
@@ -1396,7 +1516,7 @@ export default function PetDetail() {
             </div>
           );
         })}
-      </div>
+      </div> */}
 
       <DeleteDialog
         isOpen={isDeleteOpen}
@@ -1549,6 +1669,54 @@ export default function PetDetail() {
               {/* if there is a button in form, it will close the modal */}
               <button className="btn">Close</button>
             </form>
+          </div>
+        </div>
+      </dialog>
+
+      {/* //modal here to show tags  */}
+      <dialog id="my_modal_6_pet_id" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Hello!</h3>
+          <div className="flex gap-5 items-center flex-col md:flex-row p-5">
+            {petByID?.tags.map((tag) => {
+              return (
+                <div
+                  key={tag.id}
+                  className="border -2 border-[#65bcbb] rounded-lg p-5 w-full md:w-[250px]"
+                >
+                  <div className=" ">
+                    <img
+                      className="w-full md:w-[225px]"
+                      src="https://files.oaiusercontent.com/file-KbjTvrX2yEGoKk263cPQUo?se=2025-03-21T14%3A07%3A24Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Deb49cb05-2a39-4000-ac3b-49afab71b857.webp&sig=23bzJlNU90s0s00FPnai60CPDrqSFzBPjbS7eOSUmAs%3D"
+                      alt="dd"
+                    />
+                    <div className="mt-2">
+                      <p>
+                        Color:<strong>{tag.color}</strong>{" "}
+                      </p>
+                      <p className="">
+                        Shape: <strong>{tag.shape}</strong>{" "}
+                      </p>
+                      {/* <p className=""> {tag.material}</p> */}
+                    </div>
+                    <div className="mt-4 flex justify-between gap-3 w-full">
+                      <button
+                        className=" border-none py-3 px-4 bg-teal-700 text-white rounded-lg"
+                        onClick={() => addToCart(tag.id)}
+                      >
+                        Add to cart
+                      </button>
+                      <button
+                        onClick={() => openDeleteModal(tag.id)}
+                        className=" border-none py-3 px-4 bg-teal-500 text-white rounded-lg"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </dialog>

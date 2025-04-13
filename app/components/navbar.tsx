@@ -58,7 +58,8 @@ export default function Navbar() {
           {user ? (
             <div>
               <button className="btn ms-2" onClick={logout}>
-                <PowerIcon className="h-6 w-6 text-red-500" />
+                logout
+                {/* <PowerIcon className="h-6 w-6 text-red-500" /> */}
               </button>
               {/* <button className="btn ms-2" onClick={toggleTheme}>
                 {theme === "light" ? (
@@ -69,43 +70,51 @@ export default function Navbar() {
               </button> */}
               <label
                 htmlFor="my-drawer-4"
-                className="drawer-button btn btn-primary ms-2"
+                className="drawer-button btn ms-2"
                 onClick={() => activateSideBar()}
               >
-                <ShoppingCartIcon className="h-6 w-6 text-blue-500" />
+                <ShoppingCartIcon className="h-6 w-6 text-teal-500" />
               </label>
-              <button
+              <div
+                className="btn ms-2 d-flex justify-center items-center"
                 onClick={toggleLang}
-                className="text-2xl ms-2"
-                title={
-                  i18n.language === "es"
-                    ? "Cambiar a inglés"
-                    : "Switch to Spanish"
-                }
               >
-                {i18n.language === "es" ? "🇪🇸" : "🇺🇸"}
-              </button>
+                <button
+                  className="text-teal-500"
+                  title={
+                    i18n.language === "es"
+                      ? "Cambiar a inglés"
+                      : "Switch to Spanish"
+                  }
+                >
+                  {i18n.language === "es" ? "ES" : "EN"}
+                </button>
+              </div>
             </div>
           ) : (
             <div className="flex">
               <Link to="/login">
-                <button className=" border-none py-3 px-4  bg-slate-950 text-white rounded-lg">
+                <button className="btn ms-2">
                   {/* {t("login")} */}
-                  <UserIcon className="h-6 w-6 text-blue-500" />
+                  LOGIN
                 </button>
               </Link>
 
-              <button
+              <div
+                className="btn ms-2 d-flex justify-center items-center"
                 onClick={toggleLang}
-                className="text-2xl ms-2"
-                title={
-                  i18n.language === "es"
-                    ? "Cambiar a inglés"
-                    : "Switch to Spanish"
-                }
               >
-                {i18n.language === "es" ? "🇪🇸" : "🇺🇸"}
-              </button>
+                <button
+                  className="text-teal-500"
+                  title={
+                    i18n.language === "es"
+                      ? "Cambiar a inglés"
+                      : "Switch to Spanish"
+                  }
+                >
+                  {i18n.language === "es" ? "ES" : "EN"}
+                </button>
+              </div>
             </div>
           )}
         </div>

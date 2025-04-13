@@ -798,7 +798,7 @@ export default function Dashboard() {
                 onChange={handlePetSelect}
                 className="btn bg-teal-500 text-white px-4 py-2 w-full md:w-auto rounded-md shadow-md cursor-pointer"
               >
-                <option value="">Selecciona tu mascota</option>
+                <option value="">Diario de tu mascota</option>
                 {allPets.map((pet) => (
                   <option key={pet.id} value={pet.id}>
                     {pet.name}

@@ -105,7 +105,7 @@ export default function Card({ petObj }: CardProps) {
   return (
     <div className="ms-2 ">
       <div
-        className=" relative card bg-base-100 w-96 shadow-xl border-[5px] border-[#65bcbb]"
+        className=" relative card bg-base-100 w-96 shadow-xl border-[5px] border-[#0e0f11] bg-[#2b2f38] "
         style={{ zIndex: actSideBar ? -10 : "auto" }}
       >
         <div className="absolute bottom-[88%] left-[64%] transform -translate-x-1/2 w-[90%]">
@@ -141,15 +141,25 @@ export default function Card({ petObj }: CardProps) {
 
             <div className="card-actions justify-end ms-2">
               <button
-                className="h-6 w-6 text-cyan-500"
+                className="h-6 w-6 text-teal-500"
                 onClick={() => grabpetIdToDelete(petObj.id)}
               >
                 <TrashIcon />
               </button>
             </div>
           </div>
-          <p>{petObj.personality}</p>
-          <p>{petObj.age}</p>
+          <p>
+            Personalidad: <strong>{petObj.personality}</strong>
+          </p>
+          <p>
+            Age: <strong>{petObj.age}</strong>
+          </p>
+          <p>
+            Pet color: <strong>{petObj.pet_color}</strong>
+          </p>
+          <p>
+            breed: <strong>{petObj.breed}</strong>
+          </p>
           {/* <div className="flex flex-col w-full">
             <div className=" ">
               <Link to={`/pets/${petObj.id}`}>

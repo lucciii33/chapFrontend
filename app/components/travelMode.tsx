@@ -53,20 +53,20 @@ export default function TravelModeForm({
   };
 
   return (
-    <div className="border -2 border-[#65bcbb] rounded-lg p-5g">
-      <div className="border -2 border-[#65bcbb] rounded-lg p-5">
+    <div className="border-2 border-[#0e0f11] bg-[#2b2f38] rounded-lg p-5g">
+      <div className=" rounded-lg p-5">
         <div className="flex justify-between">
           <div>
             {" "}
-            <h2 className="font-bold text-lg"> Create Travel Mode</h2>
+            <h2 className="text-lg text-[#0e0f11]"> Create Travel Mode</h2>
           </div>
           <div>
             {" "}
             <span onClick={onToggleCollapse}>
               {isCollapsed ? (
-                <ChevronUpIcon className="h-6 w-6 text-[#65bcbb]" />
+                <ChevronUpIcon className="h-6 w-6 text-[#0e0f11]" />
               ) : (
-                <ChevronDownIcon className="h-6 w-6 text-[#65bcbb]" />
+                <ChevronDownIcon className="h-6 w-6 text-[#0e0f11]" />
               )}
             </span>
           </div>
@@ -157,7 +157,7 @@ export default function TravelModeForm({
 
             <button
               onClick={handleSubmit}
-              className="border-none py-3 px-4 bg-blue-500 text-white rounded-lg"
+              className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full md:w-auto"
             >
               {travelModeData ? "Editar" : "Crear"}
             </button>
