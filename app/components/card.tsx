@@ -234,8 +234,8 @@ export default function Card({ petObj }: CardProps) {
                       className="w-full px-4 py-2 border rounded-lg"
                     >
                       <option value="metal">Metal</option>
-                      <option value="plastic">Plástico</option>
-                      <option value="leather">Cuero</option>
+                      {/* <option value="plastic">Plástico</option>
+                      <option value="leather">Cuero</option> */}
                     </select>
                   </div>
                 </div>
@@ -253,7 +253,6 @@ export default function Card({ petObj }: CardProps) {
                     >
                       <option value="circular">Circular</option>
                       <option value="square">Cuadrado</option>
-                      <option value="heart">Corazón</option>
                     </select>
                   </div>
                 </div>

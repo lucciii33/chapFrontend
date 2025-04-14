@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "@remix-run/react";
 import { useGlobalContext } from "../../context/GlobalProvider"; // Ajusta el path
 import loginImage from "../../images/imageLogin4.png";
+import loginImageMobile from "../../images/cat3.png";
+
 import "../../../styles/dashboard.css";
 
 export default function Login() {
@@ -37,12 +39,15 @@ export default function Login() {
   };
   return (
     <div className="flex flex-col md:flex-row">
-      <div className=" w-full md:w-1/2 flex items-center justify-center">
-        <img
-          src={loginImage}
-          alt="Login"
-          className="min-w-full h-80 md:h-screen object-cover"
-        />
+      <div className="w-full md:w-1/2 flex items-center justify-center">
+        <picture className="w-full">
+          <source srcSet={loginImage} media="(min-width: 768px)" />
+          <img
+            src={loginImageMobile}
+            alt="Login"
+            className="w-full h-[25rem] object-cover md:h-screen"
+          />
+        </picture>
       </div>
       <div className=" w-full md:w-1/2 flex items-center justify-center bg-neutral-950">
         <div className="w-full max-w-lg px-4 py-5 md:py-0">

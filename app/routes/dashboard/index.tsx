@@ -57,6 +57,35 @@ export default function Dashboard() {
   const [addTocardOrBuy, setAddTocardOrBuy] = useState(false);
   const navigate = useNavigate();
 
+  const tagImages = [
+    {
+      shape: "square",
+      color: "purple",
+      imageUrl: "/purpleSqure.png",
+    },
+    {
+      shape: "circular",
+      color: "purple",
+      imageUrl: "/circlePurple.png",
+    },
+    {
+      shape: "square",
+      color: "black",
+      imageUrl: "/blackSqure.png",
+    },
+    // {
+    //   shape: "circular",
+    //   color: "black",
+    //   imageUrl: "/blackSqure.png",
+    // },
+  ];
+
+  const selectedImage = tagImages.find(
+    (img) =>
+      img.shape === tagInfoData.shape.toLowerCase() &&
+      img.color === tagInfoData.color.toLowerCase()
+  );
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, type, files } = e.target;
     setPetInfo((prevInfo) => ({
@@ -594,9 +623,9 @@ export default function Dashboard() {
                           onChange={handleTagChange}
                           className="w-full px-4 py-2 border rounded-lg"
                         >
-                          <option value="wood">Wood</option>
+                          {/* <option value="wood">Wood</option> */}
                           <option value="aluminum">Aluminum</option>
-                          <option value="acrylic">Acrylic</option>
+                          {/* <option value="acrylic">Acrylic</option> */}
                         </select>
                       </div>
                     </div>
@@ -614,8 +643,8 @@ export default function Dashboard() {
                         >
                           <option value="circular">Circular</option>
                           <option value="square">Square</option>
-                          <option value="heart">Heart</option>
-                          <option value="bone">Bone</option>
+                          {/* <option value="heart">Heart</option>
+                          <option value="bone">Bone</option> */}
                         </select>
                       </div>
                     </div>
@@ -625,14 +654,20 @@ export default function Dashboard() {
                         <label>Color</label>
                       </div>
                       <div>
-                        <input
-                          type="text"
+                        <select
                           name="color"
                           value={tagInfoData.color}
                           onChange={handleTagChange}
                           className="w-full px-4 py-2 border rounded-lg"
-                          placeholder="Color"
-                        />
+                        >
+                          <option value="purple">Purple</option>
+                          <option value="black">Black</option>
+                          <option value="blue">Blue</option>
+                          <option value="green">Green</option>
+
+                          {/* <option value="heart">Heart</option>
+                          <option value="bone">Bone</option> */}
+                        </select>
                       </div>
                     </div>
 
@@ -672,13 +707,24 @@ export default function Dashboard() {
                     </button>
                   </div>
                   <div className="w-1/2 flex justify-center items-center">
-                    {tagInfoData.shape === "circular" && (
+                    {selectedImage ? (
+                      <img
+                        src={selectedImage.imageUrl}
+                        alt="Tag preview"
+                        className="w-[250px] h-[250px] object-contain"
+                      />
+                    ) : (
+                      <div className="w-[250px] h-[250px] bg-gray-200 flex items-center justify-center text-gray-500">
+                        Sin preview
+                      </div>
+                    )}
+                    {/* {tagInfoData.shape === "circular" && (
                       <div className="w-[250px] h-[250px] bg-gray-300 rounded-full"></div>
                     )}
                     {tagInfoData.shape === "square" && (
                       <div className="w-[250px] h-[250px] bg-gray-300"></div>
-                    )}
-                    {tagInfoData.shape === "heart" && (
+                    )} */}
+                    {/* {tagInfoData.shape === "heart" && (
                       <div className="w-[250px] h-[250px] bg-gray-300 heart-shape"></div>
                     )}
                     {tagInfoData.shape === "bone" && (
@@ -686,7 +732,7 @@ export default function Dashboard() {
                         <div className="bottom-circle-left"></div>
                         <div className="bottom-circle-right"></div>
                       </div>
-                    )}
+                    )} */}
                   </div>
                 </div>
                 <div className="modal-action">
