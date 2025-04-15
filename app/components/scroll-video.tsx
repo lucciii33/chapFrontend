@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import "../../styles/scrollVideo.css";
+import { t } from "i18next";
 
 export default function ScrollVideo() {
   const videoRef = useRef(null);
@@ -42,7 +43,7 @@ export default function ScrollVideo() {
   }, []);
 
   return (
-    <div className="video-section">
+    <div className="hidden md:block video-section">
       <div className="video-overlay">
         <video
           ref={videoRef}
@@ -62,6 +63,34 @@ export default function ScrollVideo() {
 
         {/* Textos con tiempos ajustados */}
         <div
+          className="story-text"
+          data-time-start="0"
+          data-time-end="5"
+          data-position="left"
+          ref={(el) => (textsRef.current[0] = el)}
+          style={{ fontFamily: "chapFont" }}
+          dangerouslySetInnerHTML={{ __html: t("scrollVideo.scroll.text1") }}
+        />
+        <div
+          className="story-text"
+          data-time-start="5"
+          data-time-end="7"
+          ref={(el) => (textsRef.current[1] = el)}
+          data-position="right"
+          dangerouslySetInnerHTML={{ __html: t("scrollVideo.scroll.text2") }}
+          style={{ fontFamily: "chapFont" }}
+        />
+        <div
+          className="story-text"
+          data-time-start="7"
+          data-time-end="9"
+          data-position="left"
+          ref={(el) => (textsRef.current[2] = el)}
+          dangerouslySetInnerHTML={{ __html: t("scrollVideo.scroll.text3") }}
+          style={{ fontFamily: "chapFont" }}
+        />
+
+        {/* <div
           className="story-text"
           data-time-start="0"
           data-time-end="4"
@@ -96,8 +125,8 @@ export default function ScrollVideo() {
           <strong className="text-color-bg-2">aventuras</strong>, su{" "}
           <strong className="text-color-bg-3">historia...</strong> al alcance de
           tu mano.
-        </div>
-        <div
+        </div> */}
+        {/* <div
           className="story-text"
           data-time-start="9"
           data-time-end="13"
@@ -114,7 +143,7 @@ export default function ScrollVideo() {
         >
           Dog Tags inteligentes: seguridad, amor y conexión en cada paso que
           dan. 💫
-        </div>
+        </div> */}
       </div>
     </div>
   );

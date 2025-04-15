@@ -89,7 +89,7 @@ export default function Index() {
       <div className="mt-0">
         <WhyChap />
         <Founders />
-        <div className="bg-[#65BCBB] h-[120vh] lg:h-[55vh]">
+        <div className="bg-[#65BCBB] h-[135vh] lg:h-[65vh] pb-5">
           <div className="">
             <h1
               className="text-[70px] font-bold text-black p-5 text-center"
@@ -100,32 +100,34 @@ export default function Index() {
           </div>
           <div className=" flex  justify-center items-center px-5">
             <div className="w-full h-100 lg:h-[14rem] mt-0 lg:mt-[0px] flex flex-col items-center justify-center lg:justify-center lg:flex-row gap-5 z-10 relative">
-              <div className="w-[200px] h-[200px] ml-5 mt-3 bg-zinc-900 flex flex-col items-center justify-center rounded-lg text-center">
+              <div className="w-[320px] h-[250px] ml-5 mt-3 bg-zinc-900 flex flex-col items-center justify-center rounded-lg text-center p-3">
                 <h2
                   className="text-white text-4xl font-bold"
                   style={{ fontFamily: "chapFont" }}
                 >
-                  100 QR sold
+                  {t("ChapStats.boxOneTitle")}
                 </h2>
-                <small className="text-white">The best tags the market</small>
+                <small className="text-white">{t("ChapStats.boxOnePar")}</small>
               </div>
-              <div className="w-[200px] h-[200px] bg-[#4B4A4A] mt-3 flex flex-col items-center justify-center rounded-lg text-center">
+              <div className="w-[320px] h-[250px] bg-[#4B4A4A] mt-3 flex flex-col items-center justify-center rounded-lg text-center p-3">
                 <h2
                   className="text-white text-4xl font-bold"
                   style={{ fontFamily: "chapFont" }}
                 >
-                  35 pets Founded
+                  {t("ChapStats.boxTwoTitle")}
                 </h2>
-                <small className="text-white">We still in humanity</small>
+                <small className="text-white">{t("ChapStats.boxTwoPar")}</small>
               </div>
-              <div className="w-[200px] h-[200px] bg-cyan-950 mt-3 flex flex-col items-center justify-center  text-center rounded-lg">
+              <div className="w-[320px] h-[250px] bg-cyan-950 mt-3 flex flex-col items-center justify-center  text-center rounded-lg p-3">
                 <h2
                   className="text-white text-4xl font-bold "
                   style={{ fontFamily: "chapFont" }}
                 >
-                  WE LOVE
+                  {t("ChapStats.boxThreeTitle")}
                 </h2>
-                <small className="text-white">your pets as much as you</small>
+                <small className="text-white">
+                  {t("ChapStats.boxThreePar")}
+                </small>
               </div>
             </div>
             <div>

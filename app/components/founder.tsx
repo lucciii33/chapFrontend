@@ -46,9 +46,9 @@ export default function Founders() {
           <div>
             {/* Aquí pones tu imagen */}
             <img
-              src="https://images.pexels.com/photos/6793974/pexels-photo-6793974.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+              src="https://chap-blue.s3.us-east-2.amazonaws.com/15889f1e-b3c7-4d93-ac34-c8bca93fe2dc.JPG"
               alt="algo"
-              className="w-[40rem] h-[30rem] shadow-lg object-cover"
+              className="w-[40rem] h-[40rem] shadow-lg object-cover"
             />
           </div>
         </div>

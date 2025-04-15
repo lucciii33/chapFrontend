@@ -26,22 +26,37 @@
       
     },
 
+    "ChapStats": {
+      "boxOneTitle": "+3,000 pets get lost every year.",
+      "boxOnePar": "One scan, One chance to go back home",
+      "boxTwoTitle": "45% of pet owners forget their pet’s medical history.",
+      "boxTwoPar": "CHAP remembers it for you",
+      "boxThreeTitle": "Over €1,200/year spent on our pets.",
+      "boxThreePar": "CHAP keeps your wallet in check."
+    },
+
     "founder": {
       "2019": {
-        "title": "the start",
-        "desc": "In 2019, we started with just an idea: helping lost pets find their way home faster."
+        "title": "It all started with Roxy.",
+        "desc": "We made a decision that changed our lives: we became pet parents. We adopted Roxy, and with her came long walks, adventures, questions… and expenses."
       },
       "2022": {
-        "title": "The App",
-        "desc": "In 2022, we launched our mobile app and started connecting QR tags with smart profiles."
+        "title": "A new city, a new number, another tag.",
+        "desc": "Over the years came moves, job changes, fresh starts… and with every change, a new ID tag for Roxy. That’s when CHAP was born."
       },
       "2024": {
-        "title": "Global Reach",
-        "desc": "By 2024, thousands of pets across the world were wearing our tags."
+        "title": "Built by pet parents, for pet parents.",
+        "desc": "We wanted something that truly worked — no more new tags, no more forgotten medical histories, everything in one place."
       },
       "2025": {
-        "title": "The Future",
-        "desc": "We're building new features with AI to detect and alert owners when pets are found."
+        "title": "CHAP is a reality.",
+        "desc": "Today, CHAP is in the hands of those who need it most: people who love their pets and want to care for them better. One tag. Their whole story. Always with you."
       }
+    },
+
+    "scrollVideo": {
+      "scroll.text1": "Your pet is <strong class='text-color-bg'>unique</strong>. So is their tag. 🐾✨",
+      "scroll.text2": "The world may be huge, but with <strong class='text-color-bg'>just one scan</strong>,<br/> you’ll always know where they are.",
+      "scroll.text3": "All their <strong class='text-color-bg'>care</strong>, <strong class='text-color-bg-2'>adventures</strong>, and <strong class='text-color-bg-3'>history</strong> at the palm of your hand."
     }
 }

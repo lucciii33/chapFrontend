@@ -23,26 +23,40 @@
       "featureFive": "Sube archivos, informes y laboratorios fácilmente.",
       "featureSix": "Registra a diario su alimentación, salud y conducta.",
       "featureSeven": "Activa el modo viaje con instrucciones para un cuidado personalizado."
-    
   },
 
+   "ChapStats": {
+      "boxOneTitle": "+3,000 mascotas se pierden al año.",
+      "boxOnePar": "Un escaneo, Una oportunidad de volver a casa",
+      "boxTwoTitle": "El 45% de los dueños olvida su historial médico.",
+      "boxTwoPar": "CHAP lo recuerda por ti ",
+      "boxThreeTitle": "+1.200 € al año invertimos en ellos.",
+      "boxThreePar": " CHAP lleva el control de tu billetera"
+    }, 
 
     "founder": {
       "2019": {
-        "title": "El comienzo",
-        "desc": "En 2019, comenzamos con una idea: ayudar a las mascotas perdidas a volver a casa más rápido."
+        "title": "Todo empezó con Roxy.",
+        "desc": "Este año tomamos una decisión que nos cambió la vida: Nos convertimos en padres perrunos. Adoptamos a Roxy y con ella llegaron los paseos, las aventuras, las dudas y los gastos. "
       },
       "2022": {
-        "title": "La App",
-        "desc": "En 2022, lanzamos nuestra app móvil y conectamos chapas QR con perfiles inteligentes."
+        "title": "Una nueva ciudad, otro número, otra chapa.",
+        "desc": "Con los años vinieron mudanzas, cambios de trabajo, nuevos comienzos… y con cada cambio, una nueva identificación para Roxy. ASÍ NACIÓ CHAP."
       },
       "2024": {
-        "title": "Alcance Global",
-        "desc": "Para 2024, miles de mascotas en todo el mundo llevaban nuestras chapas."
+        "title": "Creado por padres para padres.",
+        "desc": "Queríamos algo que de verdad funcionara: que Roxy no tuviera que cambiar más chapas, que su historial no se perdiera, que todo estuviera en un solo lugar."
       },
       "2025": {
-        "title": "El Futuro",
-        "desc": "Estamos construyendo nuevas funciones con IA para alertar cuando una mascota es encontrada."
+        "title": "CHAP es una realidad.",
+        "desc": "Hoy, CHAP ya está en manos de quienes más lo necesitan: personas que aman a sus mascotas y quieren cuidarlas mejor. Una sola chapa. Toda su historia. Siempre contigo."
       }
+    },
+
+    "scrollVideo": {
+      "scroll.text1": "Tu perro <strong class='text-color-bg'>es único</strong>. Su Dog Tag también. 🐾✨",
+      "scroll.text2": "El mundo puede ser enorme, pero con un <strong class='text-color-bg'>simple escaneo</strong>,<br /> siempre sabrás dónde está.",
+      "scroll.text3": "Todo su <strong class='text-color-bg'>cuidado</strong>, sus <strong class='text-color-bg-2'>aventuras</strong>, su <strong class='text-color-bg-3'>historia...</strong> al alcance de tu mano."
     }
+    
   }
