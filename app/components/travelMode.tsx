@@ -53,26 +53,37 @@ export default function TravelModeForm({
   };
 
   return (
-    <div className="border-2 border-[#0e0f11] bg-[#2b2f38] rounded-lg p-5g">
+    <div className="border-2 border-gray-700 bg-gray-800 rounded-lg p-5g">
       <div className=" rounded-lg p-5">
         <div className="flex justify-between">
           <div>
             {" "}
-            <h2 className="text-lg text-[#0e0f11]"> Create Travel Mode</h2>
+            <h2 className="text-lg text-teal-500"> Create Travel Mode</h2>
           </div>
           <div>
             {" "}
             <span onClick={onToggleCollapse}>
               {isCollapsed ? (
-                <ChevronUpIcon className="h-6 w-6 text-[#0e0f11]" />
+                <ChevronUpIcon className="h-6 w-6 text-teal-500" />
               ) : (
-                <ChevronDownIcon className="h-6 w-6 text-[#0e0f11]" />
+                <ChevronDownIcon className="h-6 w-6 text-teal-500" />
               )}
             </span>
           </div>
         </div>
         {isCollapsed && (
-          <div>
+          <div className="mt-5">
+            <div className="mb-5">
+              <h2 className="text-1xl font-bold text-white">
+                Te vas de viaje? agrega aqui la info necesaria para quien vaya a
+                cuidar a tu mascota
+              </h2>
+              <small className="text-sm text-white">
+                tu perro te manda a decir que eres muy mala persona por dejarlo,
+                dice que al menos ponga bastante pollito en donde sale su
+                aliemntacion
+              </small>
+            </div>
             <div>
               <div>
                 <label>Instrucciones para paseos</label>

@@ -68,6 +68,12 @@ export default function Navbar() {
                   <SunIcon className="h-6 w-6 text-yellow-500 " />
                 )}
               </button> */}
+              <Link to="/dashboard">
+                <button className="btn ms-2">
+                  {/* {t("login")} */}
+                  Dashboard
+                </button>
+              </Link>
               <label
                 htmlFor="my-drawer-4"
                 className="drawer-button btn ms-2"

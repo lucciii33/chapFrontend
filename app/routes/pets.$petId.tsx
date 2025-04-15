@@ -564,12 +564,14 @@ export default function PetDetail() {
     }
   };
 
+  console.log("petByID.medical_history[0]", petByID.medical_history[0]);
+
   return (
     <div className="">
       <div className="flex justify-between items-center p-4">
         <div>
           <button
-            className=" border-none py-3 px-4 ms-3 mt-5 bg-teal-500 text-white rounded-lg"
+            className=" border-none py-3 px-4 ms-3 mt-5 bg-teal-900 text-white rounded-lg"
             onClick={() =>
               document.getElementById("my_modal_5_pet_id_alerts").showModal()
             }
@@ -588,7 +590,7 @@ export default function PetDetail() {
           </div>
           <div>
             <button
-              className="border-none py-3 px-4 ms-3 mt-5 bg-teal-500 text-white rounded-lg inline-block"
+              className="border-none py-3 px-4 ms-3 mt-5 bg-teal-700 text-white rounded-lg inline-block"
               onClick={() =>
                 document.getElementById("my_modal_6_pet_id").showModal()
               }
@@ -608,20 +610,20 @@ export default function PetDetail() {
         <form
           method="dialog"
           onSubmit={handleSubmit}
-          className="border-2 border-[#0e0f11] bg-[#2b2f38] rounded-lg p-5"
+          className="border-2 border-gray-700 bg-gray-800 rounded-lg p-5"
         >
           <div className="flex justify-between">
             <div>
               {" "}
-              <h2 className="text-lg text-[#0e0f11]">General info</h2>
+              <h2 className="text-lg text-teal-500">General info</h2>
             </div>
             <div>
               {" "}
               <span onClick={() => toggleCollapse("generalInfo")}>
                 {collapseBox.generalInfo ? (
-                  <ChevronUpIcon className="h-6 w-6 text-[#0e0f11]" />
+                  <ChevronUpIcon className="h-6 w-6 text-teal-500" />
                 ) : (
-                  <ChevronDownIcon className="h-6 w-6 text-[#0e0f11]" />
+                  <ChevronDownIcon className="h-6 w-6 text-teal-500" />
                 )}
               </span>
             </div>
@@ -635,9 +637,19 @@ export default function PetDetail() {
                   onMouseLeave={() => setShowCamara(false)}
                 >
                   {/* <p>Profile Photo</p> */}
-                  {petInfo.profile_photo && (
+                  {petInfo.profile_photo ? (
                     <img
-                      src={petInfo.profile_photo} // Mostrará la foto actual
+                      src={petInfo.profile_photo}
+                      alt="defdefe"
+                      className={
+                        showCamara
+                          ? "w-32 h-32 object-cover rounded-full opacity-80 group-hover:opacity-60 transition-opacity duration-200"
+                          : "w-32 h-32 object-cover rounded-full mb-2"
+                      }
+                    />
+                  ) : (
+                    <img
+                      src="https://chap-blue.s3.us-east-2.amazonaws.com/Group+5350.png"
                       alt="defdefe"
                       className={
                         showCamara
@@ -909,19 +921,19 @@ export default function PetDetail() {
       </div>
 
       <div className="px-5">
-        <div className="border-2 border-[#0e0f11] bg-[#2b2f38] rounded-lg p-5">
+        <div className="border-2 border-gray-700 bg-gray-800 rounded-lg p-5">
           <div className="flex justify-between">
             <div>
               {" "}
-              <h2 className="text-lg text-[#0e0f11]">Crear historial médico</h2>
+              <h2 className="text-lg text-teal-500">Crear historial médico</h2>
             </div>
             <div>
               {" "}
               <span onClick={() => toggleCollapse("medicalHistory2")}>
                 {collapseBox.medicalHistory2 ? (
-                  <ChevronUpIcon className="h-6 w-6 text-[#0e0f11]" />
+                  <ChevronUpIcon className="h-6 w-6 text-teal-500" />
                 ) : (
-                  <ChevronDownIcon className="h-6 w-6 text-[#0e0f11]" />
+                  <ChevronDownIcon className="h-6 w-6 text-teal-500" />
                 )}
               </span>
             </div>
@@ -929,7 +941,16 @@ export default function PetDetail() {
 
           {collapseBox.medicalHistory2 ? (
             <div>
-              <div>
+              <div className="mt-5">
+                <div className="mb-5">
+                  <h2 className="text-1xl font-bold text-white">
+                    Agrega la Informacion medica general
+                  </h2>
+                  <small className="text-sm text-white">
+                    como si tienes un tramaention ahora o enfermedades para toda
+                    la vida, etc
+                  </small>
+                </div>
                 <div className="">
                   <label>Description</label>
                 </div>
@@ -1175,11 +1196,11 @@ export default function PetDetail() {
       </div>
 
       <div className="px-5 mt-5">
-        <div className="border-2 border-[#0e0f11] bg-[#2b2f38] rounded-lg p-5">
+        <div className="border-2 border-gray-700 bg-gray-800 rounded-lg p-5">
           <div className="flex justify-between">
             <div>
               {" "}
-              <h2 className="text-lg text-[#0e0f11]">
+              <h2 className="text-lg text-teal-500">
                 Crear visita al veterinario
               </h2>
             </div>
@@ -1187,16 +1208,26 @@ export default function PetDetail() {
               {" "}
               <span onClick={() => toggleCollapse("vetSession")}>
                 {collapseBox.vetSession ? (
-                  <ChevronUpIcon className="h-6 w-6 text-[#0e0f11]" />
+                  <ChevronUpIcon className="h-6 w-6 text-teal-500" />
                 ) : (
-                  <ChevronDownIcon className="h-6 w-6 text-[#0e0f11]" />
+                  <ChevronDownIcon className="h-6 w-6 text-teal-500" />
                 )}
               </span>
             </div>
           </div>
 
           {collapseBox.vetSession ? (
-            <div>
+            <div className="mt-5">
+              <div className="mb-5">
+                <h2 className="text-1xl font-bold text-white">
+                  Mientras mas visites agregues mas facil seria cuidar a tu
+                  mascota en una emergencia
+                </h2>
+                <small className="text-sm text-white">
+                  no te saltes nada y si te da fastidio escribir simplemnte sube
+                  el informe del medico.
+                </small>
+              </div>
               <div className="mb-4 w-full">
                 <label>address</label>
                 <input
@@ -1285,78 +1316,24 @@ export default function PetDetail() {
               </div>
 
               {/* Botón para crear el historial */}
-              <div className="flex justify-end mb-4 mt-4">
+              <div className="flex gap-3 flex-col md:flex-row justify-end mb-4 mt-4">
                 {" "}
                 <button
                   className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full md:w-auto"
                   onClick={handleCreateVetSession}
                   // disabled={loading}
                 >
-                  vet session
+                  Create vet session
+                </button>
+                <button
+                  className="border-none py-3 px-4  bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
+                  onClick={() =>
+                    document.getElementById("my_modal_7_pet_id").showModal()
+                  }
+                >
+                  Your vet visits
                 </button>
               </div>
-
-              {petByID?.medical_history?.length > 0 &&
-              petByID.medical_history[0].vets.length > 0 ? (
-                petByID.medical_history[0].vets.map((vetSession) => (
-                  <div
-                    key={vetSession.id}
-                    className="border p-4 mb-4 rounded-lg mb-3 shadow-md"
-                  >
-                    <h3 className="text-md font-semibold">
-                      Visita ID: {vetSession.id}
-                    </h3>
-                    <p>
-                      <strong>Dirección:</strong> {vetSession.address}
-                    </p>
-                    <p>
-                      <strong>Tratamiento:</strong> {vetSession.treatment}
-                    </p>
-                    <p>
-                      <strong>Causa:</strong> {vetSession.cause}
-                    </p>
-                    <p>
-                      <strong>Notas:</strong> {vetSession.notes}
-                    </p>
-                    <p>
-                      <strong>Notas Médicas:</strong> {vetSession.medical_notes}
-                    </p>
-                    <p>
-                      <strong>Costo:</strong>{" "}
-                      {vetSession.cost ? `$${vetSession.cost}` : "N/A"}
-                    </p>
-                    <p>
-                      <strong>url</strong>{" "}
-                      {vetSession?.documents?.map((item, index) => {
-                        return (
-                          <div key={index}>
-                            <p>{item.file_url}</p>
-                          </div>
-                        );
-                      })}
-                    </p>
-                    <div>
-                      <TrashIcon
-                        className="h-6 w-6 text-[#65bcbb]"
-                        onClick={() => {
-                          setVetIdToDelete(vetSession.id);
-                          setIsDeleteDialogOpen(true);
-                        }}
-                      />
-                    </div>
-                    <button
-                      className="border-none py-2 px-4 mt-3 bg-yellow-500 text-white rounded-lg"
-                      onClick={() => openEditModal(vetSession)}
-                    >
-                      Editar sesión
-                    </button>
-                  </div>
-                ))
-              ) : (
-                <p className="text-gray-500">
-                  No hay sesiones veterinarias registradas.
-                </p>
-              )}
             </div>
           ) : (
             ""
@@ -1365,26 +1342,36 @@ export default function PetDetail() {
       </div>
 
       <div className="px-5 mt-5">
-        <div className="border-2 border-[#0e0f11] bg-[#2b2f38] rounded-lg p-5">
+        <div className="border-2 border-gray-700 bg-gray-800 rounded-lg p-5">
           <div className="flex justify-between">
             <div>
               {" "}
-              <h2 className=" text-lg text-[#0e0f11]"> Create Vaccines</h2>
+              <h2 className=" text-lg text-teal-500"> Create Vaccines</h2>
             </div>
             <div>
               {" "}
               <span onClick={() => toggleCollapse("vaccines")}>
                 {collapseBox.vaccines ? (
-                  <ChevronUpIcon className="h-6 w-6 text-[#0e0f11]" />
+                  <ChevronUpIcon className="h-6 w-6 text-teal-500" />
                 ) : (
-                  <ChevronDownIcon className="h-6 w-6 text-[#0e0f11]" />
+                  <ChevronDownIcon className="h-6 w-6 text-teal-500" />
                 )}
               </span>
             </div>
           </div>
 
           {collapseBox.vaccines ? (
-            <div>
+            <div className="mt-5">
+              <div className="mb-5">
+                <h2 className="text-1xl font-bold text-white">
+                  el 80% de los duenos con mascotas no recuerdan con exactitud
+                  la vacuinancion de sus hijos
+                </h2>
+                <small className="text-sm text-white">
+                  venga son solo 4 inputs!! es mas facil que recoger la caca y
+                  lo haces!
+                </small>
+              </div>
               <div className="flex justify-between flex-col md:flex-row gap-2">
                 <div className="w-full ">
                   <div>
@@ -1442,7 +1429,7 @@ export default function PetDetail() {
                   />
                 </div>
               </div>
-              <div className="mt-3 flex justify-end">
+              <div className="mt-3 flex gap-3 justify-end">
                 <button
                   className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full md:w-auto"
                   onClick={handleCreateVaccine}
@@ -1450,35 +1437,14 @@ export default function PetDetail() {
                 >
                   {loading ? "Creando vacuna..." : "Crear Vacuna"}
                 </button>
-              </div>
-
-              <div>
-                Your vaccines:
-                {petByID.medical_history?.length > 0 &&
-                petByID.medical_history[0].vaccines?.length > 0 ? (
-                  petByID.medical_history[0].vaccines.map((vaccine) => (
-                    <div
-                      key={vaccine.id}
-                      className="border p-4 rounded-lg mb-3 shadow-md"
-                    >
-                      <p>Nombre: {vaccine.name}</p>
-                      <p>Tipo: {vaccine.vaccine_type}</p>
-                      <p>
-                        Fecha de administración: {vaccine.date_administered}
-                      </p>
-                      <p>Fecha de expiración: {vaccine.expiration_date}</p>
-                      <TrashIcon
-                        className="h-6 w-6 text-red-500 cursor-pointer"
-                        onClick={() => {
-                          setVaccineIdToDelete(vaccine.id);
-                          setIsDeleteVaccineDialogOpen(true);
-                        }}
-                      />
-                    </div>
-                  ))
-                ) : (
-                  <p>No hay vacunas registradas.</p>
-                )}
+                <button
+                  className="border-none py-3 px-4  bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
+                  onClick={() =>
+                    document.getElementById("my_modal_8_pet_id").showModal()
+                  }
+                >
+                  Your vacciness
+                </button>
               </div>
               <DeleteDialog
                 isOpen={isDeleteVaccineDialogOpen}
@@ -1719,7 +1685,7 @@ export default function PetDetail() {
                   <div className=" ">
                     <img
                       className="w-full md:w-[225px]"
-                      src="https://files.oaiusercontent.com/file-KbjTvrX2yEGoKk263cPQUo?se=2025-03-21T14%3A07%3A24Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Deb49cb05-2a39-4000-ac3b-49afab71b857.webp&sig=23bzJlNU90s0s00FPnai60CPDrqSFzBPjbS7eOSUmAs%3D"
+                      src="https://chap-blue.s3.us-east-2.amazonaws.com/ChatGPT+Image+Apr+14%2C+2025%2C+04_19_29+PM.png"
                       alt="dd"
                     />
                     <div className="mt-2">
@@ -1750,6 +1716,177 @@ export default function PetDetail() {
               );
             })}
           </div>
+          <div className="modal-action">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+
+      {/* //modal here to show medical vets  */}
+      <dialog id="my_modal_7_pet_id" className="modal">
+        <div className="modal-box w-full max-w-7xl">
+          <h3 className="font-bold text-lg">Hello!</h3>
+          <div className="p-5">
+            {petByID?.medical_history?.length > 0 &&
+            petByID.medical_history[0].vets.length > 0 ? (
+              petByID.medical_history[0].vets.map((vetSession) => (
+                <div
+                  key={vetSession.id}
+                  className="bg-gray-800 text-white p-6 mb-6 rounded-xl shadow-lg border border-gray-700"
+                >
+                  <h3 className="text-lg font-bold mb-2 text-teal-500">
+                    Visita ID: {vetSession.id}
+                  </h3>
+
+                  <div className="space-y-1 text-sm">
+                    <p>
+                      <span className="font-semibold text-gray-300">
+                        Dirección:
+                      </span>{" "}
+                      {vetSession.address}
+                    </p>
+                    <p>
+                      <span className="font-semibold text-gray-300">
+                        Tratamiento:
+                      </span>{" "}
+                      {vetSession.treatment}
+                    </p>
+                    <p>
+                      <span className="font-semibold text-gray-300">
+                        Causa:
+                      </span>{" "}
+                      {vetSession.cause}
+                    </p>
+                    <p>
+                      <span className="font-semibold text-gray-300">
+                        Notas:
+                      </span>{" "}
+                      {vetSession.notes}
+                    </p>
+                    <p>
+                      <span className="font-semibold text-gray-300">
+                        Notas Médicas:
+                      </span>{" "}
+                      {vetSession.medical_notes}
+                    </p>
+                    <p>
+                      <span className="font-semibold text-gray-300">
+                        Costo:
+                      </span>{" "}
+                      {vetSession.cost ? `$${vetSession.cost}` : "N/A"}
+                    </p>
+                  </div>
+
+                  {vetSession?.documents?.length > 0 && (
+                    <div className="mt-3">
+                      <p className="font-semibold text-gray-300">Documentos:</p>
+                      <ul className="list-disc list-inside text-sm text-teal-500">
+                        {vetSession.documents.map((item, index) => (
+                          <li key={index}>
+                            <a
+                              href={item.file_url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="underline hover:text-teal-500"
+                            >
+                              {item.filename}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  <div className="flex justify-between items-center mt-4">
+                    <button
+                      className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 rounded-md"
+                      onClick={() => openEditModal(vetSession)}
+                    >
+                      Editar sesión
+                    </button>
+
+                    <TrashIcon
+                      className="h-6 w-6 text-red-400 cursor-pointer hover:text-red-500"
+                      onClick={() => {
+                        setVetIdToDelete(vetSession.id);
+                        setIsDeleteDialogOpen(true);
+                      }}
+                    />
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-400">
+                No hay sesiones veterinarias registradas.
+              </p>
+            )}
+          </div>
+          <div className="modal-action">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+
+      {/* //modal here to vaccines  */}
+      <dialog id="my_modal_8_pet_id" className="modal">
+        <div className="modal-box w-full max-w-7xl">
+          <h3 className="font-bold text-lg">Hello!</h3>
+          <div>
+            Your vaccines:
+            {petByID.medical_history?.length > 0 &&
+            petByID.medical_history[0].vaccines?.length > 0 ? (
+              petByID.medical_history[0].vaccines.map((vaccine) => (
+                <div
+                  key={vaccine.id}
+                  className="bg-gray-800 text-white p-6 rounded-xl mb-4 shadow-lg border border-gray-700"
+                >
+                  <div className="space-y-1 text-sm">
+                    <p>
+                      <span className="font-semibold text-gray-300">
+                        Nombre:
+                      </span>{" "}
+                      {vaccine.name}
+                    </p>
+                    <p>
+                      <span className="font-semibold text-gray-300">Tipo:</span>{" "}
+                      {vaccine.vaccine_type}
+                    </p>
+                    <p>
+                      <span className="font-semibold text-gray-300">
+                        Fecha de administración:
+                      </span>{" "}
+                      {vaccine.date_administered}
+                    </p>
+                    <p>
+                      <span className="font-semibold text-gray-300">
+                        Fecha de expiración:
+                      </span>{" "}
+                      {vaccine.expiration_date}
+                    </p>
+                  </div>
+
+                  <div className="flex justify-end mt-4">
+                    <TrashIcon
+                      className="h-6 w-6 text-red-400 cursor-pointer hover:text-red-500"
+                      onClick={() => {
+                        setVaccineIdToDelete(vaccine.id);
+                        setIsDeleteVaccineDialogOpen(true);
+                      }}
+                    />
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-400">No hay vacunas registradas.</p>
+            )}
+          </div>
+
           <div className="modal-action">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}

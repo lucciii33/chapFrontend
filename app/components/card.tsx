@@ -122,7 +122,7 @@ export default function Card({ petObj }: CardProps) {
             src={
               petObj.profile_photo
                 ? petObj.profile_photo
-                : "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                : "https://chap-blue.s3.us-east-2.amazonaws.com/Group+5350.png"
             }
             alt="Shoes"
             className="w-full h-64 object-cover"

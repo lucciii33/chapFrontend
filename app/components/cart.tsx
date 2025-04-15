@@ -62,7 +62,7 @@ export default function Cart() {
                 <div>
                   <img
                     className=""
-                    src="https://s.alicdn.com/@sc04/kf/H623bd864f88641ab95a88756ed36cd903.jpg_720x720q50.jpg"
+                    src="https://chap-blue.s3.us-east-2.amazonaws.com/ChatGPT+Image+Apr+14%2C+2025%2C+04_19_29+PM.png"
                     alt="dd"
                   />
                 </div>
@@ -83,9 +83,9 @@ export default function Cart() {
                 </p>
               </div>
               <div className="mt-3">
-                <button className="border-none py-3 px-4 bg-cyan-500 text-white rounded-lg">
+                <button className="border-none py-3 px-4 bg-teal-500 text-white rounded-lg">
                   <TrashIcon
-                    className="h-6 w-6 text-gray-500"
+                    className="h-6 w-6 text-white"
                     // onClick={async () => {
                     //   await deleteCartById(item.id);
                     //   getCartByUser(user.id);
@@ -97,7 +97,7 @@ export default function Cart() {
                   />
                 </button>
                 <button
-                  className="border-none py-3 px-4 ms-3 bg-cyan-500 text-white rounded-lg"
+                  className="border-none py-3 px-4 ms-3 bg-teal-500 text-white rounded-lg"
                   onClick={() =>
                     handleIncrement(
                       item.id,
@@ -108,7 +108,7 @@ export default function Cart() {
                     )
                   }
                 >
-                  <PlusIcon className="h-6 w-6 text-gray-500" />
+                  <PlusIcon className="h-6 w-6 text-white" />
                 </button>
               </div>
             </div>
@@ -116,7 +116,7 @@ export default function Cart() {
         })}
       </div>
       <Link to="/checkout">
-        <button className="border-2 mt-5 w-full border-cyan-500 rounded-full px-6 py-2 bg-transparent">
+        <button className="w-full border-none py-3 px-4 mt-5 bg-teal-500 text-white rounded-lg">
           Pay now
         </button>
       </Link>
