@@ -1,4 +1,4 @@
-import { Link, useParams } from "@remix-run/react";
+import { Link, useParams, useNavigate } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import {
   TrashIcon,
@@ -14,11 +14,14 @@ import TravelModeForm from "~/components/travelMode";
 import "../../styles/dashboard.css";
 
 export default function PetDetail() {
-  const { pet, cart, auth, medicalHistory, tag, travelMode } =
+  const { pet, cart, auth, medicalHistory, tag, travelMode, comingFromCard } =
     useGlobalContext();
-  const { getPetById, petByID, editPet } = pet;
+  const navigate = useNavigate();
+
+  const { getPetById, petByID, editPet, deletePetById } = pet;
   const { createCart, cartProfile, getCartByUser } = cart;
   const { deletePetTag } = tag;
+  const { comingFromCardButton, setComingFromCardButton } = comingFromCard;
   const {
     createMedicalHistory,
     deleteMedicalHistory,
@@ -37,6 +40,7 @@ export default function PetDetail() {
   const [loading, setLoading] = useState(false);
   const [vetIdToDelete, setVetIdToDelete] = useState<number | null>(null);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isDeletePetDialogOpen, setIsDeletePetDialogOpen] = useState(false);
 
   const [docIdToDelete, setDocIdToDelete] = useState<number | null>(null);
   const [isDeleteDocDialogOpen, setIsDeleteDocDialogOpen] = useState(false);
@@ -564,7 +568,18 @@ export default function PetDetail() {
     }
   };
 
-  console.log("petByID.medical_history[0]", petByID.medical_history[0]);
+  const confirmPetDelete = async () => {
+    if (petByID.id !== null) {
+      const success = await deletePetById(petByID.id);
+      if (success) {
+        navigate("/dashboard");
+      }
+    }
+  };
+
+  const openPetDeleteModal = () => {
+    setIsDeletePetDialogOpen(true);
+  };
 
   return (
     <div className="">
@@ -590,10 +605,15 @@ export default function PetDetail() {
           </div>
           <div>
             <button
-              className="border-none py-3 px-4 ms-3 mt-5 bg-teal-700 text-white rounded-lg inline-block"
-              onClick={() =>
-                document.getElementById("my_modal_6_pet_id").showModal()
-              }
+              className={`border-none py-3 px-4 ms-3 mt-5 bg-teal-700 text-white rounded-lg inline-block font-semibold transition-all duration-300 ${
+                comingFromCardButton ? "animate-glow" : ""
+              }`}
+              onClick={() => {
+                document.getElementById("my_modal_6_pet_id").showModal();
+                setTimeout(() => {
+                  setComingFromCardButton(false);
+                }, 4000);
+              }}
             >
               Your Tags
             </button>
@@ -1469,58 +1489,25 @@ export default function PetDetail() {
         />
       </div>
 
-      {/* <div className="p-3">
-        <h1 className="font-bold text-4xl" style={{ fontFamily: "chapFont" }}>
-          Your tags:
-        </h1>
-      </div> */}
-
-      {/* <div className="flex gap-5 items-center flex-col md:flex-row p-5">
-        {petByID?.tags.map((tag) => {
-          return (
-            <div
-              key={tag.id}
-              className="border -2 border-[#65bcbb] rounded-lg p-5 w-full md:w-[250px]"
-            >
-              <div className=" ">
-                <img
-                  className="w-full md:w-[225px]"
-                  src="https://files.oaiusercontent.com/file-KbjTvrX2yEGoKk263cPQUo?se=2025-03-21T14%3A07%3A24Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Deb49cb05-2a39-4000-ac3b-49afab71b857.webp&sig=23bzJlNU90s0s00FPnai60CPDrqSFzBPjbS7eOSUmAs%3D"
-                  alt="dd"
-                />
-                <div className="mt-2">
-                  <p>
-                    Color:<strong>{tag.color}</strong>{" "}
-                  </p>
-                  <p className="">
-                    Shape: <strong>{tag.shape}</strong>{" "}
-                  </p>
-                </div>
-                <div className="mt-4 flex justify-between gap-3 w-full">
-                  <button
-                    className=" border-none py-3 px-4 bg-teal-700 text-white rounded-lg"
-                    onClick={() => addToCart(tag.id)}
-                  >
-                    Add to cart
-                  </button>
-                  <button
-                    onClick={() => openDeleteModal(tag.id)}
-                    className=" border-none py-3 px-4 bg-teal-500 text-white rounded-lg"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div> */}
+      <div className="px-5 flex items-center">
+        <div>I want to delete this pet</div>
+        <div className="" onClick={openPetDeleteModal}>
+          <TrashIcon className="w-6 h-6" />
+        </div>
+      </div>
 
       <DeleteDialog
         isOpen={isDeleteOpen}
         onClose={closeDeleteModal}
         onConfirm={confirmDelete}
         itemName="este tag"
+      />
+
+      <DeleteDialog
+        isOpen={isDeletePetDialogOpen}
+        onClose={() => setIsDeletePetDialogOpen(false)}
+        onConfirm={confirmPetDelete}
+        itemName={`the pet ${petByID.name}`}
       />
 
       {/* //modal here to change image  */}

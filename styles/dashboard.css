@@ -84,6 +84,22 @@
   font-style: normal;
 }
 
+@keyframes glowBounce {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0px #34d399;
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 18px #34d399;
+  }
+}
+
+.animate-glow {
+  animation: glowBounce 2s ease-in-out infinite;
+}
+
 /* @font-face {
   font-family: "chapFont";
   src: url("/fonts/SuperCottage.ttf") format("truetype");

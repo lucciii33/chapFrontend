@@ -17,17 +17,17 @@ import {
 } from "@heroicons/react/24/solid";
 
 export default function Dashboard() {
-  const { auth, pet, tag, cart } = useGlobalContext(); // Accede a la info del usuario
+  const { auth, pet, tag, cart } = useGlobalContext();
   const user = auth.user;
   const { createPet, getPets, allPets, petProfile } = pet;
   const { createTag, tagInfo } = tag;
   const { createCart, cartProfile, getCartByUser } = cart;
   const [tagInfoData, setTagInfoData] = useState({
-    shape: "circular", // Valor por defecto
+    shape: "circular",
     name: true,
     continue_later: false,
-    material: "wood", // Valor por defecto
-    color: "blue", // Puede ser vacío si se espera llenar
+    material: "wood",
+    color: "blue",
   });
 
   const [petInfo, setPetInfo] = useState({
@@ -49,6 +49,8 @@ export default function Dashboard() {
     show_medical_history: false,
     show_travel_mode: false,
   });
+
+  console.log("allPets", allPets);
 
   console.log("petInfopetInfopetInfo", petInfo);
   const [welcomeModal, setWelcomeModal] = useState(true);

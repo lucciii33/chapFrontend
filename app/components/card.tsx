@@ -29,13 +29,15 @@ type CardProps = {
 };
 export default function Card({ petObj }: CardProps) {
   const [selectPetId, setSelectPetId] = useState<number | null>(null);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   console.log("selectPetId", selectPetId);
-  const { auth, pet, tag, cart } = useGlobalContext();
+  const { auth, pet, tag, cart, comingFromCard } = useGlobalContext();
   const { createTag, tagInfo } = tag;
   const { actSideBar, selectPetIdForTag, selectPetIdNew } = cart;
-  console.log("selectPetIdNew", selectPetIdNew);
+  console.log("petObjpetObjpetObjpetObjpetObj", petObj);
   // Accede a la info del usuario
+
   const user = auth.user;
 
   const { deletePetById, getPets } = pet;
@@ -69,6 +71,10 @@ export default function Card({ petObj }: CardProps) {
     document.getElementById("my_modal_2").showModal();
     console.log("ID recibido para comprar tag:", id);
     selectPetIdForTag(id); // Cambia el estado
+  };
+
+  const handleClickCommingFromLink = () => {
+    comingFromCard.setComingFromCardButton(true);
   };
 
   const handleTagChange = (
@@ -108,13 +114,24 @@ export default function Card({ petObj }: CardProps) {
         className=" relative card bg-base-100 w-96 shadow-xl border-[5px] border-[#0e0f11] bg-[#2b2f38] "
         style={{ zIndex: actSideBar ? -10 : "auto" }}
       >
-        <div className="absolute bottom-[88%] left-[64%] transform -translate-x-1/2 w-[90%]">
-          <Link to={`/trackerPet/${petObj.id}`}>
+        <div className="absolute bottom-[59%] left-[104%] transform -translate-x-1/2 w-[90%]">
+          {/* <Link to={`/trackerPet/${petObj.id}`}>
             <button className=" bg-white text-emerald-800 shadow-md rounded-md px-2 py-2 w-full flex justify-center items-center gap-2">
               <MapPinIcon className="h-5 w-5" />
               ¡Trackea aquí tu perro!
             </button>
-          </Link>
+          </Link> */}
+
+          {petObj?.tags && petObj?.tags.length > 0 && (
+            <Link
+              to={`/pets/${petObj.id}`}
+              onClick={handleClickCommingFromLink}
+            >
+              <div className="bg-emerald-100 text-emerald-800 rounded-full px-4 py-1 text-xs font-semibold inline-block shadow-sm">
+                Your dog has tags
+              </div>
+            </Link>
+          )}
         </div>
 
         <figure>
@@ -140,12 +157,12 @@ export default function Card({ petObj }: CardProps) {
             </div>
 
             <div className="card-actions justify-end ms-2">
-              <button
+              {/* <button
                 className="h-6 w-6 text-teal-500"
                 onClick={() => grabpetIdToDelete(petObj.id)}
               >
                 <TrashIcon />
-              </button>
+              </button> */}
             </div>
           </div>
           <p>
@@ -183,12 +200,16 @@ export default function Card({ petObj }: CardProps) {
               </button>
             </Link>
 
-            <button
-              className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full"
-              onClick={() => handleBuyTag(petObj.id)}
-            >
-              Buy A tag
-            </button>
+            {petObj?.tags && petObj?.tags.length > 0 ? (
+              ""
+            ) : (
+              <button
+                className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full"
+                onClick={() => handleBuyTag(petObj.id)}
+              >
+                Ceate A tag
+              </button>
+            )}
           </div>
         </div>
       </div>
