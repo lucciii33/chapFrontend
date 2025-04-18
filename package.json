@@ -20,6 +20,7 @@
     "@remix-run/serve": "^2.15.0",
     "@stripe/react-stripe-js": "^3.0.0",
     "@stripe/stripe-js": "^5.2.0",
+    "axios": "^1.8.4",
     "daisyui": "^5.0.0",
     "i18next": "^24.2.3",
     "isbot": "^4.1.0",
