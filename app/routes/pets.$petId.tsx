@@ -12,11 +12,14 @@ import DeleteDialog from "~/components/deleteDialog";
 import ScheduleAlertForm from "~/components/ScheduleAlertForm";
 import TravelModeForm from "~/components/travelMode";
 import "../../styles/dashboard.css";
+import { showErrorToast } from "~/utils/toast";
 
 export default function PetDetail() {
   const { pet, cart, auth, medicalHistory, tag, travelMode, comingFromCard } =
     useGlobalContext();
   const navigate = useNavigate();
+  const [highlightMedicalBox, setHighlightMedicalBox] = useState(false);
+  console.log("highlightMedicalBox", highlightMedicalBox);
 
   const { getPetById, petByID, editPet, deletePetById } = pet;
   const { createCart, cartProfile, getCartByUser } = cart;
@@ -96,8 +99,6 @@ export default function PetDetail() {
       closeDeleteModal();
     }
   };
-
-  console.log("vaccineDatavaccineData", vaccineData);
 
   const handleVaccineInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -370,6 +371,7 @@ export default function PetDetail() {
       } else {
         // Si no existe, crea uno nuevo
         response = await createMedicalHistory(Number(petId), body);
+        setHighlightMedicalBox(false);
       }
 
       if (response) {
@@ -392,7 +394,10 @@ export default function PetDetail() {
       !petByID.medical_history ||
       petByID.medical_history.length === 0
     ) {
-      setMessage("No hay historial médico para asociar la sesión veterinaria.");
+      showErrorToast(
+        "Debes crear primero el historial médico para poder registrar una visita."
+      );
+      setHighlightMedicalBox(true);
       return;
     }
 
@@ -941,7 +946,13 @@ export default function PetDetail() {
       </div>
 
       <div className="px-5">
-        <div className="border-2 border-gray-700 bg-gray-800 rounded-lg p-5">
+        <div
+          className={`border-2 bg-gray-800 rounded-lg p-5 transition-all duration-300 ${
+            highlightMedicalBox
+              ? "border-red-500 ring-2 ring-red-500 shadow-md shadow-red-500"
+              : "border-gray-700"
+          }`}
+        >
           <div className="flex justify-between">
             <div>
               {" "}
