@@ -12,6 +12,7 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 
 import { useState, useEffect } from "react";
 import DeleteDialogAdmin from "~/components/deleteDialogAdmin";
+import Pagination from "~/components/pagination";
 
 export default function AdminDashboard() {
   const { orders } = useGlobalContext(); // Accede a la info del usuario
@@ -19,11 +20,12 @@ export default function AdminDashboard() {
   const [showOrder, setShowOrder] = useState(false);
 
   const [allOrders, setAllOrders] = useState([]);
+  const [filterCountry, setFilterCountry] = useState("");
+  const [filterDate, setFilterDate] = useState("");
   console.log("allOrders", allOrders);
-
+  console.log("filterDate", filterDate);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState<number | null>(null);
-  console.log("selectedOrderId", selectedOrderId);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [newStatus, setNewStatus] = useState<string>("pending");
 
@@ -101,49 +103,92 @@ export default function AdminDashboard() {
     }
   };
 
+  const filteredOrders = allOrders.filter((order) => {
+    const countryMatch = filterCountry
+      ? order.shipping_address.country
+          .toLowerCase()
+          .includes(filterCountry.toLowerCase())
+      : true;
+
+    const dateMatch = filterDate
+      ? new Date(order.created_at).toISOString().slice(0, 10) === filterDate
+      : true;
+
+    return countryMatch && dateMatch;
+  });
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const indexOfLastItem = currentPage * itemsPerPage;
+
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  const currentOrders = filteredOrders.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
+
+  const handleDownloadQR = async (url: string, fileName: string) => {
+    try {
+      const response = await fetch(url, { mode: "cors" });
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Limpia la URL del blob
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error("❌ Error descargando el QR:", error);
+    }
+  };
+
   return (
     <div className="p-[40px]">
       <div className="flex">
         <div className="mb-2 mt-3">
-          <label className="block text-slate-50">date</label>
+          <label className="block text-black">date</label>
           <input
             className="w-full px-4 py-2 border rounded-lg"
             placeholder="Country"
-            name="country"
+            name="filterDate"
             type="date"
-            // value={formData.country}
-            // onChange={handleChange}
+            value={filterDate}
+            onChange={(e) => setFilterDate(e.target.value)}
           />
         </div>
         <div className="mb-2 mt-3 ms-2">
-          <label className="block text-slate-50">By user id</label>
+          <label className="block text-black">By user id</label>
           <input
             className="w-full px-4 py-2 border rounded-lg"
             placeholder="user id"
-            name="country"
-            // value={formData.country}
-            // onChange={handleChange}
+            // name="country"
+            // value={filterCountry}
+            // onChange={(e) => setFilterCountry(e.target.value)}
           />
         </div>
 
         <div className="mb-2 mt-3 ms-2">
-          <label className="block text-slate-50">By country</label>
+          <label className="block text-black">By country</label>
           <input
             className="w-full px-4 py-2 border rounded-lg"
             placeholder="user id"
             name="country"
-            // value={formData.country}
-            // onChange={handleChange}
+            value={filterCountry}
+            onChange={(e) => setFilterCountry(e.target.value)}
           />
         </div>
       </div>
-      {allOrders.length === 0 ? (
+      {currentOrders.length === 0 ? (
         <p>No hay órdenes disponibles.</p>
       ) : (
-        allOrders.map((order) => (
+        currentOrders.map((order) => (
           <div
             key={order.id}
-            className="bg-white h-auto w-full mt-5 rounded-lg p-4"
+            className="bg-white  text-black h-auto w-full mt-5 rounded-lg p-4"
           >
             <div className="flex justify-between items-center">
               <div className="flex">
@@ -198,11 +243,49 @@ export default function AdminDashboard() {
                     <p>
                       <strong>Precio:</strong> ${item.price}
                     </p>
-                    <img
-                      src={item.tag.qr_url_link}
-                      alt="QR Code"
-                      className="w-20 h-20 mt-2"
-                    />
+                    <button
+                      onClick={() =>
+                        handleDownloadQR(
+                          item.tag.qr_url_link,
+                          `qr_${item.pet.name || "tag"}.png`
+                        )
+                      }
+                    >
+                      <img
+                        src={item.tag.qr_url_link}
+                        alt="QR Code"
+                        className="w-20 h-20 mt-2"
+                      />
+                    </button>
+
+                    <div>
+                      <h2>
+                        <strong>shipping address</strong>
+                      </h2>
+                      <p>
+                        <strong>Street address:</strong>{" "}
+                        {order.shipping_address.street_address}
+                      </p>
+                      <p>
+                        {" "}
+                        <strong>state:</strong> {order.shipping_address.state}
+                      </p>
+                      <p>
+                        <strong>postal_code:</strong>{" "}
+                        {order.shipping_address.postal_code}
+                      </p>
+                      <p>
+                        <strong>country</strong>{" "}
+                        {order.shipping_address.country}
+                      </p>
+                      <p>
+                        <strong>city</strong> {order.shipping_address.city}
+                      </p>
+                      <p>
+                        <strong>apartment</strong>{" "}
+                        {order.shipping_address.apartment}
+                      </p>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -261,6 +344,11 @@ export default function AdminDashboard() {
           </div>
         </div>
       )}
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        setCurrentPage={setCurrentPage}
+      />
       <DeleteDialogAdmin
         isOpen={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}

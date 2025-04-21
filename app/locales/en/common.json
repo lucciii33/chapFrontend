@@ -58,5 +58,13 @@
       "scroll.text1": "Your pet is <strong class='text-color-bg'>unique</strong>. So is their tag. 🐾✨",
       "scroll.text2": "The world may be huge, but with <strong class='text-color-bg'>just one scan</strong>,<br/> you’ll always know where they are.",
       "scroll.text3": "All their <strong class='text-color-bg'>care</strong>, <strong class='text-color-bg-2'>adventures</strong>, and <strong class='text-color-bg-3'>history</strong> at the palm of your hand."
+    },
+
+    "navbar": {
+      "login": "Login",
+      "dashboard": "Dashboard",
+      "logout": "Logout"
     }
+
+
 }

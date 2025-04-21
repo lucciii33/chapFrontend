@@ -5,6 +5,7 @@ import {
   PowerIcon,
   UserIcon,
   ShoppingCartIcon,
+  Bars3Icon,
 } from "@heroicons/react/24/solid";
 import { useGlobalContext } from "../context/GlobalProvider"; // Ajusta el path
 import { Link } from "@remix-run/react";
@@ -17,6 +18,9 @@ export default function Navbar() {
   const { activateSideBar, actSideBar, closeSideBar } = cart;
   console.log("actSideBar", actSideBar);
   const { t, i18n } = useTranslation();
+  console.log("t", t);
+  const [open, setOpen] = useState(false);
+  console.log("open", open);
 
   const toggleLang = () => {
     const nextLang = i18n.language === "es" ? "en" : "es";
@@ -31,6 +35,56 @@ export default function Navbar() {
     document.documentElement.setAttribute("data-theme", newTheme);
   };
 
+  const renderLinks = () => (
+    <>
+      {user ? (
+        <>
+          <button className="btn" onClick={logout}>
+            {t("navbar.logout")}
+          </button>
+          <Link to="/dashboard">
+            <button className="btn w-full md:w-atuo">
+              {t("navbar.dashboard")}
+            </button>
+          </Link>
+          <label
+            htmlFor="my-drawer-4"
+            className="drawer-button btn"
+            onClick={activateSideBar}
+          >
+            <ShoppingCartIcon className="h-6 w-6 text-teal-500" />
+          </label>
+          <button
+            className="btn text-teal-500"
+            onClick={toggleLang}
+            title={
+              i18n.language === "es" ? "Cambiar a inglés" : "Switch to Spanish"
+            }
+          >
+            {i18n.language === "es" ? "ES" : "EN"}
+          </button>
+        </>
+      ) : (
+        <>
+          <Link to="/login">
+            <button className="btn w-full md:w-auto">
+              {t("navbar.login")}
+            </button>
+          </Link>
+          <button
+            className="btn text-teal-500"
+            onClick={toggleLang}
+            title={
+              i18n.language === "es" ? "Cambiar a inglés" : "Switch to Spanish"
+            }
+          >
+            {i18n.language === "es" ? "ES" : "EN"}
+          </button>
+        </>
+      )}
+    </>
+  );
+
   return (
     <>
       <nav className="p-4 flex justify-between items-center bg-zinc-950">
@@ -44,87 +98,18 @@ export default function Navbar() {
             </h1>
           </Link>
         </div>
-        {/* <div className="text-white flex">
-          <div className="ms-2">
-            {" "}
-            <p>the foudners</p>
-          </div>
-          <div className="ms-2">
-            {" "}
-            <p>Our bussines</p>
-          </div>
-        </div> */}
-        <div>
-          {user ? (
-            <div>
-              <button className="btn ms-2" onClick={logout}>
-                logout
-                {/* <PowerIcon className="h-6 w-6 text-red-500" /> */}
-              </button>
-              {/* <button className="btn ms-2" onClick={toggleTheme}>
-                {theme === "light" ? (
-                  <MoonIcon className="h-6 w-6 text-blue-500" />
-                ) : (
-                  <SunIcon className="h-6 w-6 text-yellow-500 " />
-                )}
-              </button> */}
-              <Link to="/dashboard">
-                <button className="btn ms-2">
-                  {/* {t("login")} */}
-                  Dashboard
-                </button>
-              </Link>
-              <label
-                htmlFor="my-drawer-4"
-                className="drawer-button btn ms-2"
-                onClick={() => activateSideBar()}
-              >
-                <ShoppingCartIcon className="h-6 w-6 text-teal-500" />
-              </label>
-              <div
-                className="btn ms-2 d-flex justify-center items-center"
-                onClick={toggleLang}
-              >
-                <button
-                  className="text-teal-500"
-                  title={
-                    i18n.language === "es"
-                      ? "Cambiar a inglés"
-                      : "Switch to Spanish"
-                  }
-                >
-                  {i18n.language === "es" ? "ES" : "EN"}
-                </button>
-              </div>
-            </div>
-          ) : (
-            <div className="flex">
-              <Link to="/login">
-                <button className="btn ms-2">
-                  {/* {t("login")} */}
-                  LOGIN
-                </button>
-              </Link>
+        <div className="hidden md:flex gap-4 items-center">{renderLinks()}</div>
 
-              <div
-                className="btn ms-2 d-flex justify-center items-center"
-                onClick={toggleLang}
-              >
-                <button
-                  className="text-teal-500"
-                  title={
-                    i18n.language === "es"
-                      ? "Cambiar a inglés"
-                      : "Switch to Spanish"
-                  }
-                >
-                  {i18n.language === "es" ? "ES" : "EN"}
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
+        <button className="md:hidden" onClick={() => setOpen(!open)}>
+          <Bars3Icon className="h-6 w-6" />
+        </button>
       </nav>
+
+      {open && (
+        <div className="md:hidden bg-zinc-950 flex flex-col gap-4 p-4">
+          {renderLinks()}
+        </div>
+      )}
 
       <div className="drawer drawer-end">
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -134,7 +119,7 @@ export default function Navbar() {
             htmlFor="my-drawer-4"
             aria-label="close sidebar"
             className="drawer-overlay"
-            onClick={() => closeSideBar()} // Actualiza el estado global al cerrar
+            onClick={() => closeSideBar()}
           ></label>
           <div className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
             {/* Sidebar content here */}

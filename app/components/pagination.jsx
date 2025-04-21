@@ -4,7 +4,7 @@ export default function Pagination({
   setCurrentPage,
 }) {
   return (
-    <div className="join">
+    <div className="join mt-3">
       {Array.from({ length: totalPages }).map((_, index) => (
         <button
           key={index}

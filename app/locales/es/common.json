@@ -57,6 +57,12 @@
       "scroll.text1": "Tu perro <strong class='text-color-bg'>es único</strong>. Su Dog Tag también. 🐾✨",
       "scroll.text2": "El mundo puede ser enorme, pero con un <strong class='text-color-bg'>simple escaneo</strong>,<br /> siempre sabrás dónde está.",
       "scroll.text3": "Todo su <strong class='text-color-bg'>cuidado</strong>, sus <strong class='text-color-bg-2'>aventuras</strong>, su <strong class='text-color-bg-3'>historia...</strong> al alcance de tu mano."
+    },
+    
+    "navbar": {
+      "login": "Inicio ",
+      "dashboard": "Panel",
+      "logout": "Abandonar"
     }
     
   }
