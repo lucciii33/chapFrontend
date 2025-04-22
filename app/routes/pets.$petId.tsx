@@ -44,6 +44,8 @@ export default function PetDetail() {
   const [vetIdToDelete, setVetIdToDelete] = useState<number | null>(null);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isDeletePetDialogOpen, setIsDeletePetDialogOpen] = useState(false);
+  const [vaccineErrors, setVaccineErrors] = useState({});
+  const [medicalErrors, setMedicalErrors] = useState({});
 
   const [docIdToDelete, setDocIdToDelete] = useState<number | null>(null);
   const [isDeleteDocDialogOpen, setIsDeleteDocDialogOpen] = useState(false);
@@ -76,6 +78,17 @@ export default function PetDetail() {
     date_administered: "",
     expiration_date: "",
   });
+
+  const validateVaccineData = (data) => {
+    const errors = {};
+
+    if (!data.name.trim()) errors.name = true;
+    if (!data.date_administered.trim()) errors.date_administered = true;
+    if (!data.expiration_date.trim()) errors.expiration_date = true;
+
+    setVaccineErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [tagToDelete, setTagToDelete] = useState<number | null>(null);
@@ -110,6 +123,8 @@ export default function PetDetail() {
   };
 
   const handleCreateVaccine = async () => {
+    if (!validateVaccineData(vaccineData)) return;
+
     if (
       !petByID ||
       !petByID.medical_history ||
@@ -144,8 +159,6 @@ export default function PetDetail() {
       setLoading(false);
     }
   };
-
-  console.log("petVetInfo", petVetInfo);
 
   const handleChangeVet = (e) => {
     const { name, value, type, checked, files } = e.target;
@@ -274,8 +287,6 @@ export default function PetDetail() {
     return <div>Cargando los detalles de la mascota...</div>;
   }
 
-  console.log("petttttt", petId);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked, files } = e.target;
 
@@ -353,9 +364,18 @@ export default function PetDetail() {
     }));
   };
 
+  const validateMedicalHistoryData = (data) => {
+    const errors = {};
+
+    if (!data.description.trim()) errors.description = true;
+    setMedicalErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleCreateOrEditMedicalHistory = async () => {
-    if (!petByID || !petId || !medicalHistoryData.description.trim()) {
-      setMessage("La descripción no puede estar vacía.");
+    if (!validateMedicalHistoryData(medicalHistoryData)) return;
+    if (!petByID || !petId) {
+      setMessage("You need a pet id");
       return;
     }
 
@@ -485,9 +505,9 @@ export default function PetDetail() {
       cause: vetSession.cause || "",
       cost: vetSession.cost ? String(vetSession.cost) : "",
       medical_notes: vetSession.medical_notes || "",
-      files: [], // No tocar archivos nuevos aquí
-      existingFiles: vetSession.documents || [], // Cargar documentos actuales
-      id: vetSession.id, // Guardar el ID de la sesión para editar
+      files: [],
+      existingFiles: vetSession.documents || [],
+      id: vetSession.id,
     });
 
     document.getElementById("my_modal_4_pet_id").showModal();
@@ -504,7 +524,6 @@ export default function PetDetail() {
         document.getElementById("my_modal_4_pet_id").close();
         getPetById(Number(petId));
 
-        // 🔥 Actualizamos la lista para que desaparezca el documento sin recargar la página
         setPetVetInfo((prevInfo) => ({
           ...prevInfo,
           existingFiles: prevInfo.existingFiles.filter(
@@ -558,10 +577,8 @@ export default function PetDetail() {
   const handleCreateOrEditCareProfile = async (formData) => {
     try {
       if (petByID.care_profile) {
-        // Ya existe → Editamos
         await travelMode.updateTravelMode(petByID.care_profile.id, formData);
       } else {
-        // No existe → Creamos
         await travelMode.createTravelMode(formData);
       }
 
@@ -989,7 +1006,11 @@ export default function PetDetail() {
                   name="description"
                   value={medicalHistoryData.description}
                   onChange={handleInputChange}
-                  className="w-full p-2 border rounded-lg mb-3"
+                  className={`w-full p-2 border rounded-lg mb-3 ${
+                    medicalErrors.description
+                      ? "border-red-500"
+                      : "border-gray-300"
+                  }`}
                   placeholder="Escribe la descripción del historial médico aquí..."
                   rows={5}
                 />
@@ -1410,7 +1431,9 @@ export default function PetDetail() {
                   </div>
                   <input
                     type="text"
-                    className="w-full px-4 py-2 border rounded-lg"
+                    className={`w-full px-4 py-2 border rounded-lg ${
+                      vaccineErrors.name ? "border-red-500" : "border-gray-300"
+                    }`}
                     placeholder="name of the vaccine"
                     name="name"
                     value={vaccineData.name}
@@ -1439,7 +1462,11 @@ export default function PetDetail() {
                   </div>
                   <input
                     type="date"
-                    className="w-full px-4 py-2 border rounded-lg"
+                    className={`w-full px-4 py-2 border rounded-lg ${
+                      vaccineErrors.date_administered
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    }`}
                     placeholder="date_administered"
                     name="date_administered"
                     value={vaccineData.date_administered}
@@ -1452,7 +1479,11 @@ export default function PetDetail() {
                   </div>
                   <input
                     type="date"
-                    className="w-full px-4 py-2 border rounded-lg"
+                    className={`w-full px-4 py-2 border rounded-lg ${
+                      vaccineErrors.expiration_date
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    }`}
                     placeholder="expiration_date"
                     name="expiration_date"
                     value={vaccineData.expiration_date}

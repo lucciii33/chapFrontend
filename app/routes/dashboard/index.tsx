@@ -15,6 +15,7 @@ import {
   CheckCircleIcon,
   WrenchScrewdriverIcon,
 } from "@heroicons/react/24/solid";
+import { showErrorToast } from "~/utils/toast";
 
 export default function Dashboard() {
   const { auth, pet, tag, cart } = useGlobalContext();
@@ -26,16 +27,16 @@ export default function Dashboard() {
     shape: "circular",
     name: true,
     continue_later: false,
-    material: "wood",
-    color: "blue",
+    material: "aluminum",
+    color: "",
   });
 
   const [petInfo, setPetInfo] = useState({
     name: "",
-    age: 0, // Asegúrate de que sea un número
+    age: 0,
     personality: "",
     address: "",
-    phone_number: "", // Esto puede ser string, pero no deberías cambiarlo a número si no es necesario
+    phone_number: "",
     phone_number_optional: "",
     profile_photo: undefined,
     pet_color: "",
@@ -45,18 +46,18 @@ export default function Dashboard() {
     neighbourhood: "",
     mom_name: "",
     dad_name: "",
-    chip_number: 0, // Similar a phone_number, si es número debe estar bien definido
+    chip_number: 0,
     show_medical_history: false,
     show_travel_mode: false,
   });
 
-  console.log("allPets", allPets);
-
-  console.log("petInfopetInfopetInfo", petInfo);
   const [welcomeModal, setWelcomeModal] = useState(true);
   const [petInfoModal, setPetInfoModal] = useState(false);
   const [petChapModal, setPetChapModal] = useState(false);
   const [addTocardOrBuy, setAddTocardOrBuy] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [errorsTag, setErrorsTag] = useState({});
+
   const navigate = useNavigate();
 
   const tagImages = [
@@ -101,8 +102,39 @@ export default function Dashboard() {
     return result;
   };
 
+  const validatePetInfo = (info) => {
+    const newErrors = {};
+
+    if (!info.name.trim()) newErrors.name = true;
+    if (!info.mom_name.trim()) newErrors.mom_name = true;
+    if (!info.dad_name.trim()) newErrors.dad_name = true;
+    if (!info.personality.trim()) newErrors.personality = true;
+    if (info.age <= 0) newErrors.age = true;
+    if (!info.phone_number.trim()) newErrors.phone_number = true;
+    if (!info.pet_color.trim()) newErrors.pet_color = true;
+    if (!info.breed.trim()) newErrors.breed = true;
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const validateTagInfo = (info) => {
+    const newErrors = {};
+
+    if (!info.shape.trim()) newErrors.shape = true;
+    if (!info.material.trim()) newErrors.material = true;
+    if (!info.color.trim()) newErrors.color = true;
+
+    setErrorsTag(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!validatePetInfo(petInfo)) return;
 
     if (user) {
       const petData = { ...petInfo, user_id: user.id };
@@ -130,6 +162,7 @@ export default function Dashboard() {
   };
 
   const handleCreateTag = async () => {
+    if (!validateTagInfo(tagInfoData)) return;
     if (petProfile && typeof petProfile) {
       try {
         const petId = petProfile.id;
@@ -171,9 +204,9 @@ export default function Dashboard() {
       const cartData = {
         tag_id: tagInfo.id,
         pet_id: petProfile.id,
-        quantity: 1, // Puedes ajustar según sea necesario
-        price: 100, // Ejemplo, ajusta según el precio del tag o la lógica
-        subtotal: 100, // Igual al precio inicial
+        quantity: 1,
+        price: 100,
+        subtotal: 100,
         is_checked_out: false,
       };
 
@@ -414,7 +447,9 @@ export default function Dashboard() {
                         name="mom_name"
                         value={petInfo.mom_name}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border rounded-lg"
+                        className={`w-full px-4 py-2 border rounded-lg ${
+                          errors.mom_name ? "border-red-500" : "border-gray-300"
+                        }`}
                         placeholder="Mom's Name"
                       />
                     </div>
@@ -426,7 +461,9 @@ export default function Dashboard() {
                         name="dad_name"
                         value={petInfo.dad_name}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border rounded-lg"
+                        className={`w-full px-4 py-2 border rounded-lg ${
+                          errors.dad_name ? "border-red-500" : "border-gray-300"
+                        }`}
                         placeholder="Dad's Name"
                       />
                     </div>
@@ -439,7 +476,9 @@ export default function Dashboard() {
                         name="name"
                         value={petInfo.name}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border rounded-lg"
+                        className={`w-full px-4 py-2 border rounded-lg ${
+                          errors.name ? "border-red-500" : "border-gray-300"
+                        }`}
                         placeholder="Pet's Name"
                       />
                     </div>
@@ -451,7 +490,9 @@ export default function Dashboard() {
                         name="age"
                         value={petInfo.age}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border rounded-lg"
+                        className={`w-full px-4 py-2 border rounded-lg ${
+                          errors.age ? "border-red-500" : "border-gray-300"
+                        }`}
                         placeholder="Pet's Age"
                       />
                     </div>
@@ -464,7 +505,11 @@ export default function Dashboard() {
                       name="personality"
                       value={petInfo.personality}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border rounded-lg"
+                      className={`w-full px-4 py-2 border rounded-lg ${
+                        errors.personality
+                          ? "border-red-500"
+                          : "border-gray-300"
+                      }`}
                       placeholder="Personality"
                     />
                   </div>
@@ -489,7 +534,11 @@ export default function Dashboard() {
                         name="phone_number"
                         value={petInfo.phone_number}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border rounded-lg"
+                        className={`w-full px-4 py-2 border rounded-lg ${
+                          errors.phone_number
+                            ? "border-red-500"
+                            : "border-gray-300"
+                        }`}
                         placeholder="Phone Number"
                       />
                     </div>
@@ -526,7 +575,11 @@ export default function Dashboard() {
                         name="pet_color"
                         value={petInfo.pet_color}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border rounded-lg"
+                        className={`w-full px-4 py-2 border rounded-lg ${
+                          errors.pet_color
+                            ? "border-red-500"
+                            : "border-gray-300"
+                        }`}
                         placeholder="Pet's Color"
                       />
                     </div>
@@ -538,7 +591,9 @@ export default function Dashboard() {
                         name="breed"
                         value={petInfo.breed}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border rounded-lg"
+                        className={`w-full px-4 py-2 border rounded-lg ${
+                          errors.breed ? "border-red-500" : "border-gray-300"
+                        }`}
                         placeholder="Breed"
                       />
                     </div>
@@ -623,7 +678,11 @@ export default function Dashboard() {
                           name="material"
                           value={tagInfoData.material}
                           onChange={handleTagChange}
-                          className="w-full px-4 py-2 border rounded-lg"
+                          className={`w-full px-4 py-2 border rounded-lg ${
+                            errorsTag.material
+                              ? "border-red-500"
+                              : "border-gray-300"
+                          }`}
                         >
                           {/* <option value="wood">Wood</option> */}
                           <option value="aluminum">Aluminum</option>
@@ -641,7 +700,11 @@ export default function Dashboard() {
                           name="shape"
                           value={tagInfoData.shape}
                           onChange={handleTagChange}
-                          className="w-full px-4 py-2 border rounded-lg"
+                          className={`w-full px-4 py-2 border rounded-lg ${
+                            errorsTag.shape
+                              ? "border-red-500"
+                              : "border-gray-300"
+                          }`}
                         >
                           <option value="circular">Circular</option>
                           <option value="square">Square</option>
@@ -660,7 +723,11 @@ export default function Dashboard() {
                           name="color"
                           value={tagInfoData.color}
                           onChange={handleTagChange}
-                          className="w-full px-4 py-2 border rounded-lg"
+                          className={`w-full px-4 py-2 border rounded-lg ${
+                            errorsTag.color
+                              ? "border-red-500"
+                              : "border-gray-300"
+                          }`}
                         >
                           <option value="purple">Purple</option>
                           <option value="black">Black</option>
@@ -687,7 +754,7 @@ export default function Dashboard() {
                       </div>
                     </div>
 
-                    <div className="flex items-center mt-2">
+                    {/* <div className="flex items-center mt-2">
                       <div>
                         <label>Continue Later</label>
                       </div>
@@ -699,7 +766,7 @@ export default function Dashboard() {
                           onChange={handleTagChange}
                         />
                       </div>
-                    </div>
+                    </div> */}
 
                     <button
                       className="btn  bg-teal-500 w-[92%] mt-2 me-2"

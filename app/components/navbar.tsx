@@ -7,6 +7,7 @@ import {
   ShoppingCartIcon,
   Bars3Icon,
 } from "@heroicons/react/24/solid";
+import { useLocation } from "@remix-run/react";
 import { useGlobalContext } from "../context/GlobalProvider"; // Ajusta el path
 import { Link } from "@remix-run/react";
 import Cart from "./cart";
@@ -14,6 +15,7 @@ import { useTranslation } from "react-i18next";
 
 export default function Navbar() {
   const [theme, setTheme] = useState("light");
+  const location = useLocation();
   const { auth, cart } = useGlobalContext();
   const { activateSideBar, actSideBar, closeSideBar } = cart;
   console.log("actSideBar", actSideBar);
@@ -34,6 +36,10 @@ export default function Navbar() {
     setTheme(newTheme);
     document.documentElement.setAttribute("data-theme", newTheme);
   };
+
+  useEffect(() => {
+    setOpen(false);
+  }, [location.pathname, i18n.language]);
 
   const renderLinks = () => (
     <>
@@ -56,7 +62,10 @@ export default function Navbar() {
           </label>
           <button
             className="btn text-teal-500"
-            onClick={toggleLang}
+            onClick={() => {
+              toggleLang();
+              setOpen(false);
+            }}
             title={
               i18n.language === "es" ? "Cambiar a inglés" : "Switch to Spanish"
             }
