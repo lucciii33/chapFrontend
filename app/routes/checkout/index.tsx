@@ -1,6 +1,7 @@
 import CheckoutForm from "~/components/CheckoutForm";
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { useEffect } from "react";
+import { Link } from "@remix-run/react";
 
 export default function CheckoutPage() {
   const { auth, cart } = useGlobalContext();
@@ -56,6 +57,7 @@ export default function CheckoutPage() {
                 );
               })
             : "No tienes ningun carrito por ahora"}
+          <Link to="/shippingAddress">Revisa tu address here</Link>
         </div>
       </div>
     </div>
