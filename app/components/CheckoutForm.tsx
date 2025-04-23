@@ -20,7 +20,7 @@ const CheckoutForm: React.FC = () => {
   const [addresses, setAddresses] = useState([]);
   console.log("addresses", addresses);
   useEffect(() => {
-    if (!user?.id) return; // Si user.id no está disponible, no ejecuta nada
+    if (!user?.id) return;
 
     const fetchAddresses = async () => {
       try {
@@ -98,6 +98,7 @@ const CheckoutForm: React.FC = () => {
 
     try {
       const petIds = Array.from(new Set(allCarts.map((item) => item.pet_id)));
+      console.log("petIdspetIds from the front end", petIds);
       const clientSecret = await createPaymentIntent(user.id, 1000, petIds); // $10.00
 
       // Confirmar el pago

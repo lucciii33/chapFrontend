@@ -13,6 +13,7 @@ import ScheduleAlertForm from "~/components/ScheduleAlertForm";
 import TravelModeForm from "~/components/travelMode";
 import "../../styles/dashboard.css";
 import { showErrorToast } from "~/utils/toast";
+import Pagination from "~/components/pagination";
 
 export default function PetDetail() {
   const { pet, cart, auth, medicalHistory, tag, travelMode, comingFromCard } =
@@ -92,6 +93,15 @@ export default function PetDetail() {
 
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [tagToDelete, setTagToDelete] = useState<number | null>(null);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+
+  const paginatedVetSessions =
+    petByID?.medical_history?.[0]?.vets?.slice(
+      (currentPage - 1) * itemsPerPage,
+      currentPage * itemsPerPage
+    ) || [];
 
   const openDeleteModal = (id: number) => {
     setTagToDelete(id);
@@ -1761,7 +1771,7 @@ export default function PetDetail() {
           <div className="p-5">
             {petByID?.medical_history?.length > 0 &&
             petByID.medical_history[0].vets.length > 0 ? (
-              petByID.medical_history[0].vets.map((vetSession) => (
+              paginatedVetSessions.map((vetSession) => (
                 <div
                   key={vetSession.id}
                   className="bg-gray-800 text-white p-6 mb-6 rounded-xl shadow-lg border border-gray-700"
@@ -1859,6 +1869,13 @@ export default function PetDetail() {
               <button className="btn">Close</button>
             </form>
           </div>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={Math.ceil(
+              (petByID?.medical_history?.[0]?.vets?.length || 0) / itemsPerPage
+            )}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
       </dialog>
 
