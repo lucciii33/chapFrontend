@@ -110,11 +110,12 @@ const CheckoutForm: React.FC = () => {
           },
         }
       );
+      console.log("🧾 Resultado confirmCardPayment:", { error, paymentIntent });
 
       if (error) {
         console.error("Error en el pago:", error.message);
       } else if (paymentIntent?.status === "succeeded") {
-        console.log("¡Pago exitoso!");
+        console.log("¡Pago exitoso!", paymentIntent?.status);
         await createOrder();
       }
     } catch (error) {
