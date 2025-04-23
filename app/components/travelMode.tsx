@@ -72,7 +72,14 @@ export default function TravelModeForm({
           </div>
         </div>
         {isCollapsed && (
-          <div className="mt-5">
+          <div className="mt-5 relative">
+            {!petByID.pay_show_info && (
+              <div className="absolute inset-0 z-50 bg-gray-900 bg-opacity-60 flex items-center justify-center pointer-events-auto">
+                <p className="text-white text-center text-lg opacity-70">
+                  this feature will be usable when you finish paying your tag
+                </p>
+              </div>
+            )}
             <div className="mb-5">
               <h2 className="text-1xl font-bold text-white">
                 Te vas de viaje? agrega aqui la info necesaria para quien vaya a

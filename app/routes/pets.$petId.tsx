@@ -998,7 +998,14 @@ export default function PetDetail() {
           </div>
 
           {collapseBox.medicalHistory2 ? (
-            <div>
+            <div className="relative">
+              {!petByID.pay_show_info && (
+                <div className="absolute inset-0 z-50 bg-gray-900 bg-opacity-60 flex items-center justify-center pointer-events-auto">
+                  <p className="text-white text-center text-lg opacity-70">
+                    this feature will be usable when you finish paying your tag
+                  </p>
+                </div>
+              )}
               <div className="mt-5">
                 <div className="mb-5">
                   <h2 className="text-1xl font-bold text-white">
@@ -1279,7 +1286,14 @@ export default function PetDetail() {
           </div>
 
           {collapseBox.vetSession ? (
-            <div className="mt-5">
+            <div className="mt-5 relative">
+              {!petByID.pay_show_info && (
+                <div className="absolute inset-0 z-50 bg-gray-900 bg-opacity-60 flex items-center justify-center pointer-events-auto">
+                  <p className="text-white text-center text-lg opacity-70">
+                    this feature will be usable when you finish paying your tag
+                  </p>
+                </div>
+              )}
               <div className="mb-5">
                 <h2 className="text-1xl font-bold text-white">
                   Mientras mas visites agregues mas facil seria cuidar a tu
@@ -1423,7 +1437,14 @@ export default function PetDetail() {
           </div>
 
           {collapseBox.vaccines ? (
-            <div className="mt-5">
+            <div className="mt-5 relative">
+              {!petByID.pay_show_info && (
+                <div className="absolute inset-0 z-50 bg-gray-900 bg-opacity-60 flex items-center justify-center pointer-events-auto">
+                  <p className="text-white text-center text-lg opacity-70">
+                    this feature will be usable when you finish paying your tag
+                  </p>
+                </div>
+              )}
               <div className="mb-5">
                 <h2 className="text-1xl font-bold text-white">
                   el 80% de los duenos con mascotas no recuerdan con exactitud
