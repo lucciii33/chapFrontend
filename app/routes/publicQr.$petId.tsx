@@ -144,8 +144,12 @@ export default function PublicQr() {
                 Pets Information
               </h1>
               <img
-                src={petData?.profile_photo}
-                atl="dg"
+                src={
+                  petData?.profile_photo
+                    ? petData?.profile_photo
+                    : "https://chap-blue.s3.us-east-2.amazonaws.com/Group+5350.png"
+                }
+                alt="dg"
                 className="w-32 h-32 object-cover rounded-full mb-2"
               />
               <h3 className="text-lg font-semibold">Name: {petData?.name}</h3>

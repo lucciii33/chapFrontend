@@ -8,6 +8,7 @@ export default function TravelModeForm({
   petId,
   isCollapsed,
   onToggleCollapse,
+  payShowInfo,
 }) {
   console.log(
     "petIdpetIdpetIdpetIdpetIdpetIdpetIdpetIdpetIdpetIdpetIdpetId",
@@ -73,7 +74,7 @@ export default function TravelModeForm({
         </div>
         {isCollapsed && (
           <div className="mt-5 relative">
-            {!petByID.pay_show_info && (
+            {!payShowInfo && (
               <div className="absolute inset-0 z-50 bg-gray-900 bg-opacity-60 flex items-center justify-center pointer-events-auto">
                 <p className="text-white text-center text-lg opacity-70">
                   this feature will be usable when you finish paying your tag

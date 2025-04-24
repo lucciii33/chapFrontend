@@ -1,11 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
+import {
+  useStripe,
+  useElements,
+  CardElement,
+  CardNumberElement,
+  CardExpiryElement,
+  CardCvcElement,
+} from "@stripe/react-stripe-js";
 import { useGlobalContext } from "../context/GlobalProvider";
 import { ShippingAddressContext } from "../context/ShippingAddressContext";
+import { showErrorToast, showSuccessToast } from "~/utils/toast";
 
 // Función auxiliar para llamar al backend
 
-const CheckoutForm: React.FC = () => {
+const CheckoutForm: React.FC<{
+  openShippingModal: () => void;
+  setHighlightAddressSection: (value: boolean) => void;
+}> = ({ openShippingModal, setHighlightAddressSection }) => {
   const baseUrl = import.meta.env.VITE_REACT_APP_URL;
   const { auth, cart } = useGlobalContext();
   const { user } = auth;
@@ -91,6 +102,16 @@ const CheckoutForm: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
+    const selectedAddress = addresses.find((addr) => addr.is_selected);
+    if (!selectedAddress) {
+      showErrorToast(
+        "No se ha seleccionado ninguna dirección, por favor crea una dirección"
+      );
+      openShippingModal();
+      setHighlightAddressSection(true);
+      return;
+    }
+
     if (!stripe || !elements) {
       console.error("Stripe no está cargado correctamente");
       return;
@@ -106,11 +127,12 @@ const CheckoutForm: React.FC = () => {
         clientSecret,
         {
           payment_method: {
-            card: elements.getElement(CardElement)!,
+            card: elements.getElement(CardNumberElement)!,
           },
         }
       );
       console.log("🧾 Resultado confirmCardPayment:", { error, paymentIntent });
+      showSuccessToast("Compra exitosa!");
 
       if (error) {
         console.error("Error en el pago:", error.message);
@@ -124,28 +146,56 @@ const CheckoutForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{}}>
-      <div
-        style={{
-          border: "1px solid #ccc",
-          padding: "10px",
-          borderRadius: "5px",
-          width: "100%",
-        }}
-      >
-        <CardElement options={{ style: { base: { fontSize: "16px" } } }} />
-      </div>
-      <div className="w-full">
-        <button
-          type="submit"
-          disabled={!stripe || !elements}
-          style={{ marginTop: 20 }}
-          className="btn  bg-teal-500 w-full"
+    <div>
+      <h2 className="p-2">Paga aqui</h2>
+      <form onSubmit={handleSubmit} style={{}}>
+        <div
+          style={{
+            border: "1px solid #ccc",
+            padding: "10px",
+            borderRadius: "5px",
+            width: "100%",
+          }}
         >
-          Pagar $10
-        </button>
-      </div>
-    </form>
+          {/* <CardElement options={{ style: { base: { fontSize: "16px" } } }} /> */}
+          <div className="space-y-4">
+            <div className="border p-2 rounded">
+              <label className="block text-sm mb-1">Número de tarjeta</label>
+              <CardNumberElement
+                options={{
+                  style: { base: { fontSize: "16px" } },
+                  showIcon: true,
+                }}
+              />
+            </div>
+
+            <div className="border p-2 rounded">
+              <label className="block text-sm mb-1">Fecha de expiración</label>
+              <CardExpiryElement
+                options={{ style: { base: { fontSize: "16px" } } }}
+              />
+            </div>
+
+            <div className="border p-2 rounded">
+              <label className="block text-sm mb-1">CVC</label>
+              <CardCvcElement
+                options={{ style: { base: { fontSize: "16px" } } }}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="w-full">
+          <button
+            type="submit"
+            disabled={!stripe || !elements}
+            style={{ marginTop: 20 }}
+            className="btn  bg-teal-500 w-full"
+          >
+            Pagar $10
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

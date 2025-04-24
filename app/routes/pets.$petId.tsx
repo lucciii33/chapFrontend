@@ -1555,6 +1555,7 @@ export default function PetDetail() {
       <div className="p-5">
         <TravelModeForm
           travelModeData={petByID?.care_profile}
+          payShowInfo={petByID?.pay_show_info}
           onSubmit={handleCreateOrEditCareProfile}
           petId={petId}
           isCollapsed={collapseBox.travelMode}

@@ -124,7 +124,7 @@ export default function ShippingAddress() {
   };
 
   return (
-    <div className="p-[120px] flex items-center">
+    <div className="flex items-center">
       <div className="">
         <div className="mt-3 border-2 p-5  !border-[#65bcbb] rounded-lg">
           Shipping Address
@@ -264,7 +264,7 @@ export default function ShippingAddress() {
       </div>
 
       <div className="ms-2">
-        <img src="https://files.oaiusercontent.com/file-Qc9kJhU2rmRYFr3R3A8hWW?se=2025-02-12T16%3A47%3A01Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Dea5f3a76-78bc-4546-b6ab-85db3b06c781.webp&sig=ixCsgxFxaMUL7TiZQKNG1%2BAv7wDmEsy1MPfWmlaWBY0%3D" />
+        {/* <img src="https://files.oaiusercontent.com/file-Qc9kJhU2rmRYFr3R3A8hWW?se=2025-02-12T16%3A47%3A01Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Dea5f3a76-78bc-4546-b6ab-85db3b06c781.webp&sig=ixCsgxFxaMUL7TiZQKNG1%2BAv7wDmEsy1MPfWmlaWBY0%3D" /> */}
       </div>
 
       <DeleteDialogAddress
