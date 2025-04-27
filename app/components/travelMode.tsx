@@ -174,12 +174,17 @@ export default function TravelModeForm({
               />
             </div>
 
-            <button
-              onClick={handleSubmit}
-              className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full md:w-auto"
-            >
-              {travelModeData ? "Editar" : "Crear"}
-            </button>
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={handleSubmit}
+                className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full md:w-auto"
+              >
+                {travelModeData ? "Editar" : "Crear"}
+              </button>
+              <button className="btn" onClick={onToggleCollapse}>
+                Close
+              </button>
+            </div>
           </div>
         )}
       </div>

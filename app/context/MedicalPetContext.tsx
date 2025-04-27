@@ -14,6 +14,7 @@ type VetSession = {
   cost: number;
   medical_notes: string;
   medical_history_id: number;
+  date: string;
 };
 
 type CreatePetMedicalHistoryResponse = {
@@ -146,6 +147,7 @@ export const useMedicalPetContext = () => {
     formData.append("cause", data.cause || "");
     formData.append("cost", data.cost ? String(data.cost) : "");
     formData.append("medical_notes", data.medical_notes || "");
+    formData.append("date", data.date || "");
 
     // Agregar archivos a FormData
     if (data.files && data.files.length > 0) {
@@ -190,6 +192,7 @@ export const useMedicalPetContext = () => {
     formData.append("cause", data.cause || "");
     formData.append("cost", data.cost ? String(data.cost) : "");
     formData.append("medical_notes", data.medical_notes || "");
+    formData.append("date", data.date || "");
 
     // Agregar archivos a FormData si existen
     if (data.files && data.files.length > 0) {

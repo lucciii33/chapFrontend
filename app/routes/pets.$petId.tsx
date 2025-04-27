@@ -61,9 +61,11 @@ export default function PetDetail() {
     treatment: "",
     notes: "",
     cause: "",
+    date: "",
     medical_notes: "",
     files: [],
   });
+  console.log("petVetInfopetVetInfopetVetInfo", petVetInfo);
 
   const [collapseBox, setCollapseBox] = useState({
     generalInfo: false,
@@ -179,7 +181,9 @@ export default function PetDetail() {
         type === "checkbox"
           ? checked
           : type === "file" && files
-          ? Array.from(files) // Guardar múltiples archivos como array
+          ? Array.from(files)
+          : type === "date"
+          ? value
           : value,
     }));
   };
@@ -439,12 +443,22 @@ export default function PetDetail() {
     }
 
     setLoading(true);
+
     try {
       const response = await createVetSession(medicalHistoryId, petVetInfo); // Enviar datos sin transformar
 
       if (response) {
         setMessage("Sesión veterinaria creada con éxito.");
         getPetById(Number(petId)); // Refrescar datos
+        setPetVetInfo({
+          address: "",
+          treatment: "",
+          notes: "",
+          cause: "",
+          date: "",
+          medical_notes: "",
+          files: [],
+        });
       } else {
         setMessage("No se pudo crear la sesión veterinaria.");
       }
@@ -518,6 +532,7 @@ export default function PetDetail() {
       files: [],
       existingFiles: vetSession.documents || [],
       id: vetSession.id,
+      date: vetSession.date || null,
     });
 
     document.getElementById("my_modal_4_pet_id").showModal();
@@ -616,21 +631,37 @@ export default function PetDetail() {
   return (
     <div className="">
       <div className="flex justify-between items-center p-4">
-        <div>
-          <button
+        <div className="">
+          {/* <button
             className=" border-none py-3 px-4 ms-3 mt-5 bg-teal-900 text-white rounded-lg"
             onClick={() =>
               document.getElementById("my_modal_5_pet_id_alerts").showModal()
             }
           >
             CREATE ALER
+          </button> */}
+          <button
+            className="border-none py-3 px-4 mt-5 bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
+            onClick={() =>
+              document.getElementById("my_modal_7_pet_id").showModal()
+            }
+          >
+            Your vet visits
+          </button>
+          <button
+            className="border-none py-3 px-4 ms-3 mt-5 bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
+            onClick={() =>
+              document.getElementById("my_modal_8_pet_id").showModal()
+            }
+          >
+            Your vacciness
           </button>
         </div>
         <div className="flex">
           <div>
             <Link
               to={`/publicQr/${petId}`}
-              className="border-none py-3 px-4 ms-3 mt-5 bg-teal-500 text-white rounded-lg inline-block"
+              className="border-none py-3 px-4 ms-3 mt-5 bg-teal-700 text-white rounded-lg inline-block"
             >
               Preview Your QR
             </Link>
@@ -767,7 +798,7 @@ export default function PetDetail() {
 
               <div className="flex gap-3 flex-col md:flex-row">
                 <div className="w-full">
-                  <label>Mom's Name</label>
+                  <label>Owner one</label>
                   <input
                     type="text"
                     name="mom_name"
@@ -779,7 +810,7 @@ export default function PetDetail() {
                 </div>
 
                 <div className="w-full">
-                  <label>Dad's Name</label>
+                  <label>Owner Two</label>
                   <input
                     type="text"
                     name="dad_name"
@@ -813,6 +844,32 @@ export default function PetDetail() {
                     onChange={handleChange}
                     className="w-full px-4 py-2 border rounded-lg"
                     placeholder="Pet's Age"
+                  />
+                </div>
+              </div>
+
+              <div className="flex gap-3 flex-col md:flex-row">
+                <div className="w-full">
+                  <label>Pet Color</label>
+                  <input
+                    type="text"
+                    name="pet_color"
+                    value={petInfo.pet_color}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border rounded-lg"
+                    placeholder="Pet's Color"
+                  />
+                </div>
+
+                <div className="mb-4 w-full">
+                  <label>Breed</label>
+                  <input
+                    type="text"
+                    name="breed"
+                    value={petInfo.breed}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border rounded-lg"
+                    placeholder="Breed"
                   />
                 </div>
               </div>
@@ -863,32 +920,6 @@ export default function PetDetail() {
                     onChange={handleChange}
                     className="w-full px-4 py-2 border rounded-lg"
                     placeholder="Optional Phone Number"
-                  />
-                </div>
-              </div>
-
-              <div className="flex gap-3 flex-col md:flex-row">
-                <div className="w-full">
-                  <label>Pet Color</label>
-                  <input
-                    type="text"
-                    name="pet_color"
-                    value={petInfo.pet_color}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border rounded-lg"
-                    placeholder="Pet's Color"
-                  />
-                </div>
-
-                <div className="mb-4 w-full">
-                  <label>Breed</label>
-                  <input
-                    type="text"
-                    name="breed"
-                    value={petInfo.breed}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border rounded-lg"
-                    placeholder="Breed"
                   />
                 </div>
               </div>
@@ -958,6 +989,12 @@ export default function PetDetail() {
               </div>
 
               <div className="modal-action">
+                <button
+                  className="btn py-3 px-4 rounded-lg"
+                  onClick={() => toggleCollapse("generalInfo")}
+                >
+                  Close
+                </button>
                 <button
                   className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full md:w-auto"
                   onClick={handleSubmit}
@@ -1050,7 +1087,7 @@ export default function PetDetail() {
                   </div>
                 </div>
 
-                <div className="w-full">
+                {/* <div className="w-full">
                   <div>
                     <label>last_doctor_visit</label>
                   </div>
@@ -1063,10 +1100,10 @@ export default function PetDetail() {
                       className="w-full p-2 border rounded-lg mb-3"
                     />
                   </div>
-                </div>
+                </div> */}
               </div>
 
-              <div className="flex gap-3 flex-col md:flex-row">
+              <div className="flex gap-3 flex-col md:flex-row mt-2">
                 <div className="w-full">
                   <div>
                     <label>important_notes</label>
@@ -1147,7 +1184,7 @@ export default function PetDetail() {
                 </div>
               </div>
 
-              <div>
+              {/* <div>
                 <div>
                   <label>chronic_conditions</label>
                 </div>
@@ -1161,7 +1198,7 @@ export default function PetDetail() {
                     placeholder="Condiciones crónicas"
                   />
                 </div>
-              </div>
+              </div> */}
 
               <div>
                 <div>
@@ -1245,7 +1282,7 @@ export default function PetDetail() {
               </div>
 
               {/* Botón para crear el historial */}
-              <div className="flex justify-end mt-4">
+              <div className="flex justify-end mt-4 gap-2">
                 {" "}
                 <button
                   className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full md:w-auto"
@@ -1255,6 +1292,12 @@ export default function PetDetail() {
                   {loading
                     ? "Creando historial médico..."
                     : "Crear Historial Médico"}
+                </button>
+                <button
+                  className="btn py-3 px-4 rounded-lg"
+                  onClick={() => toggleCollapse("medicalHistory2")}
+                >
+                  Close
                 </button>
               </div>
             </div>
@@ -1330,6 +1373,29 @@ export default function PetDetail() {
 
               <div className="flex gap-3 mb-4 flex-col md:flex-row">
                 <div className="w-full">
+                  <label>Documentos (PDF, imágenes, etc.)</label>
+                  <input
+                    type="file"
+                    name="files"
+                    multiple
+                    onChange={handleChangeVet} // Maneja la carga de archivos
+                    className="w-full px-4 py-2 border rounded-lg"
+                  />
+                </div>
+                <div className="w-full">
+                  <label>Date</label>
+                  <input
+                    type="date"
+                    name="date"
+                    value={petVetInfo.date || ""}
+                    onChange={handleChangeVet} // Maneja la carga de archivos
+                    className="w-full px-4 py-2 border rounded-lg"
+                  />
+                </div>
+              </div>
+
+              <div className="flex gap-3 mb-4 flex-col md:flex-row">
+                <div className="w-full">
                   <label>notes</label>
                   <input
                     type="text"
@@ -1380,17 +1446,6 @@ export default function PetDetail() {
                 </div>
               </div>
 
-              <div className="w-full">
-                <label>Documentos (PDF, imágenes, etc.)</label>
-                <input
-                  type="file"
-                  name="files"
-                  multiple
-                  onChange={handleChangeVet} // Maneja la carga de archivos
-                  className="w-full px-4 py-2 border rounded-lg"
-                />
-              </div>
-
               {/* Botón para crear el historial */}
               <div className="flex gap-3 flex-col md:flex-row justify-end mb-4 mt-4">
                 {" "}
@@ -1401,13 +1456,19 @@ export default function PetDetail() {
                 >
                   Create vet session
                 </button>
-                <button
+                {/* <button
                   className="border-none py-3 px-4  bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
                   onClick={() =>
                     document.getElementById("my_modal_7_pet_id").showModal()
                   }
                 >
                   Your vet visits
+                </button> */}
+                <button
+                  className="btn py-3 px-4 rounded-lg"
+                  onClick={() => toggleCollapse("vetSession")}
+                >
+                  Close
                 </button>
               </div>
             </div>
@@ -1531,12 +1592,10 @@ export default function PetDetail() {
                   {loading ? "Creando vacuna..." : "Crear Vacuna"}
                 </button>
                 <button
-                  className="border-none py-3 px-4  bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
-                  onClick={() =>
-                    document.getElementById("my_modal_8_pet_id").showModal()
-                  }
+                  className="btn py-3 px-4 rounded-lg"
+                  onClick={() => toggleCollapse("vaccines")}
                 >
-                  Your vacciness
+                  Close
                 </button>
               </div>
               <DeleteDialog
@@ -1638,6 +1697,15 @@ export default function PetDetail() {
             onChange={handleChangeVet}
             className="w-full px-4 py-2 border rounded-lg mb-2"
             placeholder="Causa"
+          />
+
+          <input
+            type="date"
+            name="date"
+            value={petVetInfo.date ? petVetInfo.date : ""}
+            onChange={handleChangeVet}
+            className="w-full px-4 py-2 border rounded-lg mb-2"
+            placeholder="Fecha"
           />
 
           <input
@@ -1798,9 +1866,19 @@ export default function PetDetail() {
                   key={vetSession.id}
                   className="bg-gray-800 text-white p-6 mb-6 rounded-xl shadow-lg border border-gray-700"
                 >
-                  <h3 className="text-lg font-bold mb-2 text-teal-500">
-                    Visita ID: {vetSession.id}
-                  </h3>
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h3 className="text-lg font-bold mb-2 text-teal-500">
+                        Visita ID: {vetSession.id}
+                      </h3>
+                    </div>
+
+                    <div>
+                      <h3 className="text-lg font-bold mb-2 text-teal-500">
+                        Date: {vetSession.date}
+                      </h3>
+                    </div>
+                  </div>
 
                   <div className="space-y-1 text-sm">
                     <p>
