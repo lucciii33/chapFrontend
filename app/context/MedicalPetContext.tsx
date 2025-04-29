@@ -145,9 +145,14 @@ export const useMedicalPetContext = () => {
     formData.append("treatment", data.treatment || "");
     formData.append("notes", data.notes || "");
     formData.append("cause", data.cause || "");
-    formData.append("cost", data.cost ? String(data.cost) : "");
     formData.append("medical_notes", data.medical_notes || "");
-    formData.append("date", data.date || "");
+    if (data.cost !== undefined && data.cost !== null && data.cost !== "") {
+      formData.append("cost", String(data.cost));
+    }
+
+    if (data.date) {
+      formData.append("date", data.date);
+    }
 
     // Agregar archivos a FormData
     if (data.files && data.files.length > 0) {

@@ -335,9 +335,9 @@ export default function PetDetail() {
       const cartData = {
         tag_id: tagId,
         pet_id: petByID.id,
-        quantity: 1, // Puedes ajustar según sea necesario
-        price: 100, // Ejemplo, ajusta según el precio del tag o la lógica
-        subtotal: 100, // Igual al precio inicial
+        quantity: 1,
+        price: 26.99,
+        subtotal: 100,
         is_checked_out: false,
       };
 
@@ -437,19 +437,14 @@ export default function PetDetail() {
 
     const medicalHistoryId = petByID.medical_history[0].id;
 
-    if (!petVetInfo.address.trim() || !petVetInfo.treatment.trim()) {
-      setMessage("La dirección y el tratamiento son obligatorios.");
-      return;
-    }
-
     setLoading(true);
 
     try {
-      const response = await createVetSession(medicalHistoryId, petVetInfo); // Enviar datos sin transformar
+      const response = await createVetSession(medicalHistoryId, petVetInfo);
 
       if (response) {
         setMessage("Sesión veterinaria creada con éxito.");
-        getPetById(Number(petId)); // Refrescar datos
+        getPetById(Number(petId));
         setPetVetInfo({
           address: "",
           treatment: "",
@@ -459,6 +454,7 @@ export default function PetDetail() {
           medical_notes: "",
           files: [],
         });
+        document.getElementById("my_modal_7_pet_id").showModal();
       } else {
         setMessage("No se pudo crear la sesión veterinaria.");
       }
@@ -1436,7 +1432,7 @@ export default function PetDetail() {
                 <div className="w-full">
                   <label>cost</label>
                   <input
-                    type="text"
+                    type="number"
                     name="cost"
                     value={petVetInfo.cost}
                     onChange={handleChangeVet}

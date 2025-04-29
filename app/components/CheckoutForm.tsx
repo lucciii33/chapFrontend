@@ -28,6 +28,22 @@ const CheckoutForm: React.FC<{
 
   const { getShippingAddresses } = ShippingAddressContext();
 
+  const [couponCode, setCouponCode] = useState("");
+  const [discount, setDiscount] = useState(0); // descuento en porcentaje, por ejemplo 20 = 20%
+
+  // 2. Función para manejar el cambio del input
+  const handleCouponChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setCouponCode(value);
+
+    // Si coincide con el código "TAG20", aplicamos 20% descuento
+    if (value === "TAG20") {
+      setDiscount(20); // 20%
+    } else {
+      setDiscount(0); // No descuento
+    }
+  };
+
   const [addresses, setAddresses] = useState([]);
   console.log("addresses", addresses);
   useEffect(() => {
@@ -120,7 +136,14 @@ const CheckoutForm: React.FC<{
     try {
       const petIds = Array.from(new Set(allCarts.map((item) => item.pet_id)));
       console.log("petIdspetIds from the front end", petIds);
-      const clientSecret = await createPaymentIntent(user.id, 1000, petIds); // $10.00
+      const totalPrice = allCarts.reduce((acc, item) => acc + item.price, 0);
+      const discountedPrice = totalPrice - (totalPrice * discount) / 100;
+      const amountInCents = Math.round(discountedPrice * 100);
+      const clientSecret = await createPaymentIntent(
+        user.id,
+        amountInCents,
+        petIds
+      ); // $10.00
 
       // Confirmar el pago
       const { error, paymentIntent } = await stripe.confirmCardPayment(
@@ -180,6 +203,19 @@ const CheckoutForm: React.FC<{
               <label className="block text-sm mb-1">CVC</label>
               <CardCvcElement
                 options={{ style: { base: { fontSize: "16px" } } }}
+              />
+            </div>
+
+            <div className="mt-4">
+              <label className="block text-sm mb-1">
+                Código de descuento (opcional)
+              </label>
+              <input
+                type="text"
+                value={couponCode}
+                onChange={handleCouponChange}
+                placeholder="Introduce tu código"
+                className="border p-2 w-full rounded"
               />
             </div>
           </div>

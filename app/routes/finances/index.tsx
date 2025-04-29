@@ -4,6 +4,7 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 import Pagination from "../../components/pagination";
 import DeleteDialog from "~/components/deleteDialog";
 import { TrashIcon } from "@heroicons/react/24/solid";
+import "../../../styles/dashboard.css";
 
 export default function Finances() {
   const { auth, pet, finances } = useGlobalContext();
@@ -11,6 +12,8 @@ export default function Finances() {
   const user = auth.user;
   const [allFinances, setAllFinances] = useState([]);
   const [filteredFinances, setFilteredFinances] = useState([]);
+  const [selectedPetId, setSelectedPetId] = useState(0);
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -35,12 +38,15 @@ export default function Finances() {
     receipt_photo_url: "dddd",
     recurring: false,
   });
+
   const [filterData, setFilterData] = useState({
     start_date: "",
     end_date: "",
   });
+
   const [isDeleteFinancesDialogOpen, setIsDeleteFinancesDialogOpen] =
     useState(false);
+
   const [selectFinancesId, setSelectFinancesId] = useState(null);
 
   useEffect(() => {
@@ -117,17 +123,42 @@ export default function Finances() {
     await refreshFinances();
   };
 
+  // const filterDates = () => {
+  //   const { start_date, end_date } = filterData;
+
+  //   const filtered = allFinances.filter((finance) => {
+  //     const expenseDate = new Date(finance.expense_date);
+  //     const startDate = new Date(start_date);
+  //     const endDate = new Date(end_date);
+
+  //     return expenseDate >= startDate && expenseDate <= endDate;
+  //   });
+
+  //   setFilteredFinances(filtered);
+  // };
+
   const filterDates = () => {
     const { start_date, end_date } = filterData;
 
-    const filtered = allFinances.filter((finance) => {
-      const expenseDate = new Date(finance.expense_date);
+    let filtered = allFinances;
+
+    // Primero filtramos por fecha si el usuario eligió fecha
+    if (start_date && end_date) {
       const startDate = new Date(start_date);
       const endDate = new Date(end_date);
 
-      return expenseDate >= startDate && expenseDate <= endDate;
-    });
+      filtered = filtered.filter((finance) => {
+        const expenseDate = new Date(finance.expense_date);
+        return expenseDate >= startDate && expenseDate <= endDate;
+      });
+    }
 
+    // Luego filtramos por mascota si el usuario seleccionó una mascota específica
+    if (selectedPetId !== 0) {
+      filtered = filtered.filter((finance) => finance.pet_id === selectedPetId);
+    }
+
+    // Finalmente, seteamos los datos filtrados
     setFilteredFinances(filtered);
   };
 
@@ -151,7 +182,7 @@ export default function Finances() {
     if (user && user.id) {
       const data = await finances.getUserFinances(user.id);
       setAllFinances(data);
-      setFilteredFinances(filterCurrentMonth(data)); // ⬅️ aquí la reutilizas
+      setFilteredFinances(filterCurrentMonth(data));
     }
   };
 
@@ -160,8 +191,12 @@ export default function Finances() {
     setSelectFinancesId(id);
   };
 
-  const handleDeleteFinanceFunc = () => {
-    finances.deleteFinance(selectFinancesId);
+  const handleDeleteFinanceFunc = async () => {
+    const response = await finances.deleteFinance(selectFinancesId);
+    if (response) {
+      await closeDeleteModal();
+      await refreshFinances();
+    }
   };
 
   const closeDeleteModal = () => {
@@ -301,6 +336,21 @@ export default function Finances() {
                 onChange={handleChangeFilterDate}
               />
             </div>
+            <div className="w-full">
+              <select
+                value={selectedPetId}
+                onChange={(e) => setSelectedPetId(Number(e.target.value))}
+                className="w-full px-4 py-2 border rounded-lg"
+              >
+                <option value={0}>Todas las mascotas</option>
+                {allPets.map((pet) => (
+                  <option key={pet.id} value={pet.id}>
+                    {pet.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
             <div>
               <button
                 className="px-4 py-2 bg-[#65bcbb] text-white rounded-lg"

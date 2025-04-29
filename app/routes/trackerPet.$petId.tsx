@@ -3,6 +3,7 @@ import { PetTrackerContext } from "../context/PetTrackContext"; // Ajusta el pat
 import { useParams } from "@remix-run/react";
 import { useGlobalContext } from "~/context/GlobalProvider";
 import PetCalendar from "~/components/petCalendar";
+import "../../styles/dashboard.css";
 
 export default function PetTracker() {
   const { createPetTrack, getPetTrack } = PetTrackerContext();

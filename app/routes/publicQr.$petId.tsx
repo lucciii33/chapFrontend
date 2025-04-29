@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useGlobalContext } from "../context/GlobalProvider";
 import DogLoader from "../components/petLoader";
 import axios from "axios";
+import "../../styles/dashboard.css";
 
 export default function PublicQr() {
   const { petId } = useParams();
