@@ -7,7 +7,11 @@ import EditDialogShippinAddress from "~/components/editDialogShippingAddress";
 import DeleteDialogAddress from "~/components/deleteDialogAddress";
 import CheckoutPage from "../checkout";
 
-export default function ShippingAddress() {
+export default function ShippingAddress({
+  setRefreshAddresses,
+}: {
+  setRefreshAddresses: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const { auth } = useGlobalContext(); // Accede a la info del usuario
   const user = auth.user;
   console.log("user", user);
@@ -58,6 +62,7 @@ export default function ShippingAddress() {
     await createShippingAddress(user.id, formData); // Enviamos la dirección
     const updatedAddresses = await getShippingAddresses(user.id); // Llamamos de nuevo al GET
     setAddresses(await updatedAddresses.json()); // Aseguramos que guardamos la data correcta
+    setRefreshAddresses((prev) => !prev);
     setFormData({
       country: "",
       state: "",
@@ -118,6 +123,7 @@ export default function ShippingAddress() {
       // 4️⃣ Refrescar direcciones después de actualizar desde el backend
       const response = await getShippingAddresses(user.id);
       setAddresses(await response.json());
+      setRefreshAddresses((prev) => !prev);
     } catch (error) {
       console.error("Error al actualizar la dirección seleccionada:", error);
     }

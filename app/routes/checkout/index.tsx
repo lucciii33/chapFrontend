@@ -11,6 +11,8 @@ export default function CheckoutPage() {
   const { getCartByUser, allCarts } = cart;
   const [openShippingAddress, setOpenShippingAddress] = useState(false);
   const [highlightAddressSection, setHighlightAddressSection] = useState(false);
+  const [amountInCents, setAmountInCents] = useState(0);
+  const [refreshAddresses, setRefreshAddresses] = useState(false);
 
   console.log("user", user);
   console.log("allCarts", allCarts);
@@ -71,7 +73,10 @@ export default function CheckoutPage() {
                 );
               })
             : "No tienes ningun carrito por ahora"}
-          <h2 className="mb-2 text-2xl">Shipping Address</h2>
+          <p className="text-2xl pb-4 mt-4 border-b border-gray-700">
+            Total a pagar: ${(amountInCents / 100).toFixed(2)} USD
+          </p>
+          <h2 className="mb-2 text-2xl mt-2">Shipping Address</h2>
           <div
             className={`mt-2 border-2 ${
               highlightAddressSection ? "border-red-500" : "border-gray-700"
@@ -91,13 +96,19 @@ export default function CheckoutPage() {
                 />
               )}
             </div>
-            {openShippingAddress ? <ShippingAddress /> : ""}
+            {openShippingAddress ? (
+              <ShippingAddress setRefreshAddresses={setRefreshAddresses} />
+            ) : (
+              ""
+            )}
           </div>
         </div>
         <div className="w-full md:w-2/3">
           <CheckoutForm
             openShippingModal={() => setOpenShippingAddress(true)}
             setHighlightAddressSection={setHighlightAddressSection}
+            setAmountInCents={setAmountInCents}
+            refreshAddresses={refreshAddresses}
           />
         </div>
       </div>

@@ -4,6 +4,7 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 import Pagination from "../../components/pagination";
 import DeleteDialog from "~/components/deleteDialog";
 import { TrashIcon } from "@heroicons/react/24/solid";
+import { formatDate } from "../../utils/dateFormat";
 import "../../../styles/dashboard.css";
 
 export default function Finances() {
@@ -122,7 +123,7 @@ export default function Finances() {
     await finances.createFinance(expenseData);
     await refreshFinances();
   };
-
+  console.log("currentFinances", currentFinances);
   // const filterDates = () => {
   //   const { start_date, end_date } = filterData;
 
@@ -233,7 +234,7 @@ export default function Finances() {
               onChange={handleChangeFinances}
             />
           </div>
-          <div className="mb-2 w-full">
+          {/* <div className="mb-2 w-full">
             <label className="block text-slate-50">expense_type</label>
             <input
               type="text"
@@ -243,7 +244,7 @@ export default function Finances() {
               value={expenseData.expense_type}
               onChange={handleChangeFinances}
             />
-          </div>
+          </div> */}
         </div>
         <div className="flex gap-2">
           <div className="mb-2 w-full">
@@ -271,15 +272,23 @@ export default function Finances() {
         </div>
         <div className="flex gap-2">
           <div className="mb-2 w-full">
-            <label className="block text-slate-50">category</label>
-            <input
-              type="text"
-              className="w-full px-4 py-2 border rounded-lg"
-              placeholder="category"
+            <label className="block text-slate-50">Categoría</label>
+            <select
               name="category"
               value={expenseData.category}
               onChange={handleChangeFinances}
-            />
+              className="w-full px-4 py-2 border rounded-lg"
+            >
+              <option value="">Selecciona una categoría</option>
+              <option value="Salud">Salud</option>
+              <option value="Comida">Comida</option>
+              <option value="Entretenimiento">Entretenimiento</option>
+              <option value="Aseo">Aseo</option>
+              <option value="Seguro">Seguro</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Entrenamiento">Entrenamiento</option>
+              <option value="Otros">Otros</option>
+            </select>
           </div>
           <div className="mb-2 w-full">
             <label className="block text-slate-50">payment_method</label>
@@ -384,7 +393,7 @@ export default function Finances() {
                   {allPets.find((pet) => pet.id === finance.pet_id)?.name ||
                     "Desconocido"}
                 </td>
-                <td>{finance?.expense_date}</td>
+                <td>{formatDate(finance?.expense_date)}</td>
                 <td>{finance?.expense_type}</td>
                 <td>{finance?.amount}</td>
                 <td>{finance?.description}</td>

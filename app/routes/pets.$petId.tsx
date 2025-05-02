@@ -1857,7 +1857,7 @@ export default function PetDetail() {
           <div className="p-5">
             {petByID?.medical_history?.length > 0 &&
             petByID.medical_history[0].vets.length > 0 ? (
-              paginatedVetSessions.map((vetSession) => (
+              paginatedVetSessions?.map((vetSession) => (
                 <div
                   key={vetSession.id}
                   className="bg-gray-800 text-white p-6 mb-6 rounded-xl shadow-lg border border-gray-700"
@@ -1919,7 +1919,7 @@ export default function PetDetail() {
                     <div className="mt-3">
                       <p className="font-semibold text-gray-300">Documentos:</p>
                       <ul className="list-disc list-inside text-sm text-teal-500">
-                        {vetSession.documents.map((item, index) => (
+                        {vetSession?.documents?.map((item, index) => (
                           <li key={index}>
                             <a
                               href={item.file_url}

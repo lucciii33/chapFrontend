@@ -139,7 +139,6 @@ export const useMedicalPetContext = () => {
   ): Promise<VetSession | null> => {
     const token = getToken();
 
-    // Convertir datos a FormData
     const formData = new FormData();
     formData.append("address", data.address || "");
     formData.append("treatment", data.treatment || "");
@@ -154,7 +153,6 @@ export const useMedicalPetContext = () => {
       formData.append("date", data.date);
     }
 
-    // Agregar archivos a FormData
     if (data.files && data.files.length > 0) {
       data.files.forEach((file) => {
         formData.append("files", file);

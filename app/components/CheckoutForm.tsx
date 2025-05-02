@@ -16,7 +16,14 @@ import { showErrorToast, showSuccessToast } from "~/utils/toast";
 const CheckoutForm: React.FC<{
   openShippingModal: () => void;
   setHighlightAddressSection: (value: boolean) => void;
-}> = ({ openShippingModal, setHighlightAddressSection }) => {
+  setAmountInCents: (value: number) => void;
+  refreshAddresses: boolean;
+}> = ({
+  openShippingModal,
+  setHighlightAddressSection,
+  setAmountInCents,
+  refreshAddresses,
+}) => {
   const baseUrl = import.meta.env.VITE_REACT_APP_URL;
   const { auth, cart } = useGlobalContext();
   const { user } = auth;
@@ -30,6 +37,14 @@ const CheckoutForm: React.FC<{
 
   const [couponCode, setCouponCode] = useState("");
   const [discount, setDiscount] = useState(0); // descuento en porcentaje, por ejemplo 20 = 20%
+
+  useEffect(() => {
+    const totalPrice = allCarts.reduce((acc, item) => acc + item.price, 0);
+    const discountedPrice = totalPrice - (totalPrice * discount) / 100;
+    const calculatedAmount = Math.round(discountedPrice * 100);
+
+    setAmountInCents(calculatedAmount);
+  }, [allCarts, discount]);
 
   // 2. Función para manejar el cambio del input
   const handleCouponChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,7 +76,7 @@ const CheckoutForm: React.FC<{
     };
 
     fetchAddresses();
-  }, [user]); // S
+  }, [user, refreshAddresses]); // S
 
   const createPaymentIntent = async (
     userId: number,
@@ -227,7 +242,7 @@ const CheckoutForm: React.FC<{
             style={{ marginTop: 20 }}
             className="btn  bg-teal-500 w-full"
           >
-            Pagar $10
+            Pagar
           </button>
         </div>
       </form>
