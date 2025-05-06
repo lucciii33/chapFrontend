@@ -1801,7 +1801,7 @@ export default function PetDetail() {
         <div className="modal-box w-full max-w-7xl">
           <h3 className="font-bold text-lg">Hello!</h3>
           <div className="flex gap-5 items-center flex-col md:flex-row p-5">
-            {petByID?.tags.map((tag) => {
+            {petByID?.tags?.map((tag) => {
               return (
                 <div
                   key={tag.id}
@@ -1982,8 +1982,8 @@ export default function PetDetail() {
           <div>
             Your vaccines:
             {petByID.medical_history?.length > 0 &&
-            petByID.medical_history[0].vaccines?.length > 0 ? (
-              petByID.medical_history[0].vaccines.map((vaccine) => (
+            petByID?.medical_history[0]?.vaccines?.length > 0 ? (
+              petByID?.medical_history[0]?.vaccines?.map((vaccine) => (
                 <div
                   key={vaccine.id}
                   className="bg-gray-800 text-white p-6 rounded-xl mb-4 shadow-lg border border-gray-700"

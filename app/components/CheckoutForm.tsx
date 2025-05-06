@@ -83,12 +83,18 @@ const CheckoutForm: React.FC<{
   const createPaymentIntent = async (
     userId: number,
     amount: number,
-    petIds: number[]
+    petIds: number[],
+    tagIds: number[]
   ) => {
     const response = await fetch(`${baseUrl}/stripe/create-payment-intent`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user_id: userId, amount, pet_ids: petIds }),
+      body: JSON.stringify({
+        user_id: userId,
+        amount,
+        pet_ids: petIds,
+        tag_ids: tagIds,
+      }),
     });
     const data = await response.json();
     return data.client_secret;
@@ -152,6 +158,7 @@ const CheckoutForm: React.FC<{
 
     try {
       const petIds = Array.from(new Set(allCarts.map((item) => item.pet_id)));
+      const tagIds = Array.from(new Set(allCarts.map((item) => item.tag_id)));
       console.log("petIdspetIds from the front end", petIds);
       const totalPrice = allCarts.reduce((acc, item) => acc + item.price, 0);
       const discountedPrice = totalPrice - (totalPrice * discount) / 100;
@@ -159,10 +166,10 @@ const CheckoutForm: React.FC<{
       const clientSecret = await createPaymentIntent(
         user.id,
         amountInCents,
-        petIds
-      ); // $10.00
+        petIds,
+        tagIds
+      );
 
-      // Confirmar el pago
       const { error, paymentIntent } = await stripe.confirmCardPayment(
         clientSecret,
         {
