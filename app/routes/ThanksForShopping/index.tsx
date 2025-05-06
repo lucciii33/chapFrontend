@@ -4,6 +4,7 @@ import Confetti from "react-confetti";
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { use } from "i18next";
+import { Link } from "@remix-run/react";
 
 export default function ShippingAddress() {
   const [size, setSize] = useState([0, 0]);
@@ -49,12 +50,15 @@ export default function ShippingAddress() {
           If you have any questions please contact:
         </p>
         <p>LUCCI@GMAIL.COM</p>
-        <button
-          className="btn bg-teal-500 mt-4 hover:bg-teal-600 text-white px-6 py-2 rounded-md transition duration-300 border-none"
-          onClick={() => document.getElementById("my_modal_1").showModal()}
-        >
-          Go back to dashboard
-        </button>
+        <Link to="/dashboard">
+          {" "}
+          <button
+            className="btn bg-teal-500 mt-4 hover:bg-teal-600 text-white px-6 py-2 rounded-md transition duration-300 border-none"
+            onClick={() => document.getElementById("my_modal_1").showModal()}
+          >
+            Go back to dashboard
+          </button>{" "}
+        </Link>
       </div>
     </div>
   );
