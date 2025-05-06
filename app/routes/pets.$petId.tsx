@@ -1820,6 +1820,11 @@ export default function PetDetail() {
                       <p className="">
                         Shape: <strong>{tag.shape}</strong>{" "}
                       </p>
+
+                      <p className="">
+                        ¿Comprado?{" "}
+                        <strong>{tag.is_purchased ? "Sí" : "No"}</strong>
+                      </p>
                       {/* <p className=""> {tag.material}</p> */}
                     </div>
                     <div className="mt-4 flex justify-between gap-3 w-full">
