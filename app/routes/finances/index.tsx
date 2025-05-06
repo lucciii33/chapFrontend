@@ -241,7 +241,7 @@ export default function Finances() {
               name="expense_date"
               value={expenseData.expense_date}
               onChange={handleChangeFinances}
-              // onKeyDown={(e) => e.preventDefault()}
+              onKeyDown={(e) => e.preventDefault()}
             />
           </div>
           {/* <div className="mb-2 w-full">
