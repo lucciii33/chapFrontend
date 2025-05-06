@@ -27,18 +27,19 @@ export default function ShippingAddress() {
   }, []);
 
   useEffect(() => {
-    loadcart(); // intenta primero normal
+    let attempts = 0;
+    const interval = setInterval(async () => {
+      const result = await getCartByUser(user.id);
+      attempts++;
 
-    const timeout = setTimeout(() => {
-      loadcart(); // vuelve a intentarlo después de 3 segundos
-    }, 3000); // ajusta si hace falta
+      // Si el carrito ya está vacío o después de varios intentos, detenemos
+      if (result.length === 0 || attempts >= 5) {
+        clearInterval(interval);
+      }
+    }, 2000); // intenta cada 2 segundos
 
-    return () => clearTimeout(timeout);
+    return () => clearInterval(interval);
   }, []);
-
-  const loadcart = async () => {
-    await getCartByUser(user.id); // Envía todos los campos necesarios
-  };
 
   const [width, height] = size;
 
