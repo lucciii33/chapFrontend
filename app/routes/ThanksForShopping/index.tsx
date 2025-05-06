@@ -27,7 +27,13 @@ export default function ShippingAddress() {
   }, []);
 
   useEffect(() => {
-    loadcart();
+    loadcart(); // intenta primero normal
+
+    const timeout = setTimeout(() => {
+      loadcart(); // vuelve a intentarlo después de 3 segundos
+    }, 3000); // ajusta si hace falta
+
+    return () => clearTimeout(timeout);
   }, []);
 
   const loadcart = async () => {
