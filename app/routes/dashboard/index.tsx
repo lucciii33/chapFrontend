@@ -207,7 +207,7 @@ export default function Dashboard() {
         tag_id: tagInfo.id,
         pet_id: petProfile.id,
         quantity: 1,
-        price: 100,
+        price: 26.99,
         subtotal: 100,
         is_checked_out: false,
       };

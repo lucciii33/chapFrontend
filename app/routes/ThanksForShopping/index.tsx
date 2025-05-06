@@ -2,10 +2,15 @@
 import "../../../styles/dashboard.css";
 import Confetti from "react-confetti";
 import { useEffect, useState } from "react";
+import { useGlobalContext } from "../../context/GlobalProvider";
+import { use } from "i18next";
 
 export default function ShippingAddress() {
   const [size, setSize] = useState([0, 0]);
-  const [isClient, setIsClient] = useState(false); // ⚠️ Para asegurarnos de que ya estamos en cliente
+  const [isClient, setIsClient] = useState(false);
+  const { auth, cart } = useGlobalContext();
+  const { user } = auth;
+  const { getCartByUser } = cart;
 
   useEffect(() => {
     setIsClient(true); // Ya podemos usar window
@@ -19,6 +24,14 @@ export default function ShippingAddress() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    loadcart();
+  }, []);
+
+  const loadcart = async () => {
+    await getCartByUser(user.id); // Envía todos los campos necesarios
+  };
 
   const [width, height] = size;
 
