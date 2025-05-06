@@ -120,23 +120,32 @@ export default function Finances() {
   };
 
   const handleSaveExpense = async () => {
-    await finances.createFinance(expenseData);
-    await refreshFinances();
+    try {
+      const response = await finances.createFinance(expenseData);
+      if (response) {
+        await refreshFinances();
+
+        setExpenseData({
+          user_id: user.id,
+          pet_id: 0,
+          expense_date: "",
+          amount: 0,
+          expense_type: "",
+          description: "",
+          category: "",
+          payment_method: "",
+          receipt_photo_url: "dddd",
+          recurring: false,
+        });
+
+        // Opcional: feedback visual
+        console.log("Gasto guardado correctamente");
+      }
+    } catch (error) {
+      console.error("Error al guardar el gasto:", error);
+      // Aquí podrías mostrar un toast o alerta
+    }
   };
-  console.log("currentFinances", currentFinances);
-  // const filterDates = () => {
-  //   const { start_date, end_date } = filterData;
-
-  //   const filtered = allFinances.filter((finance) => {
-  //     const expenseDate = new Date(finance.expense_date);
-  //     const startDate = new Date(start_date);
-  //     const endDate = new Date(end_date);
-
-  //     return expenseDate >= startDate && expenseDate <= endDate;
-  //   });
-
-  //   setFilteredFinances(filtered);
-  // };
 
   const filterDates = () => {
     const { start_date, end_date } = filterData;
@@ -232,6 +241,7 @@ export default function Finances() {
               name="expense_date"
               value={expenseData.expense_date}
               onChange={handleChangeFinances}
+              // onKeyDown={(e) => e.preventDefault()}
             />
           </div>
           {/* <div className="mb-2 w-full">
@@ -376,7 +386,7 @@ export default function Finances() {
             <tr>
               <th>Dog name</th>
               <th>Expense date</th>
-              <th>Expense type</th>
+              {/* <th>Expense type</th> */}
               <th>Amount</th>
               <th>Description</th>
               <th>Category</th>
@@ -394,7 +404,7 @@ export default function Finances() {
                     "Desconocido"}
                 </td>
                 <td>{formatDate(finance?.expense_date)}</td>
-                <td>{finance?.expense_type}</td>
+                {/* <td>{finance?.expense_type}</td> */}
                 <td>{finance?.amount}</td>
                 <td>{finance?.description}</td>
                 <td>{finance?.category}</td>
