@@ -10,6 +10,7 @@ import {
 import { useGlobalContext } from "../context/GlobalProvider";
 import { ShippingAddressContext } from "../context/ShippingAddressContext";
 import { showErrorToast, showSuccessToast } from "~/utils/toast";
+import { useNavigate } from "@remix-run/react";
 
 // Función auxiliar para llamar al backend
 
@@ -32,6 +33,7 @@ const CheckoutForm: React.FC<{
   console.log("allCarts", allCarts);
   const stripe = useStripe();
   const elements = useElements();
+  const navigate = useNavigate();
 
   const { getShippingAddresses } = ShippingAddressContext();
 
@@ -67,8 +69,8 @@ const CheckoutForm: React.FC<{
     const fetchAddresses = async () => {
       try {
         const response = await getShippingAddresses(user.id);
-        const data = await response.json(); // 🔥 Aquí extraemos el JSON
-        console.log("addresses", data); // Debug para ver qué devuelve
+        const data = await response.json();
+        console.log("addresses", data);
         if (data) setAddresses(data);
       } catch (error) {
         console.error("Error fetching addresses:", error);
@@ -86,7 +88,7 @@ const CheckoutForm: React.FC<{
     const response = await fetch(`${baseUrl}/stripe/create-payment-intent`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user_id: userId, amount, pet_ids: petIds }), // Incluye el user_id y el monto
+      body: JSON.stringify({ user_id: userId, amount, pet_ids: petIds }),
     });
     const data = await response.json();
     return data.client_secret;
@@ -177,6 +179,7 @@ const CheckoutForm: React.FC<{
       } else if (paymentIntent?.status === "succeeded") {
         console.log("¡Pago exitoso!", paymentIntent?.status);
         await createOrder();
+        navigate("/ThanksForShopping");
       }
     } catch (error) {
       console.error("Error inesperado:", error);

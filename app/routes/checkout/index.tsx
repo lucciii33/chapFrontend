@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Link } from "@remix-run/react";
 import ShippingAddress from "../shippingAddress";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
+import "../../../styles/dashboard.css";
 
 export default function CheckoutPage() {
   const { auth, cart } = useGlobalContext();
