@@ -20,8 +20,6 @@ export default function PetDetail() {
     useGlobalContext();
   const navigate = useNavigate();
   const [highlightMedicalBox, setHighlightMedicalBox] = useState(false);
-  console.log("highlightMedicalBox", highlightMedicalBox);
-
   const { getPetById, petByID, editPet, deletePetById } = pet;
   const { createCart, cartProfile, getCartByUser } = cart;
   const { deletePetTag } = tag;
@@ -628,16 +626,16 @@ export default function PetDetail() {
     <div className="">
       <div className="flex justify-between items-center p-4">
         <div className="">
-          {/* <button
-            className=" border-none py-3 px-4 ms-3 mt-5 bg-teal-900 text-white rounded-lg"
+          <button
+            className=" border-none py-3 px-4 mt-5 bg-teal-900 text-white rounded-lg"
             onClick={() =>
               document.getElementById("my_modal_5_pet_id_alerts").showModal()
             }
           >
             CREATE ALER
-          </button> */}
+          </button>
           <button
-            className="border-none py-3 px-4 mt-5 bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
+            className="border-none py-3 px-4 ms-3 mt-5 bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
             onClick={() =>
               document.getElementById("my_modal_7_pet_id").showModal()
             }

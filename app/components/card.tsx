@@ -5,6 +5,8 @@ import tagImg from "../images/tag.png";
 import "../../styles/dashboard.css";
 import { MapPinIcon } from "@heroicons/react/24/solid";
 import { TrashIcon } from "@heroicons/react/24/outline";
+import AlertCircle from "./alertCircle";
+import UserAlerts from "./userAlerts";
 
 type CardProps = {
   petObj: {
@@ -133,6 +135,10 @@ export default function Card({ petObj }: CardProps) {
             </Link>
           )}
         </div>
+        <div className="absolute bottom-[89%] left-[125%] transform -translate-x-1/2 w-[90%]">
+          <AlertCircle petObj={petObj} />
+        </div>
+        {/* <UserAlerts userId={petObj.user_id} /> */}
 
         <figure>
           <img

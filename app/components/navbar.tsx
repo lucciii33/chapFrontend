@@ -18,11 +18,8 @@ export default function Navbar() {
   const location = useLocation();
   const { auth, cart } = useGlobalContext();
   const { activateSideBar, actSideBar, closeSideBar } = cart;
-  console.log("actSideBar", actSideBar);
   const { t, i18n } = useTranslation();
-  console.log("t", t);
   const [open, setOpen] = useState(false);
-  console.log("open", open);
 
   const toggleLang = () => {
     const nextLang = i18n.language === "es" ? "en" : "es";
