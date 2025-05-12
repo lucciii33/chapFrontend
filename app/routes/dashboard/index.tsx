@@ -28,7 +28,7 @@ export default function Dashboard() {
     name: true,
     continue_later: false,
     material: "aluminum",
-    color: "",
+    color: "purple",
   });
 
   const [petInfo, setPetInfo] = useState({
