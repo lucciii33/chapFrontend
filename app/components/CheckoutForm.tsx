@@ -38,7 +38,7 @@ const CheckoutForm: React.FC<{
   const { getShippingAddresses } = ShippingAddressContext();
 
   const [couponCode, setCouponCode] = useState("");
-  const [discount, setDiscount] = useState(0); // descuento en porcentaje, por ejemplo 20 = 20%
+  const [discount, setDiscount] = useState(0);
 
   useEffect(() => {
     const totalPrice = allCarts.reduce((acc, item) => acc + item.price, 0);

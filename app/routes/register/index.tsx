@@ -2,12 +2,13 @@
 import { Link, useNavigate } from "@remix-run/react";
 import { useState } from "react";
 import { useGlobalContext } from "../../context/GlobalProvider"; // Ajusta el path
-
+import { useTranslation } from "react-i18next";
 import loginImage from "../../images/imageLogin4.png";
-
+import "../../../styles/dashboard.css";
 export default function Register() {
   const { auth } = useGlobalContext();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const [formData, setFormData] = useState({
     full_name: "",
@@ -44,7 +45,6 @@ export default function Register() {
   };
   return (
     <div className="flex flex-col md:flex-row">
-      {/* Imagen a la izquierda */}
       <div className="w-full md:w-1/2 flex items-center justify-center">
         <img
           src={loginImage}
@@ -53,7 +53,6 @@ export default function Register() {
         />
       </div>
 
-      {/* Formulario a la derecha */}
       <div className="w-full md:w-1/2 flex items-center justify-center bg-neutral-950">
         <div className="w-full max-w-lg px-5 py-5 md:py-0">
           <div className="flex items-center justify-center">
@@ -61,13 +60,15 @@ export default function Register() {
               className="text-4xl font-bold mb-4 text-slate-50"
               style={{ fontFamily: "chapFont" }}
             >
-              Register
+              {t("register_page.title")}
             </h1>
           </div>
 
-          {/* Aquí puedes agregar tus campos de formulario */}
           <div className="mb-4 ">
-            <label className="block text-slate-50">Full Name</label>
+            <label className="block text-slate-50">
+              {" "}
+              {t("register_page.full_name")}
+            </label>
             <input
               type="text"
               className="w-full px-4 py-2 border rounded-lg"
@@ -78,7 +79,9 @@ export default function Register() {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-slate-50">Email</label>
+            <label className="block text-slate-50">
+              {t("register_page.email")}
+            </label>
             <input
               type="text"
               className="w-full px-4 py-2 border rounded-lg"
@@ -89,7 +92,10 @@ export default function Register() {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-slate-50">Password</label>
+            <label className="block text-slate-50">
+              {" "}
+              {t("register_page.password")}
+            </label>
             <input
               type="password"
               className="w-full px-4 py-2 border rounded-lg"
@@ -100,7 +106,10 @@ export default function Register() {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-slate-50">country</label>
+            <label className="block text-slate-50">
+              {" "}
+              {t("register_page.country")}
+            </label>
             <input
               type="text"
               className="w-full px-4 py-2 border rounded-lg"
@@ -111,7 +120,9 @@ export default function Register() {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-slate-50">Edad</label>
+            <label className="block text-slate-50">
+              {t("register_page.age")}
+            </label>
             <input
               type="number"
               className="w-full px-4 py-2 border rounded-lg"
@@ -124,7 +135,7 @@ export default function Register() {
           <div className="mb-1 flex align-middle">
             <div>
               <label className="block text-slate-50">
-                I agree to the terms and conditions
+                {t("register_page.terms")}
               </label>
             </div>
             <div>
@@ -135,8 +146,8 @@ export default function Register() {
               />
             </div>
           </div>
-          <div className="mb-2">
-            <Link to="/login">Alredy have an account? Login here</Link>
+          <div className="mb-2 text-sm">
+            <Link to="/login">{t("register_page.account")}</Link>
           </div>
 
           <div className="w-full mb-4 md:mb-0">
@@ -144,9 +155,12 @@ export default function Register() {
               className="w-full border-none py-3 px-4  bg-teal-500 text-white rounded-lg"
               onClick={handleRegisterClick}
             >
-              Login
+              {t("register_page.button")}
             </button>
           </div>
+          <p className="block mt-2 text-sm text-slate-50">
+            {t("register_page.data_protection")}
+          </p>
         </div>
       </div>
     </div>

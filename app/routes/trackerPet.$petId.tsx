@@ -39,6 +39,7 @@ export default function PetTracker() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, type, checked, value } = e.target;
+
     setFormData((prev) => ({
       ...prev,
       [name]:
@@ -51,7 +52,7 @@ export default function PetTracker() {
               "weight",
               "sleep_hours",
             ].includes(name)
-          ? parseFloat(value) || 0
+          ? Number(value.replace(/^0+(?=\d)/, "")) || "" // 🧠 elimina ceros al inicio
           : value,
     }));
   };
@@ -62,6 +63,7 @@ export default function PetTracker() {
       return;
     }
     await createPetTrack(formData);
+    await getPetById(petId);
   };
 
   return (

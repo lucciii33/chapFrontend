@@ -14,6 +14,7 @@ import TravelModeForm from "~/components/travelMode";
 import "../../styles/dashboard.css";
 import { showErrorToast } from "~/utils/toast";
 import Pagination from "~/components/pagination";
+import DogLoader from "~/components/petLoader";
 
 export default function PetDetail() {
   const { pet, cart, auth, medicalHistory, tag, travelMode, comingFromCard } =
@@ -624,301 +625,308 @@ export default function PetDetail() {
 
   return (
     <div className="">
-      <div className="flex justify-between items-center p-4">
-        <div className="">
-          <button
-            className=" border-none py-3 px-4 mt-5 bg-teal-900 text-white rounded-lg"
-            onClick={() =>
-              document.getElementById("my_modal_5_pet_id_alerts").showModal()
-            }
-          >
-            CREATE ALER
-          </button>
-          <button
-            className="border-none py-3 px-4 ms-3 mt-5 bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
-            onClick={() =>
-              document.getElementById("my_modal_7_pet_id").showModal()
-            }
-          >
-            Your vet visits
-          </button>
-          <button
-            className="border-none py-3 px-4 ms-3 mt-5 bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
-            onClick={() =>
-              document.getElementById("my_modal_8_pet_id").showModal()
-            }
-          >
-            Your vacciness
-          </button>
-        </div>
-        <div className="flex">
-          <div>
-            <Link
-              to={`/publicQr/${petId}`}
-              className="border-none py-3 px-4 ms-3 mt-5 bg-teal-700 text-white rounded-lg inline-block"
-            >
-              Preview Your QR
-            </Link>
-          </div>
-          <div>
-            <button
-              className={`border-none py-3 px-4 ms-3 mt-5 bg-teal-700 text-white rounded-lg inline-block font-semibold transition-all duration-300 ${
-                comingFromCardButton ? "animate-glow" : ""
-              }`}
-              onClick={() => {
-                document.getElementById("my_modal_6_pet_id").showModal();
-                setTimeout(() => {
-                  setComingFromCardButton(false);
-                }, 4000);
-              }}
-            >
-              Your Tags
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-2 p-5">
-        {message && <div className="alert">{message}</div>}{" "}
-        {/* Mostrar mensaje */}
-        <h1 className=" text-4xl mb-2" style={{ fontFamily: "chapFont" }}>
-          Welcome to {petByID.name} dashbaord
-        </h1>
-        <form
-          method="dialog"
-          onSubmit={handleSubmit}
-          className="border-2 border-gray-700 bg-gray-800 rounded-lg p-5"
-        >
-          <div className="flex justify-between">
-            <div>
-              {" "}
-              <h2 className="text-lg text-teal-500">General info</h2>
+      {petByID ? (
+        <div>
+          <div className="flex justify-between items-center p-4">
+            <div className="">
+              <button
+                className=" border-none py-3 px-4 mt-5 bg-teal-900 text-white rounded-lg"
+                onClick={() =>
+                  document
+                    .getElementById("my_modal_5_pet_id_alerts")
+                    .showModal()
+                }
+              >
+                CREATE ALER
+              </button>
+              <button
+                className="border-none py-3 px-4 ms-3 mt-5 bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
+                onClick={() =>
+                  document.getElementById("my_modal_7_pet_id").showModal()
+                }
+              >
+                Your vet visits
+              </button>
+              <button
+                className="border-none py-3 px-4 ms-3 mt-5 bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
+                onClick={() =>
+                  document.getElementById("my_modal_8_pet_id").showModal()
+                }
+              >
+                Your vacciness
+              </button>
             </div>
-            <div>
-              {" "}
-              <span onClick={() => toggleCollapse("generalInfo")}>
-                {collapseBox.generalInfo ? (
-                  <ChevronUpIcon className="h-6 w-6 text-teal-500" />
-                ) : (
-                  <ChevronDownIcon className="h-6 w-6 text-teal-500" />
-                )}
-              </span>
-            </div>
-          </div>
-          {collapseBox.generalInfo ? (
-            <div>
-              <div className="relative flex justify-center">
-                <div
-                  className="mb-4"
-                  onMouseEnter={() => setShowCamara(true)}
-                  onMouseLeave={() => setShowCamara(false)}
+            <div className="flex">
+              <div>
+                <Link
+                  to={`/publicQr/${petId}`}
+                  className="border-none py-3 px-4 ms-3 mt-5 bg-teal-700 text-white rounded-lg inline-block"
                 >
-                  {/* <p>Profile Photo</p> */}
-                  {petInfo.profile_photo ? (
-                    <img
-                      src={petInfo.profile_photo}
-                      alt="defdefe"
-                      className={
-                        showCamara
-                          ? "w-32 h-32 object-cover rounded-full opacity-80 group-hover:opacity-60 transition-opacity duration-200"
-                          : "w-32 h-32 object-cover rounded-full mb-2"
-                      }
-                    />
-                  ) : (
-                    <img
-                      src="https://chap-blue.s3.us-east-2.amazonaws.com/Group+5350.png"
-                      alt="defdefe"
-                      className={
-                        showCamara
-                          ? "w-32 h-32 object-cover rounded-full opacity-80 group-hover:opacity-60 transition-opacity duration-200"
-                          : "w-32 h-32 object-cover rounded-full mb-2"
-                      }
-                    />
-                  )}
-                  {showCamara && (
-                    <CameraIcon
-                      className="absolute inset-0 m-auto h-8 w-8 text-white bg-black bg-opacity-50 rounded-full p-1 cursor-pointer"
-                      onClick={() =>
-                        document.getElementById("my_modal_3_pet_id").showModal()
-                      }
-                    />
-                  )}
+                  Preview Your QR
+                </Link>
+              </div>
+              <div>
+                <button
+                  className={`border-none py-3 px-4 ms-3 mt-5 bg-teal-700 text-white rounded-lg inline-block font-semibold transition-all duration-300 ${
+                    comingFromCardButton ? "animate-glow" : ""
+                  }`}
+                  onClick={() => {
+                    document.getElementById("my_modal_6_pet_id").showModal();
+                    setTimeout(() => {
+                      setComingFromCardButton(false);
+                    }, 4000);
+                  }}
+                >
+                  Your Tags
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-2 p-5">
+            {message && <div className="alert">{message}</div>}{" "}
+            {/* Mostrar mensaje */}
+            <h1 className=" text-4xl mb-2" style={{ fontFamily: "chapFont" }}>
+              Welcome to {petByID.name} dashbaord
+            </h1>
+            <form
+              method="dialog"
+              onSubmit={handleSubmit}
+              className="border-2 border-gray-700 bg-gray-800 rounded-lg p-5"
+            >
+              <div className="flex justify-between">
+                <div>
+                  {" "}
+                  <h2 className="text-lg text-teal-500">General info</h2>
+                </div>
+                <div>
+                  {" "}
+                  <span onClick={() => toggleCollapse("generalInfo")}>
+                    {collapseBox.generalInfo ? (
+                      <ChevronUpIcon className="h-6 w-6 text-teal-500" />
+                    ) : (
+                      <ChevronDownIcon className="h-6 w-6 text-teal-500" />
+                    )}
+                  </span>
                 </div>
               </div>
-              <div className="mb-4">
-                <h2 className="text-1xl font-bold text-white">
-                  Con estos settings podras cambiar como se vialuiza tu chapa
-                </h2>
-                <div className="flex flex-col md:flex-row gap-3 mt-3">
-                  <div className="flex items-center">
-                    <label className="mr-2">Lost</label>
-                    <input
-                      type="checkbox"
-                      name="lost"
-                      checked={petInfo.lost}
-                      onChange={(e) =>
-                        setPetInfo((prevInfo) => ({
-                          ...prevInfo,
-                          lost: e.target.checked,
-                        }))
-                      }
-                      className="radio radio-accent"
-                    />
+              {collapseBox.generalInfo ? (
+                <div>
+                  <div className="relative flex justify-center">
+                    <div
+                      className="mb-4"
+                      onMouseEnter={() => setShowCamara(true)}
+                      onMouseLeave={() => setShowCamara(false)}
+                    >
+                      {/* <p>Profile Photo</p> */}
+                      {petInfo.profile_photo ? (
+                        <img
+                          src={petInfo.profile_photo}
+                          alt="defdefe"
+                          className={
+                            showCamara
+                              ? "w-32 h-32 object-cover rounded-full opacity-80 group-hover:opacity-60 transition-opacity duration-200"
+                              : "w-32 h-32 object-cover rounded-full mb-2"
+                          }
+                        />
+                      ) : (
+                        <img
+                          src="https://chap-blue.s3.us-east-2.amazonaws.com/Group+5350.png"
+                          alt="defdefe"
+                          className={
+                            showCamara
+                              ? "w-32 h-32 object-cover rounded-full opacity-80 group-hover:opacity-60 transition-opacity duration-200"
+                              : "w-32 h-32 object-cover rounded-full mb-2"
+                          }
+                        />
+                      )}
+                      {showCamara && (
+                        <CameraIcon
+                          className="absolute inset-0 m-auto h-8 w-8 text-white bg-black bg-opacity-50 rounded-full p-1 cursor-pointer"
+                          onClick={() =>
+                            document
+                              .getElementById("my_modal_3_pet_id")
+                              .showModal()
+                          }
+                        />
+                      )}
+                    </div>
+                  </div>
+                  <div className="mb-4">
+                    <h2 className="text-1xl font-bold text-white">
+                      Con estos settings podras cambiar como se vialuiza tu
+                      chapa
+                    </h2>
+                    <div className="flex flex-col md:flex-row gap-3 mt-3">
+                      <div className="flex items-center">
+                        <label className="mr-2">Lost</label>
+                        <input
+                          type="checkbox"
+                          name="lost"
+                          checked={petInfo.lost}
+                          onChange={(e) =>
+                            setPetInfo((prevInfo) => ({
+                              ...prevInfo,
+                              lost: e.target.checked,
+                            }))
+                          }
+                          className="radio radio-accent"
+                        />
+                      </div>
+
+                      <div className="flex items-center">
+                        <label className="mr-2">Show Medical History</label>
+                        <input
+                          type="checkbox"
+                          name="show_medical_history"
+                          checked={petInfo.show_medical_history}
+                          onChange={handleChange}
+                          className="radio radio-accent"
+                        />
+                      </div>
+
+                      <div className=" flex items-center">
+                        <label className="mr-2">Show Travel Mode</label>
+                        <input
+                          type="checkbox"
+                          name="show_travel_mode"
+                          checked={petInfo.show_travel_mode}
+                          onChange={handleChange}
+                          className="radio radio-accent"
+                        />
+                      </div>
+                    </div>
                   </div>
 
-                  <div className="flex items-center">
-                    <label className="mr-2">Show Medical History</label>
+                  <div className="flex gap-3 flex-col md:flex-row">
+                    <div className="w-full">
+                      <label>Owner one</label>
+                      <input
+                        type="text"
+                        name="mom_name"
+                        value={petInfo.mom_name}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border rounded-lg"
+                        placeholder="Mom's Name"
+                      />
+                    </div>
+
+                    <div className="w-full">
+                      <label>Owner Two</label>
+                      <input
+                        type="text"
+                        name="dad_name"
+                        value={petInfo.dad_name}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border rounded-lg mb-4"
+                        placeholder="Dad's Name"
+                      />
+                    </div>
+                  </div>
+
+                  <div className=" flex gap-3 flex-col md:flex-row">
+                    <div className="w-full">
+                      <label>Name</label>
+                      <input
+                        type="text"
+                        name="name"
+                        value={petInfo.name}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border rounded-lg"
+                        placeholder="Pet's Name"
+                      />
+                    </div>
+
+                    <div className="mb-4 w-full">
+                      <label>Age</label>
+                      <input
+                        type="number"
+                        name="age"
+                        value={petInfo.age}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border rounded-lg"
+                        placeholder="Pet's Age"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex gap-3 flex-col md:flex-row">
+                    <div className="w-full">
+                      <label>Pet Color</label>
+                      <input
+                        type="text"
+                        name="pet_color"
+                        value={petInfo.pet_color}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border rounded-lg"
+                        placeholder="Pet's Color"
+                      />
+                    </div>
+
+                    <div className="mb-4 w-full">
+                      <label>Breed</label>
+                      <input
+                        type="text"
+                        name="breed"
+                        value={petInfo.breed}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border rounded-lg"
+                        placeholder="Breed"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mb-4">
+                    <label>Personality</label>
                     <input
-                      type="checkbox"
-                      name="show_medical_history"
-                      checked={petInfo.show_medical_history}
+                      type="text"
+                      name="personality"
+                      value={petInfo.personality}
                       onChange={handleChange}
-                      className="radio radio-accent"
+                      className="w-full px-4 py-2 border rounded-lg"
+                      placeholder="Personality"
                     />
                   </div>
 
-                  <div className=" flex items-center">
-                    <label className="mr-2">Show Travel Mode</label>
+                  <div className="mb-4">
+                    <label>Address</label>
                     <input
-                      type="checkbox"
-                      name="show_travel_mode"
-                      checked={petInfo.show_travel_mode}
+                      type="text"
+                      name="address"
+                      value={petInfo.address}
                       onChange={handleChange}
-                      className="radio radio-accent"
+                      className="w-full px-4 py-2 border rounded-lg"
+                      placeholder="Address"
                     />
                   </div>
-                </div>
-              </div>
 
-              <div className="flex gap-3 flex-col md:flex-row">
-                <div className="w-full">
-                  <label>Owner one</label>
-                  <input
-                    type="text"
-                    name="mom_name"
-                    value={petInfo.mom_name}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border rounded-lg"
-                    placeholder="Mom's Name"
-                  />
-                </div>
+                  <div className="flex gap-3 flex-col md:flex-row">
+                    <div className="w-full">
+                      <label>Phone Number</label>
+                      <input
+                        type="text"
+                        name="phone_number"
+                        value={petInfo.phone_number}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border rounded-lg"
+                        placeholder="Phone Number"
+                      />
+                    </div>
 
-                <div className="w-full">
-                  <label>Owner Two</label>
-                  <input
-                    type="text"
-                    name="dad_name"
-                    value={petInfo.dad_name}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border rounded-lg mb-4"
-                    placeholder="Dad's Name"
-                  />
-                </div>
-              </div>
+                    <div className="mb-4 w-full">
+                      <label>Phone Number (Optional)</label>
+                      <input
+                        type="text"
+                        name="phone_number_optional"
+                        value={petInfo.phone_number_optional || ""}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border rounded-lg"
+                        placeholder="Optional Phone Number"
+                      />
+                    </div>
+                  </div>
 
-              <div className=" flex gap-3 flex-col md:flex-row">
-                <div className="w-full">
-                  <label>Name</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={petInfo.name}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border rounded-lg"
-                    placeholder="Pet's Name"
-                  />
-                </div>
-
-                <div className="mb-4 w-full">
-                  <label>Age</label>
-                  <input
-                    type="number"
-                    name="age"
-                    value={petInfo.age}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border rounded-lg"
-                    placeholder="Pet's Age"
-                  />
-                </div>
-              </div>
-
-              <div className="flex gap-3 flex-col md:flex-row">
-                <div className="w-full">
-                  <label>Pet Color</label>
-                  <input
-                    type="text"
-                    name="pet_color"
-                    value={petInfo.pet_color}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border rounded-lg"
-                    placeholder="Pet's Color"
-                  />
-                </div>
-
-                <div className="mb-4 w-full">
-                  <label>Breed</label>
-                  <input
-                    type="text"
-                    name="breed"
-                    value={petInfo.breed}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border rounded-lg"
-                    placeholder="Breed"
-                  />
-                </div>
-              </div>
-
-              <div className="mb-4">
-                <label>Personality</label>
-                <input
-                  type="text"
-                  name="personality"
-                  value={petInfo.personality}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border rounded-lg"
-                  placeholder="Personality"
-                />
-              </div>
-
-              <div className="mb-4">
-                <label>Address</label>
-                <input
-                  type="text"
-                  name="address"
-                  value={petInfo.address}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border rounded-lg"
-                  placeholder="Address"
-                />
-              </div>
-
-              <div className="flex gap-3 flex-col md:flex-row">
-                <div className="w-full">
-                  <label>Phone Number</label>
-                  <input
-                    type="text"
-                    name="phone_number"
-                    value={petInfo.phone_number}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border rounded-lg"
-                    placeholder="Phone Number"
-                  />
-                </div>
-
-                <div className="mb-4 w-full">
-                  <label>Phone Number (Optional)</label>
-                  <input
-                    type="text"
-                    name="phone_number_optional"
-                    value={petInfo.phone_number_optional || ""}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border rounded-lg"
-                    placeholder="Optional Phone Number"
-                  />
-                </div>
-              </div>
-
-              {/* <div className="mb-4 flex">
+                  {/* <div className="mb-4 flex">
                 <div>
                   <label>Lost</label>
                 </div>
@@ -946,142 +954,145 @@ export default function PetDetail() {
                 </div>
               </div> */}
 
-              <div className="mb-4">
-                <label>Vet Address</label>
-                <input
-                  type="text"
-                  name="vet_address"
-                  value={petInfo.vet_address}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border rounded-lg"
-                  placeholder="Vet Address"
-                />
-              </div>
-
-              <div className="mb-4">
-                <label>Neighbourhood</label>
-                <input
-                  type="text"
-                  name="neighbourhood"
-                  value={petInfo.neighbourhood}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border rounded-lg"
-                  placeholder="Neighbourhood"
-                />
-              </div>
-
-              <div className="mb-4">
-                <label>Chip Number</label>
-                <input
-                  type="number"
-                  name="chip_number"
-                  value={petInfo.chip_number}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border rounded-lg"
-                  placeholder="Chip Number"
-                />
-              </div>
-
-              <div className="modal-action">
-                <button
-                  className="btn py-3 px-4 rounded-lg"
-                  onClick={() => toggleCollapse("generalInfo")}
-                >
-                  Close
-                </button>
-                <button
-                  className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full md:w-auto"
-                  onClick={handleSubmit}
-                >
-                  create{" "}
-                </button>
-              </div>
-            </div>
-          ) : (
-            ""
-          )}
-        </form>
-      </div>
-
-      <div className="px-5">
-        <div
-          className={`border-2 bg-gray-800 rounded-lg p-5 transition-all duration-300 ${
-            highlightMedicalBox
-              ? "border-red-500 ring-2 ring-red-500 shadow-md shadow-red-500"
-              : "border-gray-700"
-          }`}
-        >
-          <div className="flex justify-between">
-            <div>
-              {" "}
-              <h2 className="text-lg text-teal-500">Crear historial médico</h2>
-            </div>
-            <div>
-              {" "}
-              <span onClick={() => toggleCollapse("medicalHistory2")}>
-                {collapseBox.medicalHistory2 ? (
-                  <ChevronUpIcon className="h-6 w-6 text-teal-500" />
-                ) : (
-                  <ChevronDownIcon className="h-6 w-6 text-teal-500" />
-                )}
-              </span>
-            </div>
-          </div>
-
-          {collapseBox.medicalHistory2 ? (
-            <div className="relative">
-              {!petByID.pay_show_info && (
-                <div className="absolute inset-0 z-50 bg-gray-900 bg-opacity-60 flex items-center justify-center pointer-events-auto">
-                  <p className="text-white text-center text-lg opacity-70">
-                    this feature will be usable when you finish paying your tag
-                  </p>
-                </div>
-              )}
-              <div className="mt-5">
-                <div className="mb-5">
-                  <h2 className="text-1xl font-bold text-white">
-                    Agrega la Informacion medica general
-                  </h2>
-                  <small className="text-sm text-white">
-                    como si tienes un tramaention ahora o enfermedades para toda
-                    la vida, etc
-                  </small>
-                </div>
-                <div className="">
-                  <label>Description</label>
-                </div>
-                <textarea
-                  name="description"
-                  value={medicalHistoryData.description}
-                  onChange={handleInputChange}
-                  className={`w-full p-2 border rounded-lg mb-3 ${
-                    medicalErrors.description
-                      ? "border-red-500"
-                      : "border-gray-300"
-                  }`}
-                  placeholder="Escribe la descripción del historial médico aquí..."
-                  rows={5}
-                />
-              </div>
-
-              <div className="flex gap-3 flex-col md:flex-row">
-                <div className="w-full">
-                  <div>
-                    <label>current_treatment</label>
-                  </div>
-                  <div className="w-full">
+                  <div className="mb-4">
+                    <label>Vet Address</label>
                     <input
                       type="text"
-                      name="current_treatment"
-                      value={medicalHistoryData.current_treatment}
-                      onChange={handleInputChange}
-                      className="w-full p-2 border rounded-lg"
-                      placeholder="Tratamiento actual"
+                      name="vet_address"
+                      value={petInfo.vet_address}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2 border rounded-lg"
+                      placeholder="Vet Address"
                     />
                   </div>
-                </div>
 
-                {/* <div className="w-full">
+                  <div className="mb-4">
+                    <label>Neighbourhood</label>
+                    <input
+                      type="text"
+                      name="neighbourhood"
+                      value={petInfo.neighbourhood}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2 border rounded-lg"
+                      placeholder="Neighbourhood"
+                    />
+                  </div>
+
+                  <div className="mb-4">
+                    <label>Chip Number</label>
+                    <input
+                      type="number"
+                      name="chip_number"
+                      value={petInfo.chip_number}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2 border rounded-lg"
+                      placeholder="Chip Number"
+                    />
+                  </div>
+
+                  <div className="modal-action">
+                    <button
+                      className="btn py-3 px-4 rounded-lg"
+                      onClick={() => toggleCollapse("generalInfo")}
+                    >
+                      Close
+                    </button>
+                    <button
+                      className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full md:w-auto"
+                      onClick={handleSubmit}
+                    >
+                      create{" "}
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
+            </form>
+          </div>
+
+          <div className="px-5">
+            <div
+              className={`border-2 bg-gray-800 rounded-lg p-5 transition-all duration-300 ${
+                highlightMedicalBox
+                  ? "border-red-500 ring-2 ring-red-500 shadow-md shadow-red-500"
+                  : "border-gray-700"
+              }`}
+            >
+              <div className="flex justify-between">
+                <div>
+                  {" "}
+                  <h2 className="text-lg text-teal-500">
+                    Crear historial médico
+                  </h2>
+                </div>
+                <div>
+                  {" "}
+                  <span onClick={() => toggleCollapse("medicalHistory2")}>
+                    {collapseBox.medicalHistory2 ? (
+                      <ChevronUpIcon className="h-6 w-6 text-teal-500" />
+                    ) : (
+                      <ChevronDownIcon className="h-6 w-6 text-teal-500" />
+                    )}
+                  </span>
+                </div>
+              </div>
+
+              {collapseBox.medicalHistory2 ? (
+                <div className="relative">
+                  {!petByID.pay_show_info && (
+                    <div className="absolute inset-0 z-50 bg-gray-900 bg-opacity-60 flex items-center justify-center pointer-events-auto">
+                      <p className="text-white text-center text-lg opacity-70">
+                        this feature will be usable when you finish paying your
+                        tag
+                      </p>
+                    </div>
+                  )}
+                  <div className="mt-5">
+                    <div className="mb-5">
+                      <h2 className="text-1xl font-bold text-white">
+                        Agrega la Informacion medica general
+                      </h2>
+                      <small className="text-sm text-white">
+                        como si tienes un tramaention ahora o enfermedades para
+                        toda la vida, etc
+                      </small>
+                    </div>
+                    <div className="">
+                      <label>Description</label>
+                    </div>
+                    <textarea
+                      name="description"
+                      value={medicalHistoryData.description}
+                      onChange={handleInputChange}
+                      className={`w-full p-2 border rounded-lg mb-3 ${
+                        medicalErrors.description
+                          ? "border-red-500"
+                          : "border-gray-300"
+                      }`}
+                      placeholder="Escribe la descripción del historial médico aquí..."
+                      rows={5}
+                    />
+                  </div>
+
+                  <div className="flex gap-3 flex-col md:flex-row">
+                    <div className="w-full">
+                      <div>
+                        <label>current_treatment</label>
+                      </div>
+                      <div className="w-full">
+                        <input
+                          type="text"
+                          name="current_treatment"
+                          value={medicalHistoryData.current_treatment}
+                          onChange={handleInputChange}
+                          className="w-full p-2 border rounded-lg"
+                          placeholder="Tratamiento actual"
+                        />
+                      </div>
+                    </div>
+
+                    {/* <div className="w-full">
                   <div>
                     <label>last_doctor_visit</label>
                   </div>
@@ -1095,90 +1106,90 @@ export default function PetDetail() {
                     />
                   </div>
                 </div> */}
-              </div>
+                  </div>
 
-              <div className="flex gap-3 flex-col md:flex-row mt-2">
-                <div className="w-full">
-                  <div>
-                    <label>important_notes</label>
+                  <div className="flex gap-3 flex-col md:flex-row mt-2">
+                    <div className="w-full">
+                      <div>
+                        <label>important_notes</label>
+                      </div>
+                      <div>
+                        <input
+                          type="text"
+                          name="important_notes"
+                          value={medicalHistoryData.important_notes}
+                          onChange={handleInputChange}
+                          className="w-full p-2 border rounded-lg"
+                          placeholder="Notas importantes"
+                        />
+                      </div>
+                    </div>
+                    <div className="w-full">
+                      <div>
+                        <label>allergies</label>
+                      </div>
+                      <div>
+                        <input
+                          type="text"
+                          name="allergies"
+                          value={medicalHistoryData.allergies}
+                          onChange={handleInputChange}
+                          className="w-full p-2 border rounded-lg mb-3"
+                          placeholder="Alergias"
+                        />
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <input
-                      type="text"
-                      name="important_notes"
-                      value={medicalHistoryData.important_notes}
-                      onChange={handleInputChange}
-                      className="w-full p-2 border rounded-lg"
-                      placeholder="Notas importantes"
-                    />
-                  </div>
-                </div>
-                <div className="w-full">
-                  <div>
-                    <label>allergies</label>
-                  </div>
-                  <div>
-                    <input
-                      type="text"
-                      name="allergies"
-                      value={medicalHistoryData.allergies}
-                      onChange={handleInputChange}
-                      className="w-full p-2 border rounded-lg mb-3"
-                      placeholder="Alergias"
-                    />
-                  </div>
-                </div>
-              </div>
 
-              <div className="flex gap-3 flex-col md:flex-row">
-                <div className="w-full">
-                  <div>
-                    <label>weight</label>
+                  <div className="flex gap-3 flex-col md:flex-row">
+                    <div className="w-full">
+                      <div>
+                        <label>weight</label>
+                      </div>
+                      <div>
+                        <input
+                          type="number"
+                          name="weight"
+                          value={medicalHistoryData.weight}
+                          onChange={handleInputChange}
+                          className="w-full p-2 border rounded-lg"
+                          placeholder="Peso (kg)"
+                        />
+                      </div>
+                    </div>
+                    <div className="w-full">
+                      <div>
+                        <label>height</label>
+                      </div>
+                      <div>
+                        <input
+                          type="number"
+                          name="height"
+                          value={medicalHistoryData.height}
+                          onChange={handleInputChange}
+                          className="w-full p-2 border rounded-lg"
+                          placeholder="Altura (cm)"
+                        />
+                      </div>
+                    </div>
+                    <div className="w-full">
+                      <div>
+                        <label>blood_type</label>
+                      </div>
+                      <div>
+                        <input
+                          type="text"
+                          name="blood_type"
+                          value={medicalHistoryData.blood_type}
+                          onChange={handleInputChange}
+                          className="w-full p-2 border rounded-lg mb-3"
+                          placeholder="Tipo de sangre"
+                        />
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <input
-                      type="number"
-                      name="weight"
-                      value={medicalHistoryData.weight}
-                      onChange={handleInputChange}
-                      className="w-full p-2 border rounded-lg"
-                      placeholder="Peso (kg)"
-                    />
-                  </div>
-                </div>
-                <div className="w-full">
-                  <div>
-                    <label>height</label>
-                  </div>
-                  <div>
-                    <input
-                      type="number"
-                      name="height"
-                      value={medicalHistoryData.height}
-                      onChange={handleInputChange}
-                      className="w-full p-2 border rounded-lg"
-                      placeholder="Altura (cm)"
-                    />
-                  </div>
-                </div>
-                <div className="w-full">
-                  <div>
-                    <label>blood_type</label>
-                  </div>
-                  <div>
-                    <input
-                      type="text"
-                      name="blood_type"
-                      value={medicalHistoryData.blood_type}
-                      onChange={handleInputChange}
-                      className="w-full p-2 border rounded-lg mb-3"
-                      placeholder="Tipo de sangre"
-                    />
-                  </div>
-                </div>
-              </div>
 
-              {/* <div>
+                  {/* <div>
                 <div>
                   <label>chronic_conditions</label>
                 </div>
@@ -1194,263 +1205,264 @@ export default function PetDetail() {
                 </div>
               </div> */}
 
-              <div>
-                <div>
-                  <label>medications</label>
-                </div>
-                <div>
-                  <input
-                    type="text"
-                    name="medications"
-                    value={medicalHistoryData.medications}
-                    onChange={handleInputChange}
-                    className="w-full p-2 border rounded-lg mb-3"
-                    placeholder="Medicamentos actuales"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <div>
-                  <label>surgical_history</label>
-                </div>
-                <div>
-                  <input
-                    type="text"
-                    name="surgical_history"
-                    value={medicalHistoryData.surgical_history}
-                    onChange={handleInputChange}
-                    className="w-full p-2 border rounded-lg mb-3"
-                    placeholder="Historial de cirugías"
-                  />
-                </div>
-              </div>
-
-              <div className="flex gap-3 flex-col md:flex-row">
-                <div className="w-full ">
                   <div>
-                    <label>diet</label>
+                    <div>
+                      <label>medications</label>
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        name="medications"
+                        value={medicalHistoryData.medications}
+                        onChange={handleInputChange}
+                        className="w-full p-2 border rounded-lg mb-3"
+                        placeholder="Medicamentos actuales"
+                      />
+                    </div>
                   </div>
-                  <div>
-                    <input
-                      type="text"
-                      name="diet"
-                      value={medicalHistoryData.diet}
-                      onChange={handleInputChange}
-                      className="w-full p-2 border rounded-lg"
-                      placeholder="Dieta"
-                    />
-                  </div>
-                </div>
-                <div className="w-full ">
-                  <div>
-                    <label>vaccination_status</label>
-                  </div>
-                  <div>
-                    <input
-                      type="text"
-                      name="vaccination_status"
-                      value={medicalHistoryData.vaccination_status}
-                      onChange={handleInputChange}
-                      className="w-full p-2 border rounded-lg mb-3"
-                      placeholder="Estado de vacunación"
-                    />
-                  </div>
-                </div>
-              </div>
 
-              <div>
-                <div>
-                  <label>vaccination_status</label>
-                </div>
-                <div>
-                  <input
-                    type="text"
-                    name="behavior_notes"
-                    value={medicalHistoryData.behavior_notes}
-                    onChange={handleInputChange}
-                    className="w-full p-2 border rounded-lg"
-                    placeholder="Notas de comportamiento"
-                  />
-                </div>
-              </div>
+                  <div>
+                    <div>
+                      <label>surgical_history</label>
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        name="surgical_history"
+                        value={medicalHistoryData.surgical_history}
+                        onChange={handleInputChange}
+                        className="w-full p-2 border rounded-lg mb-3"
+                        placeholder="Historial de cirugías"
+                      />
+                    </div>
+                  </div>
 
-              {/* Botón para crear el historial */}
-              <div className="flex justify-end mt-4 gap-2">
-                {" "}
-                <button
-                  className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full md:w-auto"
-                  onClick={handleCreateOrEditMedicalHistory}
-                  disabled={loading}
-                >
-                  {loading
-                    ? "Creando historial médico..."
-                    : "Crear Historial Médico"}
-                </button>
-                <button
-                  className="btn py-3 px-4 rounded-lg"
-                  onClick={() => toggleCollapse("medicalHistory2")}
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          ) : (
-            ""
-          )}
-        </div>
-      </div>
+                  <div className="flex gap-3 flex-col md:flex-row">
+                    <div className="w-full ">
+                      <div>
+                        <label>diet</label>
+                      </div>
+                      <div>
+                        <input
+                          type="text"
+                          name="diet"
+                          value={medicalHistoryData.diet}
+                          onChange={handleInputChange}
+                          className="w-full p-2 border rounded-lg"
+                          placeholder="Dieta"
+                        />
+                      </div>
+                    </div>
+                    <div className="w-full ">
+                      <div>
+                        <label>vaccination_status</label>
+                      </div>
+                      <div>
+                        <input
+                          type="text"
+                          name="vaccination_status"
+                          value={medicalHistoryData.vaccination_status}
+                          onChange={handleInputChange}
+                          className="w-full p-2 border rounded-lg mb-3"
+                          placeholder="Estado de vacunación"
+                        />
+                      </div>
+                    </div>
+                  </div>
 
-      <div className="px-5 mt-5">
-        <div className="border-2 border-gray-700 bg-gray-800 rounded-lg p-5">
-          <div className="flex justify-between">
-            <div>
-              {" "}
-              <h2 className="text-lg text-teal-500">
-                Crear visita al veterinario
-              </h2>
-            </div>
-            <div>
-              {" "}
-              <span onClick={() => toggleCollapse("vetSession")}>
-                {collapseBox.vetSession ? (
-                  <ChevronUpIcon className="h-6 w-6 text-teal-500" />
-                ) : (
-                  <ChevronDownIcon className="h-6 w-6 text-teal-500" />
-                )}
-              </span>
+                  <div>
+                    <div>
+                      <label>vaccination_status</label>
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        name="behavior_notes"
+                        value={medicalHistoryData.behavior_notes}
+                        onChange={handleInputChange}
+                        className="w-full p-2 border rounded-lg"
+                        placeholder="Notas de comportamiento"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Botón para crear el historial */}
+                  <div className="flex justify-end mt-4 gap-2">
+                    {" "}
+                    <button
+                      className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full md:w-auto"
+                      onClick={handleCreateOrEditMedicalHistory}
+                      disabled={loading}
+                    >
+                      {loading
+                        ? "Creando historial médico..."
+                        : "Crear Historial Médico"}
+                    </button>
+                    <button
+                      className="btn py-3 px-4 rounded-lg"
+                      onClick={() => toggleCollapse("medicalHistory2")}
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           </div>
 
-          {collapseBox.vetSession ? (
-            <div className="mt-5 relative">
-              {!petByID.pay_show_info && (
-                <div className="absolute inset-0 z-50 bg-gray-900 bg-opacity-60 flex items-center justify-center pointer-events-auto">
-                  <p className="text-white text-center text-lg opacity-70">
-                    this feature will be usable when you finish paying your tag
-                  </p>
+          <div className="px-5 mt-5">
+            <div className="border-2 border-gray-700 bg-gray-800 rounded-lg p-5">
+              <div className="flex justify-between">
+                <div>
+                  {" "}
+                  <h2 className="text-lg text-teal-500">
+                    Crear visita al veterinario
+                  </h2>
                 </div>
-              )}
-              <div className="mb-5">
-                <h2 className="text-1xl font-bold text-white">
-                  Mientras mas visites agregues mas facil seria cuidar a tu
-                  mascota en una emergencia
-                </h2>
-                <small className="text-sm text-white">
-                  no te saltes nada y si te da fastidio escribir simplemnte sube
-                  el informe del medico.
-                </small>
-              </div>
-              <div className="mb-4 w-full">
-                <label>address</label>
-                <input
-                  type="text"
-                  name="address"
-                  value={petVetInfo.address}
-                  onChange={handleChangeVet}
-                  className="w-full px-4 py-2 border rounded-lg"
-                  placeholder="address"
-                />
-              </div>
-
-              <div className="w-full">
-                <label>treatment</label>
-                <input
-                  type="text"
-                  name="treatment"
-                  value={petVetInfo.treatment}
-                  onChange={handleChangeVet}
-                  className="w-full px-4 py-2 border rounded-lg mb-4"
-                  placeholder="treatment"
-                />
-              </div>
-
-              <div className="flex gap-3 mb-4 flex-col md:flex-row">
-                <div className="w-full">
-                  <label>Documentos (PDF, imágenes, etc.)</label>
-                  <input
-                    type="file"
-                    name="files"
-                    multiple
-                    onChange={handleChangeVet} // Maneja la carga de archivos
-                    className="w-full px-4 py-2 border rounded-lg"
-                  />
-                </div>
-                <div className="w-full">
-                  <label>Date</label>
-                  <input
-                    type="date"
-                    name="date"
-                    value={petVetInfo.date || ""}
-                    onChange={handleChangeVet} // Maneja la carga de archivos
-                    className="w-full px-4 py-2 border rounded-lg"
-                  />
+                <div>
+                  {" "}
+                  <span onClick={() => toggleCollapse("vetSession")}>
+                    {collapseBox.vetSession ? (
+                      <ChevronUpIcon className="h-6 w-6 text-teal-500" />
+                    ) : (
+                      <ChevronDownIcon className="h-6 w-6 text-teal-500" />
+                    )}
+                  </span>
                 </div>
               </div>
 
-              <div className="flex gap-3 mb-4 flex-col md:flex-row">
-                <div className="w-full">
-                  <label>notes</label>
-                  <input
-                    type="text"
-                    name="notes"
-                    value={petVetInfo.notes}
-                    onChange={handleChangeVet}
-                    className="w-full px-4 py-2 border rounded-lg"
-                    placeholder="notes"
-                  />
-                </div>
+              {collapseBox.vetSession ? (
+                <div className="mt-5 relative">
+                  {!petByID.pay_show_info && (
+                    <div className="absolute inset-0 z-50 bg-gray-900 bg-opacity-60 flex items-center justify-center pointer-events-auto">
+                      <p className="text-white text-center text-lg opacity-70">
+                        this feature will be usable when you finish paying your
+                        tag
+                      </p>
+                    </div>
+                  )}
+                  <div className="mb-5">
+                    <h2 className="text-1xl font-bold text-white">
+                      Mientras mas visites agregues mas facil seria cuidar a tu
+                      mascota en una emergencia
+                    </h2>
+                    <small className="text-sm text-white">
+                      no te saltes nada y si te da fastidio escribir simplemnte
+                      sube el informe del medico.
+                    </small>
+                  </div>
+                  <div className="mb-4 w-full">
+                    <label>address</label>
+                    <input
+                      type="text"
+                      name="address"
+                      value={petVetInfo.address}
+                      onChange={handleChangeVet}
+                      className="w-full px-4 py-2 border rounded-lg"
+                      placeholder="address"
+                    />
+                  </div>
 
-                <div className="w-full">
-                  <label>medical_notes:</label>
-                  <input
-                    type="text"
-                    name="medical_notes"
-                    value={petVetInfo.medical_notes}
-                    onChange={handleChangeVet}
-                    className="w-full px-4 py-2 border rounded-lg"
-                    placeholder="Dad's Name"
-                  />
-                </div>
-              </div>
+                  <div className="w-full">
+                    <label>treatment</label>
+                    <input
+                      type="text"
+                      name="treatment"
+                      value={petVetInfo.treatment}
+                      onChange={handleChangeVet}
+                      className="w-full px-4 py-2 border rounded-lg mb-4"
+                      placeholder="treatment"
+                    />
+                  </div>
 
-              <div className="flex gap-3 mb-4 flex-col md:flex-row">
-                <div className="w-full">
-                  <label>cause</label>
-                  <input
-                    type="text"
-                    name="cause"
-                    value={petVetInfo.cause}
-                    onChange={handleChangeVet}
-                    className="w-full px-4 py-2 border rounded-lg"
-                    placeholder="cause"
-                  />
-                </div>
+                  <div className="flex gap-3 mb-4 flex-col md:flex-row">
+                    <div className="w-full">
+                      <label>Documentos (PDF, imágenes, etc.)</label>
+                      <input
+                        type="file"
+                        name="files"
+                        multiple
+                        onChange={handleChangeVet} // Maneja la carga de archivos
+                        className="w-full px-4 py-2 border rounded-lg"
+                      />
+                    </div>
+                    <div className="w-full">
+                      <label>Date</label>
+                      <input
+                        type="date"
+                        name="date"
+                        value={petVetInfo.date || ""}
+                        onChange={handleChangeVet} // Maneja la carga de archivos
+                        className="w-full px-4 py-2 border rounded-lg"
+                      />
+                    </div>
+                  </div>
 
-                <div className="w-full">
-                  <label>cost</label>
-                  <input
-                    type="number"
-                    name="cost"
-                    value={petVetInfo.cost}
-                    onChange={handleChangeVet}
-                    className="w-full px-4 py-2 border rounded-lg"
-                    placeholder="cost"
-                  />
-                </div>
-              </div>
+                  <div className="flex gap-3 mb-4 flex-col md:flex-row">
+                    <div className="w-full">
+                      <label>notes</label>
+                      <input
+                        type="text"
+                        name="notes"
+                        value={petVetInfo.notes}
+                        onChange={handleChangeVet}
+                        className="w-full px-4 py-2 border rounded-lg"
+                        placeholder="notes"
+                      />
+                    </div>
 
-              {/* Botón para crear el historial */}
-              <div className="flex gap-3 flex-col md:flex-row justify-end mb-4 mt-4">
-                {" "}
-                <button
-                  className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full md:w-auto"
-                  onClick={handleCreateVetSession}
-                  // disabled={loading}
-                >
-                  Create vet session
-                </button>
-                {/* <button
+                    <div className="w-full">
+                      <label>medical_notes:</label>
+                      <input
+                        type="text"
+                        name="medical_notes"
+                        value={petVetInfo.medical_notes}
+                        onChange={handleChangeVet}
+                        className="w-full px-4 py-2 border rounded-lg"
+                        placeholder="Dad's Name"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex gap-3 mb-4 flex-col md:flex-row">
+                    <div className="w-full">
+                      <label>cause</label>
+                      <input
+                        type="text"
+                        name="cause"
+                        value={petVetInfo.cause}
+                        onChange={handleChangeVet}
+                        className="w-full px-4 py-2 border rounded-lg"
+                        placeholder="cause"
+                      />
+                    </div>
+
+                    <div className="w-full">
+                      <label>cost</label>
+                      <input
+                        type="number"
+                        name="cost"
+                        value={petVetInfo.cost}
+                        onChange={handleChangeVet}
+                        className="w-full px-4 py-2 border rounded-lg"
+                        placeholder="cost"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Botón para crear el historial */}
+                  <div className="flex gap-3 flex-col md:flex-row justify-end mb-4 mt-4">
+                    {" "}
+                    <button
+                      className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full md:w-auto"
+                      onClick={handleCreateVetSession}
+                      // disabled={loading}
+                    >
+                      Create vet session
+                    </button>
+                    {/* <button
                   className="border-none py-3 px-4  bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
                   onClick={() =>
                     document.getElementById("my_modal_7_pet_id").showModal()
@@ -1458,170 +1470,177 @@ export default function PetDetail() {
                 >
                   Your vet visits
                 </button> */}
-                <button
-                  className="btn py-3 px-4 rounded-lg"
-                  onClick={() => toggleCollapse("vetSession")}
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          ) : (
-            ""
-          )}
-        </div>
-      </div>
-
-      <div className="px-5 mt-5">
-        <div className="border-2 border-gray-700 bg-gray-800 rounded-lg p-5">
-          <div className="flex justify-between">
-            <div>
-              {" "}
-              <h2 className=" text-lg text-teal-500"> Create Vaccines</h2>
-            </div>
-            <div>
-              {" "}
-              <span onClick={() => toggleCollapse("vaccines")}>
-                {collapseBox.vaccines ? (
-                  <ChevronUpIcon className="h-6 w-6 text-teal-500" />
-                ) : (
-                  <ChevronDownIcon className="h-6 w-6 text-teal-500" />
-                )}
-              </span>
+                    <button
+                      className="btn py-3 px-4 rounded-lg"
+                      onClick={() => toggleCollapse("vetSession")}
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           </div>
 
-          {collapseBox.vaccines ? (
-            <div className="mt-5 relative">
-              {!petByID.pay_show_info && (
-                <div className="absolute inset-0 z-50 bg-gray-900 bg-opacity-60 flex items-center justify-center pointer-events-auto">
-                  <p className="text-white text-center text-lg opacity-70">
-                    this feature will be usable when you finish paying your tag
-                  </p>
+          <div className="px-5 mt-5">
+            <div className="border-2 border-gray-700 bg-gray-800 rounded-lg p-5">
+              <div className="flex justify-between">
+                <div>
+                  {" "}
+                  <h2 className=" text-lg text-teal-500"> Create Vaccines</h2>
                 </div>
+                <div>
+                  {" "}
+                  <span onClick={() => toggleCollapse("vaccines")}>
+                    {collapseBox.vaccines ? (
+                      <ChevronUpIcon className="h-6 w-6 text-teal-500" />
+                    ) : (
+                      <ChevronDownIcon className="h-6 w-6 text-teal-500" />
+                    )}
+                  </span>
+                </div>
+              </div>
+
+              {collapseBox.vaccines ? (
+                <div className="mt-5 relative">
+                  {!petByID.pay_show_info && (
+                    <div className="absolute inset-0 z-50 bg-gray-900 bg-opacity-60 flex items-center justify-center pointer-events-auto">
+                      <p className="text-white text-center text-lg opacity-70">
+                        this feature will be usable when you finish paying your
+                        tag
+                      </p>
+                    </div>
+                  )}
+                  <div className="mb-5">
+                    <h2 className="text-1xl font-bold text-white">
+                      el 80% de los duenos con mascotas no recuerdan con
+                      exactitud la vacuinancion de sus hijos
+                    </h2>
+                    <small className="text-sm text-white">
+                      venga son solo 4 inputs!! es mas facil que recoger la caca
+                      y lo haces!
+                    </small>
+                  </div>
+                  <div className="flex justify-between flex-col md:flex-row gap-2">
+                    <div className="w-full ">
+                      <div>
+                        <label>name of the vaccine</label>
+                      </div>
+                      <input
+                        type="text"
+                        className={`w-full px-4 py-2 border rounded-lg ${
+                          vaccineErrors.name
+                            ? "border-red-500"
+                            : "border-gray-300"
+                        }`}
+                        placeholder="name of the vaccine"
+                        name="name"
+                        value={vaccineData.name}
+                        onChange={handleVaccineInputChange}
+                      />
+                    </div>
+                    <div className="w-full mb-2 md:mb-0">
+                      <div>
+                        <label>vaccine type</label>
+                      </div>
+                      <input
+                        type="text"
+                        className="w-full px-4 py-2 border rounded-lg"
+                        placeholder="vaccine type"
+                        name="vaccine_type"
+                        value={vaccineData.vaccine_type}
+                        onChange={handleVaccineInputChange}
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col md:flex-row justify-between gap-2 mt-0 md:mt-3">
+                    {" "}
+                    <div className="w-full">
+                      <div>
+                        <label>date_administered</label>
+                      </div>
+                      <input
+                        type="date"
+                        className={`w-full px-4 py-2 border rounded-lg ${
+                          vaccineErrors.date_administered
+                            ? "border-red-500"
+                            : "border-gray-300"
+                        }`}
+                        placeholder="date_administered"
+                        name="date_administered"
+                        value={vaccineData.date_administered}
+                        onChange={handleVaccineInputChange}
+                      />
+                    </div>
+                    <div className="w-full">
+                      <div>
+                        <label>expiration_date</label>
+                      </div>
+                      <input
+                        type="date"
+                        className={`w-full px-4 py-2 border rounded-lg ${
+                          vaccineErrors.expiration_date
+                            ? "border-red-500"
+                            : "border-gray-300"
+                        }`}
+                        placeholder="expiration_date"
+                        name="expiration_date"
+                        value={vaccineData.expiration_date}
+                        onChange={handleVaccineInputChange}
+                      />
+                    </div>
+                  </div>
+                  <div className="mt-3 flex gap-3 justify-end">
+                    <button
+                      className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full md:w-auto"
+                      onClick={handleCreateVaccine}
+                      disabled={loading}
+                    >
+                      {loading ? "Creando vacuna..." : "Crear Vacuna"}
+                    </button>
+                    <button
+                      className="btn py-3 px-4 rounded-lg"
+                      onClick={() => toggleCollapse("vaccines")}
+                    >
+                      Close
+                    </button>
+                  </div>
+                  <DeleteDialog
+                    isOpen={isDeleteVaccineDialogOpen}
+                    onClose={() => setIsDeleteVaccineDialogOpen(false)}
+                    onConfirm={handleDeleteVaccineFunc}
+                    itemName={`Vacuna: ${vaccineIdToDelete ?? ""}`}
+                  />
+                </div>
+              ) : (
+                ""
               )}
-              <div className="mb-5">
-                <h2 className="text-1xl font-bold text-white">
-                  el 80% de los duenos con mascotas no recuerdan con exactitud
-                  la vacuinancion de sus hijos
-                </h2>
-                <small className="text-sm text-white">
-                  venga son solo 4 inputs!! es mas facil que recoger la caca y
-                  lo haces!
-                </small>
-              </div>
-              <div className="flex justify-between flex-col md:flex-row gap-2">
-                <div className="w-full ">
-                  <div>
-                    <label>name of the vaccine</label>
-                  </div>
-                  <input
-                    type="text"
-                    className={`w-full px-4 py-2 border rounded-lg ${
-                      vaccineErrors.name ? "border-red-500" : "border-gray-300"
-                    }`}
-                    placeholder="name of the vaccine"
-                    name="name"
-                    value={vaccineData.name}
-                    onChange={handleVaccineInputChange}
-                  />
-                </div>
-                <div className="w-full mb-2 md:mb-0">
-                  <div>
-                    <label>vaccine type</label>
-                  </div>
-                  <input
-                    type="text"
-                    className="w-full px-4 py-2 border rounded-lg"
-                    placeholder="vaccine type"
-                    name="vaccine_type"
-                    value={vaccineData.vaccine_type}
-                    onChange={handleVaccineInputChange}
-                  />
-                </div>
-              </div>
-              <div className="flex flex-col md:flex-row justify-between gap-2 mt-0 md:mt-3">
-                {" "}
-                <div className="w-full">
-                  <div>
-                    <label>date_administered</label>
-                  </div>
-                  <input
-                    type="date"
-                    className={`w-full px-4 py-2 border rounded-lg ${
-                      vaccineErrors.date_administered
-                        ? "border-red-500"
-                        : "border-gray-300"
-                    }`}
-                    placeholder="date_administered"
-                    name="date_administered"
-                    value={vaccineData.date_administered}
-                    onChange={handleVaccineInputChange}
-                  />
-                </div>
-                <div className="w-full">
-                  <div>
-                    <label>expiration_date</label>
-                  </div>
-                  <input
-                    type="date"
-                    className={`w-full px-4 py-2 border rounded-lg ${
-                      vaccineErrors.expiration_date
-                        ? "border-red-500"
-                        : "border-gray-300"
-                    }`}
-                    placeholder="expiration_date"
-                    name="expiration_date"
-                    value={vaccineData.expiration_date}
-                    onChange={handleVaccineInputChange}
-                  />
-                </div>
-              </div>
-              <div className="mt-3 flex gap-3 justify-end">
-                <button
-                  className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full md:w-auto"
-                  onClick={handleCreateVaccine}
-                  disabled={loading}
-                >
-                  {loading ? "Creando vacuna..." : "Crear Vacuna"}
-                </button>
-                <button
-                  className="btn py-3 px-4 rounded-lg"
-                  onClick={() => toggleCollapse("vaccines")}
-                >
-                  Close
-                </button>
-              </div>
-              <DeleteDialog
-                isOpen={isDeleteVaccineDialogOpen}
-                onClose={() => setIsDeleteVaccineDialogOpen(false)}
-                onConfirm={handleDeleteVaccineFunc}
-                itemName={`Vacuna: ${vaccineIdToDelete ?? ""}`}
-              />
             </div>
-          ) : (
-            ""
-          )}
-        </div>
-      </div>
+          </div>
 
-      <div className="p-5">
-        <TravelModeForm
-          travelModeData={petByID?.care_profile}
-          payShowInfo={petByID?.pay_show_info}
-          onSubmit={handleCreateOrEditCareProfile}
-          petId={petId}
-          isCollapsed={collapseBox.travelMode}
-          onToggleCollapse={() => toggleCollapse("travelMode")}
-        />
-      </div>
+          <div className="p-5">
+            <TravelModeForm
+              travelModeData={petByID?.care_profile}
+              payShowInfo={petByID?.pay_show_info}
+              onSubmit={handleCreateOrEditCareProfile}
+              petId={petId}
+              isCollapsed={collapseBox.travelMode}
+              onToggleCollapse={() => toggleCollapse("travelMode")}
+            />
+          </div>
 
-      <div className="px-5 flex items-center">
-        <div>I want to delete this pet</div>
-        <div className="" onClick={openPetDeleteModal}>
-          <TrashIcon className="w-6 h-6" />
+          <div className="px-5 flex items-center">
+            <div>I want to delete this pet</div>
+            <div className="" onClick={openPetDeleteModal}>
+              <TrashIcon className="w-6 h-6" />
+            </div>
+          </div>
         </div>
-      </div>
+      ) : (
+        <DogLoader />
+      )}
 
       <DeleteDialog
         isOpen={isDeleteOpen}

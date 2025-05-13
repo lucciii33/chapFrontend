@@ -64,6 +64,28 @@
       "login": "Login",
       "dashboard": "Dashboard",
       "logout": "Logout"
+    },
+
+    "login_page": {
+      "title": "LOGIN",
+      "email": "Email",
+      "password": "Password",
+      "no_account": "Don't have an account yet? Create it here",
+      "forgot_password": "Forgot password?",
+      "button": "Start Now"
+    },
+
+    "register_page": {
+      "title": "REGISTER",
+      "full_name": "Full name",
+      "email": "Email",
+      "password": "Password",
+      "country": "Country",
+      "age": "Age",
+      "terms": "I agree to the terms of use and privacy policy.",
+      "data_protection": "I affirm that I have read and accepted the information on data protection.",
+      "account": "If you already have an account login here",
+      "button": "Start your journey with CHAP"
     }
 
 

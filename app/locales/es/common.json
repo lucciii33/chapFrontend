@@ -63,6 +63,28 @@
       "login": "Inicio ",
       "dashboard": "Panel",
       "logout": "Abandonar"
-    }
+    },
+
+    "login_page": {
+    "title": "INICIA SESIÓN",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "no_account": "¿No tienes cuenta aún? Créala aquí",
+    "forgot_password": "¿Olvidaste tu contraseña?",
+    "button": "Empieza ahora"
+  },
+
+  "register_page": {
+    "title": "REGÍSTRATE",
+    "full_name": "Nombre completo",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "country": "País",
+    "age": "Edad",
+    "terms": "Acepto los términos de uso y la política de privacidad.",
+    "data_protection": "Afirmo que he leído y acepto la información sobre protección de datos.",
+    "account": "Si ya tienes cuenta puedes entrar aqui",
+    "button": "Empieza tu historia con CHAP"
+  }
     
   }

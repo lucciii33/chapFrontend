@@ -4,7 +4,7 @@ import { Link, useNavigate } from "@remix-run/react";
 import { useGlobalContext } from "../../context/GlobalProvider"; // Ajusta el path
 import loginImage from "../../images/imageLogin4.png";
 import loginImageMobile from "../../images/cat3.png";
-
+import { useTranslation } from "react-i18next";
 import "../../../styles/dashboard.css";
 
 export default function Login() {
@@ -14,6 +14,7 @@ export default function Login() {
     email: "",
     hashed_password: "",
   });
+  const { t } = useTranslation();
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -56,11 +57,13 @@ export default function Login() {
               className="text-4xl font-bold mb-4 text-slate-50"
               style={{ fontFamily: "chapFont" }}
             >
-              LOGIN
+              {t("login_page.title")}
             </h1>
           </div>
           <div className="mb-4">
-            <label className="block text-slate-50">Email</label>
+            <label className="block text-slate-50">
+              {t("login_page.email")}
+            </label>
             <input
               type="text"
               className="w-full px-4 py-2 border rounded-lg"
@@ -71,7 +74,9 @@ export default function Login() {
             />
           </div>
           <div className="mb-2">
-            <label className="block text-slate-50">Password</label>
+            <label className="block text-slate-50">
+              {t("login_page.password")}
+            </label>
             <input
               type="password"
               className="w-full px-4 py-2 border rounded-lg"
@@ -81,15 +86,19 @@ export default function Login() {
               onChange={handleOnChange}
             />
           </div>
+          <p className="block mt-2 text-sm text-slate-50">
+            {t("login_page.forgot_password")}
+          </p>
           <div className="mb-2">
-            <Link to="/register">dont have an account yet? Register here</Link>
+            <Link to="/register">{t("login_page.no_account")}</Link>
           </div>
+
           <div className="w-full">
             <button
               className="w-full border-none py-3 px-4  bg-teal-500 text-white rounded-lg"
               onClick={handleLoginClick}
             >
-              Login
+              {t("login_page.button")}
             </button>
           </div>
         </div>
