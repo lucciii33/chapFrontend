@@ -1,9 +1,51 @@
 import { useState, useEffect } from "react";
+import DeleteDialog from "../components/deleteDialog";
 
-export default function PetCalendar({ trackers }) {
+export default function PetCalendar({ trackers, onDelete, onEdit }) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedTracker, setSelectedTracker] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  console.log("trackers", trackers);
+
+  const handleChange = (e) => {
+    const { name, type, checked, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]:
+        type === "checkbox"
+          ? checked
+          : [
+              "walked_minutes",
+              "food_consumed",
+              "water_consumed",
+              "weight",
+              "sleep_hours",
+            ].includes(name)
+          ? Number(value)
+          : value,
+    }));
+  };
+
+  const [formData, setFormData] = useState({
+    pet_id: "",
+    urinated: false,
+    pooped: false,
+    poop_quality: "",
+    mood: "",
+    walked_minutes: 0,
+    played: false,
+    food_consumed: 0,
+    water_consumed: 0,
+    vomited: false,
+    coughing: false,
+    lethargy: false,
+    fever: false,
+    medication_given: "",
+    weight: 0,
+    sleep_hours: 0,
+  });
 
   const daysInMonth = (date) =>
     new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
@@ -47,21 +89,46 @@ export default function PetCalendar({ trackers }) {
 
     if (tracker) {
       setSelectedTracker(tracker);
+      setFormData({ ...tracker });
       setIsModalOpen(true);
     } else {
       setSelectedTracker(null);
-      setIsModalOpen(true); // también puedes mostrar que no hay datos en el modal
+      setIsModalOpen(true);
     }
   };
 
   return (
     <div className="p-5 mx-auto p-4 bg-gray-800 rounded-xl text-white mt-5">
-      <h2 className="text-center text-xl font-bold">
-        {currentDate.toLocaleString("default", {
-          month: "long",
-          year: "numeric",
-        })}
-      </h2>
+      <div className="flex items-center justify-between mb-2">
+        <button
+          onClick={() =>
+            setCurrentDate(
+              new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1)
+            )
+          }
+          className="text-white px-3 py-1 bg-gray-700 rounded hover:bg-gray-600"
+        >
+          ←
+        </button>
+
+        <h2 className="text-xl font-bold text-center">
+          {currentDate.toLocaleString("default", {
+            month: "long",
+            year: "numeric",
+          })}
+        </h2>
+
+        <button
+          onClick={() =>
+            setCurrentDate(
+              new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1)
+            )
+          }
+          className="text-white px-3 py-1 bg-gray-700 rounded hover:bg-gray-600"
+        >
+          →
+        </button>
+      </div>
 
       <div className="grid grid-cols-7 gap-1 mt-4 text-sm text-center">
         {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
@@ -87,8 +154,8 @@ export default function PetCalendar({ trackers }) {
         ))}
       </div>
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white text-black p-6 rounded-lg shadow-xl max-w-sm w-full relative">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center ">
+          <div className="bg-white text-black p-6 rounded-lg shadow-xl max-w-sm w-full relative overflow-auto max-h-[750px]">
             <button
               className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
               onClick={() => setIsModalOpen(false)}
@@ -98,29 +165,101 @@ export default function PetCalendar({ trackers }) {
 
             {selectedTracker ? (
               <>
-                <h3 className="text-xl font-bold mb-2">Pet Details</h3>
-                <p>
-                  <strong>Mood:</strong> {selectedTracker.mood}
-                </p>
-                <p>
-                  <strong>Walked Minutes:</strong>{" "}
-                  {selectedTracker.walked_minutes} mins
-                </p>
-                <p>
-                  <strong>Food Consumed:</strong>{" "}
-                  {selectedTracker.food_consumed} gr
-                </p>
-                <p>
-                  <strong>Water Consumed:</strong>{" "}
-                  {selectedTracker.water_consumed} ml
-                </p>
-                <p>
-                  <strong>Sleep Hours:</strong> {selectedTracker.sleep_hours}{" "}
-                  hrs
-                </p>
-                <p>
-                  <strong>Poop Quality:</strong> {selectedTracker.poop_quality}
-                </p>
+                <h3 className="text-xl font-bold mb-4">Edit Pet Tracker</h3>
+
+                <div className="space-y-2">
+                  {/* Inputs normales */}
+                  {[
+                    { label: "Mood", name: "mood" },
+                    { label: "Poop Quality", name: "poop_quality" },
+                    {
+                      label: "Walked Minutes",
+                      name: "walked_minutes",
+                      type: "number",
+                    },
+                    {
+                      label: "Food Consumed",
+                      name: "food_consumed",
+                      type: "number",
+                    },
+                    {
+                      label: "Water Consumed",
+                      name: "water_consumed",
+                      type: "number",
+                    },
+                    {
+                      label: "Sleep Hours",
+                      name: "sleep_hours",
+                      type: "number",
+                    },
+                    { label: "Medication Given", name: "medication_given" },
+                    { label: "Weight", name: "weight", type: "number" },
+                  ].map(({ label, name, type = "text" }) => (
+                    <div key={name}>
+                      <label className="block text-sm font-semibold">
+                        {label}
+                      </label>
+                      <input
+                        type={type}
+                        name={name}
+                        value={formData?.[name] ?? ""}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border rounded-lg bg-transparent"
+                      />
+                    </div>
+                  ))}
+
+                  {/* Checkboxes */}
+                  {[
+                    "urinated",
+                    "pooped",
+                    "played",
+                    "vomited",
+                    "coughing",
+                    "lethargy",
+                    "fever",
+                  ].map((field) => (
+                    <label key={field} className="block text-sm font-medium">
+                      <input
+                        type="checkbox"
+                        name={field}
+                        checked={formData?.[field] || false}
+                        onChange={handleChange}
+                        className="radio radio-accent mr-2"
+                      />
+                      {field}
+                    </label>
+                  ))}
+                </div>
+                <div className="flex justify-between mt-5">
+                  <button
+                    className="px-4 py-2 bg-blue-600 text-white rounded"
+                    onClick={async () => {
+                      await onEdit(selectedTracker.id, formData); // << guarda cambios
+                      setIsModalOpen(false); // cierra modal
+                    }}
+                  >
+                    Save Changes
+                  </button>
+
+                  <button
+                    className="px-4 py-2 bg-red-600 text-white rounded"
+                    onClick={() => setShowDeleteDialog(true)}
+                  >
+                    Delete
+                  </button>
+                </div>
+
+                <DeleteDialog
+                  isOpen={showDeleteDialog}
+                  onClose={() => setShowDeleteDialog(false)}
+                  onConfirm={async () => {
+                    await onDelete(selectedTracker.id);
+                    setShowDeleteDialog(false);
+                    setIsModalOpen(false);
+                  }}
+                  itemName="this pet tracking record"
+                />
               </>
             ) : (
               <p className="text-gray-700">No data available for this day.</p>

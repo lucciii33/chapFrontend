@@ -6,7 +6,8 @@ import PetCalendar from "~/components/petCalendar";
 import "../../styles/dashboard.css";
 
 export default function PetTracker() {
-  const { createPetTrack, getPetTrack } = PetTrackerContext();
+  const { createPetTrack, getPetTrack, deletePetTrack, editPetTrack } =
+    PetTrackerContext();
   const { pet } = useGlobalContext();
   const { getPetById, petByID, editPet } = pet;
   const { petId } = useParams();
@@ -190,7 +191,17 @@ export default function PetTracker() {
         </button>
       </div>
 
-      <PetCalendar trackers={petByID?.trackers} />
+      <PetCalendar
+        trackers={petByID?.trackers}
+        onDelete={async (id) => {
+          await deletePetTrack(id); // llama al context
+          await getPetById(petId); // recarga los datos
+        }}
+        onEdit={async (id, updatedData) => {
+          await editPetTrack(id, updatedData);
+          await getPetById(petId);
+        }}
+      />
     </div>
   );
 }

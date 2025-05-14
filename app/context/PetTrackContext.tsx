@@ -79,5 +79,55 @@ export const PetTrackerContext = () => {
     }
   };
 
-  return { createPetTrack, getPetTrack };
+  const deletePetTrack = async (trackerId: number) => {
+    const token = getToken();
+    if (!token) {
+      showErrorToast("User not authenticated");
+      return;
+    }
+
+    try {
+      const response = await fetch(`${baseUrl}/api/pet_tracker/${trackerId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) throw new Error("Network response was not ok");
+
+      showSuccessToast("Pet data successfully deleted");
+    } catch (error) {
+      console.error(error);
+      showErrorToast("Error deleting pet data");
+    }
+  };
+
+  const editPetTrack = async (trackerId: number, data: PetFormData) => {
+    const token = getToken();
+    if (!token) {
+      showErrorToast("User not authenticated");
+      return;
+    }
+
+    try {
+      const response = await fetch(`${baseUrl}/api/pet_tracker/${trackerId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) throw new Error("Network response was not ok");
+
+      showSuccessToast("Pet data successfully updated");
+    } catch (error) {
+      console.error(error);
+      showErrorToast("Error updating pet data");
+    }
+  };
+
+  return { createPetTrack, getPetTrack, deletePetTrack, editPetTrack };
 };
