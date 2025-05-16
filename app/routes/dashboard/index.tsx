@@ -443,7 +443,7 @@ export default function Dashboard() {
 
                   <div className="flex flex-col md:flex-row">
                     <div className="mb-4 w-full">
-                      <label>Mom's Name</label>
+                      <label>Owner 1</label>
                       <input
                         type="text"
                         name="mom_name"
@@ -457,7 +457,7 @@ export default function Dashboard() {
                     </div>
 
                     <div className="mb-4 w-full ms-0 md:ms-2">
-                      <label>Dad's Name</label>
+                      <label>Owner 2</label>
                       <input
                         type="text"
                         name="dad_name"
@@ -569,7 +569,7 @@ export default function Dashboard() {
                     />
                   </div>
 
-                  <div className="flex flew-row md:flex-col">
+                  <div className="flex flex-col md:flex-row">
                     <div className="mb-4 w-full">
                       <label>Pet Color</label>
                       <input
@@ -861,14 +861,14 @@ export default function Dashboard() {
                   >
                     <ShoppingCartIcon className="h-6 w-6 text-white" />
                   </button>
-                  <button className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600">
+                  {/* <button className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600">
                     {" "}
                     pay now
-                  </button>
+                  </button> */}
                   <button
                     className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600"
                     onClick={() => {
-                      document.getElementById("my_modal_1").close(); // Cierra el modal
+                      document.getElementById("my_modal_1").close();
                     }}
                   >
                     Close

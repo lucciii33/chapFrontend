@@ -33,12 +33,9 @@ export default function Card({ petObj }: CardProps) {
   const [selectPetId, setSelectPetId] = useState<number | null>(null);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  console.log("selectPetId", selectPetId);
   const { auth, pet, tag, cart, comingFromCard } = useGlobalContext();
   const { createTag, tagInfo } = tag;
   const { actSideBar, selectPetIdForTag, selectPetIdNew } = cart;
-  console.log("petObjpetObjpetObjpetObjpetObj", petObj);
-  // Accede a la info del usuario
 
   const user = auth.user;
 
@@ -63,16 +60,28 @@ export default function Card({ petObj }: CardProps) {
     shape: "circular",
     name: true,
     continue_later: false,
-    material: "metal",
+    material: "aluminum",
     color: "blue",
   });
 
+  const tagImages = [
+    { shape: "square", color: "purple", imageUrl: "/purpleSqure.png" },
+    { shape: "circular", color: "purple", imageUrl: "/circlePurple.png" },
+    { shape: "square", color: "black", imageUrl: "/blackSqure.png" },
+    // Agrega más según lo que tengas en tu app...
+  ];
+
+  const selectedImage = tagImages.find(
+    (img) =>
+      img.shape === tagInfoData.shape.toLowerCase() &&
+      img.color === tagInfoData.color.toLowerCase()
+  );
+
   const [selectPetIdTag, setSelectPetIdTag] = useState<number | null>(null);
-  console.log("setSelectPetIdTag", selectPetIdTag);
   const handleBuyTag = (id: number) => {
     document.getElementById("my_modal_2").showModal();
     console.log("ID recibido para comprar tag:", id);
-    selectPetIdForTag(id); // Cambia el estado
+    selectPetIdForTag(id);
   };
 
   const handleClickCommingFromLink = () => {
@@ -86,7 +95,7 @@ export default function Card({ petObj }: CardProps) {
 
     setTagInfoData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value, // Si es checkbox, usa `checked`, si no, usa `value`
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -94,9 +103,10 @@ export default function Card({ petObj }: CardProps) {
     if (selectPetIdNew !== null) {
       try {
         const petId = selectPetIdNew;
-        const response = await createTag(petId, tagInfoData); // Usamos el estado `tagInfo` directamente
+        const response = await createTag(petId, tagInfoData);
         if (response) {
           alert("¡Chapa creada con éxito!");
+          await getPets(user.id);
           document.getElementById("my_modal_2").close();
         } else {
           alert("Hubo un error al crear la chapa");
@@ -245,7 +255,6 @@ export default function Card({ petObj }: CardProps) {
       <dialog id="my_modal_2" className="modal">
         <div className="modal-box w-3/4 max-w-4xl h-auto p-6">
           <h3 className="font-bold text-lg">Crea Tu chapa aqui</h3>
-
           <>
             <div className="flex mt-3">
               <div className="w-1/2 border-r border-gray-500 ">
@@ -260,7 +269,7 @@ export default function Card({ petObj }: CardProps) {
                       onChange={handleTagChange}
                       className="w-full px-4 py-2 border rounded-lg"
                     >
-                      <option value="metal">Metal</option>
+                      <option value="aluminum">aluminum</option>
                       {/* <option value="plastic">Plástico</option>
                       <option value="leather">Cuero</option> */}
                     </select>
@@ -289,18 +298,24 @@ export default function Card({ petObj }: CardProps) {
                     <label>Color</label>
                   </div>
                   <div>
-                    <input
-                      type="text"
+                    <select
                       name="color"
                       value={tagInfoData.color}
                       onChange={handleTagChange}
-                      className="w-full px-4 py-2 border rounded-lg"
-                      placeholder="Color"
-                    />
+                      className={`w-full px-4 py-2 border rounded-lg border-gray-300`}
+                    >
+                      <option value="purple">Purple</option>
+                      <option value="black">Black</option>
+                      <option value="blue">Blue</option>
+                      <option value="green">Green</option>
+
+                      {/* <option value="heart">Heart</option>
+                          <option value="bone">Bone</option> */}
+                    </select>
                   </div>
                 </div>
 
-                <div className="flex items-center mt-2">
+                {/* <div className="flex items-center mt-2">
                   <div>
                     <label>Name</label>
                   </div>
@@ -326,7 +341,7 @@ export default function Card({ petObj }: CardProps) {
                       onChange={handleTagChange}
                     />
                   </div>
-                </div>
+                </div> */}
 
                 <button
                   className="btn  bg-teal-500 w-[92%] mt-2 me-2"
@@ -336,7 +351,17 @@ export default function Card({ petObj }: CardProps) {
                 </button>
               </div>
               <div className="w-1/2 flex justify-center items-center">
-                <img src={tagImg} alt="tag" className="w-[250px]" />
+                {selectedImage ? (
+                  <img
+                    src={selectedImage.imageUrl}
+                    alt="Preview"
+                    className="w-[250px] h-[250px] object-contain"
+                  />
+                ) : (
+                  <div className="w-[250px] h-[250px] bg-gray-200 flex items-center justify-center text-gray-500">
+                    Sin preview
+                  </div>
+                )}
               </div>
             </div>
             <div className="modal-action">
