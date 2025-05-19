@@ -14,6 +14,8 @@ export default function Login() {
     email: "",
     hashed_password: "",
   });
+
+  const [resetPassword, setResetpassword] = useState("");
   const { t } = useTranslation();
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,6 +38,23 @@ export default function Login() {
       }
     } catch (error) {
       console.error("Error en login:", error);
+    }
+  };
+
+  const handleResetRequest = async () => {
+    if (!resetPassword) {
+      showErrorToast("Por favor ingresa un correo válido");
+      return;
+    }
+
+    const result = await auth.requestPasswordReset(resetPassword);
+
+    if (result?.success) {
+      showSuccessToast("Correo de recuperación enviado");
+      document.getElementById("resetPassword").close();
+      setResetpassword(""); // Limpiar input
+    } else {
+      showErrorToast("No se pudo enviar el correo de recuperación");
     }
   };
   return (
@@ -86,7 +105,10 @@ export default function Login() {
               onChange={handleOnChange}
             />
           </div>
-          <p className="block mt-2 text-sm text-slate-50">
+          <p
+            className="block mt-2 text-sm text-slate-50"
+            onClick={() => document.getElementById("resetPassword").showModal()}
+          >
             {t("login_page.forgot_password")}
           </p>
           <div className="mb-2">
@@ -103,6 +125,27 @@ export default function Login() {
           </div>
         </div>
       </div>
+      <dialog id="resetPassword" className="modal">
+        <div className="modal-box w-3/4 max-w-4xl h-auto p-6">
+          <div>
+            <label>Add your email</label>
+          </div>
+          <div>
+            <input
+              type="email"
+              value={resetPassword}
+              onChange={(e) => setResetpassword(e.target.value)}
+              className="w-full px-4 py-2 border rounded-lg"
+            />
+          </div>
+          <button
+            className="mt-4 py-2 px-4 bg-blue-600 text-white rounded-lg"
+            onClick={handleResetRequest}
+          >
+            Enviar email de recuperación
+          </button>
+        </div>
+      </dialog>
     </div>
   );
 }

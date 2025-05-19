@@ -110,5 +110,48 @@ export const useAuthContext = () => {
     navigate("/");
   };
 
-  return { user, login, register, logout };
+  const requestPasswordReset = async (email: string): Promise<void> => {
+    try {
+      const response = await fetch(`${baseUrl}/users/request-password-reset`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error al solicitar recuperación de contraseña");
+      }
+
+      showSuccessToast(
+        "Si el correo existe, se ha enviado un link de recuperación"
+      );
+    } catch (error) {
+      console.error("Error al solicitar reset:", error);
+      showErrorToast("Error al solicitar recuperación");
+    }
+  };
+
+  const resetPassword = async (
+    token: string,
+    newPassword: string
+  ): Promise<{ success: boolean } | null> => {
+    try {
+      const response = await fetch(`${baseUrl}/users/reset-password`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token, new_password: newPassword }),
+      });
+
+      if (!response.ok) {
+        throw new Error("No se pudo resetear");
+      }
+
+      return { success: true };
+    } catch (error) {
+      console.error("Error al resetear contraseña:", error);
+      return null;
+    }
+  };
+
+  return { user, login, register, logout, requestPasswordReset, resetPassword };
 };
