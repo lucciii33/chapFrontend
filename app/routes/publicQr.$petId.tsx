@@ -17,6 +17,32 @@ export default function PublicQr() {
   const [ubicacion, setUbicacion] = useState(null);
   const [mapError, setMapError] = useState(false);
 
+  // useEffect(() => {
+  //   if (petId) {
+  //     axios
+  //       .get(`${import.meta.env.VITE_REACT_APP_URL}/api/public/pets/${petId}`)
+  //       .then((response) => setPetData(response.data))
+  //       .catch((error) => console.error("Error al obtener la mascota:", error));
+  //   }
+
+  //   const obtenerUbicacionGoogle = async () => {
+  //     try {
+  //       const response = await axios.post(
+  //         `https://www.googleapis.com/geolocation/v1/geolocate?key=${
+  //           import.meta.env.VITE_REACT_APP_GEOLOCATION_KEY
+  //         }`
+  //       );
+  //       const data = response.data;
+  //       setUbicacion({ lat: data.location.lat, lng: data.location.lng });
+  //     } catch (error) {
+  //       console.error("Error al obtener ubicación:", error);
+  //       setUbicacion({ lat: "40.4153528", lng: "-3.7090139" });
+  //     }
+  //   };
+
+  //   obtenerUbicacionGoogle();
+  // }, [petId]);
+
   useEffect(() => {
     if (petId) {
       axios
@@ -24,6 +50,28 @@ export default function PublicQr() {
         .then((response) => setPetData(response.data))
         .catch((error) => console.error("Error al obtener la mascota:", error));
     }
+    console.log("🌍 Intentando acceder a geolocalización");
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const coords = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        console.log("🌍 positionposition", position);
+
+        setUbicacion(coords);
+      },
+      async (error) => {
+        console.warn("❌ Usuario rechazó ubicación o falló:", error);
+        await obtenerUbicacionGoogle(); // fallback
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0,
+      }
+    );
 
     const obtenerUbicacionGoogle = async () => {
       try {
@@ -39,31 +87,63 @@ export default function PublicQr() {
         setUbicacion({ lat: "40.4153528", lng: "-3.7090139" });
       }
     };
-
-    obtenerUbicacionGoogle();
   }, [petId]);
 
   useEffect(() => {
     if (!ubicacion) return;
     console.log("API Key:", process.env.REACT_APP_GOOGLE_MAPS_KEY);
-    const cargarScriptGoogleMaps = () => {
-      if (!document.querySelector('[src*="maps.googleapis.com"]')) {
-        const script = document.createElement("script");
+    // const cargarScriptGoogleMaps = () => {
+    //   if (!document.querySelector('[src*="maps.googleapis.com"]')) {
+    //     const script = document.createElement("script");
 
+    //     script.src = `https://maps.googleapis.com/maps/api/js?key=${
+    //       import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_KEY
+    //     }&callback=initMap`;
+    //     script.async = true;
+
+    //     script.onerror = () => {
+    //       console.error("❌ Error al cargar Google Maps");
+    //       setMapError(true); // <-- necesitas definir este estado
+    //     };
+
+    //     window.initMap = () => inicializarMapa(ubicacion.lat, ubicacion.lng);
+    //     document.body.appendChild(script);
+    //   } else {
+    //     inicializarMapa(ubicacion.lat, ubicacion.lng);
+    //   }
+    // };
+
+    const cargarScriptGoogleMaps = () => {
+      const existingScript = document.querySelector(
+        '[src*="maps.googleapis.com"]'
+      );
+
+      if (!existingScript) {
+        const script = document.createElement("script");
         script.src = `https://maps.googleapis.com/maps/api/js?key=${
           import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_KEY
-        }&callback=initMap`;
+        }`;
         script.async = true;
+
+        script.onload = () => {
+          window.google && inicializarMapa(ubicacion.lat, ubicacion.lng);
+        };
 
         script.onerror = () => {
           console.error("❌ Error al cargar Google Maps");
-          setMapError(true); // <-- necesitas definir este estado
+          setMapError(true);
         };
 
-        window.initMap = () => inicializarMapa(ubicacion.lat, ubicacion.lng);
         document.body.appendChild(script);
       } else {
-        inicializarMapa(ubicacion.lat, ubicacion.lng);
+        // Ya cargado
+        if (window.google) {
+          inicializarMapa(ubicacion.lat, ubicacion.lng);
+        } else {
+          existingScript.addEventListener("load", () => {
+            inicializarMapa(ubicacion.lat, ubicacion.lng);
+          });
+        }
       }
     };
 
@@ -94,6 +174,10 @@ export default function PublicQr() {
   }, [ubicacion, petId]);
 
   const inicializarMapa = (lat, lng) => {
+    if (!window.google || !window.google.maps) {
+      console.error("Google Maps aún no está cargado");
+      return;
+    }
     const mapaContenedor = document.getElementById("map");
 
     if (!mapaContenedor) {
