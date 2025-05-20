@@ -32,13 +32,13 @@ export default function Cart() {
     const updatedCart = {
       quantity: newQuantity,
       tag_id: tagId,
-      price: price, // Mantén el precio original
-      subtotal: newQuantity * price, // Calcula el subtotal
-      is_checked_out: isCheckedOut, // Mantén el estado actual
+      price: price,
+      subtotal: newQuantity * price,
+      is_checked_out: isCheckedOut,
     };
 
     await editCartById(cartId, updatedCart);
-    getCartByUser(user.id); // Envía todos los campos necesarios
+    getCartByUser(user.id);
   };
 
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);

@@ -17,7 +17,7 @@ export default function Navbar() {
   const [theme, setTheme] = useState("light");
   const location = useLocation();
   const { auth, cart } = useGlobalContext();
-  const { activateSideBar, actSideBar, closeSideBar } = cart;
+  const { activateSideBar, actSideBar, closeSideBar, allCarts } = cart;
   const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);
 
@@ -56,6 +56,11 @@ export default function Navbar() {
             onClick={activateSideBar}
           >
             <ShoppingCartIcon className="h-6 w-6 text-teal-500" />
+            {allCarts.length > 0 && (
+              <span className="absolute md:top-2 ms-[50px] bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                {allCarts.length}
+              </span>
+            )}
           </label>
           <button
             className="btn text-teal-500"

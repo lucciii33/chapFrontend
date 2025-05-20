@@ -16,20 +16,42 @@ export default function Register() {
     email: "",
     hashed_password: "",
     age: 0,
+    agree_to_terms_and_conditions: false,
   });
+  const [errors, setErrors] = useState<{ [key: string]: boolean }>({});
 
   console.log("formData", formData);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { name, type, value, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
   const handleRegisterClick = async (e: React.FormEvent) => {
     e.preventDefault();
+    const newErrors: { [key: string]: boolean } = {};
+    Object.entries(formData).forEach(([key, value]) => {
+      if (
+        (typeof value === "string" && value.trim() === "") ||
+        (typeof value === "number" && value === 0) ||
+        (typeof value === "boolean" &&
+          key === "agree_to_terms_and_conditions" &&
+          !value)
+      ) {
+        newErrors[key] = true;
+      }
+    });
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setErrors({});
+
     try {
       const result = await auth.register(formData);
       console.log("Result", result);
@@ -71,8 +93,10 @@ export default function Register() {
             </label>
             <input
               type="text"
-              className="w-full px-4 py-2 border rounded-lg"
-              placeholder="Enter your username"
+              className={`w-full px-4 py-2 border rounded-lg ${
+                errors.full_name ? "border-red-500" : ""
+              }`}
+              placeholder={t("register_page.full_name")}
               onChange={onChange}
               name="full_name"
               value={formData.full_name}
@@ -84,8 +108,10 @@ export default function Register() {
             </label>
             <input
               type="text"
-              className="w-full px-4 py-2 border rounded-lg"
-              placeholder="Enter your username"
+              className={`w-full px-4 py-2 border rounded-lg ${
+                errors.email ? "border-red-500" : ""
+              }`}
+              placeholder={t("register_page.email")}
               onChange={onChange}
               name="email"
               value={formData.email}
@@ -98,8 +124,10 @@ export default function Register() {
             </label>
             <input
               type="password"
-              className="w-full px-4 py-2 border rounded-lg"
-              placeholder="Enter your password"
+              className={`w-full px-4 py-2 border rounded-lg ${
+                errors.hashed_password ? "border-red-500" : ""
+              }`}
+              placeholder={t("register_page.password")}
               onChange={onChange}
               name="hashed_password"
               value={formData.hashed_password}
@@ -112,8 +140,10 @@ export default function Register() {
             </label>
             <input
               type="text"
-              className="w-full px-4 py-2 border rounded-lg"
-              placeholder="Enter your password"
+              className={`w-full px-4 py-2 border rounded-lg ${
+                errors.country ? "border-red-500" : ""
+              }`}
+              placeholder={t("register_page.country")}
               onChange={onChange}
               name="country"
               value={formData.country}
@@ -125,8 +155,10 @@ export default function Register() {
             </label>
             <input
               type="number"
-              className="w-full px-4 py-2 border rounded-lg"
-              placeholder="Enter your password"
+              className={`w-full px-4 py-2 border rounded-lg ${
+                errors.age ? "border-red-500" : ""
+              }`}
+              placeholder={t("register_page.age")}
               onChange={onChange}
               name="age"
               value={formData.age}
@@ -141,8 +173,14 @@ export default function Register() {
             <div>
               <input
                 type="checkbox"
-                className="w-full px-4 py-2 border rounded-lg"
-                placeholder="Enter your password"
+                name="agree_to_terms_and_conditions"
+                checked={formData.agree_to_terms_and_conditions}
+                onChange={onChange}
+                className={`w-4 h-4 mx-2 ${
+                  errors.agree_to_terms_and_conditions
+                    ? "ring-2 ring-red-500"
+                    : ""
+                }`}
               />
             </div>
           </div>

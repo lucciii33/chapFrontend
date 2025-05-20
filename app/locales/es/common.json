@@ -60,7 +60,7 @@
     },
     
     "navbar": {
-      "login": "Inicio ",
+      "login": "Inicio",
       "dashboard": "Panel",
       "logout": "Abandonar"
     },
@@ -85,6 +85,5 @@
     "data_protection": "Afirmo que he leído y acepto la información sobre protección de datos.",
     "account": "Si ya tienes cuenta puedes entrar aqui",
     "button": "Empieza tu historia con CHAP"
-  }
-    
+  } 
   }
