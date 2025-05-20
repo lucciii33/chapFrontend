@@ -166,11 +166,6 @@ export default function Register() {
           </div>
           <div className="mb-1 flex align-middle">
             <div>
-              <label className="block text-slate-50">
-                {t("register_page.terms")}
-              </label>
-            </div>
-            <div>
               <input
                 type="checkbox"
                 name="agree_to_terms_and_conditions"
@@ -182,6 +177,14 @@ export default function Register() {
                     : ""
                 }`}
               />
+            </div>
+            <div>
+              <Link to="/termsAndCondition">
+                {" "}
+                <label className="block text-blue-500 underline">
+                  {t("register_page.terms")}
+                </label>
+              </Link>
             </div>
           </div>
           <div className="mb-2 text-sm">
@@ -196,8 +199,11 @@ export default function Register() {
               {t("register_page.button")}
             </button>
           </div>
-          <p className="block mt-2 text-sm text-slate-50">
-            {t("register_page.data_protection")}
+          <p className="block mt-2 text-sm text-blue-500 underline">
+            <Link to="/dataProtection">
+              {" "}
+              {t("register_page.data_protection")}
+            </Link>
           </p>
         </div>
       </div>
