@@ -655,6 +655,11 @@ export default function PetDetail() {
               >
                 Your vacciness
               </button>
+              <button className="border-none py-3 px-4 ms-3 mt-5 bg-teal-500 text-white  rounded-lg  w-full md:w-auto">
+                <Link to={`/emergencyPdf/${petId}`}>
+                  <div>Emegency Lost</div>
+                </Link>
+              </button>
             </div>
             <div className="flex">
               <div>
