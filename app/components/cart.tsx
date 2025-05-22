@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useGlobalContext } from "../context/GlobalProvider";
 import { TrashIcon, PlusIcon } from "@heroicons/react/24/outline";
 import DeleteDialog from "./deleteDialog";
+import { MinusIcon } from "@heroicons/react/24/outline";
 
 export default function Cart() {
   const { auth, cart } = useGlobalContext();
@@ -29,6 +30,28 @@ export default function Cart() {
     isCheckedOut
   ) => {
     const newQuantity = currentQuantity + 1;
+    const updatedCart = {
+      quantity: newQuantity,
+      tag_id: tagId,
+      price: price,
+      subtotal: newQuantity * price,
+      is_checked_out: isCheckedOut,
+    };
+
+    await editCartById(cartId, updatedCart);
+    getCartByUser(user.id);
+  };
+
+  const handleDecrement = async (
+    cartId,
+    currentQuantity,
+    tagId,
+    price,
+    isCheckedOut
+  ) => {
+    if (currentQuantity <= 1) return;
+
+    const newQuantity = currentQuantity - 1;
     const updatedCart = {
       quantity: newQuantity,
       tag_id: tagId,
@@ -83,6 +106,21 @@ export default function Cart() {
                 </p>
               </div>
               <div className="mt-3">
+                <button
+                  className="border-none py-3 px-4 me-3 bg-teal-500 text-white rounded-lg"
+                  onClick={() =>
+                    handleDecrement(
+                      item.id,
+                      item.quantity,
+                      item.tag.id,
+                      item.price,
+                      item.is_checked_out
+                    )
+                  }
+                >
+                  <MinusIcon className="h-6 w-6 text-white" />
+                </button>
+
                 <button className="border-none py-3 px-4 bg-teal-500 text-white rounded-lg">
                   <TrashIcon
                     className="h-6 w-6 text-white"

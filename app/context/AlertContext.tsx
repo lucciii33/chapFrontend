@@ -24,7 +24,7 @@ export const useUserAlerts = (userId: number | undefined) => {
       setLoading(true);
       try {
         const res = await fetch(
-          `http://127.0.0.1:8000/api/users/${userId}/alerts`,
+          `${import.meta.env.VITE_REACT_APP_URL}/api/users/${userId}/alerts`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token") || ""}`,

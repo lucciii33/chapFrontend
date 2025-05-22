@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { showErrorToast, showSuccessToast } from "~/utils/toast";
 
 export default function ScheduleAlertForm({ userId }: { userId: number }) {
@@ -7,6 +7,7 @@ export default function ScheduleAlertForm({ userId }: { userId: number }) {
     message: "",
     scheduled_date: "",
     email: "",
+    pet_id: "", // 🔥 nuevo
   });
 
   const handleChange = (e) => {
@@ -16,6 +17,33 @@ export default function ScheduleAlertForm({ userId }: { userId: number }) {
       [name]: value,
     }));
   };
+
+  const [userPets, setUserPets] = useState([]);
+
+  useEffect(() => {
+    const fetchPets = async () => {
+      const storedUser = localStorage.getItem("user");
+      const token = storedUser ? JSON.parse(storedUser).access_token : null;
+
+      if (!token) return;
+
+      const res = await fetch(
+        `${import.meta.env.VITE_REACT_APP_URL}/api/users/${userId}/pets`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (res.ok) {
+        const data = await res.json();
+        setUserPets(data);
+      }
+    };
+
+    fetchPets();
+  }, [userId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,7 +58,7 @@ export default function ScheduleAlertForm({ userId }: { userId: number }) {
       }
 
       const response = await fetch(
-        `http://127.0.0.1:8000/api/users/${userId}/alert`,
+        `${import.meta.env.VITE_REACT_APP_URL}/api/users/${userId}/alert`,
         {
           method: "POST",
           headers: {
@@ -42,6 +70,7 @@ export default function ScheduleAlertForm({ userId }: { userId: number }) {
             message: alertData.message,
             scheduled_date: alertData.scheduled_date,
             email: alertData.email,
+            pet_id: alertData.pet_id,
           }),
         }
       );
@@ -59,6 +88,7 @@ export default function ScheduleAlertForm({ userId }: { userId: number }) {
         message: "",
         scheduled_date: "",
         email: "",
+        pet_id: "", // reset
       });
     } catch (error) {
       console.error(error);
@@ -81,6 +111,27 @@ export default function ScheduleAlertForm({ userId }: { userId: number }) {
             required
           />
         </div> */}
+        <div className="mb-4">
+          <label className="block text-slate-700 mb-2">
+            Selecciona tu mascota
+          </label>
+          <select
+            name="pet_id"
+            value={alertData.pet_id}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border rounded-lg"
+            required
+          >
+            <option value="" disabled>
+              -- Selecciona una mascota --
+            </option>
+            {userPets.map((pet) => (
+              <option key={pet.id} value={pet.id}>
+                {pet.name}
+              </option>
+            ))}
+          </select>
+        </div>
 
         <div className="">
           <label className="block text-slate-700 mb-2">Email</label>
