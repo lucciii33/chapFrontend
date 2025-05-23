@@ -1,13 +1,19 @@
 import { useEffect, useState } from "react";
 import { showErrorToast, showSuccessToast } from "~/utils/toast";
 
-export default function ScheduleAlertForm({ userId }: { userId: number }) {
+export default function ScheduleAlertForm({
+  userId,
+  petId,
+}: {
+  userId: number;
+  petId: number;
+}) {
   const [alertData, setAlertData] = useState({
     phone_number: "",
     message: "",
     scheduled_date: "",
     email: "",
-    pet_id: "", // 🔥 nuevo
+    pet_id: petId.id,
   });
 
   const handleChange = (e) => {
@@ -18,32 +24,32 @@ export default function ScheduleAlertForm({ userId }: { userId: number }) {
     }));
   };
 
-  const [userPets, setUserPets] = useState([]);
+  // const [userPets, setUserPets] = useState([]);
 
-  useEffect(() => {
-    const fetchPets = async () => {
-      const storedUser = localStorage.getItem("user");
-      const token = storedUser ? JSON.parse(storedUser).access_token : null;
+  // useEffect(() => {
+  //   const fetchPets = async () => {
+  //     const storedUser = localStorage.getItem("user");
+  //     const token = storedUser ? JSON.parse(storedUser).access_token : null;
 
-      if (!token) return;
+  //     if (!token) return;
 
-      const res = await fetch(
-        `${import.meta.env.VITE_REACT_APP_URL}/api/users/${userId}/pets`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+  //     const res = await fetch(
+  //       `${import.meta.env.VITE_REACT_APP_URL}/api/users/${userId}/pets`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
 
-      if (res.ok) {
-        const data = await res.json();
-        setUserPets(data);
-      }
-    };
+  //     if (res.ok) {
+  //       const data = await res.json();
+  //       setUserPets(data);
+  //     }
+  //   };
 
-    fetchPets();
-  }, [userId]);
+  //   fetchPets();
+  // }, [userId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -113,9 +119,9 @@ export default function ScheduleAlertForm({ userId }: { userId: number }) {
         </div> */}
         <div className="mb-4">
           <label className="block text-slate-700 mb-2">
-            Selecciona tu mascota
+            esta alerta sera para {petId.name}
           </label>
-          <select
+          {/* <select
             name="pet_id"
             value={alertData.pet_id}
             onChange={handleChange}
@@ -130,7 +136,7 @@ export default function ScheduleAlertForm({ userId }: { userId: number }) {
                 {pet.name}
               </option>
             ))}
-          </select>
+          </select> */}
         </div>
 
         <div className="">

@@ -1808,7 +1808,7 @@ export default function PetDetail() {
       <dialog id="my_modal_5_pet_id_alerts" className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Hello!</h3>
-          <ScheduleAlertForm userId={auth.user?.id} />
+          <ScheduleAlertForm userId={auth.user?.id} petId={petByID} />
           <div className="modal-action">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}

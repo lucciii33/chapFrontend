@@ -67,26 +67,26 @@ export default function PetTracker() {
     await getPetById(petId);
   };
 
+  const symptomLabels: Record<string, string> = {
+    urinated: "Orinó",
+    pooped: "Defecó",
+    played: "Jugó",
+    vomited: "Vomito",
+    coughing: "Tos",
+    lethargy: "Letargo",
+    fever: "Fiebre",
+  };
+
   return (
     <div className="p-5">
       <h2>Track your pet</h2>
 
       <div className="flex flex-col md:flex-row gap-3 mt-3 mb-3">
         <div className="w-full">
-          <label className="block text-slate-50">Poop Quality</label>
+          <label className="block text-slate-50">Estado de Animo</label>
           <input
             className="w-full px-4 py-2 border rounded-lg"
-            placeholder="Poop Quality"
-            name="poop_quality"
-            value={formData.poop_quality}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="w-full">
-          <label className="block text-slate-50">Mood</label>
-          <input
-            className="w-full px-4 py-2 border rounded-lg"
-            placeholder="Mood"
+            placeholder="Estado de Animo"
             name="mood"
             value={formData.mood}
             onChange={handleChange}
@@ -96,7 +96,7 @@ export default function PetTracker() {
 
       <div className="flex flex-col md:flex-row gap-3">
         <div className="w-full">
-          <label className="block text-slate-50">Walked Minutes</label>
+          <label className="block text-slate-50">Minutos caminados</label>
           <input
             type="number"
             className="w-full px-4 py-2 border rounded-lg"
@@ -106,7 +106,7 @@ export default function PetTracker() {
           />
         </div>
         <div className="w-full">
-          <label className="block text-slate-50">Food Consumed</label>
+          <label className="block text-slate-50">Comida consumida(g)</label>
           <input
             type="number"
             className="w-full px-4 py-2 border rounded-lg"
@@ -116,7 +116,17 @@ export default function PetTracker() {
           />
         </div>
         <div className="w-full">
-          <label className="block text-slate-50">Water Consumed</label>
+          <label className="block text-slate-50">Calidad de las heces</label>
+          <input
+            className="w-full px-4 py-2 border rounded-lg"
+            placeholder="heces"
+            name="poop_quality"
+            value={formData.poop_quality}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="w-full">
+          <label className="block text-slate-50">Agua consumida(ml)</label>
           <input
             type="number"
             className="w-full px-4 py-2 border rounded-lg"
@@ -129,7 +139,7 @@ export default function PetTracker() {
 
       <div className="flex flex-col md:flex-row gap-3 mt-3 mb-3">
         <div className="w-full">
-          <label className="block text-slate-50">Medication Given</label>
+          <label className="block text-slate-50">Medicamentos tomados</label>
           <input
             className="w-full px-4 py-2 border rounded-lg"
             name="medication_given"
@@ -138,7 +148,7 @@ export default function PetTracker() {
           />
         </div>
         <div className="w-full">
-          <label className="block text-slate-50">Weight</label>
+          <label className="block text-slate-50">Peso</label>
           <input
             type="number"
             className="w-full px-4 py-2 border rounded-lg"
@@ -148,7 +158,7 @@ export default function PetTracker() {
           />
         </div>
         <div className="w-full">
-          <label className="block text-slate-50">Sleep Hours</label>
+          <label className="block text-slate-50">Horas de sueño</label>
           <input
             type="number"
             className="w-full px-4 py-2 border rounded-lg"
@@ -170,11 +180,11 @@ export default function PetTracker() {
           "fever",
         ].map((field) => (
           <div key={field}>
-            <label>{field}</label>
+            <label>{symptomLabels[field]}</label>
             <input
               type="checkbox"
               name={field}
-              className="radio radio-accent"
+              className="radio radio-accent ms-4"
               checked={(formData as any)[field]}
               onChange={handleChange}
             />
@@ -184,7 +194,7 @@ export default function PetTracker() {
 
       <div className="mt-2">
         <button
-          className="border-none py-3 px-4 bg-teal-500 text-white rounded-lg"
+          className="w-full md:w-auto border-none py-3 px-4 bg-teal-500 text-white rounded-lg"
           onClick={handleSubmit}
         >
           Submit Pet Data

@@ -86,7 +86,7 @@ export default function Login() {
             <input
               type="text"
               className="w-full px-4 py-2 border rounded-lg"
-              placeholder="Enter your username"
+              placeholder={t("login_page.email")}
               name="email"
               value={loginData.email}
               onChange={handleOnChange}
@@ -99,7 +99,7 @@ export default function Login() {
             <input
               type="password"
               className="w-full px-4 py-2 border rounded-lg"
-              placeholder="Enter your password"
+              placeholder={t("login_page.password")}
               name="hashed_password"
               value={loginData.hashed_password}
               onChange={handleOnChange}
