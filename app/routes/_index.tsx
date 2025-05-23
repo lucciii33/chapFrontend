@@ -4,6 +4,7 @@ import dogHi from "../images/hidog.png";
 import nobgtag from "../images/testtag.png";
 import dogSitting from "../images/dogSitting.png";
 import dogTag from "../images/test2.png";
+import phoneimage from "../images/phonehomepage.png";
 import { Link } from "@remix-run/react";
 import ScrollVideo from "~/components/scroll-video";
 import "../../styles/dashboard.css";
@@ -38,7 +39,7 @@ export default function Index() {
           {/* order-2 lg:order-1 */}
           {isSmallScreen ? (
             <img
-              src={dogTag}
+              src={phoneimage}
               alt="homepageimage"
               className="h-full"
               style={{ filter: "drop-shadow(0px 8px 10px rgba(0, 0, 0, 0.2))" }}
