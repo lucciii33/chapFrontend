@@ -627,10 +627,10 @@ export default function PetDetail() {
     <div className="">
       {petByID ? (
         <div>
-          <div className="flex justify-between items-center p-4">
+          <div className="flex justify-between items-center p-4 flex-col md:flex-row">
             <div className="">
               <button
-                className=" border-none py-3 px-4 mt-5 bg-teal-900 text-white rounded-lg"
+                className="w-full md:w-auto border-none py-3 px-4 mt-5 bg-teal-900 text-white rounded-lg"
                 onClick={() =>
                   document
                     .getElementById("my_modal_5_pet_id_alerts")
@@ -640,7 +640,7 @@ export default function PetDetail() {
                 CREATE ALER
               </button>
               <button
-                className="border-none py-3 px-4 ms-3 mt-5 bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
+                className="border-none py-3 px-4 ms-0 md:ms-3 mt-5 bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
                 onClick={() =>
                   document.getElementById("my_modal_7_pet_id").showModal()
                 }
@@ -648,31 +648,31 @@ export default function PetDetail() {
                 Your vet visits
               </button>
               <button
-                className="border-none py-3 px-4 ms-3 mt-5 bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
+                className="border-none py-3 px-4 ms-0 md:ms-3 mt-5 bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
                 onClick={() =>
                   document.getElementById("my_modal_8_pet_id").showModal()
                 }
               >
                 Your vacciness
               </button>
-              <button className="border-none py-3 px-4 ms-3 mt-5 bg-teal-500 text-white  rounded-lg  w-full md:w-auto">
+              <button className="border-none py-3 px-4 ms-0 md:ms-3 mt-5 bg-teal-500 text-white  rounded-lg  w-full md:w-auto">
                 <Link to={`/emergencyPdf/${petId}`}>
                   <div>Emegency Lost</div>
                 </Link>
               </button>
             </div>
-            <div className="flex">
+            <div className="w-full md:w-auto md:flex md:flex-row">
               <div>
-                <Link
-                  to={`/publicQr/${petId}`}
-                  className="border-none py-3 px-4 ms-3 mt-5 bg-teal-700 text-white rounded-lg inline-block"
-                >
-                  Preview Your QR
+                <Link to={`/publicQr/${petId}`}>
+                  <button className="w-full md:w-auto border-none py-3 px-4 ms-0 md:ms-3 mt-5 bg-teal-700 text-white rounded-lg inline-block">
+                    {" "}
+                    Preview Your QR
+                  </button>
                 </Link>
               </div>
               <div>
                 <button
-                  className={`border-none py-3 px-4 ms-3 mt-5 bg-teal-700 text-white rounded-lg inline-block font-semibold transition-all duration-300 ${
+                  className={`w-full md:w-auto border-none py-3 px-4 ms-0 md:ms-3 mt-5 bg-teal-700 text-white rounded-lg inline-block font-semibold transition-all duration-300 ${
                     comingFromCardButton ? "animate-glow" : ""
                   }`}
                   onClick={() => {
