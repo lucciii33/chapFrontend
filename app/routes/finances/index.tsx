@@ -215,8 +215,14 @@ export default function Finances() {
   };
   return (
     <div className="p-5">
-      <h2 className="my-5">Track your finances</h2>
+      <h2
+        className="my-5 text-2xl lg:text-4xl font-bold text-white"
+        style={{ fontFamily: "chapFont" }}
+      >
+        Track your finances
+      </h2>
       <div className="border-2 p-5  !border-[#65bcbb] rounded-lg">
+        <label className="block text-slate-50">Tus mascotas</label>
         <select
           name="pet_id"
           className="w-full px-4 py-2 border rounded-lg"
@@ -231,13 +237,13 @@ export default function Finances() {
           ))}
         </select>
 
-        <div className="flex gap-2 mt-4">
+        <div className="flex gap-2 flex-col md:flex-row mt-4">
           <div className="mb-2 w-full">
-            <label className="block text-slate-50">expense_date</label>
+            <label className="block text-slate-50">Fecha del gasto</label>
             <input
               type="date"
               className="w-full px-4 py-2 border rounded-lg"
-              placeholder="expense_date"
+              placeholder="Fecha del gasto"
               name="expense_date"
               value={expenseData.expense_date}
               onChange={handleChangeFinances}
@@ -256,31 +262,31 @@ export default function Finances() {
             />
           </div> */}
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-col md:flex-row ">
           <div className="mb-2 w-full">
-            <label className="block text-slate-50">amount</label>
+            <label className="block text-slate-50">Monto</label>
             <input
               type="number"
               className="w-full px-4 py-2 border rounded-lg"
-              placeholder="amount"
+              placeholder="Monto"
               name="amount"
               value={expenseData.amount}
               onChange={handleChangeFinances}
             />
           </div>
           <div className="mb-2 w-full">
-            <label className="block text-slate-50">description</label>
+            <label className="block text-slate-50">Descripción</label>
             <input
               //   type="password"
               className="w-full px-4 py-2 border rounded-lg"
-              placeholder="description"
+              placeholder="Descripción"
               name="description"
               value={expenseData.description}
               onChange={handleChangeFinances}
             />
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-col md:flex-row ">
           <div className="mb-2 w-full">
             <label className="block text-slate-50">Categoría</label>
             <select
@@ -301,11 +307,11 @@ export default function Finances() {
             </select>
           </div>
           <div className="mb-2 w-full">
-            <label className="block text-slate-50">payment_method</label>
+            <label className="block text-slate-50">Método de pago</label>
             <input
               //   type="password"
               className="w-full px-4 py-2 border rounded-lg"
-              placeholder="payment_method"
+              placeholder="payment method"
               name="payment_method"
               value={expenseData.payment_method}
               onChange={handleChangeFinances}
@@ -313,29 +319,29 @@ export default function Finances() {
           </div>
         </div>
         <div className="flex">
-          <label className="block text-slate-50">recurring</label>
+          <label className="block text-slate-50">Recurrente</label>
           <input
             type="checkbox"
-            className="px-4 py-2 border rounded-lg"
+            className="radio radio-accent ms-3"
             placeholder="recurring"
             name="recurring"
             checked={expenseData.recurring}
             onChange={handleChangeFinances}
           />
         </div>
-        <div>
+        <div className="flex justify-end">
           <button
             onClick={handleSaveExpense}
-            className="mt-4 px-4 py-2 bg-[#65bcbb] text-white rounded-lg"
+            className="border-none py-3 px-4 ms-0 mt-5 bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
           >
-            SAVE
+            GUARDAR
           </button>
         </div>
       </div>
 
       <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 p-5 mt-5">
         <div>
-          <h2>filter</h2>
+          <h2>Filtro</h2>
           <div className="flex items-center mt-4 justify-between gap-2">
             <div className="w-full">
               <input
@@ -375,7 +381,7 @@ export default function Finances() {
                 className="px-4 py-2 bg-[#65bcbb] text-white rounded-lg"
                 onClick={filterDates}
               >
-                Filter
+                Filtrar
               </button>
             </div>
           </div>
@@ -422,7 +428,7 @@ export default function Finances() {
           </tbody>
         </table>
         {/* //aqui va el monto total gastado AL MES! */}
-        <div>RESUTL HERE:{totalSpentFiltered}</div>
+        <div>GASTO TOTAL:{totalSpentFiltered}</div>
       </div>
       <Pagination
         currentPage={currentPage}

@@ -886,7 +886,7 @@ export default function Dashboard() {
               style={{ fontFamily: "chapFont" }}
               className="text-2xl font-semibold text-teal-500"
             >
-              Extra features
+              Funciones adicionales
             </h2>
             <div>
               <span>
@@ -896,7 +896,7 @@ export default function Dashboard() {
             </div>
           </div>
           <p className="m-0">
-            loremp iptusm je dha jdjhfe test and aditional test loremp ipsuom{" "}
+            ¡Desbloquea estas funciones en cuanto compres tu chapa!
           </p>
           <div className="flex flex-col md:flex-row gap-2 mt-4">
             {allPets.length > 0 ? (
