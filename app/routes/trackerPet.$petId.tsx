@@ -19,6 +19,8 @@ export default function PetTracker() {
     }
   }, []);
 
+  console.log("petByID", petByID);
+
   const [formData, setFormData] = useState<PetFormData>({
     pet_id: petId ? petId : null,
     urinated: false,
@@ -77,128 +79,230 @@ export default function PetTracker() {
     fever: "Fiebre",
   };
 
+  const weightKg = petByID?.medical_history?.[0]?.weight ?? 0;
+  const breed = petByID?.breed ?? "";
+  const kcalPerGram = 3.5;
+
+  const calories = weightKg
+    ? Math.round(95 * Math.pow(weightKg, 0.75) * 1.5)
+    : 0;
+  const gramsOfFood = weightKg ? Math.round(calories / kcalPerGram) : 0;
+
+  // Recomendación de minutos de caminata por peso
+  const recommendedMinutes = weightKg < 10 ? 30 : weightKg < 25 ? 45 : 60;
+  const estimatedCaloriesBurned = Math.round(
+    (recommendedMinutes / 60) * weightKg * 4
+  );
+  const waterMl = Math.round(weightKg * 55);
+
   return (
     <div className="p-5">
-      <h2>Track your pet</h2>
+      <div className="flex items-center justify-between flex-col md:flex-row gap-2">
+        <div className="bg-white h-auto md:h-[7rem] w-full rounded p-3">
+          <p className="text-sm font-semibold text-black">🍽️ Alimentación</p>
+          {weightKg ? (
+            <p className="text-xs mt-1 leading-tight text-black">
+              {petByID.name} necesita entre{" "}
+              <strong>
+                {Math.round(95 * Math.pow(weightKg, 0.75) * 1.2)} y{" "}
+                {Math.round(95 * Math.pow(weightKg, 0.75) * 1.5)} kcal/día
+              </strong>
+              , dependiendo de su actividad. <br />
+              Eso equivale a aprox.{" "}
+              <strong>
+                {Math.round((95 * Math.pow(weightKg, 0.75) * 1.2) / 3.8)}g –{" "}
+                {Math.round((95 * Math.pow(weightKg, 0.75) * 1.5) / 3.8)}g
+              </strong>{" "}
+              de perrarina estándar (3.8 kcal/g).
+            </p>
+          ) : (
+            <p className="text-xs mt-1">
+              Agrega el peso en el medical history para obtener informacion
+              utilpara tu mascota
+            </p>
+          )}
+        </div>
 
-      <div className="flex flex-col md:flex-row gap-3 mt-3 mb-3">
-        <div className="w-full">
-          <label className="block text-slate-50">Estado de Animo</label>
-          <input
-            className="w-full px-4 py-2 border rounded-lg"
-            placeholder="Estado de Animo"
-            name="mood"
-            value={formData.mood}
-            onChange={handleChange}
-          />
+        <div className="bg-white h-auto md:h-[7rem] w-full rounded p-3">
+          <p className="text-sm font-semibold text-black">
+            🐾 Actividad diaria
+          </p>
+          {weightKg ? (
+            <p className="text-xs mt-1 text-black">
+              {recommendedMinutes
+                ? `Debe caminar ~${recommendedMinutes} min/día`
+                : "Cargando..."}
+            </p>
+          ) : (
+            <p className="text-xs mt-1">
+              Agrega el peso en el medical history para obtener informacion
+              utilpara tu mascota
+            </p>
+          )}
+        </div>
+
+        <div className="bg-white h-auto md:h-[7rem] w-full rounded p-3">
+          <p className="text-sm font-semibold text-black">
+            💧 Agua recomendada
+          </p>
+          {weightKg ? (
+            <p className="text-xs mt-1 text-black">
+              {petByID.name} debería beber aproximadamente {waterMl} ml de agua
+              al día (55ml por kg)`
+            </p>
+          ) : (
+            <p className="text-xs mt-1">
+              Agrega el peso en el medical history para obtener informacion
+              utilpara tu mascota
+            </p>
+          )}
+        </div>
+
+        <div className="bg-white h-auto md:h-[7rem] w-full rounded p-3">
+          <p className="text-sm font-semibold text-black">
+            🔥 Calorías quemadas
+          </p>
+          {weightKg ? (
+            <p className="text-xs mt-1 text-black">
+              {estimatedCaloriesBurned
+                ? `Un paseo de ${recommendedMinutes} min quema ~${estimatedCaloriesBurned} kcal`
+                : "Cargando..."}
+            </p>
+          ) : (
+            <p className="text-xs mt-1">
+              Agrega el peso en el medical history para obtener informacion
+              utilpara tu mascota
+            </p>
+          )}
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-3">
-        <div className="w-full">
-          <label className="block text-slate-50">Minutos caminados</label>
-          <input
-            type="number"
-            className="w-full px-4 py-2 border rounded-lg"
-            name="walked_minutes"
-            value={formData.walked_minutes}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="w-full">
-          <label className="block text-slate-50">Comida consumida(g)</label>
-          <input
-            type="number"
-            className="w-full px-4 py-2 border rounded-lg"
-            name="food_consumed"
-            value={formData.food_consumed}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="w-full">
-          <label className="block text-slate-50">Calidad de las heces</label>
-          <input
-            className="w-full px-4 py-2 border rounded-lg"
-            placeholder="heces"
-            name="poop_quality"
-            value={formData.poop_quality}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="w-full">
-          <label className="block text-slate-50">Agua consumida(ml)</label>
-          <input
-            type="number"
-            className="w-full px-4 py-2 border rounded-lg"
-            name="water_consumed"
-            value={formData.water_consumed}
-            onChange={handleChange}
-          />
-        </div>
-      </div>
-
-      <div className="flex flex-col md:flex-row gap-3 mt-3 mb-3">
-        <div className="w-full">
-          <label className="block text-slate-50">Medicamentos tomados</label>
-          <input
-            className="w-full px-4 py-2 border rounded-lg"
-            name="medication_given"
-            value={formData.medication_given}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="w-full">
-          <label className="block text-slate-50">Peso</label>
-          <input
-            type="number"
-            className="w-full px-4 py-2 border rounded-lg"
-            name="weight"
-            value={formData.weight}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="w-full">
-          <label className="block text-slate-50">Horas de sueño</label>
-          <input
-            type="number"
-            className="w-full px-4 py-2 border rounded-lg"
-            name="sleep_hours"
-            value={formData.sleep_hours}
-            onChange={handleChange}
-          />
-        </div>
-      </div>
-
-      <div className="flex flex-col md:flex-row gap-3 mt-3">
-        {[
-          "urinated",
-          "pooped",
-          "played",
-          "vomited",
-          "coughing",
-          "lethargy",
-          "fever",
-        ].map((field) => (
-          <div key={field}>
-            <label>{symptomLabels[field]}</label>
+      <div className="border-2 border-gray-700 bg-gray-800 rounded-lg p-5 mt-3">
+        <h2
+          className="text-1xl lg:text-2xl font-bold mt-2 text-white"
+          style={{ fontFamily: "chapFont" }}
+        >
+          Track your pet
+        </h2>
+        <div className="flex flex-col md:flex-row gap-3 mt-3 mb-3">
+          <div className="w-full">
+            <label className="block text-slate-50">Estado de Animo</label>
             <input
-              type="checkbox"
-              name={field}
-              className="radio radio-accent ms-4"
-              checked={(formData as any)[field]}
+              className="w-full px-4 py-2 border rounded-lg"
+              placeholder="Estado de Animo"
+              name="mood"
+              value={formData.mood}
               onChange={handleChange}
             />
           </div>
-        ))}
-      </div>
+        </div>
 
-      <div className="mt-2">
-        <button
-          className="w-full md:w-auto border-none py-3 px-4 bg-teal-500 text-white rounded-lg"
-          onClick={handleSubmit}
-        >
-          Submit Pet Data
-        </button>
+        <div className="flex flex-col md:flex-row gap-3">
+          <div className="w-full">
+            <label className="block text-slate-50">Minutos caminados</label>
+            <input
+              type="number"
+              className="w-full px-4 py-2 border rounded-lg"
+              name="walked_minutes"
+              value={formData.walked_minutes}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="w-full">
+            <label className="block text-slate-50">Comida consumida(g)</label>
+            <input
+              type="number"
+              className="w-full px-4 py-2 border rounded-lg"
+              name="food_consumed"
+              value={formData.food_consumed}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="w-full">
+            <label className="block text-slate-50">Calidad de las heces</label>
+            <input
+              className="w-full px-4 py-2 border rounded-lg"
+              placeholder="heces"
+              name="poop_quality"
+              value={formData.poop_quality}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="w-full">
+            <label className="block text-slate-50">Agua consumida(ml)</label>
+            <input
+              type="number"
+              className="w-full px-4 py-2 border rounded-lg"
+              name="water_consumed"
+              value={formData.water_consumed}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+
+        <div className="flex flex-col md:flex-row gap-3 mt-3 mb-3">
+          <div className="w-full">
+            <label className="block text-slate-50">Medicamentos tomados</label>
+            <input
+              className="w-full px-4 py-2 border rounded-lg"
+              name="medication_given"
+              value={formData.medication_given}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="w-full">
+            <label className="block text-slate-50">Peso</label>
+            <input
+              type="number"
+              className="w-full px-4 py-2 border rounded-lg"
+              name="weight"
+              value={formData.weight}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="w-full">
+            <label className="block text-slate-50">Horas de sueño</label>
+            <input
+              type="number"
+              className="w-full px-4 py-2 border rounded-lg"
+              name="sleep_hours"
+              value={formData.sleep_hours}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+
+        <div className="flex flex-col md:flex-row gap-3 mt-3">
+          {[
+            "urinated",
+            "pooped",
+            "played",
+            "vomited",
+            "coughing",
+            "lethargy",
+            "fever",
+          ].map((field) => (
+            <div key={field}>
+              <label>{symptomLabels[field]}</label>
+              <input
+                type="checkbox"
+                name={field}
+                className="radio radio-accent ms-4"
+                checked={(formData as any)[field]}
+                onChange={handleChange}
+              />
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-2">
+          <button
+            className="w-full md:w-auto border-none py-3 px-4 bg-teal-500 text-white rounded-lg"
+            onClick={handleSubmit}
+          >
+            Submit Pet Data
+          </button>
+        </div>
       </div>
 
       <PetCalendar

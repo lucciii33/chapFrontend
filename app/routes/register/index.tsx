@@ -30,6 +30,16 @@ export default function Register() {
     }));
   };
 
+  const isValidPassword = (password: string): boolean => {
+    return (
+      password.length >= 9 &&
+      /[A-Z]/.test(password) &&
+      /[a-z]/.test(password) &&
+      /[0-9]/.test(password) &&
+      /[!@#$%^&*(),.?":{}|<>]/.test(password)
+    );
+  };
+
   const handleRegisterClick = async (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors: { [key: string]: boolean } = {};
@@ -44,6 +54,10 @@ export default function Register() {
         newErrors[key] = true;
       }
     });
+
+    if (!isValidPassword(formData.hashed_password)) {
+      newErrors.hashed_password = true;
+    }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -132,6 +146,18 @@ export default function Register() {
               name="hashed_password"
               value={formData.hashed_password}
             />
+            {formData.hashed_password.length === 0 ||
+            isValidPassword(formData.hashed_password) ? (
+              <p className="text-sm text-gray-400 mt-1">
+                Debe tener al menos 9 caracteres, una mayúscula, un número y un
+                símbolo
+              </p>
+            ) : (
+              <p className="text-red-500 text-xs mt-1">
+                La contraseña no cumple con los requisitos, Debe tener al menos
+                9 caracteres, una mayúscula, un número y un símbolo
+              </p>
+            )}
           </div>
           <div className="mb-4">
             <label className="block text-slate-50">
