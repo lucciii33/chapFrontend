@@ -30,6 +30,7 @@ type CardProps = {
   };
 };
 export default function Card({ petObj }: CardProps) {
+  console.log("petObj", petObj);
   const [selectPetId, setSelectPetId] = useState<number | null>(null);
 
   const [isModalOpen, setIsModalOpen] = useState(false);

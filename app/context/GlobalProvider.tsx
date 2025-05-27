@@ -9,6 +9,7 @@ import { useOrdersContext } from "./OrdersContexts";
 import { useFinanceContext } from "./financesContext";
 import { useTravelModelContext } from "./TravelModeContext";
 import { useComingFromCardContext } from "./ComingFromCardContext";
+import { useUserAlerts } from "./AlertContext";
 
 type GlobalContextType = {
   auth: ReturnType<typeof useAuthContext>;
@@ -21,6 +22,7 @@ type GlobalContextType = {
   finances: ReturnType<typeof useFinanceContext>;
   travelMode: ReturnType<typeof useTravelModelContext>;
   comingFromCard: ReturnType<typeof useComingFromCardContext>;
+  userAlerts: ReturnType<typeof useUserAlerts>;
 };
 
 const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
@@ -36,6 +38,7 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
   const finances = useFinanceContext();
   const travelMode = useTravelModelContext();
   const comingFromCard = useComingFromCardContext();
+  const userAlerts = useUserAlerts();
   return (
     <GlobalContext.Provider
       value={{
@@ -49,6 +52,7 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
         finances,
         travelMode,
         comingFromCard,
+        userAlerts,
       }}
     >
       {children}
