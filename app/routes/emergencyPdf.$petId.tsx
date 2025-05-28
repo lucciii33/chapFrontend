@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { PetTrackerContext } from "../context/PetTrackContext"; // Ajusta el path correcto aquí
 import { useParams } from "@remix-run/react";
 import { useGlobalContext } from "~/context/GlobalProvider";
-import html2canvas from "html2canvas";
+import html2canvas from "html2canvas-pro";
 import jsPDF from "jspdf";
 import "../../styles/dashboard.css";
 
@@ -19,6 +19,7 @@ export default function EmegencyPdf() {
       getPetById(petId);
     }
   }, []);
+
   useEffect(() => {
     if (petByID) {
       if (petByID.last_time_pet_seen) {
@@ -44,31 +45,31 @@ export default function EmegencyPdf() {
     pet_color,
     profile_photo,
     personality,
-    address,
     phone_number,
-    phone_number_optional,
     dad_name,
     mom_name,
-    owner,
-    care_profile,
-    tags,
   } = petByID;
 
   const downloadAsPDF = async () => {
     const input = document.getElementById("pdf-content");
     if (!input) return;
 
-    const canvas = await html2canvas(input);
-    const imgData = canvas.toDataURL("image/png");
+    try {
+      const canvas = await html2canvas(input);
+      const imgData = canvas.toDataURL("image/png");
 
-    const pdf = new jsPDF("p", "mm", "a4");
-    const imgProps = pdf.getImageProperties(imgData);
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      const pdf = new jsPDF("p", "mm", "a4");
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
-    pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-    pdf.save(`${name}-lost-pet-form.pdf`);
+      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.save(`${name}-lost-pet-form.pdf`);
+    } catch (error) {
+      console.error("Error al generar el PDF:", error);
+    }
   };
+
   const handleLostPetUpdate = async () => {
     if (!petId) return;
 
@@ -137,58 +138,63 @@ export default function EmegencyPdf() {
         Download as PDF
       </button>
       <div id="pdf-content">
-        <div className="w-full h-64 bg-red-600 flex justify-center items-center flex-col">
+        <div className="w-full h-64 bg-[#e60000] flex justify-center items-center flex-col">
           <div className="">
-            <h1 className="text-4xl text-center md:text-8xl font-extrabold text-white mb-2">
+            <h1 className="text-4xl text-center md:text-8xl font-extrabold text-[#ffffff] mb-2">
               MISSING PET
             </h1>
-            <p className="text-lg text-center font-light text-white">
+            <p className="text-lg text-center font-light text-[#ffffff]">
               A cry for help for our furry friend
             </p>
           </div>
         </div>
-        <div className="w-full h-auto bg-white flex flex-col md:flex-row justify-center p-5">
+        <div className="w-full h-auto bg-[#ffffff] flex flex-col md:flex-row justify-center p-5">
           <div>
-            <img className="h-[500px]" src={profile_photo} alt="pet-photo" />
+            <img
+              className="h-[500px]"
+              id="pet-photo"
+              src={profile_photo}
+              alt="pet-photo"
+            />
           </div>
           <div className="text-start ms-5">
-            <h1 className="text-red-600 text-8xl">{name}</h1>
-            <p className="text-black text-lg">
+            <h1 className="text-[#e60000] text-8xl">{name}</h1>
+            <p className="text-[#000000] text-lg">
               Bread: <strong>{breed}</strong>
             </p>
-            <p className="text-black text-lg">
+            <p className="text-[#000000] text-lg">
               {" "}
               age: <strong>{age}</strong>
             </p>
-            <p className="text-black text-lg">
+            <p className="text-[#000000] text-lg">
               {" "}
               Pet color: <strong>{pet_color}</strong>
             </p>
-            <p className="text-black text-lg max-w-[300px]">
+            <p className="text-[#000000] text-lg max-w-[300px]">
               personality: <strong>{personality}</strong>
             </p>
-            <div className="bg-red-600 w-100 h-2 mt-3 mb-3"></div>
-            <h1 className="text-red-600 text-6xl">Owners</h1>
-            <p className="text-black text-lg">
+            <div className="bg-[#e60000] w-100 h-2 mt-3 mb-3"></div>
+            <h1 className="text-[#e60000] text-6xl">Owners</h1>
+            <p className="text-[#000000] text-lg">
               owner 1: <strong>{dad_name}</strong>
             </p>
-            <p className="text-black text-lg">
+            <p className="text-[#000000] text-lg">
               {" "}
               owner 2 <strong>{mom_name}</strong>
             </p>
-            <p className="text-black text-lg">
+            <p className="text-[#000000] text-lg">
               {" "}
               Phone number: <strong>{phone_number}</strong>
             </p>
             {petByID.last_place_pet_seen && (
-              <p className="text-black text-lg">
+              <p className="text-[#000000] text-lg">
                 Último lugar visto:{" "}
                 <strong>{petByID.last_place_pet_seen}</strong>
               </p>
             )}
 
             {petByID.last_time_pet_seen && (
-              <p className="text-black text-lg">
+              <p className="text-[#000000] text-lg">
                 Última vez vista:{" "}
                 <strong>
                   {new Date(petByID.last_time_pet_seen).toLocaleString("es-ES")}
@@ -197,12 +203,12 @@ export default function EmegencyPdf() {
             )}
           </div>
         </div>
-        <div className="w-full h-64 bg-red-600 flex justify-center items-center flex-col">
+        <div className="w-full h-64 bg-[#e60000] flex justify-center items-center flex-col">
           <div className="">
-            <p className="text-lg font-light text-white text-center">
+            <p className="text-lg font-light text-[#ffffff] text-center">
               Call or text with any information
             </p>
-            <h1 className="text-4xl md:text-8xl font-extrabold text-white mb-2 text-center">
+            <h1 className="text-4xl md:text-8xl font-extrabold text-[#ffffff] mb-2 text-center">
               <strong>{phone_number}</strong>
             </h1>
           </div>

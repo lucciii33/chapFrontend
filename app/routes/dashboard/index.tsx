@@ -51,6 +51,8 @@ export default function Dashboard() {
     show_travel_mode: false,
   });
 
+  console.log("allPets", allPets);
+
   const [welcomeModal, setWelcomeModal] = useState(true);
   const [petInfoModal, setPetInfoModal] = useState(false);
   const [petChapModal, setPetChapModal] = useState(false);
@@ -229,9 +231,21 @@ export default function Dashboard() {
 
   const handlePetSelect = (e) => {
     const selectedId = e.target.value;
-    if (selectedId) {
+    if (!selectedId) return;
+
+    const selectedPet = allPets.find((pet) => pet.id === parseInt(selectedId));
+
+    const hasPurchasedTag = selectedPet?.tags?.some((tag) => tag.is_purchased);
+
+    if (hasPurchasedTag) {
       navigate(`/trackerPet/${selectedId}`);
+    } else {
+      document.getElementById("purchase_aler").showModal();
     }
+    // const selectedId = e.target.value;
+    // if (selectedId) {
+    //   navigate(`/trackerPet/${selectedId}`);
+    // }
   };
 
   return (
@@ -966,6 +980,23 @@ export default function Dashboard() {
           </div>
         )}
       </div>
+
+      <dialog id="purchase_aler" className="modal">
+        <div className="modal-box w-3/4 max-w-4xl h-auto p-6">
+          <h2>
+            Debes comprar primero la chapa de esta mascota para poder usar este
+            feature.
+          </h2>
+          <button
+            className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600"
+            onClick={() => {
+              document.getElementById("purchase_aler").close();
+            }}
+          >
+            Close
+          </button>
+        </div>
+      </dialog>
     </div>
   );
 }

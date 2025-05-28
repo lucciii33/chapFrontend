@@ -10,6 +10,7 @@ import "../../../styles/dashboard.css";
 export default function Finances() {
   const { auth, pet, finances } = useGlobalContext();
   const { getPets, allPets } = pet;
+  console.log("allPetsallPets", allPets);
   const user = auth.user;
   const [allFinances, setAllFinances] = useState([]);
   const [filteredFinances, setFilteredFinances] = useState([]);
@@ -61,7 +62,6 @@ export default function Finances() {
 
   useEffect(() => {
     if (user && user.id) {
-      console.log("LLAMANDOOO");
       finances
         .getUserFinances(user.id)
         .then((data) => {
@@ -100,6 +100,16 @@ export default function Finances() {
 
   const handleChangeFinances = (e) => {
     const { name, value, type, checked } = e.target;
+    if (name === "pet_id") {
+      const selectedPet = allPets.find((pet) => pet.id === Number(value));
+      const hasPurchasedTag = selectedPet?.tags?.some(
+        (tag) => tag.is_purchased
+      );
+
+      if (!hasPurchasedTag) {
+        document.getElementById("purchase_aler_2").showModal();
+      }
+    }
     setExpenseData((prevInfo) => ({
       ...prevInfo,
       [name]:
@@ -120,6 +130,13 @@ export default function Finances() {
   };
 
   const handleSaveExpense = async () => {
+    const selectedPet = allPets.find((pet) => pet.id === expenseData.pet_id);
+    const hasPurchasedTag = selectedPet?.tags?.some((tag) => tag.is_purchased);
+
+    if (!hasPurchasedTag) {
+      document.getElementById("purchase_aler_2").showModal();
+      return;
+    }
     try {
       const response = await finances.createFinance(expenseData);
       if (response) {
@@ -441,6 +458,23 @@ export default function Finances() {
         onConfirm={handleDeleteFinanceFunc}
         itemName={`finance`}
       />
+
+      <dialog id="purchase_aler_2" className="modal">
+        <div className="modal-box w-3/4 max-w-4xl h-auto p-6">
+          <h2>
+            Debes comprar primero la chapa de esta mascota para poder usar este
+            feature.
+          </h2>
+          <button
+            className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600"
+            onClick={() => {
+              document.getElementById("purchase_aler_2").close();
+            }}
+          >
+            Close
+          </button>
+        </div>
+      </dialog>
     </div>
   );
 }
