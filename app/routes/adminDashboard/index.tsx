@@ -8,6 +8,7 @@
 // import Card from "~/components/card";
 // import tagImg from "../../images/tag.png";
 // import "../../../styles/dashboard.css";
+import { Link } from "@remix-run/react";
 import { useGlobalContext } from "../../context/GlobalProvider";
 
 import { useState, useEffect } from "react";
@@ -148,6 +149,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="p-[40px]">
+      <Link to="/inventory">INVENTORY</Link>
       <div className="flex">
         <div className="mb-2 mt-3">
           <label className="block text-black">date</label>

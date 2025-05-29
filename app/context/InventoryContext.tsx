@@ -1,0 +1,82 @@
+import { useState } from "react";
+import { showErrorToast, showSuccessToast } from "~/utils/toast";
+
+type InventoryItem = {
+  id: number;
+  type_tag: string;
+  color: string;
+  quantity: number;
+  description?: string;
+};
+
+export const useInventoryContext = () => {
+  const [inventoryItems, setInventoryItems] = useState<InventoryItem[]>([]);
+  const baseUrl = import.meta.env.VITE_REACT_APP_URL;
+
+  const getToken = (): string | null => {
+    const storedUser = localStorage.getItem("adminUser");
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      return user.access_token;
+    }
+    return null;
+  };
+
+  const getAllInventoryItems = async (): Promise<void> => {
+    try {
+      const token = getToken();
+      if (!token) throw new Error("No token");
+
+      const res = await fetch(`${baseUrl}/api/inventory`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) throw new Error("Error fetching inventory");
+
+      const data: InventoryItem[] = await res.json();
+      setInventoryItems(data);
+    } catch (err) {
+      console.error("Error:", err);
+      showErrorToast("Error al obtener el inventario");
+    }
+  };
+
+  const createInventoryItem = async (
+    item: Omit<InventoryItem, "id">
+  ): Promise<void> => {
+    try {
+      const token = getToken();
+      if (!token) throw new Error("No token");
+
+      const res = await fetch(`${baseUrl}/api/inventory/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(item),
+      });
+
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.detail || "Error creando ítem");
+      }
+
+      const newItem: InventoryItem = await res.json();
+      setInventoryItems((prev) => [...prev, newItem]);
+      showSuccessToast("Ítem creado correctamente");
+    } catch (err) {
+      console.error("Error:", err);
+      showErrorToast("Error al crear ítem");
+    }
+  };
+
+  return {
+    inventoryItems,
+    getAllInventoryItems,
+    createInventoryItem,
+  };
+};
