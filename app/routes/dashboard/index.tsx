@@ -18,7 +18,20 @@ import {
 import { showErrorToast } from "~/utils/toast";
 
 export default function Dashboard() {
-  const { auth, pet, tag, cart } = useGlobalContext();
+  const { auth, pet, tag, cart, inventory } = useGlobalContext();
+
+  const { getInventoryForUser, inventoryItemsUser } = inventory;
+
+  const [stockStatus, setStockStatus] = useState<null | {
+    available: boolean;
+    quantity: number;
+  }>(null);
+
+  useEffect(() => {
+    getInventoryForUser();
+  }, []);
+
+  console.log("inventoryItemsUser", inventoryItemsUser);
   const user = auth.user;
   const { createPet, getPets, allPets, petProfile } = pet;
   const { createTag, tagInfo } = tag;
@@ -61,6 +74,24 @@ export default function Dashboard() {
   const [errorsTag, setErrorsTag] = useState({});
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!inventoryItemsUser?.length) return;
+
+    const match = inventoryItemsUser.find(
+      (item) =>
+        item.type_tag === tagInfoData.shape && item.color === tagInfoData.color
+    );
+
+    if (match) {
+      setStockStatus({
+        available: match.quantity > 0,
+        quantity: match.quantity,
+      });
+    } else {
+      setStockStatus(null);
+    }
+  }, [tagInfoData.shape, tagInfoData.color, inventoryItemsUser]);
 
   const tagImages = [
     {
@@ -803,6 +834,7 @@ export default function Dashboard() {
                         Sin preview
                       </div>
                     )}
+
                     {/* {tagInfoData.shape === "circular" && (
                       <div className="w-[250px] h-[250px] bg-gray-300 rounded-full"></div>
                     )}
@@ -820,6 +852,13 @@ export default function Dashboard() {
                     )} */}
                   </div>
                 </div>
+                {stockStatus && (
+                  <p className="text-sm mt-2">
+                    {stockStatus.available
+                      ? `Disponibles: ${stockStatus.quantity}`
+                      : "No hay stock disponible"}
+                  </p>
+                )}
                 <div className="modal-action">
                   <button
                     onClick={() => {

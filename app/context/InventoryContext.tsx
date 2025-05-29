@@ -11,10 +11,22 @@ type InventoryItem = {
 
 export const useInventoryContext = () => {
   const [inventoryItems, setInventoryItems] = useState<InventoryItem[]>([]);
+  const [inventoryItemsUser, setInventoryItemsUser] = useState<InventoryItem[]>(
+    []
+  );
   const baseUrl = import.meta.env.VITE_REACT_APP_URL;
 
   const getToken = (): string | null => {
     const storedUser = localStorage.getItem("adminUser");
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      return user.access_token;
+    }
+    return null;
+  };
+
+  const getTokenUser = (): string | null => {
+    const storedUser = localStorage.getItem("user");
     if (storedUser) {
       const user = JSON.parse(storedUser);
       return user.access_token;
@@ -41,6 +53,28 @@ export const useInventoryContext = () => {
     } catch (err) {
       console.error("Error:", err);
       showErrorToast("Error al obtener el inventario");
+    }
+  };
+
+  const getInventoryForUser = async (): Promise<void> => {
+    try {
+      const token = getTokenUser();
+      if (!token) throw new Error("No token");
+
+      const res = await fetch(`${baseUrl}/api/inventory/public`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) throw new Error("Error fetching inventory");
+
+      const data: InventoryItem[] = await res.json();
+      setInventoryItemsUser(data);
+    } catch (err) {
+      console.error("Error:", err);
+      showErrorToast("Error al obtener el inventario para el usuario");
     }
   };
 
@@ -78,5 +112,7 @@ export const useInventoryContext = () => {
     inventoryItems,
     getAllInventoryItems,
     createInventoryItem,
+    getInventoryForUser,
+    inventoryItemsUser,
   };
 };

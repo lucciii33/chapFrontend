@@ -43,7 +43,7 @@ export default function Inventory() {
         Crear nuevo inventario
       </h2>
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 max-w-md">
         <input
           type="text"
           name="type_tag"
