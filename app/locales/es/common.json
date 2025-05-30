@@ -85,5 +85,90 @@
     "data_protection": "Afirmo que he leído y acepto la información sobre protección de datos.",
     "account": "Si ya tienes cuenta puedes entrar aqui",
     "button": "Empieza tu historia con CHAP"
-  } 
+  },
+
+  "subNavbar": {
+      "greeting": "Hola",
+      "extraFeatures": {
+        "title": "Funciones adicionales",
+        "description": "¡Desbloquea estas funciones en cuanto compres tu chapa!",
+        "buttonFinances": "Control de gastos",
+        "buttonDiary": "Diario de tu mascota"
+      }
+  },
+  "mainCard": {
+    "title": "¡Crea tu primera mascota!",
+    "description": "A partir de aquí podrás cuidar y conocer mejor a tus compañeros peludos.",
+    "button": "Crear mascota"
+  },
+
+  "petCreation": {
+    "step1": {
+      "title": "¡Bienvenido,",
+      "description": "¿Estás listo para cuidar y seguir a tu mascota?\nCrea su perfil, diseña su chapa, cómprala y disfruta de todas las funcionalidades.",
+      "button": "Crear mascota"
+    },
+    "step2": {
+      "title": "¡Agrega la información!",
+      "subtitle": "Cuanta más información agregues, mejor. Así podremos completar tu perfil más rápido.",
+      "helpText": "Haz clic para mostrar u ocultar esta información en la chapa. No te preocupes si no la configuras ahora, puedes cambiarla cuando quieras:",
+      "settings": {
+        "lost": "Mascota perdida",
+        "medicalHistory": "Mostrar historial médico",
+        "travelMode": "Mostrar modo viaje"
+      },
+      "form": {
+        "owner1": "Dueño 1",
+        "owner2": "Dueño 2",
+        "petName": "Nombre de la mascota",
+        "age": "Edad de la mascota",
+        "personality": "Personalidad",
+        "address": "Dirección",
+        "phone1": "Número de contacto 1",
+        "phone2": "Número de contacto 2 (opcional)",
+        "profilePhoto": "Foto de perfil de la mascota",
+        "selectFile": "Seleccionar archivo",
+        "petColor": "Color de la mascota",
+        "petBreed": "Raza de la mascota",
+        "vet": "Veterinario de confianza (en caso de no poder contactarte)",
+        "neighbourhood": "Vecindario",
+        "chip": "Número de chip",
+        "button1": "Cerrar",
+        "button2": "Crear"
+      },
+    "step3": {
+      "title": "Crea la chapa",
+      "description": "Puedes crearla ahora o más tarde, pero la necesitas para introducir más datos.\n¡Anímate y elige tu forma y color favorito!",
+      "material": "Material: Aluminio",
+      "shape": {
+        "label": "Forma",
+        "options": {
+          "rectangle": "Rectángulo",
+          "circle": "Círculo"
+        }
+      },
+      "color": {
+        "label": "Color",
+        "options": {
+          "black": "Negro",
+          "purple": "Púrpura",
+          "blue": "Azul",
+          "green": "Verde"
+        }
+      },
+      "button": "Crea tu chapa aquí"
+      },
+    "step4": {
+      "title": "¡Estás a solo un paso!",
+      "description": "Con un solo clic, compra tu chapa y desbloquea todas las funciones que te ofrece.\nSi quieres seguir explorando o crear más perfiles y chapas, guárdala en tu carrito.",
+      "buttons": {
+        "buyNow": "Comprar ahora",
+        "addToCart": "Agregar al carrito",
+        "close": "Cerrar"
+      }
+    }
+    }
   }
+
+}
+

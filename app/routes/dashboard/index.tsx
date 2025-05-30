@@ -7,6 +7,7 @@ import "../../../styles/dashboard.css";
 import { Link } from "@remix-run/react";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "@remix-run/react";
+import { useTranslation } from "react-i18next";
 
 import {
   ShoppingCartIcon,
@@ -19,6 +20,7 @@ import { showErrorToast } from "~/utils/toast";
 
 export default function Dashboard() {
   const { auth, pet, tag, cart, inventory } = useGlobalContext();
+  const { t } = useTranslation();
 
   const { getInventoryForUser, inventoryItemsUser } = inventory;
 
@@ -305,7 +307,7 @@ export default function Dashboard() {
                     className="text-2xl font-semibold text-white ms-2"
                     style={{ fontFamily: "chapFont" }}
                   >
-                    Hola, {user.full_name}!
+                    {t("subNavbar.greeting")}, {user.full_name}!
                   </p>
                 </div>
               </div>
@@ -382,7 +384,7 @@ export default function Dashboard() {
                     className="text-2xl font-bold text-teal-500"
                     style={{ fontFamily: "chapFont" }}
                   >
-                    ¡Bienvenido {user?.full_name || ""}!{" "}
+                    {t("petCreation.step1.title")} {user?.full_name || ""}!{" "}
                   </h2>
                   <div>
                     <span>
@@ -393,10 +395,7 @@ export default function Dashboard() {
                 </div>
 
                 <p className="mt-2 text-md">
-                  ¿Estás listo para cuidar y trackear a tu mascota?
-                  <br />
-                  Crea su perfil, diseña su chapa, cómprala y disfruta de todas
-                  las funcionalidades.
+                  {t("petCreation.step1.description")}
                 </p>
                 <button
                   onClick={() => {
@@ -405,7 +404,7 @@ export default function Dashboard() {
                   }}
                   className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600"
                 >
-                  Crear Mascota
+                  {t("petCreation.step1.button")}
                 </button>
               </div>
             )}
@@ -416,7 +415,7 @@ export default function Dashboard() {
                     className="text-2xl font-bold text-teal-500"
                     style={{ fontFamily: "chapFont" }}
                   >
-                    ¡Pon la informacion!
+                    {t("petCreation.step2.title")}
                   </h2>
                   <div>
                     <span>
@@ -426,18 +425,18 @@ export default function Dashboard() {
                   </div>
                 </div>
                 <p className="mt-0 text-md">
-                  mientras mas informacion coloques mejor, asi ayudaremos a
-                  completar tu dahbord mas rapido
+                  {t("petCreation.step2.subtitle")}
                 </p>
                 <form method="dialog" className="mt-5">
                   <div>
                     <h2 className="text-1xl font-bold text-white">
-                      Con estos settings podras cambiar como se vialuiza tu
-                      chapa, no te procupes por ellos ahora:
+                      {t("petCreation.step2.helpText")}
                     </h2>
                     <div className="mb-4 flex flex-col md:flex-row gap-3 mt-3">
                       <div className="mb-4 flex items-center">
-                        <label className="mr-2">Lost</label>
+                        <label className="mr-2">
+                          {t("petCreation.step2.settings.lost")}
+                        </label>
                         <input
                           type="checkbox"
                           name="lost"
@@ -453,7 +452,9 @@ export default function Dashboard() {
                       </div>
 
                       <div className="mb-4 flex items-center">
-                        <label className="mr-2">Show Medical History</label>
+                        <label className="mr-2">
+                          {t("petCreation.step2.settings.medicalHistory")}
+                        </label>
                         <input
                           type="checkbox"
                           name="show_medical_history"
@@ -469,7 +470,9 @@ export default function Dashboard() {
                       </div>
 
                       <div className="mb-4 flex items-center">
-                        <label className="mr-2">Show Travel Mode</label>
+                        <label className="mr-2">
+                          {t("petCreation.step2.settings.travelMode")}
+                        </label>
                         <input
                           type="checkbox"
                           name="show_travel_mode"
@@ -488,7 +491,7 @@ export default function Dashboard() {
 
                   <div className="flex flex-col md:flex-row">
                     <div className="mb-4 w-full">
-                      <label>Owner 1</label>
+                      <label>{t("petCreation.step2.form.owner1")}</label>
                       <input
                         type="text"
                         name="mom_name"
@@ -497,12 +500,12 @@ export default function Dashboard() {
                         className={`w-full px-4 py-2 border rounded-lg ${
                           errors.mom_name ? "border-red-500" : "border-gray-300"
                         }`}
-                        placeholder="Mom's Name"
+                        placeholder={t("petCreation.step2.form.owner1")}
                       />
                     </div>
 
                     <div className="mb-4 w-full ms-0 md:ms-2">
-                      <label>Owner 2</label>
+                      <label>{t("petCreation.step2.form.owner2")}</label>
                       <input
                         type="text"
                         name="dad_name"
@@ -511,13 +514,13 @@ export default function Dashboard() {
                         className={`w-full px-4 py-2 border rounded-lg ${
                           errors.dad_name ? "border-red-500" : "border-gray-300"
                         }`}
-                        placeholder="Dad's Name"
+                        placeholder={t("petCreation.step2.form.owner2")}
                       />
                     </div>
                   </div>
                   <div className="flex flex-col md:flex-row">
                     <div className="mb-4 w-full">
-                      <label>Name</label>
+                      <label>{t("petCreation.step2.form.petName")}</label>
                       <input
                         type="text"
                         name="name"
@@ -526,12 +529,12 @@ export default function Dashboard() {
                         className={`w-full px-4 py-2 border rounded-lg ${
                           errors.name ? "border-red-500" : "border-gray-300"
                         }`}
-                        placeholder="Pet's Name"
+                        placeholder={t("petCreation.step2.form.petName")}
                       />
                     </div>
 
                     <div className="mb-4 w-full ms-0 md:ms-2">
-                      <label>Age</label>
+                      <label>{t("petCreation.step2.form.age")}</label>
                       <input
                         type="number"
                         name="age"
@@ -540,13 +543,13 @@ export default function Dashboard() {
                         className={`w-full px-4 py-2 border rounded-lg ${
                           errors.age ? "border-red-500" : "border-gray-300"
                         }`}
-                        placeholder="Pet's Age"
+                        placeholder={t("petCreation.step2.form.age")}
                       />
                     </div>
                   </div>
 
                   <div className="mb-4">
-                    <label>Personality</label>
+                    <label>{t("petCreation.step2.form.personality")}</label>
                     <input
                       type="text"
                       name="personality"
@@ -557,25 +560,25 @@ export default function Dashboard() {
                           ? "border-red-500"
                           : "border-gray-300"
                       }`}
-                      placeholder="Personality"
+                      placeholder={t("petCreation.step2.form.personality")}
                     />
                   </div>
 
                   <div className="mb-4">
-                    <label>Address</label>
+                    <label>{t("petCreation.step2.form.address")}</label>
                     <input
                       type="text"
                       name="address"
                       value={petInfo.address}
                       onChange={handleChange}
                       className="w-full px-4 py-2 border rounded-lg"
-                      placeholder="Address"
+                      placeholder={t("petCreation.step2.form.address")}
                     />
                   </div>
 
                   <div className="flex flex-col md:flex-row">
                     <div className="mb-4 w-full">
-                      <label>Phone Number</label>
+                      <label>{t("petCreation.step2.form.phone1")}</label>
                       <input
                         type="text"
                         name="phone_number"
@@ -586,37 +589,37 @@ export default function Dashboard() {
                             ? "border-red-500"
                             : "border-gray-300"
                         }`}
-                        placeholder="Phone Number"
+                        placeholder={t("petCreation.step2.form.phone1")}
                       />
                     </div>
 
                     <div className="mb-4 w-full ms-0 md:ms-2">
-                      <label>Phone Number (Optional)</label>
+                      <label>{t("petCreation.step2.form.phone2")}</label>
                       <input
                         type="text"
                         name="phone_number_optional"
                         value={petInfo.phone_number_optional || ""}
                         onChange={handleChange}
                         className="w-full px-4 py-2 border rounded-lg"
-                        placeholder="Optional Phone Number"
+                        placeholder={t("petCreation.step2.form.phone2")}
                       />
                     </div>
                   </div>
                   <div className="mb-4">
-                    <label>Profile Photo</label>
+                    <label>{t("petCreation.step2.form.profilePhoto")}</label>
                     <input
                       type="file"
                       name="profile_photo"
                       // value={petInfo.profile_photo}
                       onChange={handleChange}
                       className="w-full px-4 py-2 border rounded-lg"
-                      placeholder="Profile Photo"
+                      placeholder={t("petCreation.step2.form.profilePhoto")}
                     />
                   </div>
 
                   <div className="flex flex-col md:flex-row">
                     <div className="mb-4 w-full">
-                      <label>Pet Color</label>
+                      <label>{t("petCreation.step2.form.petColor")}</label>
                       <input
                         type="text"
                         name="pet_color"
@@ -627,12 +630,12 @@ export default function Dashboard() {
                             ? "border-red-500"
                             : "border-gray-300"
                         }`}
-                        placeholder="Pet's Color"
+                        placeholder={t("petCreation.step2.form.petColor")}
                       />
                     </div>
 
                     <div className="mb-4 w-full ms-0 md:ms-2">
-                      <label>Breed</label>
+                      <label>{t("petCreation.step2.form.petBreed")}</label>
                       <input
                         type="text"
                         name="breed"
@@ -641,54 +644,56 @@ export default function Dashboard() {
                         className={`w-full px-4 py-2 border rounded-lg ${
                           errors.breed ? "border-red-500" : "border-gray-300"
                         }`}
-                        placeholder="Breed"
+                        placeholder={t("petCreation.step2.form.petBreed")}
                       />
                     </div>
                   </div>
 
                   <div className="mb-4">
-                    <label>Vet Address</label>
+                    <label>{t("petCreation.step2.form.vet")}</label>
                     <input
                       type="text"
                       name="vet_address"
                       value={petInfo.vet_address}
                       onChange={handleChange}
                       className="w-full px-4 py-2 border rounded-lg"
-                      placeholder="Vet Address"
+                      placeholder={t("petCreation.step2.form.vet")}
                     />
                   </div>
 
                   <div className="mb-4">
-                    <label>Neighbourhood</label>
+                    <label>{t("petCreation.step2.form.neighbourhood")}</label>
                     <input
                       type="text"
                       name="neighbourhood"
                       value={petInfo.neighbourhood}
                       onChange={handleChange}
                       className="w-full px-4 py-2 border rounded-lg"
-                      placeholder="Neighbourhood"
+                      placeholder={t("petCreation.step2.form.neighbourhood")}
                     />
                   </div>
 
                   <div className="mb-4">
-                    <label>Chip Number</label>
+                    <label>{t("petCreation.step2.form.chip")}</label>
                     <input
                       type="number"
                       name="chip_number"
                       value={petInfo.chip_number}
                       onChange={handleChange}
                       className="w-full px-4 py-2 border rounded-lg"
-                      placeholder="Chip Number"
+                      placeholder={t("petCreation.step2.form.chip")}
                     />
                   </div>
 
                   <div className="modal-action">
-                    <button className="btn">Close</button>
+                    <button className="btn">
+                      {t("petCreation.step2.form.button1")}
+                    </button>
                     <button
                       className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600"
                       onClick={handleSubmit}
                     >
-                      create{" "}
+                      {t("petCreation.step2.form.button2")}
                     </button>
                   </div>
                 </form>
@@ -701,7 +706,7 @@ export default function Dashboard() {
                     className="text-2xl font-bold text-teal-700"
                     style={{ fontFamily: "chapFont" }}
                   >
-                    ¡Crea la chapa!
+                    {t("petCreation.step2.step3.title")}
                   </h2>
                   <div>
                     <span>
@@ -711,14 +716,13 @@ export default function Dashboard() {
                   </div>
                 </div>
                 <p className="mt-0 text-md">
-                  puedes comprarla ahora o mas tarde pero ajuro necesitas tener
-                  la chapa para comenzar, animate!
+                  {t("petCreation.step2.step3.description")}
                 </p>
                 <div className="flex mt-3">
                   <div className="w-1/2 border-r border-gray-500 ">
                     <div className="me-5">
                       <div>
-                        <label>Material</label>
+                        <label> {t("petCreation.step2.step3.material")}</label>
                       </div>
                       <div>
                         <select
@@ -740,7 +744,9 @@ export default function Dashboard() {
 
                     <div className="me-5">
                       <div>
-                        <label>Shape</label>
+                        <label>
+                          {t("petCreation.step2.step3.shape.label")}
+                        </label>
                       </div>
                       <div>
                         <select
@@ -763,7 +769,9 @@ export default function Dashboard() {
 
                     <div className="me-5">
                       <div>
-                        <label>Color</label>
+                        <label>
+                          {t("petCreation.step2.step3.color.label")}
+                        </label>
                       </div>
                       <div>
                         <select
@@ -787,7 +795,7 @@ export default function Dashboard() {
                       </div>
                     </div>
 
-                    <div className="flex items-center mt-2">
+                    {/* <div className="flex items-center mt-2">
                       <div>
                         <label>Name</label>
                       </div>
@@ -799,7 +807,7 @@ export default function Dashboard() {
                           onChange={handleTagChange}
                         />
                       </div>
-                    </div>
+                    </div> */}
 
                     {/* <div className="flex items-center mt-2">
                       <div>
@@ -819,7 +827,7 @@ export default function Dashboard() {
                       className="btn  bg-teal-500 w-[92%] mt-2 me-2"
                       onClick={handleCreateTag}
                     >
-                      Crea tu chapa aqui
+                      {t("petCreation.step2.step3.button")}
                     </button>
                   </div>
                   <div className="w-1/2 flex justify-center items-center">
@@ -877,7 +885,8 @@ export default function Dashboard() {
                     className="text-2xl font-bold text-teal-500"
                     style={{ fontFamily: "chapFont" }}
                   >
-                    A solo un paso! {user?.full_name || ""}!
+                    {t("petCreation.step2.step4.title")} {user?.full_name || ""}
+                    !
                   </h2>
                   <div>
                     <span>
@@ -887,15 +896,13 @@ export default function Dashboard() {
                   </div>
                 </div>
                 <p className="mt-2 text-md">
-                  estas a solo un paso de pomprar la chapa,si quieres seguir
-                  epxlorando o creando mas mascotas y chapas solo guardala en tu
-                  carrito.
+                  {t("petCreation.step2.step4.description")}
                 </p>
-                <small className="text-grey-500">
+                {/* <small className="text-grey-500">
                   estas a solo un paso de pomprar la chapa,si quieres seguir
                   epxlorando o creando mas mascotas y chapas solo guardala en tu
                   carrito.
-                </small>
+                </small> */}
                 <div>
                   <small
                     className="text-xs text-gray-500 cursor-pointer"
@@ -924,7 +931,7 @@ export default function Dashboard() {
                       document.getElementById("my_modal_1").close();
                     }}
                   >
-                    Close
+                    {t("petCreation.step4.buttons.close")}
                   </button>
                 </div>
               </div>
@@ -939,7 +946,7 @@ export default function Dashboard() {
               style={{ fontFamily: "chapFont" }}
               className="text-2xl font-semibold text-teal-500"
             >
-              Funciones adicionales
+              {t("subNavbar.extraFeatures.title")}
             </h2>
             <div>
               <span>
@@ -948,15 +955,13 @@ export default function Dashboard() {
               </span>
             </div>
           </div>
-          <p className="m-0">
-            ¡Desbloquea estas funciones en cuanto compres tu chapa!
-          </p>
+          <p className="m-0">{t("subNavbar.extraFeatures.description")} </p>
           <div className="flex flex-col md:flex-row gap-2 mt-4">
             {allPets.length > 0 ? (
               <div>
                 <Link to={`/finances`}>
                   <button className="btn  bg-teal-500 w-full md:w-auto">
-                    Track your finances
+                    {t("subNavbar.extraFeatures.buttonFinances")}
                   </button>
                 </Link>
               </div>
@@ -968,7 +973,9 @@ export default function Dashboard() {
                 onChange={handlePetSelect}
                 className="btn bg-teal-500 text-white px-4 py-2 w-full md:w-auto rounded-md shadow-md cursor-pointer"
               >
-                <option value="">Diario de tu mascota</option>
+                <option value="">
+                  {t("subNavbar.extraFeatures.buttonDiary")}
+                </option>
                 {allPets?.map((pet) => (
                   <option key={pet.id} value={pet.id}>
                     {pet.name}
@@ -996,17 +1003,16 @@ export default function Dashboard() {
               style={{ fontFamily: "chapFont" }}
               className="text-2xl font-semibold text-teal-500 mb-2"
             >
-              ¡Crea tu primera Mascota!
+              {t("mainCard.title")}
             </h2>
             <p className="text-sm text-gray-500 mb-4">
-              A partir de aquí podrás cuidar, disfrutar y mejorar a tus
-              mascotas.
+              {t("mainCard.description")}
             </p>
             <button
               className="btn bg-teal-500 hover:bg-teal-600 text-white px-6 py-2 rounded-md transition duration-300 border-none"
               onClick={() => document.getElementById("my_modal_1").showModal()}
             >
-              Crear Mascota
+              {t("mainCard.button")}
             </button>
           </div>
         ) : (

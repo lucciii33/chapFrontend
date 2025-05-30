@@ -1,5 +1,5 @@
 import { Link } from "@remix-run/react"; // Importa Link de Remix
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGlobalContext } from "../context/GlobalProvider";
 import tagImg from "../images/tag.png";
 import "../../styles/dashboard.css";
@@ -30,13 +30,22 @@ type CardProps = {
   };
 };
 export default function Card({ petObj }: CardProps) {
-  console.log("petObj", petObj);
   const [selectPetId, setSelectPetId] = useState<number | null>(null);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { auth, pet, tag, cart, comingFromCard } = useGlobalContext();
+  const { auth, pet, tag, cart, comingFromCard, inventory } =
+    useGlobalContext();
   const { createTag, tagInfo } = tag;
   const { actSideBar, selectPetIdForTag, selectPetIdNew } = cart;
+  const { getInventoryForUser, inventoryItemsUser } = inventory;
+  const [stockStatus, setStockStatus] = useState<null | {
+    available: boolean;
+    quantity: number;
+  }>(null);
+
+  useEffect(() => {
+    getInventoryForUser();
+  }, []);
 
   const user = auth.user;
 
@@ -65,11 +74,30 @@ export default function Card({ petObj }: CardProps) {
     color: "blue",
   });
 
+  useEffect(() => {
+    if (!inventoryItemsUser?.length) return;
+
+    const match = inventoryItemsUser.find(
+      (item) =>
+        item.type_tag === tagInfoData.shape && item.color === tagInfoData.color
+    );
+
+    console.log("match", match);
+
+    if (match) {
+      setStockStatus({
+        available: match.quantity > 0,
+        quantity: match.quantity,
+      });
+    } else {
+      setStockStatus(null);
+    }
+  }, [tagInfoData.shape, tagInfoData.color, inventoryItemsUser]);
+
   const tagImages = [
     { shape: "square", color: "purple", imageUrl: "/purpleSqure.png" },
     { shape: "circular", color: "purple", imageUrl: "/circlePurple.png" },
     { shape: "square", color: "black", imageUrl: "/blackSqure.png" },
-    // Agrega más según lo que tengas en tu app...
   ];
 
   const selectedImage = tagImages.find(
@@ -128,13 +156,6 @@ export default function Card({ petObj }: CardProps) {
         style={{ zIndex: actSideBar ? -10 : "auto" }}
       >
         <div className="absolute bottom-[59%] left-[104%] transform -translate-x-1/2 w-[90%]">
-          {/* <Link to={`/trackerPet/${petObj.id}`}>
-            <button className=" bg-white text-emerald-800 shadow-md rounded-md px-2 py-2 w-full flex justify-center items-center gap-2">
-              <MapPinIcon className="h-5 w-5" />
-              ¡Trackea aquí tu perro!
-            </button>
-          </Link> */}
-
           {petObj?.tags && petObj?.tags.length > 0 && (
             <Link
               to={`/pets/${petObj.id}`}
@@ -149,7 +170,6 @@ export default function Card({ petObj }: CardProps) {
         <div className="absolute bottom-[89%] left-[125%] transform -translate-x-1/2 w-[90%]">
           <AlertCircle petObj={petObj} />
         </div>
-        {/* <UserAlerts userId={petObj.user_id} /> */}
 
         <figure>
           <img
@@ -217,16 +237,20 @@ export default function Card({ petObj }: CardProps) {
               </button>
             </Link>
 
-            {petObj?.tags && petObj?.tags.length > 0 ? (
+            {/* {petObj?.tags && petObj?.tags.length > 0 ? (
               ""
-            ) : (
-              <button
-                className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full"
-                onClick={() => handleBuyTag(petObj.id)}
-              >
-                Ceate A tag
-              </button>
-            )}
+            ) : ( */}
+            <button
+              className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full"
+              onClick={() => handleBuyTag(petObj.id)}
+            >
+              {petObj?.tags &&
+              petObj.tags.length > 0 &&
+              petObj.tags.some((tag) => tag.is_purchased)
+                ? "Create a new tag"
+                : "Create A Tag"}
+            </button>
+            {/* )} */}
           </div>
         </div>
       </div>
@@ -365,6 +389,13 @@ export default function Card({ petObj }: CardProps) {
                 )}
               </div>
             </div>
+            {stockStatus && (
+              <p className="text-sm mt-2">
+                {stockStatus.available
+                  ? `Disponibles: ${stockStatus.quantity}`
+                  : "No hay stock disponible"}
+              </p>
+            )}
             <div className="modal-action">
               <button
                 onClick={() => {

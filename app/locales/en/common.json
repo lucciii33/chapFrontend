@@ -86,7 +86,88 @@
       "data_protection": "I affirm that I have read and accepted the information on data protection.",
       "account": "If you already have an account login here",
       "button": "Start your journey with CHAP"
+    },
+
+  "subNavbar": {
+    "greeting": "Hello",
+    "extraFeatures": {
+      "title": "Extra features",
+      "description": "Unlock these features the moment you buy your tag!",
+      "buttonFinances": "Track your finances",
+      "buttonDiary": "Daily pet log"
     }
+  },
 
-
+  "mainCard": {
+    "title": "Create your first pet!",
+    "description": "From here, you'll be able to care for and get to know your furry companions better.",
+    "button": "Create pet"
+  }, 
+  "petCreation": {
+    "step1": {
+      "title": "Welcome,",
+      "description": "Are you ready to care for and track your pet?\nCreate their profile, design their tag, purchase it, and enjoy all the features.",
+      "button": "Create pet"
+    },
+    "step2": {
+      "title": "Add the information! ",
+      "subtitle": "The more information you provide, the better. This will help us complete your profile faster.",
+      "helpText": "Click to show or hide this information on the tag. Don’t worry if you don’t set it up now — you can change it anytime:",
+      "settings": {
+        "lost": "My pet is lost",
+        "medicalHistory": "Show medical history",
+        "travelMode": "Show travel mode"
+      },
+      "form": {
+        "owner1": "Owner 1",
+        "owner2": "Owner 2",
+        "petName": "Pet's name",
+        "age": "Pet's age",
+        "personality": "Personality",
+        "address": "Address",
+        "phone1": "Contact number 1",
+        "phone2": "Contact number 2 (optional)",
+        "profilePhoto": "Pet's Profile photo",
+        "petColor": "Pet's color",
+        "petBreed": "Pet's breed",
+        "vet": "Trusted vet (in case you can't be reached)",
+        "chip": "Microchip number",
+        "neighbourhood": "Neighbourhood",
+        "button1": "Close",
+        "button2": "Create"
+      }
+    },
+    "step3": {
+      "title": "Create your tag",
+      "description": "You can design it now or later, but you’ll need it to add more details.\nGo ahead and pick your favorite shape and color!",
+      "material": "Material: Aluminum",
+      "shape": {
+        "label": "Shape",
+        "options": {
+          "rectangle": "Rectangle",
+          "circle": "Circle"
+        }
+      },
+      "color": {
+        "label": "Color",
+        "options": {
+          "black": "Black",
+          "purple": "Purple",
+          "blue": "Blue",
+          "green": "Green"
+        }
+      },
+      "button": "Create your tag here"
+      
+    },
+    "step4": {
+      "title": "You're just one step away!",
+      "description": "One click, buy your tag and unlock all the features it has to offer.\nIf you want to keep exploring or create more profiles and tags, save this one in your cart.",
+      "buttons": {
+        "buyNow": "Buy Now",
+        "addToCart": "Add to Cart",
+        "close": "Close"
+      }
+    }
+  }
 }
