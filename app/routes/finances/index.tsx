@@ -230,6 +230,7 @@ export default function Finances() {
     setIsDeleteFinancesDialogOpen(false);
     setSelectFinancesId(null);
   };
+
   return (
     <div className="p-5">
       <h2

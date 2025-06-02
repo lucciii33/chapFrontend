@@ -1823,50 +1823,56 @@ export default function PetDetail() {
         <div className="modal-box w-full max-w-7xl">
           <h3 className="font-bold text-lg">Hello!</h3>
           <div className="flex gap-5 items-center flex-col md:flex-row p-5">
-            {petByID?.tags?.map((tag) => {
-              return (
-                <div
-                  key={tag.id}
-                  className="border -2 border-[#65bcbb] rounded-lg p-5 w-full md:w-[250px]"
-                >
-                  <div className=" ">
-                    <img
-                      className="w-full md:w-[225px]"
-                      src="https://chap-blue.s3.us-east-2.amazonaws.com/ChatGPT+Image+Apr+14%2C+2025%2C+04_19_29+PM.png"
-                      alt="dd"
-                    />
-                    <div className="mt-2">
-                      <p>
-                        Color:<strong>{tag.color}</strong>{" "}
-                      </p>
-                      <p className="">
-                        Shape: <strong>{tag.shape}</strong>{" "}
-                      </p>
+            {petByID?.tags.length > 0 ? (
+              petByID?.tags?.map((tag) => {
+                return (
+                  <div
+                    key={tag.id}
+                    className="border -2 border-[#65bcbb] rounded-lg p-5 w-full md:w-[250px]"
+                  >
+                    <div className=" ">
+                      <img
+                        className="w-full md:w-[225px]"
+                        src="https://chap-blue.s3.us-east-2.amazonaws.com/ChatGPT+Image+Apr+14%2C+2025%2C+04_19_29+PM.png"
+                        alt="dd"
+                      />
+                      <div className="mt-2">
+                        <p>
+                          Color:<strong>{tag.color}</strong>{" "}
+                        </p>
+                        <p className="">
+                          Shape: <strong>{tag.shape}</strong>{" "}
+                        </p>
 
-                      <p className="">
-                        ¿Comprado?{" "}
-                        <strong>{tag.is_purchased ? "Sí" : "No"}</strong>
-                      </p>
-                      {/* <p className=""> {tag.material}</p> */}
-                    </div>
-                    <div className="mt-4 flex justify-between gap-3 w-full">
-                      <button
-                        className=" border-none py-3 px-4 bg-teal-700 text-white rounded-lg"
-                        onClick={() => addToCart(tag.id)}
-                      >
-                        Add to cart
-                      </button>
-                      <button
-                        onClick={() => openDeleteModal(tag.id)}
-                        className=" border-none py-3 px-4 bg-teal-500 text-white rounded-lg"
-                      >
-                        Delete
-                      </button>
+                        <p className="">
+                          ¿Comprado?{" "}
+                          <strong>{tag.is_purchased ? "Sí" : "No"}</strong>
+                        </p>
+                        {/* <p className=""> {tag.material}</p> */}
+                      </div>
+                      <div className="mt-4 flex justify-between gap-3 w-full">
+                        <button
+                          className=" border-none py-3 px-4 bg-teal-700 text-white rounded-lg"
+                          onClick={() => addToCart(tag.id)}
+                        >
+                          Add to cart
+                        </button>
+                        <button
+                          onClick={() => openDeleteModal(tag.id)}
+                          className=" border-none py-3 px-4 bg-teal-500 text-white rounded-lg"
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })
+            ) : (
+              <div>
+                <p>You dont have tags at the moment</p>
+              </div>
+            )}
           </div>
           <div className="modal-action">
             <form method="dialog">

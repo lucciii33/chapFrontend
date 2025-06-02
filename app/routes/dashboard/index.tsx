@@ -247,12 +247,13 @@ export default function Dashboard() {
         is_checked_out: false,
       };
 
-      await createCart(user.id, cartData)
+      return await createCart(user.id, cartData)
         .then((response) => {
           if (response) {
             console.log("Item added to cart successfully:", response);
             getCartByUser(user.id);
           }
+          return response;
         })
         .catch((error) => {
           console.error("Error adding item to cart:", error);
@@ -279,6 +280,13 @@ export default function Dashboard() {
     // if (selectedId) {
     //   navigate(`/trackerPet/${selectedId}`);
     // }
+  };
+
+  const addToCartPayNow = async () => {
+    const response = await addToCart();
+    if (response) {
+      navigate("/checkout");
+    }
   };
 
   return (
@@ -917,14 +925,17 @@ export default function Dashboard() {
                 <div className="modal-action">
                   <button
                     className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600"
-                    onClick={() => addToCart(tag.id)}
+                    onClick={() => addToCart()}
                   >
                     <ShoppingCartIcon className="h-6 w-6 text-white" />
                   </button>
-                  {/* <button className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600">
+                  <button
+                    className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600"
+                    onClick={() => addToCartPayNow()}
+                  >
                     {" "}
-                    pay now
-                  </button> */}
+                    Pay Now
+                  </button>
                   <button
                     className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600"
                     onClick={() => {

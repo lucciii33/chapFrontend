@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { showErrorToast, showSuccessToast } from "~/utils/toast";
+import { showErrorToast, showSuccessToast, showInfoToast } from "~/utils/toast";
 
 type Finance = {
   user_id: number;
@@ -85,12 +85,25 @@ export const useFinanceContext = () => {
         },
       });
 
+      if (response.status === 404) {
+        console.log("Usuario sin finanzas aún, no es error.");
+        showInfoToast(
+          "No tienes ninguna finanza en este momento, Agrega alguna."
+        );
+        return [];
+      }
+
       if (!response.ok) throw new Error("Error al obtener los gastos");
 
       const data: FinanceResponse[] = await response.json();
+      console.log("datadatadatadata", data);
+      if (Array.isArray(data) && data.length === 0) {
+        return []; // o null, como prefieras manejarlo
+      }
+
       return data;
     } catch (error) {
-      console.error("Error al obtener los gastos:", error);
+      console.log("Error al obtener los gastos:", error?.response?.status);
       showErrorToast("No se pudieron cargar los gastos");
       return null;
     }
