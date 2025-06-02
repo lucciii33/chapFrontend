@@ -16,6 +16,7 @@ export default function PublicQr() {
   const [location, setLocation] = useState(null);
   const [ubicacion, setUbicacion] = useState(null);
   const [mapError, setMapError] = useState(false);
+  console.log("petData", petData);
 
   // useEffect(() => {
   //   if (petId) {
@@ -181,7 +182,7 @@ export default function PublicQr() {
         <div className="">
           <DogLoader />
         </div>
-      ) : (
+      ) : petData.pay_show_info ? (
         <div>
           <div className="p-5">
             {petData?.lost ? (
@@ -347,6 +348,16 @@ export default function PublicQr() {
               <div id="map" style={{ height: "400px", width: "100%" }} />
             )}
           </div>
+        </div>
+      ) : (
+        <div className="flex flex-col items-center justify-center min-h-screen p-8 text-center">
+          <h1 className="text-2xl font-bold text-red-600 mb-4">
+            QR Not Activated
+          </h1>
+          <p className="text-lg text-gray-700 max-w-md">
+            This QR code has not been activated yet. Please ask the pet owner to
+            complete the purchase and activation process.
+          </p>
         </div>
       )}
     </div>

@@ -42,14 +42,24 @@ export default function Navbar() {
     <>
       {user ? (
         <>
-          <button className="btn" onClick={logout}>
-            {t("navbar.logout")}
-          </button>
           <Link to="/dashboard">
             <button className="btn w-full md:w-atuo">
               {t("navbar.dashboard")}
             </button>
           </Link>
+
+          <button
+            className="btn text-teal-500"
+            onClick={() => {
+              toggleLang();
+              setOpen(false);
+            }}
+            title={
+              i18n.language === "es" ? "Cambiar a inglés" : "Switch to Spanish"
+            }
+          >
+            {i18n.language === "es" ? "ES" : "EN"}
+          </button>
           <label
             htmlFor="my-drawer-4"
             className="drawer-button btn"
@@ -62,17 +72,9 @@ export default function Navbar() {
               </span>
             )}
           </label>
-          <button
-            className="btn text-teal-500"
-            onClick={() => {
-              toggleLang();
-              setOpen(false);
-            }}
-            title={
-              i18n.language === "es" ? "Cambiar a inglés" : "Switch to Spanish"
-            }
-          >
-            {i18n.language === "es" ? "ES" : "EN"}
+          <button className="btn" onClick={logout}>
+            {/* {t("navbar.logout")} */}
+            <PowerIcon className="h-6 w-6 text-teal-500" />
           </button>
         </>
       ) : (

@@ -149,20 +149,26 @@ export default function Card({ petObj }: CardProps) {
     }
   };
 
+  const purchasedCount = petObj?.tags?.filter((tag) => tag.is_purchased).length;
+
   return (
     <div className="ms-2 ">
       <div
         className=" relative card bg-base-100 w-96 shadow-xl border-[5px] border-[#0e0f11] bg-[#2b2f38] "
         style={{ zIndex: actSideBar ? -10 : "auto" }}
       >
-        <div className="absolute bottom-[59%] left-[104%] transform -translate-x-1/2 w-[90%]">
+        <div className="absolute bottom-[59%] left-[80%] transform -translate-x-1/2 w-[90%]">
           {petObj?.tags && petObj?.tags.length > 0 && (
             <Link
               to={`/pets/${petObj.id}`}
               onClick={handleClickCommingFromLink}
             >
               <div className="bg-emerald-100 text-emerald-800 rounded-full px-4 py-1 text-xs font-semibold inline-block shadow-sm">
-                Your dog has tags
+                Your dog has tags (
+                {purchasedCount > 0
+                  ? `${purchasedCount} purchased`
+                  : "not purchased"}
+                )
               </div>
             </Link>
           )}
@@ -244,9 +250,7 @@ export default function Card({ petObj }: CardProps) {
               className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full"
               onClick={() => handleBuyTag(petObj.id)}
             >
-              {petObj?.tags &&
-              petObj.tags.length > 0 &&
-              petObj.tags.some((tag) => tag.is_purchased)
+              {petObj?.tags && petObj.tags.length > 0
                 ? "Create a new tag"
                 : "Create A Tag"}
             </button>
