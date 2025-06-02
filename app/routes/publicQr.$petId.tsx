@@ -315,21 +315,28 @@ export default function PublicQr() {
               {petData?.care_profile && petData.show_travel_mode ? (
                 <div>
                   <p>
-                    feeding_instructions:{" "}
+                    <strong>Feeding Instructions: </strong>
                     {petData?.care_profile.feeding_instructions}
                   </p>
                   <p>
-                    fwalk_instructions:{" "}
+                    <strong> Walk instructions: </strong>
                     {petData?.care_profile.walk_instructions}
                   </p>
                   <p>
-                    medication_instructions:{" "}
+                    <strong>Medication Instructions: </strong>
                     {petData?.care_profile.medication_instructions}
                   </p>
-                  <p>allergies: {petData?.care_profile.allergies}</p>
-                  <p>notes: {petData?.care_profile.notes}</p>
                   <p>
-                    emergency_contac: {petData?.care_profile.emergency_contac}
+                    <strong>allergies: </strong>
+                    {petData?.care_profile.allergies}
+                  </p>
+                  <p>
+                    <strong>notes: </strong>
+                    {petData?.care_profile.notes}
+                  </p>
+                  <p>
+                    <strong>Emergency Contac:: </strong>
+                    {petData?.care_profile.emergency_contac}
                   </p>
                 </div>
               ) : (
