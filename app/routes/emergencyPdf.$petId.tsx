@@ -12,8 +12,6 @@ export default function EmegencyPdf() {
   const { petId } = useParams();
   const backendUrl = import.meta.env.VITE_REACT_APP_URL;
 
-  console.log("petByIDpetByIDpetByID", petByID);
-
   useEffect(() => {
     if (petId) getPetById(petId);
   }, [petId]);

@@ -98,10 +98,10 @@ export default function PetTracker() {
   return (
     <div className="p-5">
       <div className="flex items-center justify-between flex-col md:flex-row gap-2">
-        <div className="bg-white h-auto md:h-[7rem] w-full rounded p-3">
-          <p className="text-sm font-semibold text-black">🍽️ Alimentación</p>
+        <div className="border-2 border-teal-500 bg-gray-800 h-auto md:h-[7rem] w-full rounded p-3">
+          <p className="text-sm font-semibold text-white">🍽️ Alimentación</p>
           {weightKg ? (
-            <p className="text-xs mt-1 leading-tight text-black">
+            <p className="text-xs mt-1 leading-tight text-white">
               {petByID.name} necesita entre{" "}
               <strong>
                 {Math.round(95 * Math.pow(weightKg, 0.75) * 1.2)} y{" "}
@@ -123,12 +123,12 @@ export default function PetTracker() {
           )}
         </div>
 
-        <div className="bg-white h-auto md:h-[7rem] w-full rounded p-3">
-          <p className="text-sm font-semibold text-black">
+        <div className="border-2 border-teal-500 bg-gray-800 h-auto md:h-[7rem] w-full rounded p-3">
+          <p className="text-sm font-semibold text-white">
             🐾 Actividad diaria
           </p>
           {weightKg ? (
-            <p className="text-xs mt-1 text-black">
+            <p className="text-xs mt-1 text-white">
               {recommendedMinutes
                 ? `Debe caminar ~${recommendedMinutes} min/día`
                 : "Cargando..."}
@@ -141,12 +141,12 @@ export default function PetTracker() {
           )}
         </div>
 
-        <div className="bg-white h-auto md:h-[7rem] w-full rounded p-3">
-          <p className="text-sm font-semibold text-black">
+        <div className="border-2 border-teal-500 bg-gray-800 h-auto md:h-[7rem] w-full rounded p-3">
+          <p className="text-sm font-semibold text-white">
             💧 Agua recomendada
           </p>
           {weightKg ? (
-            <p className="text-xs mt-1 text-black">
+            <p className="text-xs mt-1 text-white">
               {petByID.name} debería beber aproximadamente {waterMl} ml de agua
               al día (55ml por kg)`
             </p>
@@ -158,12 +158,12 @@ export default function PetTracker() {
           )}
         </div>
 
-        <div className="bg-white h-auto md:h-[7rem] w-full rounded p-3">
-          <p className="text-sm font-semibold text-black">
+        <div className="border-2 border-teal-500 bg-gray-800 h-auto md:h-[7rem] w-full rounded p-3">
+          <p className="text-sm font-semibold text-white">
             🔥 Calorías quemadas
           </p>
           {weightKg ? (
-            <p className="text-xs mt-1 text-black">
+            <p className="text-xs mt-1 text-white">
               {estimatedCaloriesBurned
                 ? `Un paseo de ${recommendedMinutes} min quema ~${estimatedCaloriesBurned} kcal`
                 : "Cargando..."}
@@ -177,7 +177,7 @@ export default function PetTracker() {
         </div>
       </div>
 
-      <div className="border-2 border-gray-700 bg-gray-800 rounded-lg p-5 mt-3">
+      <div className="border-2 border-gray-700 bg-gray-800 rounded-lg p-5 mt-5">
         <h2
           className="text-1xl lg:text-2xl font-bold mt-2 text-white"
           style={{ fontFamily: "chapFont" }}
