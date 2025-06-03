@@ -108,11 +108,73 @@ export const useInventoryContext = () => {
     }
   };
 
+  const editInventoryItem = async (
+    itemId: number,
+    updates: Partial<Omit<InventoryItem, "id" | "type_tag" | "color">>
+  ): Promise<void> => {
+    try {
+      const token = getToken();
+      if (!token) throw new Error("No token");
+
+      const res = await fetch(`${baseUrl}/api/inventory/${itemId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(updates),
+      });
+
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.detail || "Error actualizando ítem");
+      }
+
+      const updatedItem: InventoryItem = await res.json();
+
+      setInventoryItems((prev) =>
+        prev.map((item) => (item.id === itemId ? updatedItem : item))
+      );
+      showSuccessToast("Ítem actualizado correctamente");
+    } catch (err) {
+      console.error("Error:", err);
+      showErrorToast("Error al actualizar ítem");
+    }
+  };
+
+  const deleteInventoryItem = async (itemId: number): Promise<void> => {
+    try {
+      const token = getToken();
+      if (!token) throw new Error("No token");
+
+      const res = await fetch(`${baseUrl}/api/inventory/${itemId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.detail || "Error actualizando ítem");
+      }
+
+      setInventoryItems((prev) => prev.filter((item) => item.id !== itemId));
+      showSuccessToast("Ítem actualizado correctamente");
+    } catch (err) {
+      console.error("Error:", err);
+      showErrorToast("Error al actualizar ítem");
+    }
+  };
+
   return {
     inventoryItems,
     getAllInventoryItems,
     createInventoryItem,
     getInventoryForUser,
     inventoryItemsUser,
+    editInventoryItem,
+    deleteInventoryItem,
   };
 };
