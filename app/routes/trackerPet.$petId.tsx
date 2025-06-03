@@ -4,6 +4,14 @@ import { useParams } from "@remix-run/react";
 import { useGlobalContext } from "~/context/GlobalProvider";
 import PetCalendar from "~/components/petCalendar";
 import "../../styles/dashboard.css";
+import {
+  FireIcon,
+  BoltIcon,
+  BeakerIcon,
+  AdjustmentsVerticalIcon,
+  CakeIcon,
+} from "@heroicons/react/24/solid";
+import { Bars3Icon } from "@heroicons/react/24/solid";
 
 export default function PetTracker() {
   const { createPetTrack, getPetTrack, deletePetTrack, editPetTrack } =
@@ -97,83 +105,112 @@ export default function PetTracker() {
 
   return (
     <div className="p-5">
-      <div className="flex items-center justify-between flex-col md:flex-row gap-2">
-        <div className="border-2 border-teal-500 bg-gray-800 h-auto md:h-[7rem] w-full rounded p-3">
-          <p className="text-sm font-semibold text-white">🍽️ Alimentación</p>
-          {weightKg ? (
-            <p className="text-xs mt-1 leading-tight text-white">
-              {petByID.name} necesita entre{" "}
-              <strong>
-                {Math.round(95 * Math.pow(weightKg, 0.75) * 1.2)} y{" "}
-                {Math.round(95 * Math.pow(weightKg, 0.75) * 1.5)} kcal/día
-              </strong>
-              , dependiendo de su actividad. <br />
-              Eso equivale a aprox.{" "}
-              <strong>
-                {Math.round((95 * Math.pow(weightKg, 0.75) * 1.2) / 3.8)}g –{" "}
-                {Math.round((95 * Math.pow(weightKg, 0.75) * 1.5) / 3.8)}g
-              </strong>{" "}
-              de perrarina estándar (3.8 kcal/g).
-            </p>
-          ) : (
-            <p className="text-xs mt-1">
-              Agrega el peso en el medical history para obtener informacion
-              utilpara tu mascota
-            </p>
-          )}
-        </div>
+      <div className="border-2 border-gray-700 bg-gray-800 rounded-lg p-5 mt-5">
+        <h2
+          className="text-1xl lg:text-2xl font-bold text-white"
+          style={{ fontFamily: "chapFont" }}
+        >
+          Tips for{petByID?.name} !
+        </h2>
+        <div className="flex items-center justify-between flex-col md:flex-row gap-2 mt-4">
+          <div className="border-2 border-teal-500 bg-gray-800 h-auto md:h-[7rem] w-full rounded p-3">
+            <div className="flex gap-2">
+              <span>
+                <CakeIcon className="text-teal-500 w-6 h-6" />
+              </span>
+              <p className="text-sm font-semibold text-white">Alimentación</p>
+            </div>
 
-        <div className="border-2 border-teal-500 bg-gray-800 h-auto md:h-[7rem] w-full rounded p-3">
-          <p className="text-sm font-semibold text-white">
-            🐾 Actividad diaria
-          </p>
-          {weightKg ? (
-            <p className="text-xs mt-1 text-white">
-              {recommendedMinutes
-                ? `Debe caminar ~${recommendedMinutes} min/día`
-                : "Cargando..."}
-            </p>
-          ) : (
-            <p className="text-xs mt-1">
-              Agrega el peso en el medical history para obtener informacion
-              utilpara tu mascota
-            </p>
-          )}
-        </div>
+            {weightKg ? (
+              <p className="text-xs mt-1 leading-tight text-white">
+                {petByID.name} necesita entre{" "}
+                <strong>
+                  {Math.round(95 * Math.pow(weightKg, 0.75) * 1.2)} y{" "}
+                  {Math.round(95 * Math.pow(weightKg, 0.75) * 1.5)} kcal/día
+                </strong>
+                , dependiendo de su actividad. <br />
+                Eso equivale a aprox.{" "}
+                <strong>
+                  {Math.round((95 * Math.pow(weightKg, 0.75) * 1.2) / 3.8)}g –{" "}
+                  {Math.round((95 * Math.pow(weightKg, 0.75) * 1.5) / 3.8)}g
+                </strong>{" "}
+                de perrarina estándar (3.8 kcal/g).
+              </p>
+            ) : (
+              <p className="text-xs mt-1">
+                Agrega el peso en el medical history para obtener informacion
+                utilpara tu mascota
+              </p>
+            )}
+          </div>
 
-        <div className="border-2 border-teal-500 bg-gray-800 h-auto md:h-[7rem] w-full rounded p-3">
-          <p className="text-sm font-semibold text-white">
-            💧 Agua recomendada
-          </p>
-          {weightKg ? (
-            <p className="text-xs mt-1 text-white">
-              {petByID.name} debería beber aproximadamente {waterMl} ml de agua
-              al día (55ml por kg)`
-            </p>
-          ) : (
-            <p className="text-xs mt-1">
-              Agrega el peso en el medical history para obtener informacion
-              utilpara tu mascota
-            </p>
-          )}
-        </div>
+          <div className="border-2 border-teal-500 bg-gray-800 h-auto md:h-[7rem] w-full rounded p-3">
+            <div className="flex gap-2">
+              <span>
+                <BoltIcon className="w-6 h-6 text-teal-500" />{" "}
+              </span>
+              <p className="text-sm font-semibold text-white">
+                Actividad diaria
+              </p>
+            </div>
+            {weightKg ? (
+              <p className="text-xs mt-1 text-white">
+                {recommendedMinutes
+                  ? `Debe caminar ~${recommendedMinutes} min/día`
+                  : "Cargando..."}
+              </p>
+            ) : (
+              <p className="text-xs mt-1">
+                Agrega el peso en el medical history para obtener informacion
+                utilpara tu mascota
+              </p>
+            )}
+          </div>
 
-        <div className="border-2 border-teal-500 bg-gray-800 h-auto md:h-[7rem] w-full rounded p-3">
-          <p className="text-sm font-semibold text-white">
-            🔥 Calorías quemadas
-          </p>
-          {weightKg ? (
-            <p className="text-xs mt-1 text-white">
-              {estimatedCaloriesBurned
-                ? `Un paseo de ${recommendedMinutes} min quema ~${estimatedCaloriesBurned} kcal`
-                : "Cargando..."}
-            </p>
-          ) : (
-            <p className="text-xs mt-1">
-              Agrega el peso en el medical history para obtener informacion
-              utilpara tu mascota
-            </p>
-          )}
+          <div className="border-2 border-teal-500 bg-gray-800 h-auto md:h-[7rem] w-full rounded p-3">
+            <div className="flex gap-2">
+              <span>
+                <BeakerIcon className="w-6 h-6 text-teal-500" />{" "}
+              </span>
+              <p className="text-sm font-semibold text-white">
+                Agua recomendada
+              </p>
+            </div>
+            {weightKg ? (
+              <p className="text-xs mt-1 text-white">
+                {petByID.name} debería beber aproximadamente {waterMl} ml de
+                agua al día (55ml por kg)`
+              </p>
+            ) : (
+              <p className="text-xs mt-1">
+                Agrega el peso en el medical history para obtener informacion
+                utilpara tu mascota
+              </p>
+            )}
+          </div>
+
+          <div className="border-2 border-teal-500 bg-gray-800 h-auto md:h-[7rem] w-full rounded p-3">
+            <div className="flex gap-2">
+              <span>
+                <FireIcon className="w-6 h-6 text-teal-500" />{" "}
+              </span>
+              <p className="text-sm font-semibold text-white">
+                Calorías quemadas
+              </p>
+            </div>
+            {weightKg ? (
+              <p className="text-xs mt-1 text-white">
+                {estimatedCaloriesBurned
+                  ? `Un paseo de ${recommendedMinutes} min quema ~${estimatedCaloriesBurned} kcal`
+                  : "Cargando..."}
+              </p>
+            ) : (
+              <p className="text-xs mt-1">
+                Agrega el peso en el medical history para obtener informacion
+                utilpara tu mascota
+              </p>
+            )}
+          </div>
         </div>
       </div>
 
