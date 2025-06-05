@@ -767,8 +767,15 @@ export default function Dashboard() {
                               : "border-gray-300"
                           }`}
                         >
-                          <option value="circular">Circular</option>
-                          <option value="square">Square</option>
+                          <option value="circular">
+                            {t("petCreation.step2.step3.shape.options.circle")}
+                          </option>
+                          <option value="square">
+                            {" "}
+                            {t(
+                              "petCreation.step2.step3.shape.options.rectangle"
+                            )}
+                          </option>
                           {/* <option value="heart">Heart</option>
                           <option value="bone">Bone</option> */}
                         </select>
@@ -792,10 +799,21 @@ export default function Dashboard() {
                               : "border-gray-300"
                           }`}
                         >
-                          <option value="purple">Purple</option>
-                          <option value="black">Black</option>
-                          <option value="blue">Blue</option>
-                          <option value="green">Green</option>
+                          <option value="purple">
+                            {" "}
+                            {t("petCreation.step2.step3.color.options.purple")}
+                          </option>
+                          <option value="black">
+                            {" "}
+                            {t("petCreation.step2.step3.color.options.black")}
+                          </option>
+                          <option value="blue">
+                            {t("petCreation.step2.step3.color.options.blue")}
+                          </option>
+                          <option value="green">
+                            {" "}
+                            {t("petCreation.step2.step3.color.options.green")}
+                          </option>
 
                           {/* <option value="heart">Heart</option>
                           <option value="bone">Bone</option> */}
@@ -881,7 +899,7 @@ export default function Dashboard() {
                       document.getElementById("my_modal_1").close(); // Cierra el modal
                     }}
                   >
-                    Close
+                    {t("petCreation.step4.buttons.close")}
                   </button>
                 </div>
               </>
