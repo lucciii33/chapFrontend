@@ -1,92 +1,91 @@
 {
-    "hero.title": "YOUR PET IS ONE OF A KIND. SO SHOULD THEIR TAG. THEIR ENTIRE LIFE, ONE QR SCAN AWAY.",
-    "hero.subtitle": "A smart tag that saves everything you need to take better care of your pet . Contact information, medical history, routines, expenses, and more... all in one place.",
-    "hero.paragraph": "Imagine a world where you never have to worry about updating your dog’s tag. With our app and smart collar, all your best friend's information is just a scan away.",
+  "hero.title": "YOUR PET IS ONE OF A KIND. SO SHOULD THEIR TAG. THEIR ENTIRE LIFE, ONE QR SCAN AWAY.",
+  "hero.subtitle": "A smart tag that saves everything you need to take better care of your pet . Contact information, medical history, routines, expenses, and more... all in one place.",
+  "hero.paragraph": "Imagine a world where you never have to worry about updating your dog’s tag. With our app and smart collar, all your best friend's information is just a scan away.",
+  "login": "Login",
+  "register": "Activate your CHAP today!",
+  "features": "Explore all features",
+  "card.qr": "100 QR sold",
+  "card.qr.desc": "The best tags on the market",
+  "card.pets": "35 pets found",
+  "card.pets.desc": "We still believe in humanity",
+  "card.love": "WE LOVE",
+  "card.love.desc": "your pets as much as you",
+
+  "whyChap": {
+    "title": "Why CHAP? ",
+    "subTitle": "Simple, fast, and hassle-free.",
+    "smalText": "everything your pet needs, all in one place",
+    "featureOne": "Update your information and your pet’s as many times as you need.",
+    "featureTwo": "Get their approximate location if they go missing.",
+    "featureTree": "Track expenses and manage your pet's finances.",
+    "featureFour": "Keep medical history, vet visits, and vaccinations in one place.",
+    "featureFive": "Easily upload files, lab results, and reports.",
+    "featureSix": "Log daily meals, mood, behavior, and health.",
+    "featureSeven": "Activate the travel mode with instructions for personalized care."
+  },
+
+  "ChapStats": {
+    "boxOneTitle": "+3,000 pets get lost every year.",
+    "boxOnePar": "One scan, One chance to go back home",
+    "boxTwoTitle": "45% of pet owners forget their pet’s medical history.",
+    "boxTwoPar": "CHAP remembers it for you",
+    "boxThreeTitle": "Over €1,200/year spent on our pets.",
+    "boxThreePar": "CHAP keeps your wallet in check."
+  },
+
+  "founder": {
+    "2019": {
+      "title": "It all started with Roxy.",
+      "desc": "We made a decision that changed our lives: we became pet parents. We adopted Roxy, and with her came long walks, adventures, questions… and expenses."
+    },
+    "2022": {
+      "title": "A new city, a new number, another tag.",
+      "desc": "Over the years came moves, job changes, fresh starts… and with every change, a new ID tag for Roxy. That’s when CHAP was born."
+    },
+    "2024": {
+      "title": "Built by pet parents, for pet parents.",
+      "desc": "We wanted something that truly worked — no more new tags, no more forgotten medical histories, everything in one place."
+    },
+    "2025": {
+      "title": "CHAP is a reality.",
+      "desc": "Today, CHAP is in the hands of those who need it most: people who love their pets and want to care for them better. One tag. Their whole story. Always with you."
+    }
+  },
+
+  "scrollVideo": {
+    "scroll.text1": "Your pet is <strong class='text-color-bg'>unique</strong>. So is their tag. 🐾✨",
+    "scroll.text2": "The world may be huge, but with <strong class='text-color-bg'>just one scan</strong>,<br/> you’ll always know where they are.",
+    "scroll.text3": "All their <strong class='text-color-bg'>care</strong>, <strong class='text-color-bg-2'>adventures</strong>, and <strong class='text-color-bg-3'>history</strong> at the palm of your hand."
+  },
+
+  "navbar": {
     "login": "Login",
-    "register": "Activate your CHAP today!",
-    "features":"Explore all features",
-    "card.qr": "100 QR sold",
-    "card.qr.desc": "The best tags on the market",
-    "card.pets": "35 pets found",
-    "card.pets.desc": "We still believe in humanity",
-    "card.love": "WE LOVE",
-    "card.love.desc": "your pets as much as you",
-    
-    "whyChap": {
-        "title": "Why CHAP? ",
-        "subTitle": "Simple, fast, and hassle-free.",
-        "smalText": "everything your pet needs, all in one place",
-        "featureOne": "Update your information and your pet’s as many times as you need.",
-        "featureTwo": "Get their approximate location if they go missing.",
-        "featureTree": "Track expenses and manage your pet's finances.",
-        "featureFour": "Keep medical history, vet visits, and vaccinations in one place.",
-        "featureFive": "Easily upload files, lab results, and reports.",
-        "featureSix": "Log daily meals, mood, behavior, and health.",
-        "featureSeven": "Activate the travel mode with instructions for personalized care."
-      
-    },
+    "dashboard": "Dashboard",
+    "logout": "Logout"
+  },
 
-    "ChapStats": {
-      "boxOneTitle": "+3,000 pets get lost every year.",
-      "boxOnePar": "One scan, One chance to go back home",
-      "boxTwoTitle": "45% of pet owners forget their pet’s medical history.",
-      "boxTwoPar": "CHAP remembers it for you",
-      "boxThreeTitle": "Over €1,200/year spent on our pets.",
-      "boxThreePar": "CHAP keeps your wallet in check."
-    },
+  "login_page": {
+    "title": "LOGIN",
+    "email": "Email",
+    "password": "Password",
+    "no_account": "Don't have an account yet? Create it here",
+    "forgot_password": "Forgot password?",
+    "button": "Start Now"
+  },
 
-    "founder": {
-      "2019": {
-        "title": "It all started with Roxy.",
-        "desc": "We made a decision that changed our lives: we became pet parents. We adopted Roxy, and with her came long walks, adventures, questions… and expenses."
-      },
-      "2022": {
-        "title": "A new city, a new number, another tag.",
-        "desc": "Over the years came moves, job changes, fresh starts… and with every change, a new ID tag for Roxy. That’s when CHAP was born."
-      },
-      "2024": {
-        "title": "Built by pet parents, for pet parents.",
-        "desc": "We wanted something that truly worked — no more new tags, no more forgotten medical histories, everything in one place."
-      },
-      "2025": {
-        "title": "CHAP is a reality.",
-        "desc": "Today, CHAP is in the hands of those who need it most: people who love their pets and want to care for them better. One tag. Their whole story. Always with you."
-      }
-    },
-
-    "scrollVideo": {
-      "scroll.text1": "Your pet is <strong class='text-color-bg'>unique</strong>. So is their tag. 🐾✨",
-      "scroll.text2": "The world may be huge, but with <strong class='text-color-bg'>just one scan</strong>,<br/> you’ll always know where they are.",
-      "scroll.text3": "All their <strong class='text-color-bg'>care</strong>, <strong class='text-color-bg-2'>adventures</strong>, and <strong class='text-color-bg-3'>history</strong> at the palm of your hand."
-    },
-
-    "navbar": {
-      "login": "Login",
-      "dashboard": "Dashboard",
-      "logout": "Logout"
-    },
-
-    "login_page": {
-      "title": "LOGIN",
-      "email": "Email",
-      "password": "Password",
-      "no_account": "Don't have an account yet? Create it here",
-      "forgot_password": "Forgot password?",
-      "button": "Start Now"
-    },
-
-    "register_page": {
-      "title": "REGISTER",
-      "full_name": "Full name",
-      "email": "Email",
-      "password": "Password",
-      "country": "Country",
-      "age": "Age",
-      "terms": "I agree to the terms of use and privacy policy.",
-      "data_protection": "I affirm that I have read and accepted the information on data protection.",
-      "account": "If you already have an account login here",
-      "button": "Start your journey with CHAP"
-    },
+  "register_page": {
+    "title": "REGISTER",
+    "full_name": "Full name",
+    "email": "Email",
+    "password": "Password",
+    "country": "Country",
+    "age": "Age",
+    "terms": "I agree to the terms of use and privacy policy.",
+    "data_protection": "I affirm that I have read and accepted the information on data protection.",
+    "account": "If you already have an account login here",
+    "button": "Start your journey with CHAP"
+  },
 
   "subNavbar": {
     "greeting": "Hello",
@@ -102,7 +101,7 @@
     "title": "Create your first pet!",
     "description": "From here, you'll be able to care for and get to know your furry companions better.",
     "button": "Create pet"
-  }, 
+  },
   "petCreation": {
     "step1": {
       "title": "Welcome,",
@@ -135,31 +134,31 @@
         "neighbourhood": "Neighbourhood",
         "button1": "Close",
         "button2": "Create"
+      },
+      "step3": {
+        "title": "Create your tag",
+        "description": "You can design it now or later, but you’ll need it to add more details.\nGo ahead and pick your favorite shape and color!",
+        "material": "Material: Aluminum",
+        "shape": {
+          "label": "Shape",
+          "options": {
+            "rectangle": "Rectangle",
+            "circle": "Circle"
+          }
+        },
+        "color": {
+          "label": "Color",
+          "options": {
+            "black": "Black",
+            "purple": "Purple",
+            "blue": "Blue",
+            "green": "Green"
+          }
+        },
+        "button": "Create your tag here"
       }
     },
-    "step3": {
-      "title": "Create your tag",
-      "description": "You can design it now or later, but you’ll need it to add more details.\nGo ahead and pick your favorite shape and color!",
-      "material": "Material: Aluminum",
-      "shape": {
-        "label": "Shape",
-        "options": {
-          "rectangle": "Rectangle",
-          "circle": "Circle"
-        }
-      },
-      "color": {
-        "label": "Color",
-        "options": {
-          "black": "Black",
-          "purple": "Purple",
-          "blue": "Blue",
-          "green": "Green"
-        }
-      },
-      "button": "Create your tag here"
-      
-    },
+
     "step4": {
       "title": "You're just one step away!",
       "description": "One click, buy your tag and unlock all the features it has to offer.\nIf you want to keep exploring or create more profiles and tags, save this one in your cart.",

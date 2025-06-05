@@ -7,12 +7,37 @@ export default function ResetPasswordPage() {
   const { auth } = useGlobalContext();
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
+  const [passwordError, setPasswordError] = useState("");
 
   const [newPassword, setNewPassword] = useState("");
 
+  function validatePassword(password) {
+    if (password.length < 9) {
+      return "La contraseña debe tener al menos 9 caracteres";
+    }
+    if (!/[A-Z]/.test(password)) {
+      return "La contraseña debe contener al menos una letra mayúscula";
+    }
+    if (!/[0-9]/.test(password)) {
+      return "La contraseña debe contener al menos un número";
+    }
+    if (!/[!@#$%^&*(),.?\":{}|<>]/.test(password)) {
+      return "La contraseña debe contener al menos un carácter especial";
+    }
+    return null; // válida
+  }
+
   const handleReset = async () => {
-    if (!token || !newPassword) {
-      showErrorToast("Token o nueva contraseña no válidos");
+    if (!token) {
+      showErrorToast("Token no válido");
+      return;
+    }
+
+    const error = validatePassword(newPassword);
+    if (error) {
+      console.log("Error", error);
+      showErrorToast(error);
+      setPasswordError(error);
       return;
     }
 
@@ -33,7 +58,9 @@ export default function ResetPasswordPage() {
         placeholder="Nueva contraseña"
         value={newPassword}
         onChange={(e) => setNewPassword(e.target.value)}
-        className="w-full p-2 border mb-4 rounded"
+        className={`w-full p-2 border rounded mb-1 ${
+          passwordError ? "border-red-500" : "border-gray-300"
+        }`}
       />
       <button
         onClick={handleReset}

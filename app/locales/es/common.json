@@ -1,71 +1,71 @@
 {
-    "hero.title": "TU MASCOTA ES ÚNICA. SU CHAPA TAMBIEN. TODA SU VIDA, AL ALCANCE DE UN ESCANEO.",
-    "hero.subtitle": "Una chapa inteligente que guarda todo lo que necesitas para cuidarla mejor. Información de contacto, historial médico, rutinas, gastos y más… todo en un solo lugar.",
-    "hero.paragraph": "Imagina un mundo donde nunca tengas que preocuparte por actualizar el tag de tu perro. Con nuestra app y collar inteligente, toda la información de tu mejor amigo está a un escaneo de distancia.",
-    "login": "Login",
-    "register": "¡Activa tu CHAP hoy!",
-    "features":"Explora todas sus funciones",
-    "card.qr": "100 QR vendidos",
-    "card.qr.desc": "Las mejores chapas del mercado",
-    "card.pets": "35 mascotas encontradas",
-    "card.pets.desc": "Todavía creemos en la humanidad",
-    "card.love": "AMAMOS",
-    "card.love.desc": "a tus mascotas tanto como tú",
+  "hero.title": "TU MASCOTA ES ÚNICA. SU CHAPA TAMBIEN. TODA SU VIDA, AL ALCANCE DE UN ESCANEO.",
+  "hero.subtitle": "Una chapa inteligente que guarda todo lo que necesitas para cuidarla mejor. Información de contacto, historial médico, rutinas, gastos y más… todo en un solo lugar.",
+  "hero.paragraph": "Imagina un mundo donde nunca tengas que preocuparte por actualizar el tag de tu perro. Con nuestra app y collar inteligente, toda la información de tu mejor amigo está a un escaneo de distancia.",
+  "login": "Login",
+  "register": "¡Activa tu CHAP hoy!",
+  "features": "Explora todas sus funciones",
+  "card.qr": "100 QR vendidos",
+  "card.qr.desc": "Las mejores chapas del mercado",
+  "card.pets": "35 mascotas encontradas",
+  "card.pets.desc": "Todavía creemos en la humanidad",
+  "card.love": "AMAMOS",
+  "card.love.desc": "a tus mascotas tanto como tú",
 
-    "whyChap": {
-      "title": "¿Por que CHAP? ",
-      "subTitle": "Simple, rápida y sin complicaciones.",
-      "smalText": "Todo lo que tu mascota necesita, en un solo lugar.",
-      "featureOne": "Modifica tu información y la de tu mascota cuantas veces quieras.",
-      "featureTwo": "Obtén su ubicación aproximada si se pierde.",
-      "featureTree": "Controla gastos y finanzas por mascota.",
-      "featureFour": "Ten a la mano historial médico, visitas veterinarias y vacunas.",
-      "featureFive": "Sube archivos, informes y laboratorios fácilmente.",
-      "featureSix": "Registra a diario su alimentación, salud y conducta.",
-      "featureSeven": "Activa el modo viaje con instrucciones para un cuidado personalizado."
+  "whyChap": {
+    "title": "¿Por que CHAP? ",
+    "subTitle": "Simple, rápida y sin complicaciones.",
+    "smalText": "Todo lo que tu mascota necesita, en un solo lugar.",
+    "featureOne": "Modifica tu información y la de tu mascota cuantas veces quieras.",
+    "featureTwo": "Obtén su ubicación aproximada si se pierde.",
+    "featureTree": "Controla gastos y finanzas por mascota.",
+    "featureFour": "Ten a la mano historial médico, visitas veterinarias y vacunas.",
+    "featureFive": "Sube archivos, informes y laboratorios fácilmente.",
+    "featureSix": "Registra a diario su alimentación, salud y conducta.",
+    "featureSeven": "Activa el modo viaje con instrucciones para un cuidado personalizado."
   },
 
-   "ChapStats": {
-      "boxOneTitle": "+3,000 mascotas se pierden al año.",
-      "boxOnePar": "Un escaneo, Una oportunidad de volver a casa",
-      "boxTwoTitle": "El 45% de los dueños olvida su historial médico.",
-      "boxTwoPar": "CHAP lo recuerda por ti ",
-      "boxThreeTitle": "+1.200 € al año invertimos en ellos.",
-      "boxThreePar": " CHAP lleva el control de tu billetera"
-    }, 
+  "ChapStats": {
+    "boxOneTitle": "+3,000 mascotas se pierden al año.",
+    "boxOnePar": "Un escaneo, Una oportunidad de volver a casa",
+    "boxTwoTitle": "El 45% de los dueños olvida su historial médico.",
+    "boxTwoPar": "CHAP lo recuerda por ti ",
+    "boxThreeTitle": "+1.200 € al año invertimos en ellos.",
+    "boxThreePar": " CHAP lleva el control de tu billetera"
+  },
 
-    "founder": {
-      "2019": {
-        "title": "Todo empezó con Roxy.",
-        "desc": "Este año tomamos una decisión que nos cambió la vida: Nos convertimos en padres perrunos. Adoptamos a Roxy y con ella llegaron los paseos, las aventuras, las dudas y los gastos. "
-      },
-      "2022": {
-        "title": "Una nueva ciudad, otro número, otra chapa.",
-        "desc": "Con los años vinieron mudanzas, cambios de trabajo, nuevos comienzos… y con cada cambio, una nueva identificación para Roxy. ASÍ NACIÓ CHAP."
-      },
-      "2024": {
-        "title": "Creado por padres para padres.",
-        "desc": "Queríamos algo que de verdad funcionara: que Roxy no tuviera que cambiar más chapas, que su historial no se perdiera, que todo estuviera en un solo lugar."
-      },
-      "2025": {
-        "title": "CHAP es una realidad.",
-        "desc": "Hoy, CHAP ya está en manos de quienes más lo necesitan: personas que aman a sus mascotas y quieren cuidarlas mejor. Una sola chapa. Toda su historia. Siempre contigo."
-      }
+  "founder": {
+    "2019": {
+      "title": "Todo empezó con Roxy.",
+      "desc": "Este año tomamos una decisión que nos cambió la vida: Nos convertimos en padres perrunos. Adoptamos a Roxy y con ella llegaron los paseos, las aventuras, las dudas y los gastos. "
     },
+    "2022": {
+      "title": "Una nueva ciudad, otro número, otra chapa.",
+      "desc": "Con los años vinieron mudanzas, cambios de trabajo, nuevos comienzos… y con cada cambio, una nueva identificación para Roxy. ASÍ NACIÓ CHAP."
+    },
+    "2024": {
+      "title": "Creado por padres para padres.",
+      "desc": "Queríamos algo que de verdad funcionara: que Roxy no tuviera que cambiar más chapas, que su historial no se perdiera, que todo estuviera en un solo lugar."
+    },
+    "2025": {
+      "title": "CHAP es una realidad.",
+      "desc": "Hoy, CHAP ya está en manos de quienes más lo necesitan: personas que aman a sus mascotas y quieren cuidarlas mejor. Una sola chapa. Toda su historia. Siempre contigo."
+    }
+  },
 
-    "scrollVideo": {
-      "scroll.text1": "Tu perro <strong class='text-color-bg'>es único</strong>. Su Dog Tag también. 🐾✨",
-      "scroll.text2": "El mundo puede ser enorme, pero con un <strong class='text-color-bg'>simple escaneo</strong>,<br /> siempre sabrás dónde está.",
-      "scroll.text3": "Todo su <strong class='text-color-bg'>cuidado</strong>, sus <strong class='text-color-bg-2'>aventuras</strong>, su <strong class='text-color-bg-3'>historia...</strong> al alcance de tu mano."
-    },
-    
-    "navbar": {
-      "login": "Inicio",
-      "dashboard": "Panel",
-      "logout": "Abandonar"
-    },
+  "scrollVideo": {
+    "scroll.text1": "Tu perro <strong class='text-color-bg'>es único</strong>. Su Dog Tag también. 🐾✨",
+    "scroll.text2": "El mundo puede ser enorme, pero con un <strong class='text-color-bg'>simple escaneo</strong>,<br /> siempre sabrás dónde está.",
+    "scroll.text3": "Todo su <strong class='text-color-bg'>cuidado</strong>, sus <strong class='text-color-bg-2'>aventuras</strong>, su <strong class='text-color-bg-3'>historia...</strong> al alcance de tu mano."
+  },
 
-    "login_page": {
+  "navbar": {
+    "login": "Inicio",
+    "dashboard": "Panel",
+    "logout": "Abandonar"
+  },
+
+  "login_page": {
     "title": "INICIA SESIÓN",
     "email": "Correo electrónico",
     "password": "Contraseña",
@@ -88,13 +88,13 @@
   },
 
   "subNavbar": {
-      "greeting": "Hola",
-      "extraFeatures": {
-        "title": "Funciones adicionales",
-        "description": "¡Desbloquea estas funciones en cuanto compres tu chapa!",
-        "buttonFinances": "Control de gastos",
-        "buttonDiary": "Diario de tu mascota"
-      }
+    "greeting": "Hola",
+    "extraFeatures": {
+      "title": "Funciones adicionales",
+      "description": "¡Desbloquea estas funciones en cuanto compres tu chapa!",
+      "buttonFinances": "Control de gastos",
+      "buttonDiary": "Diario de tu mascota"
+    }
   },
   "mainCard": {
     "title": "¡Crea tu primera mascota!",
@@ -136,28 +136,29 @@
         "button1": "Cerrar",
         "button2": "Crear"
       },
-    "step3": {
-      "title": "Crea la chapa",
-      "description": "Puedes crearla ahora o más tarde, pero la necesitas para introducir más datos.\n¡Anímate y elige tu forma y color favorito!",
-      "material": "Material: Aluminio",
-      "shape": {
-        "label": "Forma",
-        "options": {
-          "rectangle": "Rectángulo",
-          "circle": "Círculo"
-        }
-      },
-      "color": {
-        "label": "Color",
-        "options": {
-          "black": "Negro",
-          "purple": "Púrpura",
-          "blue": "Azul",
-          "green": "Verde"
-        }
-      },
-      "button": "Crea tu chapa aquí"
-      },
+      "step3": {
+        "title": "Crea la chapa",
+        "description": "Puedes crearla ahora o más tarde, pero la necesitas para introducir más datos.\n¡Anímate y elige tu forma y color favorito!",
+        "material": "Material: Aluminio",
+        "shape": {
+          "label": "Forma",
+          "options": {
+            "rectangle": "Rectángulo",
+            "circle": "Círculo"
+          }
+        },
+        "color": {
+          "label": "Color",
+          "options": {
+            "black": "Negro",
+            "purple": "Púrpura",
+            "blue": "Azul",
+            "green": "Verde"
+          }
+        },
+        "button": "Crea tu chapa aquí"
+      }
+    },
     "step4": {
       "title": "¡Estás a solo un paso!",
       "description": "Con un solo clic, compra tu chapa y desbloquea todas las funciones que te ofrece.\nSi quieres seguir explorando o crear más perfiles y chapas, guárdala en tu carrito.",
@@ -167,8 +168,5 @@
         "close": "Cerrar"
       }
     }
-    }
   }
-
 }
-

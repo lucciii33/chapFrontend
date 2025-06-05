@@ -893,8 +893,7 @@ export default function Dashboard() {
                     className="text-2xl font-bold text-teal-500"
                     style={{ fontFamily: "chapFont" }}
                   >
-                    {t("petCreation.step2.step4.title")} {user?.full_name || ""}
-                    !
+                    {t("petCreation.step4.title")} {user?.full_name || ""}!
                   </h2>
                   <div>
                     <span>
@@ -904,7 +903,7 @@ export default function Dashboard() {
                   </div>
                 </div>
                 <p className="mt-2 text-md">
-                  {t("petCreation.step2.step4.description")}
+                  {t("petCreation.step4.description")}
                 </p>
                 {/* <small className="text-grey-500">
                   estas a solo un paso de pomprar la chapa,si quieres seguir
@@ -934,7 +933,7 @@ export default function Dashboard() {
                     onClick={() => addToCartPayNow()}
                   >
                     {" "}
-                    Pay Now
+                    {t("petCreation.step4.buttons.buyNow")}
                   </button>
                   <button
                     className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600"
