@@ -10,7 +10,8 @@ const config: Config = {
   },
   plugins: [require("daisyui")], // Agregar DaisyUI como plugin
   daisyui: {
-    themes: ["light", "dark"], // Mantener temas básicos
+    themes: ["dark"], // 👈 Solo el tema dark
+    darkTheme: "dark",
   },
 };
 

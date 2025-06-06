@@ -54,7 +54,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const matches = useMatches();
   console.log("Rutas cargadas:", matches);
   return (
-    <html lang="en">
+    <html lang="en" data-theme="dark">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
