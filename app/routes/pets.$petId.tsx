@@ -139,7 +139,7 @@ export default function PetDetail() {
     if (
       !petByID ||
       !petByID.medical_history ||
-      petByID.medical_history.length === 0
+      petByID.medical_history?.length === 0
     ) {
       setMessage("No hay historial médico asociado para agregar la vacuna.");
       return;
@@ -425,7 +425,7 @@ export default function PetDetail() {
     if (
       !petByID ||
       !petByID.medical_history ||
-      petByID.medical_history.length === 0
+      petByID.medical_history?.length === 0
     ) {
       showErrorToast(
         "Debes crear primero el historial médico para poder registrar una visita."
@@ -491,7 +491,7 @@ export default function PetDetail() {
     if (
       !petByID ||
       !petByID.medical_history ||
-      petByID.medical_history.length === 0
+      petByID.medical_history?.length === 0
     ) {
       setMessage("No hay historial médico asociado.");
       return;
@@ -1823,7 +1823,7 @@ export default function PetDetail() {
         <div className="modal-box w-full max-w-7xl">
           <h3 className="font-bold text-lg">Hello!</h3>
           <div className="flex gap-5 items-center flex-col md:flex-row p-5">
-            {petByID?.tags.length > 0 ? (
+            {petByID?.tags?.length > 0 ? (
               petByID?.tags?.map((tag) => {
                 return (
                   <div
@@ -1889,7 +1889,7 @@ export default function PetDetail() {
           <h3 className="font-bold text-lg">Hello!</h3>
           <div className="p-5">
             {petByID?.medical_history?.length > 0 &&
-            petByID.medical_history[0].vets.length > 0 ? (
+            petByID.medical_history[0].vets?.length > 0 ? (
               paginatedVetSessions?.map((vetSession) => (
                 <div
                   key={vetSession.id}

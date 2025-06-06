@@ -168,5 +168,20 @@
         "close": "Cerrar"
       }
     }
+  },
+  "petCard": {
+    "personality": "Personalidad",
+    "age": "Edad",
+    "color": "Color",
+    "breed": "Raza",
+    "buttons": {
+      "details": "Detalles de mascota",
+      "createTag": "Crea una chapa",
+      "createNewTag": "Crea una nueva chapa"
+    },
+    "notifications": {
+      "notPurchased": "Tu mascota tiene chapas (no comprada aún)",
+      "purchased": "Tu mascota tiene chapas ({{count}} comprada)"
+    }
   }
 }

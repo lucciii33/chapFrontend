@@ -166,11 +166,11 @@ export default function Card({ petObj }: CardProps) {
               onClick={handleClickCommingFromLink}
             >
               <div className="bg-emerald-100 text-emerald-800 rounded-full px-4 py-1 text-xs font-semibold inline-block shadow-sm">
-                Your dog has tags (
                 {purchasedCount > 0
-                  ? `${purchasedCount} purchased`
-                  : "not purchased"}
-                )
+                  ? t("petCard.notifications.purchased", {
+                      count: purchasedCount,
+                    })
+                  : t("petCard.notifications.notPurchased")}
               </div>
             </Link>
           )}
@@ -211,16 +211,16 @@ export default function Card({ petObj }: CardProps) {
             </div>
           </div>
           <p>
-            Personalidad: <strong>{petObj.personality}</strong>
+            {t("petCard.personality")}: <strong>{petObj.personality}</strong>
           </p>
           <p>
-            Age: <strong>{petObj.age}</strong>
+            {t("petCard.age")}: <strong>{petObj.age}</strong>
           </p>
           <p>
-            Pet color: <strong>{petObj.pet_color}</strong>
+            {t("petCard.color")}: <strong>{petObj.pet_color}</strong>
           </p>
           <p>
-            breed: <strong>{petObj.breed}</strong>
+            {t("petCard.breed")}: <strong>{petObj.breed}</strong>
           </p>
           {/* <div className="flex flex-col w-full">
             <div className=" ">
@@ -241,7 +241,7 @@ export default function Card({ petObj }: CardProps) {
           <div className="flex flex-col gap-2 mt-2">
             <Link to={`/pets/${petObj.id}`}>
               <button className=" border-none py-3 px-4  bg-teal-500 text-white rounded-lg w-full">
-                Pet's Details
+                {t("petCard.buttons.details")}
               </button>
             </Link>
 
@@ -253,8 +253,8 @@ export default function Card({ petObj }: CardProps) {
               onClick={() => handleBuyTag(petObj.id)}
             >
               {petObj?.tags && petObj.tags.length > 0
-                ? "Create a new tag"
-                : "Create A Tag"}
+                ? t("petCard.buttons.createNewTag")
+                : t("petCard.buttons.createTag")}
             </button>
             {/* )} */}
           </div>

@@ -168,5 +168,21 @@
         "close": "Close"
       }
     }
+  },
+
+  "petCard": {
+    "personality": "Personality",
+    "age": "Age",
+    "color": "Color",
+    "breed": "Breed",
+    "buttons": {
+      "details": "Pet details",
+      "createTag": "Create a tag",
+      "createNewTag": "Create a new tag"
+    },
+    "notifications": {
+      "notPurchased": "Your pet has tags (not purchased yet)",
+      "purchased": "Your pet has tags ({{count}} purchased)"
+    }
   }
 }
