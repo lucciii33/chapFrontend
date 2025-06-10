@@ -27,6 +27,7 @@ export default function Dashboard() {
   const [stockStatus, setStockStatus] = useState<null | {
     available: boolean;
     quantity: number;
+    description: string;
   }>(null);
 
   useEffect(() => {
@@ -85,10 +86,13 @@ export default function Dashboard() {
         item.type_tag === tagInfoData.shape && item.color === tagInfoData.color
     );
 
+    console.log("matchmatchmatch", match);
+
     if (match) {
       setStockStatus({
         available: match.quantity > 0,
         quantity: match.quantity,
+        description: match.description,
       });
     } else {
       setStockStatus(null);
@@ -726,8 +730,8 @@ export default function Dashboard() {
                 <p className="mt-0 text-md">
                   {t("petCreation.step2.step3.description")}
                 </p>
-                <div className="flex mt-3">
-                  <div className="w-1/2 border-r border-gray-500 ">
+                <div className="flex mt-3 flex-col md:flex-row">
+                  <div className="w-full md:w-1/2 md:border-r  border-gray-500 ">
                     <div className="me-5">
                       <div>
                         <label> {t("petCreation.step2.step3.material")}</label>
@@ -770,15 +774,29 @@ export default function Dashboard() {
                           <option value="circular">
                             {t("petCreation.step2.step3.shape.options.circle")}
                           </option>
+                          <option value="circular-small">
+                            {" "}
+                            {t(
+                              "petCreation.step2.step3.shape.options.circular-small"
+                            )}
+                          </option>
                           <option value="square">
                             {" "}
                             {t(
                               "petCreation.step2.step3.shape.options.rectangle"
                             )}
                           </option>
+
                           {/* <option value="heart">Heart</option>
                           <option value="bone">Bone</option> */}
                         </select>
+                        {stockStatus?.description ? (
+                          <p className="text-sm text-blue-600 m-0">
+                            {stockStatus?.description}
+                          </p>
+                        ) : (
+                          ""
+                        )}
                       </div>
                     </div>
 
@@ -856,7 +874,7 @@ export default function Dashboard() {
                       {t("petCreation.step2.step3.button")}
                     </button>
                   </div>
-                  <div className="w-1/2 flex justify-center items-center">
+                  <div className="w-full md:w-1/2 flex mt-4 md:mt-0 md:justify-center items-center">
                     {selectedImage ? (
                       <img
                         src={selectedImage.imageUrl}

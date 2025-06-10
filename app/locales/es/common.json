@@ -144,7 +144,8 @@
           "label": "Forma",
           "options": {
             "rectangle": "Rectángulo",
-            "circle": "Círculo"
+            "circle": "Círculo",
+            "circular-small": "circular pequeno"
           }
         },
         "color": {
