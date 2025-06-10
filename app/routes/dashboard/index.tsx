@@ -347,7 +347,7 @@ export default function Dashboard() {
         </div>
 
         <dialog id="my_modal_1" className="modal">
-          <div className="modal-box w-3/4 max-w-4xl h-auto p-6">
+          <div className="modal-box w-[90%] md:w-3/4 max-w-4xl h-auto p-6">
             <div className="flex items-center justify-center">
               <div
                 className={`box-ball w-10 h-10 flex justify-center items-center rounded-full ${
@@ -731,8 +731,8 @@ export default function Dashboard() {
                   {t("petCreation.step2.step3.description")}
                 </p>
                 <div className="flex mt-3 flex-col md:flex-row">
-                  <div className="w-full md:w-1/2 md:border-r  border-gray-500 ">
-                    <div className="me-5">
+                  <div className="w-full order-2 md:order-1 md:w-1/2 md:border-r  border-gray-500 ">
+                    <div className="me-0 md:me-5">
                       <div>
                         <label> {t("petCreation.step2.step3.material")}</label>
                       </div>
@@ -754,7 +754,7 @@ export default function Dashboard() {
                       </div>
                     </div>
 
-                    <div className="me-5">
+                    <div className="me-0 md:me-5">
                       <div>
                         <label>
                           {t("petCreation.step2.step3.shape.label")}
@@ -800,7 +800,7 @@ export default function Dashboard() {
                       </div>
                     </div>
 
-                    <div className="me-5">
+                    <div className="me-0 md:me-5">
                       <div>
                         <label>
                           {t("petCreation.step2.step3.color.label")}
@@ -874,7 +874,7 @@ export default function Dashboard() {
                       {t("petCreation.step2.step3.button")}
                     </button>
                   </div>
-                  <div className="w-full md:w-1/2 flex mt-4 md:mt-0 md:justify-center items-center">
+                  <div className="w-full order-1 md:order-2 md:w-1/2 flex mb-4 md:mt-0 md:justify-center items-center">
                     {selectedImage ? (
                       <img
                         src={selectedImage.imageUrl}
