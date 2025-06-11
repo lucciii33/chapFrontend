@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { Link, useNavigate } from "@remix-run/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGlobalContext } from "../../context/GlobalProvider"; // Ajusta el path
 import { useTranslation } from "react-i18next";
 import loginImage from "../../images/imageLogin4.png";
@@ -28,7 +28,19 @@ export default function Register() {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
+    const newData = {
+      ...formData,
+      [name]: type === "checkbox" ? checked : value,
+    };
+    localStorage.setItem("registerFormData", JSON.stringify(newData));
   };
+
+  useEffect(() => {
+    const savedData = localStorage.getItem("registerFormData");
+    if (savedData) {
+      setFormData(JSON.parse(savedData));
+    }
+  }, []);
 
   const isValidPassword = (password: string): boolean => {
     return (
@@ -71,6 +83,7 @@ export default function Register() {
       console.log("Result", result);
       if (result) {
         console.log("Login exitoso", result);
+        localStorage.removeItem("registerFormData");
         navigate("/login");
       } else {
         console.error("Credenciales incorrectas");

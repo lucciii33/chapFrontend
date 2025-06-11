@@ -185,5 +185,24 @@
       "notPurchased": "Your pet has tags (not purchased yet)",
       "purchased": "Your pet has tags ({{count}} purchased)"
     }
+  },
+
+  "extraOptions": {
+    "create_alerts": "Create alerts",
+    "medical_visits": "Veterinary visits",
+    "vaccines": "Vaccines",
+    "lost_flyer": "Emergency Lost Flyer",
+    "qr_view": "Preview your QR",
+    "your_tags": "Your tags"
+  },
+
+  "general_pet_id": {
+    "welcome": "Welcome to {{name}}'s dashboard!",
+    "general_info": "General information",
+    "create_medical_history": "Create medical history",
+    "create_vet_visits": "Create veterinary visits",
+    "create_vaccines": "Create vaccines",
+    "create_travel_mode": "Create travel mode",
+    "delete_pet": "I want to delete this pet"
   }
 }

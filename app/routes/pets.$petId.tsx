@@ -15,8 +15,10 @@ import "../../styles/dashboard.css";
 import { showErrorToast } from "~/utils/toast";
 import Pagination from "~/components/pagination";
 import DogLoader from "~/components/petLoader";
+import { useTranslation } from "react-i18next";
 
 export default function PetDetail() {
+  const { t } = useTranslation();
   const { pet, cart, auth, medicalHistory, tag, travelMode, comingFromCard } =
     useGlobalContext();
   const navigate = useNavigate();
@@ -637,7 +639,7 @@ export default function PetDetail() {
                     .showModal()
                 }
               >
-                CREATE ALER
+                {t("extraOptions.create_alerts")}
               </button>
               <button
                 className="border-none py-3 px-4 ms-0 md:ms-3 mt-5 bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
@@ -645,7 +647,7 @@ export default function PetDetail() {
                   document.getElementById("my_modal_7_pet_id").showModal()
                 }
               >
-                Your vet visits
+                {t("extraOptions.medical_visits")}
               </button>
               <button
                 className="border-none py-3 px-4 ms-0 md:ms-3 mt-5 bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
@@ -653,11 +655,11 @@ export default function PetDetail() {
                   document.getElementById("my_modal_8_pet_id").showModal()
                 }
               >
-                Your vacciness
+                {t("extraOptions.vaccines")}
               </button>
               <button className="border-none py-3 px-4 ms-0 md:ms-3 mt-5 bg-teal-500 text-white  rounded-lg  w-full md:w-auto">
                 <Link to={`/emergencyPdf/${petId}`}>
-                  <div>Emegency Lost</div>
+                  <div>{t("extraOptions.lost_flyer")}</div>
                 </Link>
               </button>
             </div>
@@ -666,7 +668,7 @@ export default function PetDetail() {
                 <Link to={`/publicQr/${petId}`}>
                   <button className="w-full md:w-auto border-none py-3 px-4 ms-0 md:ms-3 mt-5 bg-teal-700 text-white rounded-lg inline-block">
                     {" "}
-                    Preview Your QR
+                    {t("extraOptions.qr_view")}
                   </button>
                 </Link>
               </div>
@@ -682,7 +684,7 @@ export default function PetDetail() {
                     }, 4000);
                   }}
                 >
-                  Your Tags
+                  {t("extraOptions.your_tags")}
                 </button>
               </div>
             </div>
@@ -692,7 +694,7 @@ export default function PetDetail() {
             {message && <div className="alert">{message}</div>}{" "}
             {/* Mostrar mensaje */}
             <h1 className=" text-4xl mb-2" style={{ fontFamily: "chapFont" }}>
-              Welcome to {petByID.name} dashbaord
+              {t("general_pet_id.welcome", { name: petByID.name })}
             </h1>
             <form
               method="dialog"
@@ -702,7 +704,10 @@ export default function PetDetail() {
               <div className="flex justify-between">
                 <div>
                   {" "}
-                  <h2 className="text-lg text-teal-500">General info</h2>
+                  <h2 className="text-lg text-teal-500">
+                    {" "}
+                    {t("general_pet_id.general_info")}
+                  </h2>
                 </div>
                 <div>
                   {" "}
@@ -1028,7 +1033,7 @@ export default function PetDetail() {
                 <div>
                   {" "}
                   <h2 className="text-lg text-teal-500">
-                    Crear historial médico
+                    {t("general_pet_id.create_medical_history")}
                   </h2>
                 </div>
                 <div>
@@ -1323,7 +1328,7 @@ export default function PetDetail() {
                 <div>
                   {" "}
                   <h2 className="text-lg text-teal-500">
-                    Crear visita al veterinario
+                    {t("general_pet_id.create_vet_visits")}
                   </h2>
                 </div>
                 <div>
@@ -1494,7 +1499,10 @@ export default function PetDetail() {
               <div className="flex justify-between">
                 <div>
                   {" "}
-                  <h2 className=" text-lg text-teal-500"> Create Vaccines</h2>
+                  <h2 className=" text-lg text-teal-500">
+                    {" "}
+                    {t("general_pet_id.create_vaccines")}
+                  </h2>
                 </div>
                 <div>
                   {" "}
@@ -1633,11 +1641,12 @@ export default function PetDetail() {
               petId={petId}
               isCollapsed={collapseBox.travelMode}
               onToggleCollapse={() => toggleCollapse("travelMode")}
+              t={t}
             />
           </div>
 
           <div className="px-5 flex items-center">
-            <div>I want to delete this pet</div>
+            <div>{t("general_pet_id.delete_pet")}</div>
             <div className="" onClick={openPetDeleteModal}>
               <TrashIcon className="w-6 h-6" />
             </div>

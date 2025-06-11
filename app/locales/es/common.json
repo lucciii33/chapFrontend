@@ -184,5 +184,24 @@
       "notPurchased": "Tu mascota tiene chapas (no comprada aún)",
       "purchased": "Tu mascota tiene chapas ({{count}} comprada)"
     }
+  },
+
+  "extraOptions": {
+    "create_alerts": "Crea alertas",
+    "medical_visits": "Visitas médicas",
+    "vaccines": "Vacunas",
+    "lost_flyer": "¿Perdido? Genera tu cartel",
+    "qr_view": "Visualiza tu QR",
+    "your_tags": "Tus chapas"
+  },
+
+  "general_pet_id": {
+    "welcome": "¡Bienvenido al panel de {{name}}!",
+    "general_info": "Información general",
+    "create_medical_history": "Crear historial médico",
+    "create_vet_visits": "Crear visitas al veterinario",
+    "create_vaccines": "Crear vacunas",
+    "create_travel_mode": "Crear modo viaje",
+    "delete_pet": "Quiero borrar esta mascota"
   }
 }

@@ -9,6 +9,7 @@ export default function TravelModeForm({
   isCollapsed,
   onToggleCollapse,
   payShowInfo,
+  t,
 }) {
   console.log(
     "petIdpetIdpetIdpetIdpetIdpetIdpetIdpetIdpetIdpetIdpetIdpetId",
@@ -59,7 +60,10 @@ export default function TravelModeForm({
         <div className="flex justify-between">
           <div>
             {" "}
-            <h2 className="text-lg text-teal-500"> Create Travel Mode</h2>
+            <h2 className="text-lg text-teal-500">
+              {" "}
+              {t("general_pet_id.create_travel_mode")}
+            </h2>
           </div>
           <div>
             {" "}
