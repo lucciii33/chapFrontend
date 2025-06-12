@@ -238,6 +238,40 @@ export const useOrdersContext = () => {
     }
   };
 
+  const updateTrackerOrStatus = async (
+    orderId: number,
+    data: { status?: string; tracker_shipping_number?: string }
+  ): Promise<Order | null> => {
+    try {
+      const token = getToken();
+      if (!token) throw new Error("Usuario no autenticado");
+
+      const response = await fetch(
+        `${baseUrl}/api/order/orders/${orderId}/update-tracker-status`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error al actualizar la orden");
+      }
+
+      const updatedOrder: Order = await response
+        .json()
+        .then((res) => res.order);
+      return updatedOrder;
+    } catch (error) {
+      console.error("Error al actualizar orden:", error);
+      return null;
+    }
+  };
+
   return {
     allOrders,
     userOrders,
@@ -248,5 +282,6 @@ export const useOrdersContext = () => {
     getOrderById,
     updateOrderStatus,
     deleteOrder,
+    updateTrackerOrStatus,
   };
 };

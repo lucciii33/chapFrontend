@@ -19,6 +19,7 @@ export default function AdminDashboard() {
   const { orders } = useGlobalContext(); // Accede a la info del usuario
 
   const [showOrder, setShowOrder] = useState(false);
+  const [trackerShippingNumber, setTrackerShippingNumber] = useState("");
 
   const [allOrders, setAllOrders] = useState([]);
   const [filterCountry, setFilterCountry] = useState("");
@@ -44,7 +45,14 @@ export default function AdminDashboard() {
   }, []);
 
   const handleStatusfunc = (orderId: number) => {
+    // setSelectedOrderId(orderId);
+    // setIsModalOpen(true);
+    const order = allOrders.find((o) => o.id === orderId);
+    if (!order) return;
+
     setSelectedOrderId(orderId);
+    setNewStatus(order.status || "pending");
+    setTrackerShippingNumber(order.tracker_shipping_number || "");
     setIsModalOpen(true);
   };
 
@@ -52,10 +60,10 @@ export default function AdminDashboard() {
     if (!selectedOrderId) return;
 
     try {
-      const updatedOrder = await orders.updateOrderStatus(
-        selectedOrderId,
-        newStatus
-      );
+      const updatedOrder = await orders.updateTrackerOrStatus(selectedOrderId, {
+        status: newStatus,
+        tracker_shipping_number: trackerShippingNumber,
+      });
 
       // Actualiza el estado local
       setAllOrders((prevOrders) =>
@@ -318,6 +326,13 @@ export default function AdminDashboard() {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-white p-6 rounded-lg w-[400px]">
             <h2 className="text-xl font-bold mb-4">Editar Estado</h2>
+            <input
+              type="text"
+              placeholder="Número de seguimiento (tracker)"
+              className="input input-bordered w-full mb-4"
+              value={trackerShippingNumber}
+              onChange={(e) => setTrackerShippingNumber(e.target.value)}
+            />
             <select
               value={newStatus}
               onChange={(e) => setNewStatus(e.target.value)}
