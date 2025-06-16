@@ -125,7 +125,12 @@ export default function Navbar() {
       )}
 
       <div className="drawer drawer-end">
-        <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
+        <input
+          id="my-drawer-4"
+          type="checkbox"
+          className="drawer-toggle"
+          checked={actSideBar}
+        />
         <div className="drawer-content"></div>
         <div className="drawer-side">
           <label

@@ -194,11 +194,17 @@ export const useCartContext = () => {
   };
 
   const activateSideBar = () => {
+    console.log("opening");
     setActSideBar(true);
   };
 
   const closeSideBar = () => {
+    console.log("closing");
     setActSideBar(false);
+    const input = document.getElementById(
+      "my-drawer-4"
+    ) as HTMLInputElement | null;
+    if (input) input.checked = false;
   };
 
   const selectPetIdForTag = (id: number) => {

@@ -43,6 +43,7 @@ export default function Card({ petObj }: CardProps) {
   const [stockStatus, setStockStatus] = useState<null | {
     available: boolean;
     quantity: number;
+    description: string;
   }>(null);
 
   useEffect(() => {
@@ -90,6 +91,7 @@ export default function Card({ petObj }: CardProps) {
       setStockStatus({
         available: match.quantity > 0,
         quantity: match.quantity,
+        description: match.description,
       });
     } else {
       setStockStatus(null);
@@ -322,11 +324,24 @@ export default function Card({ petObj }: CardProps) {
                         {" "}
                         {t("petCreation.step2.step3.shape.options.circle")}
                       </option>
+                      <option value="circular-small">
+                        {" "}
+                        {t(
+                          "petCreation.step2.step3.shape.options.circular-small"
+                        )}
+                      </option>
                       <option value="square">
                         {" "}
                         {t("petCreation.step2.step3.shape.options.rectangle")}
                       </option>
                     </select>
+                    {stockStatus?.description ? (
+                      <p className="text-sm text-blue-600 m-0">
+                        {stockStatus?.description}
+                      </p>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
 

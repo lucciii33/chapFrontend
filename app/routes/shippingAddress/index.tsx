@@ -12,7 +12,7 @@ export default function ShippingAddress({
 }: {
   setRefreshAddresses: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const { auth } = useGlobalContext(); // Accede a la info del usuario
+  const { auth } = useGlobalContext();
   const user = auth.user;
   console.log("user", user);
   const [selectedAddress, setSelectedAddress] = useState<number | null>(null);
@@ -136,13 +136,24 @@ export default function ShippingAddress({
           Shipping Address
           <div className="mb-2 mt-3">
             <label className="block text-slate-50">Country</label>
-            <input
+            <select
               className="w-full px-4 py-2 border rounded-lg"
-              placeholder="Country"
               name="country"
               value={formData.country}
               onChange={handleChange}
-            />
+            >
+              <option value="">Select a country</option>
+              <option value="ES">Spain</option>
+              <option value="PT">Portugal</option>
+              <option value="IT">Italy</option>
+              <option value="FR">France</option>
+              <option value="DE">Germany</option>
+              <option value="NL">Netherlands</option>
+              <option value="BE">Belgium</option>
+              <option value="IE">Ireland</option>
+              <option value="UK">United Kingdom</option>
+              <option value="USA">United States</option>
+            </select>
           </div>
           <div className="flex justify-between">
             <div className="mb-2 w-full">

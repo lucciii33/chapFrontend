@@ -19,11 +19,13 @@ const CheckoutForm: React.FC<{
   setHighlightAddressSection: (value: boolean) => void;
   setAmountInCents: (value: number) => void;
   refreshAddresses: boolean;
+  setShippingAddresses: (value: any[]) => void; // ⚡
 }> = ({
   openShippingModal,
   setHighlightAddressSection,
   setAmountInCents,
   refreshAddresses,
+  setShippingAddresses,
 }) => {
   const baseUrl = import.meta.env.VITE_REACT_APP_URL;
   const { auth, cart } = useGlobalContext();
@@ -41,7 +43,10 @@ const CheckoutForm: React.FC<{
   const [discount, setDiscount] = useState(0);
 
   useEffect(() => {
-    const totalPrice = allCarts.reduce((acc, item) => acc + item.price, 0);
+    const totalPrice = allCarts.reduce(
+      (acc, item) => acc + item.price * item.quantity,
+      0
+    );
     const discountedPrice = totalPrice - (totalPrice * discount) / 100;
     const calculatedAmount = Math.round(discountedPrice * 100);
 
@@ -62,6 +67,7 @@ const CheckoutForm: React.FC<{
   };
 
   const [addresses, setAddresses] = useState([]);
+
   console.log("addresses", addresses);
   useEffect(() => {
     if (!user?.id) return;
@@ -71,7 +77,13 @@ const CheckoutForm: React.FC<{
         const response = await getShippingAddresses(user.id);
         const data = await response.json();
         console.log("addresses", data);
-        if (data) setAddresses(data);
+        if (data) {
+          setAddresses(data); // Local: todas
+          const selectedAddress = data.find((addr) => addr.is_selected);
+          if (selectedAddress) {
+            setShippingAddresses(selectedAddress); // SOLO la seleccionada
+          }
+        }
       } catch (error) {
         console.error("Error fetching addresses:", error);
       }
@@ -160,7 +172,10 @@ const CheckoutForm: React.FC<{
       const petIds = Array.from(new Set(allCarts.map((item) => item.pet_id)));
       const tagIds = Array.from(new Set(allCarts.map((item) => item.tag_id)));
       console.log("petIdspetIds from the front end", petIds);
-      const totalPrice = allCarts.reduce((acc, item) => acc + item.price, 0);
+      const totalPrice = allCarts.reduce(
+        (acc, item) => acc + item.price * item.quantity,
+        0
+      );
       const discountedPrice = totalPrice - (totalPrice * discount) / 100;
       const amountInCents = Math.round(discountedPrice * 100);
       const clientSecret = await createPaymentIntent(

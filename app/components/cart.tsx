@@ -9,8 +9,14 @@ import { MinusIcon } from "@heroicons/react/24/outline";
 export default function Cart() {
   const { auth, cart } = useGlobalContext();
   const { user } = auth;
-  const { getCartByUser, allCarts, deleteCartById, editCartById, actSideBar } =
-    cart;
+  const {
+    getCartByUser,
+    allCarts,
+    deleteCartById,
+    editCartById,
+    actSideBar,
+    closeSideBar,
+  } = cart;
   console.log("user", user);
   console.log("allCarts", allCarts);
   const getCartByUserFunc = () => {
@@ -153,7 +159,7 @@ export default function Cart() {
           );
         })}
       </div>
-      <Link to="/checkout">
+      <Link to="/checkout" onClick={() => closeSideBar()}>
         <button className="w-full border-none py-3 px-4 mt-5 bg-teal-500 text-white rounded-lg">
           Pay now
         </button>
