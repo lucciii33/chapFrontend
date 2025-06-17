@@ -223,6 +223,10 @@ export default function AdminDashboard() {
                 <p className="ms-2">
                   <strong>Total:</strong> ${order?.total_price}
                 </p>
+                <p className="ms-2">
+                  <strong>Status:</strong>
+                  {order?.status}
+                </p>
               </div>
               <div
                 className="cursor-pointer text-blue-500"
