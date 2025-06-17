@@ -84,6 +84,12 @@ export default function Cart() {
   return (
     <div className="ms-2">
       <div>
+        <div
+          className="bg-slate-800 p-5 w-6 h-6 flex justify-center items-center rounded-lg"
+          onClick={() => closeSideBar()}
+        >
+          <div>X</div>
+        </div>
         {allCarts.map((item, index) => {
           return (
             <div key={index} className="border  rounded mt-2  p-3">

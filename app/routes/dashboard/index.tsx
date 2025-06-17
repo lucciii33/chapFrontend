@@ -409,15 +409,25 @@ export default function Dashboard() {
                 <p className="mt-2 text-md">
                   {t("petCreation.step1.description")}
                 </p>
-                <button
-                  onClick={() => {
-                    setWelcomeModal(false); // Oculta la bienvenida
-                    setPetInfoModal(true); // Muestra el form de mascota
-                  }}
-                  className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600"
-                >
-                  {t("petCreation.step1.button")}
-                </button>
+                <div className="flex justify-between px-3">
+                  <button
+                    onClick={() => {
+                      setWelcomeModal(false); // Oculta la bienvenida
+                      setPetInfoModal(true); // Muestra el form de mascota
+                    }}
+                    className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600"
+                  >
+                    {t("petCreation.step1.button")}
+                  </button>
+                  <button
+                    className="btn mt-4 text-white "
+                    onClick={() => {
+                      document.getElementById("my_modal_1").close();
+                    }}
+                  >
+                    {t("petCreation.step4.buttons.close")}
+                  </button>
+                </div>
               </div>
             )}
             {petInfoModal && (
@@ -697,10 +707,11 @@ export default function Dashboard() {
                     />
                   </div>
 
-                  <div className="modal-action">
-                    <button className="btn">
+                  <div className="modal-action flex gap-2 items-center">
+                    <button className="btn mt-4">
                       {t("petCreation.step2.form.button1")}
                     </button>
+
                     <button
                       className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600"
                       onClick={handleSubmit}
@@ -914,7 +925,7 @@ export default function Dashboard() {
                 <div className="modal-action">
                   <button
                     onClick={() => {
-                      document.getElementById("my_modal_1").close(); // Cierra el modal
+                      document.getElementById("my_modal_1").close();
                     }}
                   >
                     {t("petCreation.step4.buttons.close")}

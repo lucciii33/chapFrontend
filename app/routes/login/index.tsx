@@ -139,10 +139,16 @@ export default function Login() {
             />
           </div>
           <button
-            className="mt-4 py-2 px-4 bg-blue-600 text-white rounded-lg"
+            className="mt-4 py-2 px-4 bg-teal-500 text-white rounded-lg"
             onClick={handleResetRequest}
           >
             Enviar email de recuperación
+          </button>
+          <button
+            onClick={() => document.getElementById("resetPassword").close()}
+            className="ms-2 py-2 px-4 bg-slate-800 text-white rounded-lg"
+          >
+            close
           </button>
         </div>
       </dialog>
