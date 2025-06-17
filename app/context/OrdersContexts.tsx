@@ -262,9 +262,7 @@ export const useOrdersContext = () => {
         throw new Error("Error al actualizar la orden");
       }
 
-      const updatedOrder: Order = await response
-        .json()
-        .then((res) => res.order);
+      const updatedOrder: Order = await response.json();
       return updatedOrder;
     } catch (error) {
       console.error("Error al actualizar orden:", error);

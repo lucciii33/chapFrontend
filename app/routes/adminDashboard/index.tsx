@@ -8,6 +8,7 @@
 // import Card from "~/components/card";
 // import tagImg from "../../images/tag.png";
 // import "../../../styles/dashboard.css";
+import { showErrorToast, showSuccessToast } from "~/utils/toast";
 import { Link } from "@remix-run/react";
 import { useGlobalContext } from "../../context/GlobalProvider";
 
@@ -31,19 +32,18 @@ export default function AdminDashboard() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [newStatus, setNewStatus] = useState<string>("pending");
 
+  const fetchOrders = async () => {
+    try {
+      const fetchedOrders = await orders.getAllOrders();
+      // ⚡️ AQUI LIMPIA:
+      setAllOrders((fetchedOrders || []).filter(Boolean));
+    } catch (error) {
+      console.error("Error al obtener todas las órdenes", error);
+    }
+  };
   useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const fetchedOrders = await orders.getAllOrders(); // Llama directamente a la función
-        setAllOrders(fetchedOrders); // Guarda las órdenes en el estado local
-      } catch (error) {
-        console.error("Error al obtener todas las órdenes", error);
-      }
-    };
-
     fetchOrders();
   }, []);
-
   const handleStatusfunc = (orderId: number) => {
     // setSelectedOrderId(orderId);
     // setIsModalOpen(true);
@@ -65,13 +65,15 @@ export default function AdminDashboard() {
         tracker_shipping_number: trackerShippingNumber,
       });
 
-      // Actualiza el estado local
-      setAllOrders((prevOrders) =>
-        prevOrders.map((order) =>
-          order.id === selectedOrderId ? updatedOrder : order
-        )
-      );
+      if (updatedOrder) {
+        console.log("showSuccessToast", updatedOrder);
+        await fetchOrders();
+        showSuccessToast("Orden editada correctamente");
+      } else {
+        showErrorToast("order error");
+      }
 
+      // Actualiza el estado local
       setIsModalOpen(false);
       setSelectedOrderId(null);
       setNewStatus("pending");
@@ -114,13 +116,13 @@ export default function AdminDashboard() {
 
   const filteredOrders = allOrders.filter((order) => {
     const countryMatch = filterCountry
-      ? order.shipping_address.country
+      ? order?.shipping_address.country
           .toLowerCase()
           .includes(filterCountry.toLowerCase())
       : true;
 
     const dateMatch = filterDate
-      ? new Date(order.created_at).toISOString().slice(0, 10) === filterDate
+      ? new Date(order?.created_at).toISOString().slice(0, 10) === filterDate
       : true;
 
     return countryMatch && dateMatch;
@@ -197,61 +199,61 @@ export default function AdminDashboard() {
       ) : (
         currentOrders.map((order) => (
           <div
-            key={order.id}
+            key={order?.id}
             className="bg-white  text-black h-auto w-full mt-5 rounded-lg p-4"
           >
             <div className="flex justify-between items-center">
               <div className="flex">
                 <p>
                   <strong>Cliente:</strong>
-                  {order.full_name}
+                  {order?.full_name}
                 </p>
                 <p className="ms-2">
                   <strong>Cliente ID:</strong>
-                  {order.user_id}
+                  {order?.user_id}
                 </p>
                 <p className="ms-2">
                   <strong>Fecha:</strong>{" "}
-                  {new Date(order.created_at).toLocaleDateString("es-ES", {
+                  {new Date(order?.created_at).toLocaleDateString("es-ES", {
                     day: "numeric", // 17
                     month: "short", // febrero
                     year: "numeric", // 2025
                   })}
                 </p>
                 <p className="ms-2">
-                  <strong>Total:</strong> ${order.total_price}
+                  <strong>Total:</strong> ${order?.total_price}
                 </p>
               </div>
               <div
                 className="cursor-pointer text-blue-500"
                 onClick={() =>
-                  setShowOrder(showOrder === order.id ? null : order.id)
+                  setShowOrder(showOrder === order?.id ? null : order?.id)
                 }
               >
                 {showOrder === order.id ? "Cerrar" : "Ver Orden"}
               </div>
             </div>
 
-            {showOrder === order.id && (
+            {showOrder === order?.id && (
               <div className="mt-4">
                 <h3 className="font-semibold">Detalles del pedido:</h3>
                 <p>
-                  <strong>Status:</strong> {order.status}
+                  <strong>Status:</strong> {order?.status}
                 </p>
-                {order.order_data.map((item, index) => (
+                {order?.order_data.map((item, index) => (
                   <div key={index} className="p-2 border-b">
                     <p>
-                      <strong>Mascota:</strong> {item.pet.name}
+                      <strong>Mascota:</strong> {item?.pet.name}
                     </p>
                     <p>
-                      <strong>Tag:</strong> {item.tag.shape} -{" "}
+                      <strong>Tag:</strong> {item?.tag.shape} -{" "}
                       {item.tag.material}
                     </p>
                     <p>
-                      <strong>Quantity</strong> ${item.quantity}
+                      <strong>Quantity</strong> ${item?.quantity}
                     </p>
                     <p>
-                      <strong>Precio:</strong> ${item.price}
+                      <strong>Precio:</strong> ${item?.price}
                     </p>
                     <button
                       onClick={() =>
@@ -274,43 +276,43 @@ export default function AdminDashboard() {
                       </h2>
                       <p>
                         <strong>Street address:</strong>{" "}
-                        {order.shipping_address.street_address}
+                        {order?.shipping_address.street_address}
                       </p>
                       <p>
                         {" "}
-                        <strong>state:</strong> {order.shipping_address.state}
+                        <strong>state:</strong> {order?.shipping_address.state}
                       </p>
                       <p>
                         <strong>postal_code:</strong>{" "}
-                        {order.shipping_address.postal_code}
+                        {order?.shipping_address.postal_code}
                       </p>
                       <p>
                         <strong>country</strong>{" "}
-                        {order.shipping_address.country}
+                        {order?.shipping_address.country}
                       </p>
                       <p>
-                        <strong>city</strong> {order.shipping_address.city}
+                        <strong>city</strong> {order?.shipping_address.city}
                       </p>
                       <p>
                         <strong>apartment</strong>{" "}
-                        {order.shipping_address.apartment}
+                        {order?.shipping_address.apartment}
                       </p>
                     </div>
                   </div>
                 ))}
               </div>
             )}
-            {showOrder === order.id ? (
+            {showOrder === order?.id ? (
               <div>
                 <button
                   className="btn  bg-teal-500  mt-2 me-2 border-none text-white"
-                  onClick={() => handleStatusfunc(order.id)}
+                  onClick={() => handleStatusfunc(order?.id)}
                 >
                   edit status
                 </button>
                 <button
                   className="btn  bg-teal-500 mt-2 me-2 border-none"
-                  onClick={() => handleDeletefunc(order.id)}
+                  onClick={() => handleDeletefunc(order?.id)}
                 >
                   delete order
                 </button>
