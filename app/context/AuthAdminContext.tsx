@@ -48,7 +48,7 @@ export const useAuthAdminContext = () => {
       const response = await fetch(`${baseUrl}/admin/user/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data), // Enviar LoginData
+        body: JSON.stringify(data),
       });
 
       if (!response.ok) {

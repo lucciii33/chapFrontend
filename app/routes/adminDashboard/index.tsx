@@ -160,6 +160,9 @@ export default function AdminDashboard() {
   return (
     <div className="p-[40px]">
       <Link to="/inventory">INVENTORY</Link>
+      <Link to="/adminInvoices" className="ms-4">
+        INVOICES
+      </Link>
       <div className="flex">
         <div className="mb-2 mt-3">
           <label className="block text-black">date</label>
