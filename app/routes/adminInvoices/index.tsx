@@ -1,7 +1,13 @@
+import { useEffect } from "react";
+import { Link } from "@remix-run/react";
 import { useGlobalContext } from "~/context/GlobalProvider";
 
 export default function InvoicesList() {
   const { invoices } = useGlobalContext();
+
+  useEffect(() => {
+    invoices.fetchInvoices();
+  }, []);
 
   return (
     <div>
@@ -12,9 +18,11 @@ export default function InvoicesList() {
         <ul>
           {invoices.invoicesList.map((invoice) => (
             <li key={invoice.id}>
-              <strong>{invoice.invoice_number}</strong> -{" "}
-              {invoice.customer_name} - {invoice.total_amount}{" "}
-              {invoice.currency}
+              <Link to={`/invoicePdf/${invoice.id}`}>
+                <strong>{invoice.invoice_number}</strong> -{" "}
+                {invoice.customer_name} - {invoice.total_amount}{" "}
+                {invoice.currency}
+              </Link>
             </li>
           ))}
         </ul>

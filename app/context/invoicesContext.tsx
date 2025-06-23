@@ -33,6 +33,7 @@ export const useInvoiceAdminContext = () => {
   };
 
   const fetchInvoices = async () => {
+    console.log("LLAMANDOOOO");
     setLoading(true);
     setError(null);
     try {
@@ -41,12 +42,15 @@ export const useInvoiceAdminContext = () => {
         throw new Error("No token found");
       }
 
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/invoices`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_REACT_APP_URL}/api/invoices`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -61,14 +65,33 @@ export const useInvoiceAdminContext = () => {
     }
   };
 
-  useEffect(() => {
-    fetchInvoices();
-  }, []);
+  const fetchInvoiceById = async (invoiceId: number) => {
+    const token = getToken();
+    if (!token) throw new Error("No token found");
+
+    const response = await fetch(
+      `${import.meta.env.VITE_REACT_APP_URL}/api/invoices/${invoiceId}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data as Invoice;
+  };
 
   return {
     invoicesList,
     loading,
     error,
     fetchInvoices,
+    fetchInvoiceById,
   };
 };
