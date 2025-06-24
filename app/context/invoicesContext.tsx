@@ -87,11 +87,41 @@ export const useInvoiceAdminContext = () => {
     return data as Invoice;
   };
 
+  const downloadInvoicePdf = async (invoiceId: number) => {
+    const token = getToken();
+    if (!token) throw new Error("No token found");
+
+    // ⚡ HACES FETCH porque necesitas HEADER
+    const response = await fetch(
+      `${import.meta.env.VITE_REACT_APP_URL}/api/invoices/${invoiceId}/pdf`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `Factura_${invoiceId}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
+  };
+
   return {
     invoicesList,
     loading,
     error,
     fetchInvoices,
     fetchInvoiceById,
+    downloadInvoicePdf,
   };
 };

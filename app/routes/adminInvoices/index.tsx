@@ -15,17 +15,20 @@ export default function InvoicesList() {
       {invoices.invoicesList.length === 0 ? (
         <p>No invoices found.</p>
       ) : (
-        <ul>
+        <div className="p-5">
           {invoices.invoicesList.map((invoice) => (
-            <li key={invoice.id}>
+            <div
+              key={invoice.id}
+              className="bg-white  text-black h-auto w-full mt-5 rounded-lg p-4"
+            >
               <Link to={`/invoicePdf/${invoice.id}`}>
                 <strong>{invoice.invoice_number}</strong> -{" "}
                 {invoice.customer_name} - {invoice.total_amount}{" "}
                 {invoice.currency}
               </Link>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
