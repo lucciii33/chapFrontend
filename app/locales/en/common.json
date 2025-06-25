@@ -252,7 +252,65 @@
     "behaviorLabel": "Behavior",
     "behaviorPlaceholder": "How does your pet behave around people, other animals, or in different situations? Mention fears, aggression, anxiety, if any.",
     "buttonClose": "Close",
-    "buttonCreate": "Crear historial médico",
-    "buttonCreateLoading": "Creando historial médico..."
+    "buttonCreate": "Create medical history",
+    "buttonCreateLoading": "Creating medical hisotry..."
+  },
+  "terms": {
+    "title": "Terms and Conditions",
+    "intro": "This website, accessible from www.chapstore.es, is operated by Angelo Maiele, a sole proprietor (freelancer) legally registered in Spain. By accessing or using this website and/or its products and services, you agree to be legally bound by these Terms and Conditions and our Privacy Policy.",
+    "section1Title": "1. About CHAP",
+    "section1Text": "CHAP is an ID tag with a QR code that links to an online profile containing essential information about your pet. Users can create profiles, update medical history, track expenses, and manage daily logs through our web platform.",
+    "section2Title": "2. Purchase and Shipping",
+    "section2Text": "Once your order is placed on www.chapstore.es, you’ll receive a confirmation email. Orders are processed within 1–2 business days and shipped via Correos.",
+    "section2Details": {
+      "spain": "Delivery within Spain: 2–5 business days",
+      "usa": "Delivery to USA and EU: 5–10 business days (may vary)",
+      "shipping": "Shipping fees are calculated at checkout."
+    },
+    "section3Title": "3. VAT and Pricing",
+    "section3Text": "For orders within Spain: All prices include VAT. For orders to the United States: VAT is not applied.",
+    "section4Title": "4. Payment",
+    "section4Text": "Payments are securely processed through Stripe. We accept major credit/debit cards.",
+    "section5Title": "5. Returns and Cancellations",
+    "section5Text": "You may cancel your order before it has been shipped. Once shipped, returns are accepted only in cases of defective or incorrect items. To request a cancellation or return, reply to your order confirmation email.",
+    "section6Title": "6. Product Usage",
+    "section6Text": "The QR tag should be securely attached to your pet’s collar. It’s the user’s responsibility to keep profile data up to date. CHAP is not liable for lost pets due to outdated or incomplete information.",
+    "section7Title": "7. Intellectual Property",
+    "section7Text": "All materials on www.chapstore.es — including branding, text, and design — are the intellectual property of CHAP and may not be copied or redistributed.",
+    "section8Title": "8. Limitation of Liability",
+    "section8Text": "CHAP is a support tool, not a replacement for microchips, legal ID requirements, or veterinary advice. We are not liable for loss, injury, or other consequences related to incorrect use of the service."
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "intro": "CHAP is committed to protecting your privacy. This policy explains how we collect, use, and store your information when you use our website and services.",
+
+    "section1Title": "1. What We Collect",
+    "section1List": {
+      "personal": "Personal info: name, email, shipping address, payment details",
+      "pet": "Pet info: name, breed, medical data, photos, notes",
+      "usage": "Platform usage data (analytics, browser info, etc.)"
+    },
+
+    "section2Title": "2. How We Use It",
+    "section2List": {
+      "order": "To fulfill your order",
+      "personalize": "To personalize features and suggestions based on your pet",
+      "news": "To send product updates, tips, or important account information (you can unsubscribe at any time)"
+    },
+
+    "section3Title": "3. Storage and Security",
+    "section3Text": "All data is securely stored. Payment data is processed by Stripe and is never stored on our servers. You can modify or delete your data anytime from your dashboard or by contacting us.",
+
+    "section4Title": "4. Third-Party Sharing",
+    "section4Text": "Your data is only shared with essential partners (e.g., Stripe for payments, Correos for shipping). We do not sell your data.",
+
+    "section5Title": "5. Cookies",
+    "section5Text": "We use cookies to improve user experience and gather anonymous analytics. You can disable cookies in your browser at any time.",
+
+    "section6Title": "6. Your Rights",
+    "section6Text": "In accordance with the GDPR and applicable international data laws, you have the right to access, modify, or delete your data at any time. Contact us to exercise these rights.",
+
+    "section7Title": "7. Contact",
+    "section7Text": "For any privacy questions or requests:"
   }
 }

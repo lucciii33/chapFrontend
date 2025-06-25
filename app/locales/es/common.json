@@ -254,5 +254,64 @@
     "buttonClose": "Cerrar",
     "buttonCreate": "Crear historial médico",
     "buttonCreateLoading": "Creando historial médico..."
+  },
+
+  "terms": {
+    "title": "Términos y Condiciones",
+    "intro": "Este sitio web, accesible desde www.chapstore.es, es operado por Angelo Maiele, trabajador autónomo con domicilio fiscal en España. Al acceder o utilizar esta página web y/o sus productos y servicios, usted acepta quedar legalmente vinculado por los presentes Términos y Condiciones, así como por nuestra Política de Privacidad.",
+    "section1Title": "1. Sobre CHAP",
+    "section1Text": "CHAP es una chapa inteligente con código QR que enlaza al perfil online de tu mascota. Los usuarios pueden crear perfiles, actualizar historial médico, registrar gastos y usar un diario para seguimiento diario desde nuestra plataforma web.",
+    "section2Title": "2. Compra y envío",
+    "section2Text": "Una vez realizado el pedido en www.chapstore.es, recibirás un correo de confirmación. Los pedidos se procesan en 1–2 días hábiles y se envían a través de Correos.",
+    "section2Details": {
+      "spain": "Entrega en España: 2–5 días hábiles",
+      "usa": "Entrega en la UE y EE. UU.: 5–10 días hábiles (puede variar)",
+      "shipping": "Costes de envío se calculan al finalizar la compra."
+    },
+    "section3Title": "3. IVA y precios",
+    "section3Text": "Pedidos en España: precios con IVA incluido. Pedidos a EE. UU.: no se aplica IVA.",
+    "section4Title": "4. Pagos",
+    "section4Text": "Los pagos se procesan de forma segura mediante Stripe. Aceptamos tarjetas de crédito/débito.",
+    "section5Title": "5. Cancelaciones y devoluciones",
+    "section5Text": "Puedes cancelar el pedido antes del envío. Una vez enviado, solo se aceptan devoluciones por productos defectuosos o incorrectos. Para cancelar o devolver, responde al correo de confirmación del pedido.",
+    "section6Title": "6. Uso del producto",
+    "section6Text": "La chapa QR debe colocarse en el collar de la mascota. Es responsabilidad del usuario mantener la información del perfil actualizada. CHAP no se hace responsable por pérdidas causadas por información incompleta o desactualizada.",
+    "section7Title": "7. Propiedad intelectual",
+    "section7Text": "Todo el contenido de www.chapstore.es — marca, texto, diseño — es propiedad intelectual de CHAP y no puede ser reproducido sin permiso.",
+    "section8Title": "8. Limitación de responsabilidad",
+    "section8Text": "CHAP es una herramienta de apoyo, no sustituye el microchip, identificación legal ni asesoramiento veterinario. No nos hacemos responsables por el mal uso del servicio."
+  },
+  "privacy": {
+    "title": "Política de Privacidad",
+    "intro": "En CHAP nos comprometemos a proteger tu privacidad. Esta política explica cómo recopilamos, usamos y protegemos tu información al usar nuestro sitio web y servicios.",
+
+    "section1Title": "1. Datos que recopilamos",
+    "section1List": {
+      "personal": "Datos personales: nombre, email, dirección de envío,",
+      "pet": "Datos de mascotas: nombre, raza, información médica, fotos, notas",
+      "usage": "Datos de uso: análisis anónimo de navegación"
+    },
+
+    "section2Title": "2. Uso de datos",
+    "section2List": {
+      "order": "Para procesar tu pedido",
+      "personalize": "Para personalizar funciones y sugerencias según tu mascota",
+      "news": "Para enviarte novedades o información importante (puedes darte de baja)"
+    },
+
+    "section3Title": "3. Almacenamiento y seguridad",
+    "section3Text": "Todos los datos se almacenan de forma segura. Los datos de pago se procesan mediante Stripe y no se almacenan en nuestros servidores. Puedes modificar o eliminar tus datos desde tu perfil o contactándonos.",
+
+    "section4Title": "4. Terceros",
+    "section4Text": "Solo compartimos tu información con servicios esenciales (Stripe, Correos). No vendemos tus datos a terceros.",
+
+    "section5Title": "5. Cookies",
+    "section5Text": "Usamos cookies para mejorar la experiencia y recopilar datos anónimos. Puedes desactivarlas desde tu navegador.",
+
+    "section6Title": "6. Tus derechos",
+    "section6Text": "De acuerdo con el RGPD y leyes internacionales, puedes acceder, modificar o eliminar tus datos en cualquier momento. Escríbenos para ejercer tus derechos.",
+
+    "section7Title": "7. Contacto",
+    "section7Text": "Cualquier duda o solicitud:"
   }
 }
