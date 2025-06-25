@@ -220,13 +220,13 @@ export default function Register() {
             <div>
               <Link to="/termsAndCondition">
                 {" "}
-                <label className="block text-blue-500 underline">
+                <label className="text-sm block text-blue-500 underline cursor-pointer">
                   {t("register_page.terms")}
                 </label>
               </Link>
             </div>
           </div>
-          <div className="mb-2 text-sm">
+          <div className="mb-2 text-sm cursor-pointer underline text-bold">
             <Link to="/login">{t("register_page.account")}</Link>
           </div>
 
