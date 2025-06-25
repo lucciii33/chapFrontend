@@ -90,9 +90,12 @@ export default function CheckoutPage() {
                 );
               })
             : "No tienes ningun carrito por ahora"}
-          {/* <p className="text-2xl pb-4 mt-4 border-b border-gray-700">
+          <p className="text-xl pb-4 mt-4 border-b border-gray-700">
             Total a pagar: ${(amountInCents / 100).toFixed(2)} USD
-          </p> */}
+          </p>
+          <p className="text-xl pb-4 mt-4 border-b border-gray-700">
+            Iva a pagar: ${(ivaInCents / 100).toFixed(2)} USD
+          </p>
           <p className="text-2xl pb-4 mt-4 border-b border-gray-700">
             Total con IVA: ${((amountInCents + ivaInCents) / 100).toFixed(2)}{" "}
             USD

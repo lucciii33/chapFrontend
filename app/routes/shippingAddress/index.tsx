@@ -155,7 +155,7 @@ export default function ShippingAddress({
               <option value="USA">United States</option>
             </select>
           </div>
-          <div className="flex justify-between">
+          <div className="flex md:justify-between flex-col md:flex-row">
             <div className="mb-2 w-full">
               <label className="block text-slate-50">State</label>
               <input
@@ -167,7 +167,7 @@ export default function ShippingAddress({
               />
             </div>
 
-            <div className="mb-2 w-full ms-2">
+            <div className="mb-2 w-full ms-0 md:ms-2">
               <label className="block text-slate-50">City</label>
               <input
                 //   type="password"
@@ -179,7 +179,7 @@ export default function ShippingAddress({
               />
             </div>
           </div>
-          <div className="flex justify-between">
+          <div className="flex md:justify-between flex-col md:flex-row">
             <div className="mb-2 w-full">
               <label className="block text-slate-50"> Postal code</label>
               <input
@@ -191,7 +191,7 @@ export default function ShippingAddress({
                 onChange={handleChange}
               />
             </div>
-            <div className="mb-2 w-full ms-2 ml-2">
+            <div className="mb-2 w-full ms-0 md:ms-2 ml-2">
               <label className="block text-slate-50">Street Address</label>
               <input
                 //   type="password"
