@@ -1551,18 +1551,17 @@ export default function PetDetail() {
                   )}
                   <div className="mb-5">
                     <h2 className="text-1xl font-bold text-white">
-                      el 80% de los duenos con mascotas no recuerdan con
-                      exactitud la vacuinancion de sus hijos
+                      {t("create_vaccine.description")}
                     </h2>
-                    <small className="text-sm text-white">
+                    {/* <small className="text-sm text-white">
                       venga son solo 4 inputs!! es mas facil que recoger la caca
                       y lo haces!
-                    </small>
+                    </small> */}
                   </div>
                   <div className="flex justify-between flex-col md:flex-row gap-2">
                     <div className="w-full ">
                       <div>
-                        <label>name of the vaccine</label>
+                        <label>{t("create_vaccine.label.name")}</label>
                       </div>
                       <input
                         type="text"
@@ -1571,7 +1570,7 @@ export default function PetDetail() {
                             ? "border-red-500"
                             : "border-gray-300"
                         }`}
-                        placeholder="name of the vaccine"
+                        placeholder={t("create_vaccine.label.name")}
                         name="name"
                         value={vaccineData.name}
                         onChange={handleVaccineInputChange}
@@ -1579,12 +1578,12 @@ export default function PetDetail() {
                     </div>
                     <div className="w-full mb-2 md:mb-0">
                       <div>
-                        <label>vaccine type</label>
+                        <label>{t("create_vaccine.label.type")}</label>
                       </div>
                       <input
                         type="text"
                         className="w-full px-4 py-2 border rounded-lg"
-                        placeholder="vaccine type"
+                        placeholder={t("create_vaccine.label.type")}
                         name="vaccine_type"
                         value={vaccineData.vaccine_type}
                         onChange={handleVaccineInputChange}
@@ -1595,7 +1594,9 @@ export default function PetDetail() {
                     {" "}
                     <div className="w-full">
                       <div>
-                        <label>date_administered</label>
+                        <label>
+                          {t("create_vaccine.label.date_administered")}
+                        </label>
                       </div>
                       <input
                         type="date"
@@ -1604,7 +1605,9 @@ export default function PetDetail() {
                             ? "border-red-500"
                             : "border-gray-300"
                         }`}
-                        placeholder="date_administered"
+                        placeholder={t(
+                          "create_vaccine.label.date_administered"
+                        )}
                         name="date_administered"
                         value={vaccineData.date_administered}
                         onChange={handleVaccineInputChange}
@@ -1612,7 +1615,10 @@ export default function PetDetail() {
                     </div>
                     <div className="w-full">
                       <div>
-                        <label>expiration_date</label>
+                        <label>
+                          {" "}
+                          {t("create_vaccine.label.expiration_date")}
+                        </label>
                       </div>
                       <input
                         type="date"
@@ -1621,7 +1627,7 @@ export default function PetDetail() {
                             ? "border-red-500"
                             : "border-gray-300"
                         }`}
-                        placeholder="expiration_date"
+                        placeholder={t("create_vaccine.label.expiration_date")}
                         name="expiration_date"
                         value={vaccineData.expiration_date}
                         onChange={handleVaccineInputChange}
@@ -1634,13 +1640,15 @@ export default function PetDetail() {
                       onClick={handleCreateVaccine}
                       disabled={loading}
                     >
-                      {loading ? "Creando vacuna..." : "Crear Vacuna"}
+                      {loading
+                        ? t("create_vaccine.button.create-loading")
+                        : t("create_vaccine.button.create")}
                     </button>
                     <button
                       className="btn py-3 px-4 rounded-lg"
                       onClick={() => toggleCollapse("vaccines")}
                     >
-                      Close
+                      {t("create_vaccine.button.close")}
                     </button>
                   </div>
                   <DeleteDialog

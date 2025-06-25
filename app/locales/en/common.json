@@ -255,6 +255,23 @@
     "buttonCreate": "Create medical history",
     "buttonCreateLoading": "Creating medical hisotry..."
   },
+
+  "create_vaccine": {
+    "title": "Create vaccines",
+    "description": "80% of pet owners don’t remember the vaccination details accurately. Come on, it’s just 4 fields — easier than picking up poop. You’ve got this!",
+    "label": {
+      "name": "Name of the Vaccine",
+      "type": "Vaccine Type",
+      "date_administered": "Date Administered",
+      "expiration_date": "Expiration Date"
+    },
+    "button": {
+      "close": "Close",
+      "create": "Create",
+      "create-loading": "Creating Vaccine"
+    }
+  },
+
   "terms": {
     "title": "Terms and Conditions",
     "intro": "This website, accessible from www.chapstore.es, is operated by Angelo Maiele, a sole proprietor (freelancer) legally registered in Spain. By accessing or using this website and/or its products and services, you agree to be legally bound by these Terms and Conditions and our Privacy Policy.",

@@ -256,6 +256,22 @@
     "buttonCreateLoading": "Creando historial médico..."
   },
 
+  "create_vaccine": {
+    "title": "Crear vacunas",
+    "description": "El 80% de los dueños de mascotas no recuerdan con exactitud el estatus de vacunación. ¡Venga! Son solo 4 campos. Es más fácil que recoger la caca... ¡puedes hacerlo!",
+    "label": {
+      "name": "Nombre de la vacuna",
+      "type": "Tipo de vacuna",
+      "date_administered": "Fecha de administración",
+      "expiration_date": "Fecha de vencimiento"
+    },
+    "button": {
+      "close": "Cerrar",
+      "create": "Crear",
+      "create-loading": "Creando vacuna"
+    }
+  },
+
   "terms": {
     "title": "Términos y Condiciones",
     "intro": "Este sitio web, accesible desde www.chapstore.es, es operado por Angelo Maiele, trabajador autónomo con domicilio fiscal en España. Al acceder o utilizar esta página web y/o sus productos y servicios, usted acepta quedar legalmente vinculado por los presentes Términos y Condiciones, así como por nuestra Política de Privacidad.",
