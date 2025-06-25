@@ -190,7 +190,7 @@ export default function PetDetail() {
   };
 
   const { petId } = useParams();
-  console.log("petByID", petByID);
+
   const [medicalHistoryData, setMedicalHistoryData] = useState({
     description: "",
     current_treatment: "",
@@ -764,12 +764,11 @@ export default function PetDetail() {
                   </div>
                   <div className="mb-4">
                     <h2 className="text-1xl font-bold text-white">
-                      Con estos settings podras cambiar como se vialuiza tu
-                      chapa
+                      {t("tagInfo.description")}
                     </h2>
                     <div className="flex flex-col md:flex-row gap-3 mt-3">
                       <div className="flex items-center">
-                        <label className="mr-2">Lost</label>
+                        <label className="mr-2">{t("tagInfo.lost")}</label>
                         <input
                           type="checkbox"
                           name="lost"
@@ -785,7 +784,9 @@ export default function PetDetail() {
                       </div>
 
                       <div className="flex items-center">
-                        <label className="mr-2">Show Medical History</label>
+                        <label className="mr-2">
+                          {t("tagInfo.medicalHistory")}
+                        </label>
                         <input
                           type="checkbox"
                           name="show_medical_history"
@@ -796,7 +797,9 @@ export default function PetDetail() {
                       </div>
 
                       <div className=" flex items-center">
-                        <label className="mr-2">Show Travel Mode</label>
+                        <label className="mr-2">
+                          {t("tagInfo.travelMode")}
+                        </label>
                         <input
                           type="checkbox"
                           name="show_travel_mode"
@@ -810,128 +813,128 @@ export default function PetDetail() {
 
                   <div className="flex gap-3 flex-col md:flex-row">
                     <div className="w-full">
-                      <label>Owner one</label>
+                      <label>{t("tagInfo.owner1")}</label>
                       <input
                         type="text"
                         name="mom_name"
                         value={petInfo.mom_name}
                         onChange={handleChange}
                         className="w-full px-4 py-2 border rounded-lg"
-                        placeholder="Mom's Name"
+                        placeholder={t("tagInfo.owner1")}
                       />
                     </div>
 
                     <div className="w-full">
-                      <label>Owner Two</label>
+                      <label>{t("tagInfo.owner2")}</label>
                       <input
                         type="text"
                         name="dad_name"
                         value={petInfo.dad_name}
                         onChange={handleChange}
                         className="w-full px-4 py-2 border rounded-lg mb-4"
-                        placeholder="Dad's Name"
+                        placeholder={t("tagInfo.owner2")}
                       />
                     </div>
                   </div>
 
                   <div className=" flex gap-3 flex-col md:flex-row">
                     <div className="w-full">
-                      <label>Name</label>
+                      <label>{t("tagInfo.petName")}</label>
                       <input
                         type="text"
                         name="name"
                         value={petInfo.name}
                         onChange={handleChange}
                         className="w-full px-4 py-2 border rounded-lg"
-                        placeholder="Pet's Name"
+                        placeholder={t("tagInfo.petName")}
                       />
                     </div>
 
                     <div className="mb-4 w-full">
-                      <label>Age</label>
+                      <label>{t("tagInfo.petAge")}</label>
                       <input
                         type="number"
                         name="age"
                         value={petInfo.age}
                         onChange={handleChange}
                         className="w-full px-4 py-2 border rounded-lg"
-                        placeholder="Pet's Age"
+                        placeholder={t("tagInfo.petAge")}
                       />
                     </div>
                   </div>
 
                   <div className="flex gap-3 flex-col md:flex-row">
                     <div className="w-full">
-                      <label>Pet Color</label>
+                      <label>{t("tagInfo.color")}</label>
                       <input
                         type="text"
                         name="pet_color"
                         value={petInfo.pet_color}
                         onChange={handleChange}
                         className="w-full px-4 py-2 border rounded-lg"
-                        placeholder="Pet's Color"
+                        placeholder={t("tagInfo.color")}
                       />
                     </div>
 
                     <div className="mb-4 w-full">
-                      <label>Breed</label>
+                      <label>{t("tagInfo.breed")}</label>
                       <input
                         type="text"
                         name="breed"
                         value={petInfo.breed}
                         onChange={handleChange}
                         className="w-full px-4 py-2 border rounded-lg"
-                        placeholder="Breed"
+                        placeholder={t("tagInfo.breed")}
                       />
                     </div>
                   </div>
 
                   <div className="mb-4">
-                    <label>Personality</label>
+                    <label>{t("tagInfo.personality")}</label>
                     <input
                       type="text"
                       name="personality"
                       value={petInfo.personality}
                       onChange={handleChange}
                       className="w-full px-4 py-2 border rounded-lg"
-                      placeholder="Personality"
+                      placeholder={t("tagInfo.personality")}
                     />
                   </div>
 
                   <div className="mb-4">
-                    <label>Address</label>
+                    <label>{t("tagInfo.address")}</label>
                     <input
                       type="text"
                       name="address"
                       value={petInfo.address}
                       onChange={handleChange}
                       className="w-full px-4 py-2 border rounded-lg"
-                      placeholder="Address"
+                      placeholder={t("tagInfo.address")}
                     />
                   </div>
 
                   <div className="flex gap-3 flex-col md:flex-row">
                     <div className="w-full">
-                      <label>Phone Number</label>
+                      <label>{t("tagInfo.phone1")}</label>
                       <input
                         type="text"
                         name="phone_number"
                         value={petInfo.phone_number}
                         onChange={handleChange}
                         className="w-full px-4 py-2 border rounded-lg"
-                        placeholder="Phone Number"
+                        placeholder={t("tagInfo.phone1")}
                       />
                     </div>
 
                     <div className="mb-4 w-full">
-                      <label>Phone Number (Optional)</label>
+                      <label>{t("tagInfo.phone2")}</label>
                       <input
                         type="text"
                         name="phone_number_optional"
                         value={petInfo.phone_number_optional || ""}
                         onChange={handleChange}
                         className="w-full px-4 py-2 border rounded-lg"
-                        placeholder="Optional Phone Number"
+                        placeholder={t("tagInfo.phone2")}
                       />
                     </div>
                   </div>
@@ -965,38 +968,38 @@ export default function PetDetail() {
               </div> */}
 
                   <div className="mb-4">
-                    <label>Vet Address</label>
+                    <label>{t("tagInfo.vet")}</label>
                     <input
                       type="text"
                       name="vet_address"
                       value={petInfo.vet_address}
                       onChange={handleChange}
                       className="w-full px-4 py-2 border rounded-lg"
-                      placeholder="Vet Address"
+                      placeholder={t("tagInfo.vet")}
                     />
                   </div>
 
                   <div className="mb-4">
-                    <label>Neighbourhood</label>
+                    <label>{t("tagInfo.neighbourhood")}</label>
                     <input
                       type="text"
                       name="neighbourhood"
                       value={petInfo.neighbourhood}
                       onChange={handleChange}
                       className="w-full px-4 py-2 border rounded-lg"
-                      placeholder="Neighbourhood"
+                      placeholder={t("tagInfo.neighbourhood")}
                     />
                   </div>
 
                   <div className="mb-4">
-                    <label>Chip Number</label>
+                    <label>{t("tagInfo.chip")}</label>
                     <input
                       type="number"
                       name="chip_number"
                       value={petInfo.chip_number}
                       onChange={handleChange}
                       className="w-full px-4 py-2 border rounded-lg"
-                      placeholder="Chip Number"
+                      placeholder={t("tagInfo.chip")}
                     />
                   </div>
 
@@ -1005,13 +1008,13 @@ export default function PetDetail() {
                       className="btn py-3 px-4 rounded-lg"
                       onClick={() => toggleCollapse("generalInfo")}
                     >
-                      Close
+                      {t("tagInfo.buttonClose")}
                     </button>
                     <button
                       className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full md:w-auto"
                       onClick={handleSubmit}
                     >
-                      create{" "}
+                      {t("tagInfo.buttonCreate")}{" "}
                     </button>
                   </div>
                 </div>
@@ -1061,15 +1064,15 @@ export default function PetDetail() {
                   <div className="mt-5">
                     <div className="mb-5">
                       <h2 className="text-1xl font-bold text-white">
-                        Agrega la Informacion medica general
+                        {t("medicalHistoryForm.description")}
                       </h2>
-                      <small className="text-sm text-white">
+                      {/* <small className="text-sm text-white">
                         como si tienes un tramaention ahora o enfermedades para
                         toda la vida, etc
-                      </small>
+                      </small> */}
                     </div>
                     <div className="">
-                      <label>Description</label>
+                      <label>{t("medicalHistoryForm.descriptionLabel")}</label>
                     </div>
                     <textarea
                       name="description"
@@ -1080,7 +1083,9 @@ export default function PetDetail() {
                           ? "border-red-500"
                           : "border-gray-300"
                       }`}
-                      placeholder="Escribe la descripción del historial médico aquí..."
+                      placeholder={t(
+                        "medicalHistoryForm.descriptionPlaceholder"
+                      )}
                       rows={5}
                     />
                   </div>
@@ -1088,7 +1093,9 @@ export default function PetDetail() {
                   <div className="flex gap-3 flex-col md:flex-row">
                     <div className="w-full">
                       <div>
-                        <label>current_treatment</label>
+                        <label>
+                          {t("medicalHistoryForm.currentTreatmentLabel")}
+                        </label>
                       </div>
                       <div className="w-full">
                         <input
@@ -1097,7 +1104,9 @@ export default function PetDetail() {
                           value={medicalHistoryData.current_treatment}
                           onChange={handleInputChange}
                           className="w-full p-2 border rounded-lg"
-                          placeholder="Tratamiento actual"
+                          placeholder={t(
+                            "medicalHistoryForm.currentTreatmentPlaceholder"
+                          )}
                         />
                       </div>
                     </div>
@@ -1121,7 +1130,7 @@ export default function PetDetail() {
                   <div className="flex gap-3 flex-col md:flex-row mt-2">
                     <div className="w-full">
                       <div>
-                        <label>important_notes</label>
+                        <label>{t("medicalHistoryForm.important_notes")}</label>
                       </div>
                       <div>
                         <input
@@ -1130,13 +1139,13 @@ export default function PetDetail() {
                           value={medicalHistoryData.important_notes}
                           onChange={handleInputChange}
                           className="w-full p-2 border rounded-lg"
-                          placeholder="Notas importantes"
+                          placeholder={t("medicalHistoryForm.important_notes")}
                         />
                       </div>
                     </div>
                     <div className="w-full">
                       <div>
-                        <label>allergies</label>
+                        <label>{t("medicalHistoryForm.allergiesLabel")}</label>
                       </div>
                       <div>
                         <input
@@ -1145,7 +1154,9 @@ export default function PetDetail() {
                           value={medicalHistoryData.allergies}
                           onChange={handleInputChange}
                           className="w-full p-2 border rounded-lg mb-3"
-                          placeholder="Alergias"
+                          placeholder={t(
+                            "medicalHistoryForm.allergiesPlaceholder"
+                          )}
                         />
                       </div>
                     </div>
@@ -1154,7 +1165,7 @@ export default function PetDetail() {
                   <div className="flex gap-3 flex-col md:flex-row">
                     <div className="w-full">
                       <div>
-                        <label>weight</label>
+                        <label>{t("medicalHistoryForm.weightLabel")}</label>
                       </div>
                       <div>
                         <input
@@ -1163,13 +1174,13 @@ export default function PetDetail() {
                           value={medicalHistoryData.weight}
                           onChange={handleInputChange}
                           className="w-full p-2 border rounded-lg"
-                          placeholder="Peso (kg)"
+                          placeholder={t("medicalHistoryForm.weightLabel")}
                         />
                       </div>
                     </div>
                     <div className="w-full">
                       <div>
-                        <label>height</label>
+                        <label>{t("medicalHistoryForm.heightLabel")}</label>
                       </div>
                       <div>
                         <input
@@ -1178,13 +1189,13 @@ export default function PetDetail() {
                           value={medicalHistoryData.height}
                           onChange={handleInputChange}
                           className="w-full p-2 border rounded-lg"
-                          placeholder="Altura (cm)"
+                          placeholder={t("medicalHistoryForm.heightLabel")}
                         />
                       </div>
                     </div>
                     <div className="w-full">
                       <div>
-                        <label>blood_type</label>
+                        <label>{t("medicalHistoryForm.bloodTypeLabel")}</label>
                       </div>
                       <div>
                         <input
@@ -1193,7 +1204,7 @@ export default function PetDetail() {
                           value={medicalHistoryData.blood_type}
                           onChange={handleInputChange}
                           className="w-full p-2 border rounded-lg mb-3"
-                          placeholder="Tipo de sangre"
+                          placeholder={t("medicalHistoryForm.bloodTypeLabel")}
                         />
                       </div>
                     </div>
@@ -1217,7 +1228,9 @@ export default function PetDetail() {
 
                   <div>
                     <div>
-                      <label>medications</label>
+                      <label>
+                        {t("medicalHistoryForm.currentMedicationsLabel")}
+                      </label>
                     </div>
                     <div>
                       <input
@@ -1226,14 +1239,18 @@ export default function PetDetail() {
                         value={medicalHistoryData.medications}
                         onChange={handleInputChange}
                         className="w-full p-2 border rounded-lg mb-3"
-                        placeholder="Medicamentos actuales"
+                        placeholder={t(
+                          "medicalHistoryForm.currentMedicationsPlaceholder"
+                        )}
                       />
                     </div>
                   </div>
 
                   <div>
                     <div>
-                      <label>surgical_history</label>
+                      <label>
+                        {t("medicalHistoryForm.surgeryHistoryLabel")}
+                      </label>
                     </div>
                     <div>
                       <input
@@ -1242,7 +1259,9 @@ export default function PetDetail() {
                         value={medicalHistoryData.surgical_history}
                         onChange={handleInputChange}
                         className="w-full p-2 border rounded-lg mb-3"
-                        placeholder="Historial de cirugías"
+                        placeholder={t(
+                          "medicalHistoryForm.surgeryHistoryPlaceholder"
+                        )}
                       />
                     </div>
                   </div>
@@ -1250,7 +1269,7 @@ export default function PetDetail() {
                   <div className="flex gap-3 flex-col md:flex-row">
                     <div className="w-full ">
                       <div>
-                        <label>diet</label>
+                        <label>{t("medicalHistoryForm.dietLabel")}</label>
                       </div>
                       <div>
                         <input
@@ -1259,13 +1278,15 @@ export default function PetDetail() {
                           value={medicalHistoryData.diet}
                           onChange={handleInputChange}
                           className="w-full p-2 border rounded-lg"
-                          placeholder="Dieta"
+                          placeholder={t("medicalHistoryForm.dietPlaceholder")}
                         />
                       </div>
                     </div>
                     <div className="w-full ">
                       <div>
-                        <label>vaccination_status</label>
+                        <label>
+                          {t("medicalHistoryForm.vaccinationStatusLabel")}
+                        </label>
                       </div>
                       <div>
                         <input
@@ -1274,7 +1295,9 @@ export default function PetDetail() {
                           value={medicalHistoryData.vaccination_status}
                           onChange={handleInputChange}
                           className="w-full p-2 border rounded-lg mb-3"
-                          placeholder="Estado de vacunación"
+                          placeholder={t(
+                            "medicalHistoryForm.vaccinationStatusPlaceholder"
+                          )}
                         />
                       </div>
                     </div>
@@ -1305,14 +1328,14 @@ export default function PetDetail() {
                       disabled={loading}
                     >
                       {loading
-                        ? "Creando historial médico..."
-                        : "Crear Historial Médico"}
+                        ? t("medicalHistoryForm.buttonCreateLoading")
+                        : t("medicalHistoryForm.buttonCreate")}
                     </button>
                     <button
                       className="btn py-3 px-4 rounded-lg"
                       onClick={() => toggleCollapse("medicalHistory2")}
                     >
-                      Close
+                      {t("medicalHistoryForm.buttonClose")}
                     </button>
                   </div>
                 </div>
