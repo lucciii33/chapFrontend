@@ -329,5 +329,45 @@
 
     "section7Title": "7. Contacto",
     "section7Text": "Cualquier duda o solicitud:"
+  },
+
+  "expenses": {
+    "title": "CONTROL DE GASTOS",
+    "yourPets": "Tus mascotas",
+    "selectPet": "Selecciona una mascota",
+    "expenseDate": "Fecha del gasto",
+    "amount": "Monto",
+    "description": "Descripción",
+    "category": "Categoría",
+    "selectCategory": "Selecciona una categoría",
+    "categoryOptions": {
+      "health": "Salud",
+      "food": "Comida",
+      "entertainment": "Entretenimiento",
+      "grooming": "Aseo",
+      "insurance": "Seguro",
+      "transportation": "Transporte",
+      "training": "Entrenamiento",
+      "other": "Otros"
+    },
+    "paymentMethod": "Método de pago",
+    "recurring": "Recurrente",
+    "saveButton": "GUARDAR",
+    "filters": "Filtros",
+    "allPets": "Todas las mascotas",
+    "filterButton": "Filtrar",
+    "tableHeaders": {
+      "name": "Nombre",
+      "expenseDate": "Fecha del gasto",
+      "amount": "Monto",
+      "description": "Descripción",
+      "category": "Categoría",
+      "paymentMethod": "Método de pago",
+      "recurring": "Recurrente",
+      "action": "Acción"
+    },
+    "totalExpense": "GASTO TOTAL",
+    "lockedFeature": "Esta función estará disponible después de que completes el pago de la chapa",
+    "buttonClose": "Cerrar"
   }
 }

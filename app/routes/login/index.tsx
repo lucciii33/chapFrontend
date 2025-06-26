@@ -106,13 +106,15 @@ export default function Login() {
             />
           </div>
           <p
-            className="block mt-2 text-sm text-slate-50"
+            className="block mt-2 text-sm text-slate-50 underline cursor-pointer font-bold"
             onClick={() => document.getElementById("resetPassword").showModal()}
           >
             {t("login_page.forgot_password")}
           </p>
           <div className="mb-2">
-            <Link to="/register">{t("login_page.no_account")}</Link>
+            <Link className="underline cursor-pointer font-bold" to="/register">
+              {t("login_page.no_account")}
+            </Link>
           </div>
 
           <div className="w-full">

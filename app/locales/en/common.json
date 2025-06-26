@@ -329,5 +329,45 @@
 
     "section7Title": "7. Contact",
     "section7Text": "For any privacy questions or requests:"
+  },
+
+  "expenses": {
+    "title": "TRACK YOUR FINANCES",
+    "yourPets": "Your pets",
+    "selectPet": "Select a pet",
+    "expenseDate": "Date of expense",
+    "amount": "Amount",
+    "description": "Description",
+    "category": "Category",
+    "selectCategory": "Select a category",
+    "categoryOptions": {
+      "health": "Health",
+      "food": "Food",
+      "entertainment": "Entertainment",
+      "grooming": "Grooming",
+      "insurance": "Insurance",
+      "transportation": "Transportation",
+      "training": "Training",
+      "other": "Other"
+    },
+    "paymentMethod": "Payment method",
+    "recurring": "Recurring",
+    "saveButton": "SAVE",
+    "filters": "Filters",
+    "allPets": "All pets",
+    "filterButton": "Filter",
+    "tableHeaders": {
+      "name": "Dog name",
+      "expenseDate": "Expense date",
+      "amount": "Amount",
+      "description": "Description",
+      "category": "Category",
+      "paymentMethod": "Payment method",
+      "recurring": "Recurring",
+      "action": "Action"
+    },
+    "totalExpense": "TOTAL EXPENSE",
+    "lockedFeature": "This feature will be available after you complete the payment of your tag",
+    "buttonClose": "Close"
   }
 }

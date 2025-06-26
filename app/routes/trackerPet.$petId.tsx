@@ -12,8 +12,11 @@ import {
   CakeIcon,
 } from "@heroicons/react/24/solid";
 import { Bars3Icon } from "@heroicons/react/24/solid";
+import { useTranslation } from "react-i18next";
 
 export default function PetTracker() {
+  const { t } = useTranslation();
+
   const { createPetTrack, getPetTrack, deletePetTrack, editPetTrack } =
     PetTrackerContext();
   const { pet } = useGlobalContext();

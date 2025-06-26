@@ -226,7 +226,7 @@ export default function Register() {
               </Link>
             </div>
           </div>
-          <div className="mb-2 text-sm cursor-pointer underline text-bold">
+          <div className="mb-2 text-sm cursor-pointer underline font-bold">
             <Link to="/login">{t("register_page.account")}</Link>
           </div>
 

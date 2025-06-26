@@ -6,10 +6,13 @@ import DeleteDialog from "~/components/deleteDialog";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import { formatDate } from "../../utils/dateFormat";
 import "../../../styles/dashboard.css";
+import { useTranslation } from "react-i18next";
 
 export default function Finances() {
   const { auth, pet, finances } = useGlobalContext();
   const { getPets, allPets } = pet;
+  const { t } = useTranslation();
+
   console.log("allPetsallPets", allPets);
   const user = auth.user;
   const [allFinances, setAllFinances] = useState([]);
@@ -237,17 +240,17 @@ export default function Finances() {
         className="my-5 text-2xl lg:text-4xl font-bold text-white"
         style={{ fontFamily: "chapFont" }}
       >
-        Track your finances
+        {t("expenses.title")}
       </h2>
       <div className="border-2 p-5  !border-[#65bcbb] rounded-lg">
-        <label className="block text-slate-50">Tus mascotas</label>
+        <label className="block text-slate-50">{t("expenses.yourPets")}</label>
         <select
           name="pet_id"
           className="w-full px-4 py-2 border rounded-lg"
           value={expenseData.pet_id}
           onChange={handleChangeFinances}
         >
-          <option value={0}>Selecciona una mascota</option>
+          <option value={0}>{t("expenses.selectPet")}</option>
           {allPets.map((pet) => (
             <option key={pet.id} value={pet.id}>
               {pet.name}
@@ -257,11 +260,13 @@ export default function Finances() {
 
         <div className="flex gap-2 flex-col md:flex-row mt-4">
           <div className="mb-2 w-full">
-            <label className="block text-slate-50">Fecha del gasto</label>
+            <label className="block text-slate-50">
+              {t("expenses.expenseDate")}
+            </label>
             <input
               type="date"
               className="w-full px-4 py-2 border rounded-lg"
-              placeholder="Fecha del gasto"
+              placeholder={t("expenses.expenseDate")}
               name="expense_date"
               value={expenseData.expense_date}
               onChange={handleChangeFinances}
@@ -282,22 +287,26 @@ export default function Finances() {
         </div>
         <div className="flex gap-2 flex-col md:flex-row ">
           <div className="mb-2 w-full">
-            <label className="block text-slate-50">Monto</label>
+            <label className="block text-slate-50">
+              {t("expenses.amount")}
+            </label>
             <input
               type="number"
               className="w-full px-4 py-2 border rounded-lg"
-              placeholder="Monto"
+              placeholder={t("expenses.amount")}
               name="amount"
               value={expenseData.amount}
               onChange={handleChangeFinances}
             />
           </div>
           <div className="mb-2 w-full">
-            <label className="block text-slate-50">Descripción</label>
+            <label className="block text-slate-50">
+              {t("expenses.description")}
+            </label>
             <input
               //   type="password"
               className="w-full px-4 py-2 border rounded-lg"
-              placeholder="Descripción"
+              placeholder={t("expenses.description")}
               name="description"
               value={expenseData.description}
               onChange={handleChangeFinances}
@@ -306,30 +315,50 @@ export default function Finances() {
         </div>
         <div className="flex gap-2 flex-col md:flex-row ">
           <div className="mb-2 w-full">
-            <label className="block text-slate-50">Categoría</label>
+            <label className="block text-slate-50">
+              {t("expenses.category")}
+            </label>
             <select
               name="category"
               value={expenseData.category}
               onChange={handleChangeFinances}
               className="w-full px-4 py-2 border rounded-lg"
             >
-              <option value="">Selecciona una categoría</option>
-              <option value="Salud">Salud</option>
-              <option value="Comida">Comida</option>
-              <option value="Entretenimiento">Entretenimiento</option>
-              <option value="Aseo">Aseo</option>
-              <option value="Seguro">Seguro</option>
-              <option value="Transporte">Transporte</option>
-              <option value="Entrenamiento">Entrenamiento</option>
-              <option value="Otros">Otros</option>
+              <option value="">{t("expenses.selectCategory")}</option>
+              <option value="Salud">
+                {t("expenses.categoryOptions.health")}
+              </option>
+              <option value="Comida">
+                {t("expenses.categoryOptions.food")}
+              </option>
+              <option value="Entretenimiento">
+                {t("expenses.categoryOptions.entertainment")}
+              </option>
+              <option value="Aseo">
+                {t("expenses.categoryOptions.grooming")}
+              </option>
+              <option value="Seguro">
+                {t("expenses.categoryOptions.insurance")}
+              </option>
+              <option value="Transporte">
+                {t("expenses.categoryOptions.transportation")}
+              </option>
+              <option value="Entrenamiento">
+                {t("expenses.categoryOptions.training")}
+              </option>
+              <option value="Otros">
+                {t("expenses.categoryOptions.other")}
+              </option>
             </select>
           </div>
           <div className="mb-2 w-full">
-            <label className="block text-slate-50">Método de pago</label>
+            <label className="block text-slate-50">
+              {t("expenses.paymentMethod")}
+            </label>
             <input
               //   type="password"
               className="w-full px-4 py-2 border rounded-lg"
-              placeholder="payment method"
+              placeholder={t("expenses.paymentMethod")}
               name="payment_method"
               value={expenseData.payment_method}
               onChange={handleChangeFinances}
@@ -337,11 +366,13 @@ export default function Finances() {
           </div>
         </div>
         <div className="flex">
-          <label className="block text-slate-50">Recurrente</label>
+          <label className="block text-slate-50">
+            {t("expenses.recurring")}
+          </label>
           <input
             type="checkbox"
             className="radio radio-accent ms-3"
-            placeholder="recurring"
+            placeholder={t("expenses.recurring")}
             name="recurring"
             checked={expenseData.recurring}
             onChange={handleChangeFinances}
@@ -352,14 +383,14 @@ export default function Finances() {
             onClick={handleSaveExpense}
             className="border-none py-3 px-4 ms-0 mt-5 bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
           >
-            GUARDAR
+            {t("expenses.saveButton")}
           </button>
         </div>
       </div>
 
       <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 p-5 mt-5">
         <div>
-          <h2>Filtro</h2>
+          <h2> {t("expenses.filters")}</h2>
           <div className="flex items-center mt-4 justify-between gap-2">
             <div className="w-full">
               <input
@@ -408,15 +439,15 @@ export default function Finances() {
           {/* head */}
           <thead>
             <tr>
-              <th>Dog name</th>
-              <th>Expense date</th>
+              <th>{t("expenses.tableHeaders.name")}</th>
+              <th>{t("expenses.tableHeaders.expenseDate")}</th>
               {/* <th>Expense type</th> */}
-              <th>Amount</th>
-              <th>Description</th>
-              <th>Category</th>
-              <th>Payment method</th>
-              <th>Recurring</th>
-              <th>Action</th>
+              <th>{t("expenses.tableHeaders.amount")}</th>
+              <th>{t("expenses.tableHeaders.description")}</th>
+              <th>{t("expenses.tableHeaders.category")}</th>
+              <th>{t("expenses.tableHeaders.paymentMethod")}</th>
+              <th>{t("expenses.tableHeaders.recurring")}</th>
+              <th>{t("expenses.tableHeaders.action")}</th>
             </tr>
           </thead>
           <tbody>
@@ -446,7 +477,9 @@ export default function Finances() {
           </tbody>
         </table>
         {/* //aqui va el monto total gastado AL MES! */}
-        <div>GASTO TOTAL:{totalSpentFiltered}</div>
+        <div>
+          {t("expenses.totalExpense")}: {totalSpentFiltered}
+        </div>
       </div>
       <Pagination
         currentPage={currentPage}
@@ -462,17 +495,14 @@ export default function Finances() {
 
       <dialog id="purchase_aler_2" className="modal">
         <div className="modal-box w-3/4 max-w-4xl h-auto p-6">
-          <h2>
-            Debes comprar primero la chapa de esta mascota para poder usar este
-            feature.
-          </h2>
+          <h2>{t("expenses.lockedFeature")}</h2>
           <button
             className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600"
             onClick={() => {
               document.getElementById("purchase_aler_2").close();
             }}
           >
-            Close
+            {t("expenses.buttonClose")}
           </button>
         </div>
       </dialog>
