@@ -198,6 +198,7 @@
 
   "general_pet_id": {
     "welcome": "Welcome to {{name}}'s dashboard!",
+    "filter_collapse": "Open you settings",
     "general_info": "General information",
     "create_medical_history": "Create medical history",
     "create_vet_visits": "Create veterinary visits",
@@ -366,6 +367,10 @@
       "recurring": "Recurring",
       "action": "Action"
     },
+    "expense_label_from": "From",
+    "expense_label_To": "To",
+    "expense_label_dogs": "Filter by Pet",
+    "expense_label_select": "All pets",
     "totalExpense": "TOTAL EXPENSE",
     "lockedFeature": "This feature will be available after you complete the payment of your tag",
     "buttonClose": "Close"

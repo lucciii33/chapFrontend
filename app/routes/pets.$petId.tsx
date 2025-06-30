@@ -48,6 +48,7 @@ export default function PetDetail() {
   const [isDeletePetDialogOpen, setIsDeletePetDialogOpen] = useState(false);
   const [vaccineErrors, setVaccineErrors] = useState({});
   const [medicalErrors, setMedicalErrors] = useState({});
+  const [isOpenSettings, setIsOpenSettings] = useState(false);
 
   const [docIdToDelete, setDocIdToDelete] = useState<number | null>(null);
   const [isDeleteDocDialogOpen, setIsDeleteDocDialogOpen] = useState(false);
@@ -227,6 +228,18 @@ export default function PetDetail() {
     show_medical_history: false,
     show_travel_mode: false,
   });
+
+  useEffect(() => {
+    const handleResize = () => {
+      const isMobile = window.innerWidth < 768;
+      setIsOpenSettings(!isMobile);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     if (petByID) {
@@ -570,6 +583,10 @@ export default function PetDetail() {
     }));
   };
 
+  const toggleSettings = () => {
+    setIsOpenSettings((prev) => !prev);
+  };
+
   const handleDeleteVaccineFunc = async () => {
     if (!vaccineIdToDelete) return;
 
@@ -629,65 +646,90 @@ export default function PetDetail() {
     <div className="">
       {petByID ? (
         <div>
-          <div className="flex justify-between items-center p-4 flex-col md:flex-row">
-            <div className="">
-              <button
-                className="w-full md:w-auto border-none py-3 px-4 mt-5 bg-teal-900 text-white rounded-lg"
-                onClick={() =>
-                  document
-                    .getElementById("my_modal_5_pet_id_alerts")
-                    .showModal()
-                }
-              >
-                {t("extraOptions.create_alerts")}
-              </button>
-              <button
-                className="border-none py-3 px-4 ms-0 md:ms-3 mt-5 bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
-                onClick={() =>
-                  document.getElementById("my_modal_7_pet_id").showModal()
-                }
-              >
-                {t("extraOptions.medical_visits")}
-              </button>
-              <button
-                className="border-none py-3 px-4 ms-0 md:ms-3 mt-5 bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
-                onClick={() =>
-                  document.getElementById("my_modal_8_pet_id").showModal()
-                }
-              >
-                {t("extraOptions.vaccines")}
-              </button>
-              <button className="border-none py-3 px-4 ms-0 md:ms-3 mt-5 bg-teal-500 text-white  rounded-lg  w-full md:w-auto">
-                <Link to={`/emergencyPdf/${petId}`}>
-                  <div>{t("extraOptions.lost_flyer")}</div>
-                </Link>
-              </button>
-            </div>
-            <div className="w-full md:w-auto md:flex md:flex-row">
+          <div className="border-2 md:border-0 bg-gray-800 md:bg-transparent border-gray-700 md:border-transparent rounded-lg md:rounded-none m-5 md:m-0">
+            <div className="flex justify-between p-5 md:hidden">
               <div>
-                <Link to={`/publicQr/${petId}`}>
-                  <button className="w-full md:w-auto border-none py-3 px-4 ms-0 md:ms-3 mt-5 bg-teal-700 text-white rounded-lg inline-block">
-                    {" "}
-                    {t("extraOptions.qr_view")}
+                {" "}
+                <h2 className="text-lg text-teal-500">
+                  {" "}
+                  {t("general_pet_id.filter_collapse")}
+                </h2>
+              </div>
+              <div>
+                {" "}
+                <span onClick={() => toggleSettings()}>
+                  {isOpenSettings ? (
+                    <ChevronUpIcon className="h-6 w-6 text-teal-500" />
+                  ) : (
+                    <ChevronDownIcon className="h-6 w-6 text-teal-500" />
+                  )}
+                </span>
+              </div>
+            </div>
+            {isOpenSettings && (
+              <div className=" flex justify-between items-center p-4 flex-col md:flex-row">
+                <div className="">
+                  <button
+                    className="w-full md:w-auto border-none py-3 px-4 mt-5 bg-teal-900 text-white rounded-lg"
+                    onClick={() =>
+                      document
+                        .getElementById("my_modal_5_pet_id_alerts")
+                        .showModal()
+                    }
+                  >
+                    {t("extraOptions.create_alerts")}
                   </button>
-                </Link>
+                  <button
+                    className="border-none py-3 px-4 ms-0 md:ms-3 mt-5 bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
+                    onClick={() =>
+                      document.getElementById("my_modal_7_pet_id").showModal()
+                    }
+                  >
+                    {t("extraOptions.medical_visits")}
+                  </button>
+                  <button
+                    className="border-none py-3 px-4 ms-0 md:ms-3 mt-5 bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
+                    onClick={() =>
+                      document.getElementById("my_modal_8_pet_id").showModal()
+                    }
+                  >
+                    {t("extraOptions.vaccines")}
+                  </button>
+                  <button className="border-none py-3 px-4 ms-0 md:ms-3 mt-5 bg-teal-500 text-white  rounded-lg  w-full md:w-auto">
+                    <Link to={`/emergencyPdf/${petId}`}>
+                      <div>{t("extraOptions.lost_flyer")}</div>
+                    </Link>
+                  </button>
+                </div>
+                <div className="w-full md:w-auto md:flex md:flex-row">
+                  <div>
+                    <Link to={`/publicQr/${petId}`}>
+                      <button className="w-full md:w-auto border-none py-3 px-4 ms-0 md:ms-3 mt-5 bg-teal-700 text-white rounded-lg inline-block">
+                        {" "}
+                        {t("extraOptions.qr_view")}
+                      </button>
+                    </Link>
+                  </div>
+                  <div>
+                    <button
+                      className={`w-full md:w-auto border-none py-3 px-4 ms-0 md:ms-3 mt-5 bg-teal-700 text-white rounded-lg inline-block font-semibold transition-all duration-300 ${
+                        comingFromCardButton ? "animate-glow" : ""
+                      }`}
+                      onClick={() => {
+                        document
+                          .getElementById("my_modal_6_pet_id")
+                          .showModal();
+                        setTimeout(() => {
+                          setComingFromCardButton(false);
+                        }, 4000);
+                      }}
+                    >
+                      {t("extraOptions.your_tags")}
+                    </button>
+                  </div>
+                </div>
               </div>
-              <div>
-                <button
-                  className={`w-full md:w-auto border-none py-3 px-4 ms-0 md:ms-3 mt-5 bg-teal-700 text-white rounded-lg inline-block font-semibold transition-all duration-300 ${
-                    comingFromCardButton ? "animate-glow" : ""
-                  }`}
-                  onClick={() => {
-                    document.getElementById("my_modal_6_pet_id").showModal();
-                    setTimeout(() => {
-                      setComingFromCardButton(false);
-                    }, 4000);
-                  }}
-                >
-                  {t("extraOptions.your_tags")}
-                </button>
-              </div>
-            </div>
+            )}
           </div>
 
           <div className="mt-2 p-5">
@@ -1676,9 +1718,12 @@ export default function PetDetail() {
             />
           </div>
 
-          <div className="px-5 flex items-center">
+          <div
+            className="px-5 flex items-center mb-[40px] cursor-pointer"
+            onClick={openPetDeleteModal}
+          >
             <div>{t("general_pet_id.delete_pet")}</div>
-            <div className="" onClick={openPetDeleteModal}>
+            <div className="">
               <TrashIcon className="w-6 h-6" />
             </div>
           </div>

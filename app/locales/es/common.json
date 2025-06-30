@@ -197,6 +197,7 @@
 
   "general_pet_id": {
     "welcome": "¡Bienvenido al panel de {{name}}!",
+    "filter_collapse": "Abre tus ajustes",
     "general_info": "Información general",
     "create_medical_history": "Crear historial médico",
     "create_vet_visits": "Crear visitas al veterinario",
@@ -350,6 +351,10 @@
       "training": "Entrenamiento",
       "other": "Otros"
     },
+    "expense_label_from": "Desde",
+    "expense_label_To": "Hasta",
+    "expense_label_dogs": "Filtrar por Mascota",
+    "expense_label_select": "Todas las mascotas",
     "paymentMethod": "Método de pago",
     "recurring": "Recurrente",
     "saveButton": "GUARDAR",

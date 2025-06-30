@@ -391,8 +391,9 @@ export default function Finances() {
       <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 p-5 mt-5">
         <div>
           <h2> {t("expenses.filters")}</h2>
-          <div className="flex items-center mt-4 justify-between gap-2">
+          <div className="flex flex-col md:flex-row items-center mt-4 justify-between gap-2">
             <div className="w-full">
+              <label>{t("expenses.expense_label_from")}</label>
               <input
                 type="date"
                 className="w-full px-4 py-2 border rounded-lg"
@@ -402,6 +403,7 @@ export default function Finances() {
               />
             </div>
             <div className="w-full">
+              <label>{t("expenses.expense_label_To")}</label>
               <input
                 type="date"
                 className="w-full px-4 py-2 border rounded-lg"
@@ -411,12 +413,13 @@ export default function Finances() {
               />
             </div>
             <div className="w-full">
+              <label>{t("expenses.expense_label_dogs")}</label>
               <select
                 value={selectedPetId}
                 onChange={(e) => setSelectedPetId(Number(e.target.value))}
                 className="w-full px-4 py-2 border rounded-lg"
               >
-                <option value={0}>Todas las mascotas</option>
+                <option value={0}>{t("expenses.expense_label_select")}</option>
                 {allPets.map((pet) => (
                   <option key={pet.id} value={pet.id}>
                     {pet.name}
@@ -425,9 +428,9 @@ export default function Finances() {
               </select>
             </div>
 
-            <div>
+            <div className="w-full">
               <button
-                className="px-4 py-2 bg-[#65bcbb] text-white rounded-lg"
+                className="w-full md:w-auto px-4 py-2 bg-[#65bcbb] text-white rounded-lg"
                 onClick={filterDates}
               >
                 Filtrar

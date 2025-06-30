@@ -289,8 +289,8 @@ export default function Card({ petObj }: CardProps) {
         <div className="modal-box w-3/4 max-w-4xl h-auto p-6">
           <h3 className="font-bold text-lg">Crea Tu chapa aqui</h3>
           <>
-            <div className="flex mt-3">
-              <div className="w-1/2 border-r border-gray-500 ">
+            <div className="flex flex-col md:flex-row mt-3">
+              <div className="w-full md:w-1/2 order-2 md:order-1 md:border-r  border-gray-500 ">
                 <div className="me-5">
                   <div>
                     <label>Material</label>
@@ -411,7 +411,7 @@ export default function Card({ petObj }: CardProps) {
                   Crea tu chapa aqui
                 </button>
               </div>
-              <div className="w-1/2 flex justify-center items-center">
+              <div className="w-full md:w-1/2 order-1 md:order-2 flex mb-4 md:mt-0 justify-center items-center">
                 {selectedImage ? (
                   <img
                     src={selectedImage.imageUrl}
