@@ -81,6 +81,7 @@
     "password": "Contraseña",
     "country": "País",
     "age": "Edad",
+    "password_alert": "Debe tener al menos 9 caracteres, una mayúscula, un número y un símbolo",
     "terms": "Acepto los Términos de Uso y la Política de Privacidad. Afirmo que he leído y acepto la información sobre protección de datos conforme al Reglamento (UE) 2016/679 (RGPD) y la Ley Orgánica 3/2018 (LOPDGDD).",
     "data_protection": "Afirmo que he leído y acepto la información sobre protección de datos.",
     "account": "Si ya tienes cuenta puedes entrar aqui",
@@ -374,5 +375,43 @@
     "totalExpense": "GASTO TOTAL",
     "lockedFeature": "Esta función estará disponible después de que completes el pago de la chapa",
     "buttonClose": "Cerrar"
+  },
+  "travelMode": {
+    "title": "¿Te vas de viaje?",
+    "description": "Agrega aquí toda la información importante para quien cuidará a tu mascota mientras estás fuera.",
+    "subtitle": "Tu mascota dice que está considerando perdonarte… pero solo si dejas claras las instrucciones y no olvidas su snack favorito (pollito incluido).",
+    "walkingInstructions": "Instrucciones para paseos",
+    "feedingInstructions": "Instrucciones de alimentación",
+    "medicationInstructions": "Instrucciones sobre medicación",
+    "allergies": "Alergias conocidas",
+    "emergencyContact": "Contacto de emergencia",
+    "notes": "Notas adicionales",
+    "buttonEdit": "Editar",
+    "buttonCreate": "Crear"
+  },
+  "vetVisitForm": {
+    "title": "Crear visita al veterinario",
+    "description": "Cada visita cuenta. Ten tu historial actualizado. Si cambias de veterinario, podrás mostrarle toda la información fácilmente.",
+    "note": "¿No quieres escribir todo? ¡No pasa nada! También puedes subir directamente el informe del veterinario.",
+    "form": {
+      "clinicAddressLabel": "Dirección",
+      "clinicAddressPlaceholder": "¿Dónde fue la consulta? (Nombre o dirección de la clínica)",
+
+      "treatmentLabel": "Tratamiento",
+      "treatmentPlaceholder": "¿Qué tratamiento o medicamentos se le dieron?",
+
+      "documentsLabel": "Documentos (PDF, imágenes, etc.)",
+      "documentsPlaceholder": "Sube el informe médico u otros archivos relacionados",
+
+      "visitDateLabel": "Fecha de la visita",
+      "visitDatePlaceholder": "dd/mm/aaaa",
+
+      "notesLabel": "Notas",
+      "medicalNotesLabel": "Notas médicas",
+      "visitReasonLabel": "Motivo de la visita",
+      "costLabel": "Costo"
+    },
+    "buttonClose": "Cerrar",
+    "buttonCreate": "Crear"
   }
 }

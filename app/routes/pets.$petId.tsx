@@ -1098,8 +1098,7 @@ export default function PetDetail() {
                   {!petByID.pay_show_info && (
                     <div className="absolute inset-0 z-50 bg-gray-900 bg-opacity-60 flex items-center justify-center pointer-events-auto">
                       <p className="text-white text-center text-lg opacity-70">
-                        this feature will be usable when you finish paying your
-                        tag
+                        <h2>{t("expenses.lockedFeature")}</h2>
                       </p>
                     </div>
                   )}
@@ -1413,48 +1412,47 @@ export default function PetDetail() {
                   {!petByID.pay_show_info && (
                     <div className="absolute inset-0 z-50 bg-gray-900 bg-opacity-60 flex items-center justify-center pointer-events-auto">
                       <p className="text-white text-center text-lg opacity-70">
-                        this feature will be usable when you finish paying your
-                        tag
+                        <h2>{t("expenses.lockedFeature")}</h2>
                       </p>
                     </div>
                   )}
                   <div className="mb-5">
                     <h2 className="text-1xl font-bold text-white">
-                      Mientras mas visites agregues mas facil seria cuidar a tu
-                      mascota en una emergencia
+                      {t("vetVisitForm.description")}
                     </h2>
                     <small className="text-sm text-white">
-                      no te saltes nada y si te da fastidio escribir simplemnte
-                      sube el informe del medico.
+                      {t("vetVisitForm.note")}
                     </small>
                   </div>
                   <div className="mb-4 w-full">
-                    <label>address</label>
+                    <label>{t("vetVisitForm.form.clinicAddressLabel")}</label>
                     <input
                       type="text"
                       name="address"
                       value={petVetInfo.address}
                       onChange={handleChangeVet}
                       className="w-full px-4 py-2 border rounded-lg"
-                      placeholder="address"
+                      placeholder={t(
+                        "vetVisitForm.form.clinicAddressPlaceholder"
+                      )}
                     />
                   </div>
 
                   <div className="w-full">
-                    <label>treatment</label>
+                    <label>{t("vetVisitForm.form.treatmentLabel")}</label>
                     <input
                       type="text"
                       name="treatment"
                       value={petVetInfo.treatment}
                       onChange={handleChangeVet}
                       className="w-full px-4 py-2 border rounded-lg mb-4"
-                      placeholder="treatment"
+                      placeholder={t("vetVisitForm.form.treatmentPlaceholder")}
                     />
                   </div>
 
                   <div className="flex gap-3 mb-4 flex-col md:flex-row">
                     <div className="w-full">
-                      <label>Documentos (PDF, imágenes, etc.)</label>
+                      <label>{t("vetVisitForm.form.documentsLabel")}</label>
                       <input
                         type="file"
                         name="files"
@@ -1464,7 +1462,7 @@ export default function PetDetail() {
                       />
                     </div>
                     <div className="w-full">
-                      <label>Date</label>
+                      <label>{t("vetVisitForm.form.visitDateLabel")}</label>
                       <input
                         type="date"
                         name="date"
@@ -1477,52 +1475,52 @@ export default function PetDetail() {
 
                   <div className="flex gap-3 mb-4 flex-col md:flex-row">
                     <div className="w-full">
-                      <label>notes</label>
+                      <label>{t("vetVisitForm.form.notesLabel")}</label>
                       <input
                         type="text"
                         name="notes"
                         value={petVetInfo.notes}
                         onChange={handleChangeVet}
                         className="w-full px-4 py-2 border rounded-lg"
-                        placeholder="notes"
+                        placeholder={t("vetVisitForm.form.notesLabel")}
                       />
                     </div>
 
                     <div className="w-full">
-                      <label>medical_notes:</label>
+                      <label>{t("vetVisitForm.form.medicalNotesLabel")}</label>
                       <input
                         type="text"
                         name="medical_notes"
                         value={petVetInfo.medical_notes}
                         onChange={handleChangeVet}
                         className="w-full px-4 py-2 border rounded-lg"
-                        placeholder="Dad's Name"
+                        placeholder={t("vetVisitForm.form.medicalNotesLabel")}
                       />
                     </div>
                   </div>
 
                   <div className="flex gap-3 mb-4 flex-col md:flex-row">
                     <div className="w-full">
-                      <label>cause</label>
+                      <label>{t("vetVisitForm.form.visitReasonLabel")}</label>
                       <input
                         type="text"
                         name="cause"
                         value={petVetInfo.cause}
                         onChange={handleChangeVet}
                         className="w-full px-4 py-2 border rounded-lg"
-                        placeholder="cause"
+                        placeholder={t("vetVisitForm.form.visitReasonLabel")}
                       />
                     </div>
 
                     <div className="w-full">
-                      <label>cost</label>
+                      <label>{t("vetVisitForm.form.costLabel")}</label>
                       <input
                         type="number"
                         name="cost"
                         value={petVetInfo.cost}
                         onChange={handleChangeVet}
                         className="w-full px-4 py-2 border rounded-lg"
-                        placeholder="cost"
+                        placeholder={t("vetVisitForm.form.costLabel")}
                       />
                     </div>
                   </div>
@@ -1535,7 +1533,7 @@ export default function PetDetail() {
                       onClick={handleCreateVetSession}
                       // disabled={loading}
                     >
-                      Create vet session
+                      {t("vetVisitForm.buttonClose")}
                     </button>
                     {/* <button
                   className="border-none py-3 px-4  bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
@@ -1549,7 +1547,7 @@ export default function PetDetail() {
                       className="btn py-3 px-4 rounded-lg"
                       onClick={() => toggleCollapse("vetSession")}
                     >
-                      Close
+                      {t("vetVisitForm.buttonCreate")}
                     </button>
                   </div>
                 </div>
@@ -1586,8 +1584,7 @@ export default function PetDetail() {
                   {!petByID.pay_show_info && (
                     <div className="absolute inset-0 z-50 bg-gray-900 bg-opacity-60 flex items-center justify-center pointer-events-auto">
                       <p className="text-white text-center text-lg opacity-70">
-                        this feature will be usable when you finish paying your
-                        tag
+                        <h2>{t("expenses.lockedFeature")}</h2>
                       </p>
                     </div>
                   )}

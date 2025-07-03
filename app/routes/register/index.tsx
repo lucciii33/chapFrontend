@@ -162,13 +162,11 @@ export default function Register() {
             {formData.hashed_password.length === 0 ||
             isValidPassword(formData.hashed_password) ? (
               <p className="text-sm text-gray-400 mt-1">
-                Debe tener al menos 9 caracteres, una mayúscula, un número y un
-                símbolo
+                {t("register_page.password_alert")}
               </p>
             ) : (
               <p className="text-red-500 text-xs mt-1">
-                La contraseña no cumple con los requisitos, Debe tener al menos
-                9 caracteres, una mayúscula, un número y un símbolo
+                {t("register_page.password_alert")}
               </p>
             )}
           </div>

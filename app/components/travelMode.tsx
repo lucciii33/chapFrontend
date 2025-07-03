@@ -1,6 +1,7 @@
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
 import { Link } from "@remix-run/react";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function TravelModeForm({
   travelModeData,
@@ -11,10 +12,6 @@ export default function TravelModeForm({
   payShowInfo,
   t,
 }) {
-  console.log(
-    "petIdpetIdpetIdpetIdpetIdpetIdpetIdpetIdpetIdpetIdpetIdpetId",
-    petId
-  );
   const [formData, setFormData] = useState({
     walk_instructions: "",
     feeding_instructions: "",
@@ -48,7 +45,6 @@ export default function TravelModeForm({
   };
 
   const handleSubmit = async () => {
-    console.log("formData", formData);
     if (onSubmit) {
       await onSubmit(formData);
     }
@@ -81,24 +77,24 @@ export default function TravelModeForm({
             {!payShowInfo && (
               <div className="absolute inset-0 z-50 bg-gray-900 bg-opacity-60 flex items-center justify-center pointer-events-auto">
                 <p className="text-white text-center text-lg opacity-70">
-                  this feature will be usable when you finish paying your tag
+                  <h2>{t("expenses.lockedFeature")}</h2>
                 </p>
               </div>
             )}
             <div className="mb-5">
               <h2 className="text-1xl font-bold text-white">
-                Te vas de viaje? agrega aqui la info necesaria para quien vaya a
-                cuidar a tu mascota
+                {t("travelMode.title")}
               </h2>
               <small className="text-sm text-white">
-                tu perro te manda a decir que eres muy mala persona por dejarlo,
-                dice que al menos ponga bastante pollito en donde sale su
-                aliemntacion
+                {t("travelMode.description")}
+              </small>
+              <small className="text-sm text-white">
+                {t("travelMode.subtitle")}
               </small>
             </div>
             <div>
               <div>
-                <label>Instrucciones para paseos</label>
+                <label>{t("travelMode.walkingInstructions")}</label>
               </div>
               <input
                 type="text"
@@ -106,13 +102,13 @@ export default function TravelModeForm({
                 value={formData.walk_instructions}
                 onChange={handleChange}
                 className="w-full px-4 py-2 border rounded-lg mb-2"
-                placeholder="Instrucciones para paseos"
+                placeholder={t("travelMode.walkingInstructions")}
               />
             </div>
 
             <div>
               <div>
-                <label>Instrucciones de alimentación</label>
+                <label>{t("travelMode.feedingInstructions")}</label>
               </div>
               <input
                 type="text"
@@ -120,13 +116,13 @@ export default function TravelModeForm({
                 value={formData.feeding_instructions}
                 onChange={handleChange}
                 className="w-full px-4 py-2 border rounded-lg mb-2"
-                placeholder="Instrucciones de alimentación"
+                placeholder={t("travelMode.feedingInstructions")}
               />
             </div>
 
             <div>
               <div>
-                <label>Instrucciones de medicación</label>
+                <label>{t("travelMode.medicationInstructions")}</label>
               </div>
               <input
                 type="text"
@@ -134,13 +130,13 @@ export default function TravelModeForm({
                 value={formData.medication_instructions}
                 onChange={handleChange}
                 className="w-full px-4 py-2 border rounded-lg mb-2"
-                placeholder="Instrucciones de medicación"
+                placeholder={t("travelMode.medicationInstructions")}
               />
             </div>
 
             <div>
               <div>
-                <label>Alergias</label>
+                <label>{t("travelMode.allergies")}</label>
               </div>
               <input
                 type="text"
@@ -148,13 +144,13 @@ export default function TravelModeForm({
                 value={formData.allergies}
                 onChange={handleChange}
                 className="w-full px-4 py-2 border rounded-lg mb-2"
-                placeholder="Alergias"
+                placeholder={t("travelMode.allergies")}
               />
             </div>
 
             <div>
               <div>
-                <label>Contacto de emergencia</label>
+                <label>{t("travelMode.emergencyContact")}</label>
               </div>
               <input
                 type="text"
@@ -162,19 +158,19 @@ export default function TravelModeForm({
                 value={formData.emergency_contact}
                 onChange={handleChange}
                 className="w-full px-4 py-2 border rounded-lg mb-2"
-                placeholder="Contacto de emergencia"
+                placeholder={t("travelMode.emergencyContact")}
               />
             </div>
             <div>
               <div>
-                <label>Notas adicionales</label>
+                <label>{t("travelMode.notes")}</label>
               </div>
               <textarea
                 name="notes"
                 value={formData.notes}
                 onChange={handleChange}
                 className="w-full px-4 py-2 border rounded-lg mb-2"
-                placeholder="Notas adicionales"
+                placeholder={t("travelMode.notes")}
               />
             </div>
 
@@ -183,10 +179,12 @@ export default function TravelModeForm({
                 onClick={handleSubmit}
                 className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full md:w-auto"
               >
-                {travelModeData ? "Editar" : "Crear"}
+                {travelModeData
+                  ? t("travelMode.buttonEdit")
+                  : t("travelMode.buttonCreate")}
               </button>
               <button className="btn" onClick={onToggleCollapse}>
-                Close
+                {t("expenses.buttonClose")}
               </button>
             </div>
           </div>
