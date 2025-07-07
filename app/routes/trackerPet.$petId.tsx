@@ -113,7 +113,8 @@ export default function PetTracker() {
           className="text-1xl lg:text-2xl font-bold text-white"
           style={{ fontFamily: "chapFont" }}
         >
-          Tips for{petByID?.name} !
+          {t("tracker_page.title", { name: petByID?.name })}
+          {/* Tips for{petByID?.name} ! */}
         </h2>
         <div className="flex items-center justify-between flex-col md:flex-row gap-2 mt-4">
           <div className="border-2 border-teal-500 bg-gray-800 h-auto md:h-[7rem] w-full rounded p-3">
@@ -121,28 +122,33 @@ export default function PetTracker() {
               <span>
                 <CakeIcon className="text-teal-500 w-6 h-6" />
               </span>
-              <p className="text-sm font-semibold text-white">Alimentación</p>
+              <p className="text-sm font-semibold text-white">
+                {" "}
+                {t("tracker_page.subtitle_food")}
+              </p>
             </div>
 
             {weightKg ? (
               <p className="text-xs mt-1 leading-tight text-white">
-                {petByID.name} necesita entre{" "}
-                <strong>
-                  {Math.round(95 * Math.pow(weightKg, 0.75) * 1.2)} y{" "}
-                  {Math.round(95 * Math.pow(weightKg, 0.75) * 1.5)} kcal/día
-                </strong>
-                , dependiendo de su actividad. <br />
-                Eso equivale a aprox.{" "}
-                <strong>
-                  {Math.round((95 * Math.pow(weightKg, 0.75) * 1.2) / 3.8)}g –{" "}
-                  {Math.round((95 * Math.pow(weightKg, 0.75) * 1.5) / 3.8)}g
-                </strong>{" "}
-                de perrarina estándar (3.8 kcal/g).
+                {t("tracker_page.food_line1", {
+                  name: petByID?.name,
+                  minCalories: Math.round(95 * Math.pow(weightKg, 0.75) * 1.2),
+                  maxCalories: Math.round(95 * Math.pow(weightKg, 0.75) * 1.5),
+                })}{" "}
+                <br />
+                {t("tracker_page.food_line2", {
+                  minGrams: Math.round(
+                    (95 * Math.pow(weightKg, 0.75) * 1.2) / 3.8
+                  ),
+                  maxGrams: Math.round(
+                    (95 * Math.pow(weightKg, 0.75) * 1.5) / 3.8
+                  ),
+                  kcalPerGram: 3.8,
+                })}
               </p>
             ) : (
-              <p className="text-xs mt-1">
-                Agrega el peso en el medical history para obtener informacion
-                utilpara tu mascota
+              <p className="text-xs mt-1 text-white">
+                {t("tracker_page.no_weight")}
               </p>
             )}
           </div>
@@ -153,20 +159,18 @@ export default function PetTracker() {
                 <BoltIcon className="w-6 h-6 text-teal-500" />{" "}
               </span>
               <p className="text-sm font-semibold text-white">
-                Actividad diaria
+                {t("tracker_page.subtitle_activity")}
               </p>
             </div>
             {weightKg ? (
               <p className="text-xs mt-1 text-white">
-                {recommendedMinutes
-                  ? `Debe caminar ~${recommendedMinutes} min/día`
-                  : "Cargando..."}
+                {recommendedMinutes &&
+                  t("tracker_page.activity_line", {
+                    minutesPerDay: recommendedMinutes,
+                  })}
               </p>
             ) : (
-              <p className="text-xs mt-1">
-                Agrega el peso en el medical history para obtener informacion
-                utilpara tu mascota
-              </p>
+              <p className="text-xs mt-1">{t("tracker_page.no_weight")}</p>
             )}
           </div>
 
@@ -176,19 +180,20 @@ export default function PetTracker() {
                 <BeakerIcon className="w-6 h-6 text-teal-500" />{" "}
               </span>
               <p className="text-sm font-semibold text-white">
-                Agua recomendada
+                {t("tracker_page.subtitle_water")}
               </p>
             </div>
             {weightKg ? (
               <p className="text-xs mt-1 text-white">
-                {petByID.name} debería beber aproximadamente {waterMl} ml de
-                agua al día (55ml por kg)`
+                {t("tracker_page.water_line", {
+                  name: petByID.name,
+                  mlPerDay: waterMl,
+                })}
+                {/* {petByID.name} debería beber aproximadamente {waterMl} ml de
+                agua al día (55ml por kg)` */}
               </p>
             ) : (
-              <p className="text-xs mt-1">
-                Agrega el peso en el medical history para obtener informacion
-                utilpara tu mascota
-              </p>
+              <p className="text-xs mt-1">{t("tracker_page.no_weight")}</p>
             )}
           </div>
 
@@ -198,20 +203,19 @@ export default function PetTracker() {
                 <FireIcon className="w-6 h-6 text-teal-500" />{" "}
               </span>
               <p className="text-sm font-semibold text-white">
-                Calorías quemadas
+                {t("tracker_page.subtitle_burn")}
               </p>
             </div>
             {weightKg ? (
               <p className="text-xs mt-1 text-white">
-                {estimatedCaloriesBurned
-                  ? `Un paseo de ${recommendedMinutes} min quema ~${estimatedCaloriesBurned} kcal`
-                  : "Cargando..."}
+                {estimatedCaloriesBurned &&
+                  t("tracker_page.burn_line", {
+                    minutes: recommendedMinutes,
+                    burnedKcal: estimatedCaloriesBurned,
+                  })}
               </p>
             ) : (
-              <p className="text-xs mt-1">
-                Agrega el peso en el medical history para obtener informacion
-                utilpara tu mascota
-              </p>
+              <p className="text-xs mt-1">{t("tracker_page.no_weight")}</p>
             )}
           </div>
         </div>
@@ -222,14 +226,17 @@ export default function PetTracker() {
           className="text-1xl lg:text-2xl font-bold mt-2 text-white"
           style={{ fontFamily: "chapFont" }}
         >
-          Track your pet
+          {t("tracker_page.title_tracker")}
         </h2>
         <div className="flex flex-col md:flex-row gap-3 mt-3 mb-3">
           <div className="w-full">
-            <label className="block text-slate-50">Estado de Animo</label>
+            <label className="block text-slate-50">
+              {" "}
+              {t("tracker_page.label_mood")}
+            </label>
             <input
               className="w-full px-4 py-2 border rounded-lg"
-              placeholder="Estado de Animo"
+              placeholder={t("tracker_page.placeholder_mood")}
               name="mood"
               value={formData.mood}
               onChange={handleChange}
@@ -239,7 +246,9 @@ export default function PetTracker() {
 
         <div className="flex flex-col md:flex-row gap-3">
           <div className="w-full">
-            <label className="block text-slate-50">Minutos caminados</label>
+            <label className="block text-slate-50">
+              {t("tracker_page.label_minutes_walked")}
+            </label>
             <input
               type="number"
               className="w-full px-4 py-2 border rounded-lg"
@@ -249,7 +258,9 @@ export default function PetTracker() {
             />
           </div>
           <div className="w-full">
-            <label className="block text-slate-50">Comida consumida(g)</label>
+            <label className="block text-slate-50">
+              {t("tracker_page.label_food")}
+            </label>
             <input
               type="number"
               className="w-full px-4 py-2 border rounded-lg"
@@ -259,7 +270,9 @@ export default function PetTracker() {
             />
           </div>
           <div className="w-full">
-            <label className="block text-slate-50">Calidad de las heces</label>
+            <label className="block text-slate-50">
+              {t("tracker_page.label_poop_quality")}
+            </label>
             <input
               className="w-full px-4 py-2 border rounded-lg"
               placeholder="heces"
@@ -269,7 +282,9 @@ export default function PetTracker() {
             />
           </div>
           <div className="w-full">
-            <label className="block text-slate-50">Agua consumida(ml)</label>
+            <label className="block text-slate-50">
+              {t("tracker_page.label_water")}
+            </label>
             <input
               type="number"
               className="w-full px-4 py-2 border rounded-lg"
@@ -282,7 +297,9 @@ export default function PetTracker() {
 
         <div className="flex flex-col md:flex-row gap-3 mt-3 mb-3">
           <div className="w-full">
-            <label className="block text-slate-50">Medicamentos tomados</label>
+            <label className="block text-slate-50">
+              {t("tracker_page.label_medications")}
+            </label>
             <input
               className="w-full px-4 py-2 border rounded-lg"
               name="medication_given"
@@ -291,7 +308,9 @@ export default function PetTracker() {
             />
           </div>
           <div className="w-full">
-            <label className="block text-slate-50">Peso</label>
+            <label className="block text-slate-50">
+              {t("tracker_page.label_weight")}
+            </label>
             <input
               type="number"
               className="w-full px-4 py-2 border rounded-lg"
@@ -301,7 +320,9 @@ export default function PetTracker() {
             />
           </div>
           <div className="w-full">
-            <label className="block text-slate-50">Horas de sueño</label>
+            <label className="block text-slate-50">
+              {t("tracker_page.label_sleep_hours")}
+            </label>
             <input
               type="number"
               className="w-full px-4 py-2 border rounded-lg"
@@ -323,7 +344,7 @@ export default function PetTracker() {
             "fever",
           ].map((field) => (
             <div key={field}>
-              <label>{symptomLabels[field]}</label>
+              <label>{t(`tracker_page.symptom_labels.${field}`)}</label>
               <input
                 type="checkbox"
                 name={field}
@@ -340,7 +361,7 @@ export default function PetTracker() {
             className="w-full md:w-auto border-none py-3 px-4 bg-teal-500 text-white rounded-lg"
             onClick={handleSubmit}
           >
-            Submit Pet Data
+            {t("tracker_page.button_save")}
           </button>
         </div>
       </div>

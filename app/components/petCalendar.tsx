@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import DeleteDialog from "../components/deleteDialog";
+import { useTranslation } from "react-i18next";
 
 export default function PetCalendar({ trackers, onDelete, onEdit }) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedTracker, setSelectedTracker] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const { t } = useTranslation();
+
   console.log("trackers", trackers);
 
   const handleChange = (e) => {
@@ -155,7 +158,7 @@ export default function PetCalendar({ trackers, onDelete, onEdit }) {
       </div>
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center ">
-          <div className="bg-white text-black p-6 rounded-lg shadow-xl max-w-sm w-full relative overflow-auto max-h-[750px]">
+          <div className="bg-gray-800 text-white p-6 rounded-lg shadow-xl max-w-sm w-full relative overflow-auto max-h-[750px]">
             <button
               className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
               onClick={() => setIsModalOpen(false)}
@@ -165,39 +168,42 @@ export default function PetCalendar({ trackers, onDelete, onEdit }) {
 
             {selectedTracker ? (
               <>
-                <h3 className="text-xl font-bold mb-4">Edit Pet Tracker</h3>
+                <h3 className="text-xl font-bold mb-4">
+                  {" "}
+                  {t("tracker_page.title_edit")}
+                </h3>
 
                 <div className="space-y-2">
                   {/* Inputs normales */}
                   {[
-                    { label: "Mood", name: "mood" },
-                    { label: "Poop Quality", name: "poop_quality" },
+                    { label: "label_mood", name: "mood" },
+                    { label: "label_poop_quality", name: "poop_quality" },
                     {
-                      label: "Walked Minutes",
+                      label: "label_minutes_walked",
                       name: "walked_minutes",
                       type: "number",
                     },
                     {
-                      label: "Food Consumed",
+                      label: "label_food",
                       name: "food_consumed",
                       type: "number",
                     },
                     {
-                      label: "Water Consumed",
+                      label: "label_water",
                       name: "water_consumed",
                       type: "number",
                     },
                     {
-                      label: "Sleep Hours",
+                      label: "label_sleep_hours",
                       name: "sleep_hours",
                       type: "number",
                     },
-                    { label: "Medication Given", name: "medication_given" },
-                    { label: "Weight", name: "weight", type: "number" },
+                    { label: "label_medications", name: "medication_given" },
+                    { label: "label_weight", name: "weight", type: "number" },
                   ].map(({ label, name, type = "text" }) => (
                     <div key={name}>
                       <label className="block text-sm font-semibold">
-                        {label}
+                        {t(`tracker_page.${label}`)}
                       </label>
                       <input
                         type={type}
@@ -227,26 +233,27 @@ export default function PetCalendar({ trackers, onDelete, onEdit }) {
                         onChange={handleChange}
                         className="radio radio-accent mr-2"
                       />
-                      {field}
+                      {t(`tracker_page.symptom_labels.${field}`)}
                     </label>
                   ))}
                 </div>
                 <div className="flex justify-between mt-5">
                   <button
-                    className="px-4 py-2 bg-blue-600 text-white rounded"
+                    className="px-4 py-2 bg-teal-500 text-white rounded"
                     onClick={async () => {
                       await onEdit(selectedTracker.id, formData); // << guarda cambios
                       setIsModalOpen(false); // cierra modal
                     }}
                   >
-                    Save Changes
+                    {" "}
+                    {t(`tracker_page.edit_button_save`)}
                   </button>
 
                   <button
-                    className="px-4 py-2 bg-red-600 text-white rounded"
+                    className="px-4 py-2 bg-teal-700 text-white rounded"
                     onClick={() => setShowDeleteDialog(true)}
                   >
-                    Delete
+                    {t(`tracker_page.edit_button_delete`)}
                   </button>
                 </div>
 

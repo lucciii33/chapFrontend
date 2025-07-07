@@ -413,5 +413,81 @@
     },
     "buttonClose": "Cerrar",
     "buttonCreate": "Crear"
+  },
+  "tracker_page": {
+    "title": "Consejos para {{name}}!",
+    "subtitle_food": "Alimentación",
+    "food_line1": "{{name}} necesita entre {{minCalories}} y {{maxCalories}} kcal/día, dependiendo de su actividad.",
+    "food_line2": "Eso equivale a aprox. {{minGrams}}g – {{maxGrams}}g de comida estándar ({{kcalPerGram}} kcal/g).",
+    "no_weight": "Agrega el peso en el historial médico para obtener información útil para tu mascota.",
+
+    "subtitle_activity": "Actividad diaria",
+    "activity_line": "Debe caminar ~{{minutesPerDay}} min/día.",
+
+    "subtitle_water": "Agua recomendada",
+    "water_line": "{{name}} debería beber aproximadamente {{mlPerDay}} ml de agua al día.",
+
+    "subtitle_burn": "Calorías quemadas",
+    "burn_line": "Un paseo de {{minutes}} min quema ~{{burnedKcal}} kcal.",
+
+    "title_tracker": "Diario de tu mascota",
+
+    "label_mood": "Estado de ánimo",
+    "placeholder_mood": "Estado de ánimo",
+
+    "label_minutes_walked": "Minutos caminados",
+    "placeholder_minutes_walked": "0",
+
+    "label_food": "Comida consumida (gr)",
+    "placeholder_food": "0",
+
+    "label_poop_quality": "Calidad de las heces",
+    "placeholder_poop_quality": "heces",
+
+    "label_water": "Agua consumida (ml)",
+    "placeholder_water": "0",
+
+    "label_medications": "Medicamentos tomados",
+
+    "label_weight": "Peso",
+    "placeholder_weight": "0",
+
+    "label_sleep_hours": "Horas de sueño",
+    "placeholder_sleep_hours": "0",
+
+    "symptom_labels": {
+      "urinated": "Orinó",
+      "pooped": "Defecó",
+      "played": "Jugó",
+      "vomited": "Vomitó",
+      "coughing": "Tos",
+      "lethargy": "Letargo",
+      "fever": "Fiebre"
+    },
+    "button_save": "GUARDAR",
+
+    "title_edit": "Editar",
+
+    "edit_label_mood": "Estado de ánimo",
+    "edit_label_poop_quality": "Calidad de las heces",
+    "edit_label_minutes_walked": "Minutos caminados",
+    "edit_placeholder_minutes_walked": "0",
+    "edit_label_food": "Comida consumida (gr)",
+    "edit_placeholder_food": "0",
+    "edit_label_water": "Agua consumida (ml)",
+    "edit_placeholder_water": "0",
+    "edit_label_sleep_hours": "Horas de sueño",
+    "edit_placeholder_sleep_hours": "0",
+    "edit_label_medications": "Medicamentos tomados",
+    "edit_label_weight": "Peso",
+    "edit_placeholder_weight": "0",
+    "edit_symptoms": "Orino - Defeco - Jugó - Vomitó - Tos - Letargo - Fiebre",
+    "edit_button_save": "Guardar cambios",
+    "edit_button_delete": "Borrar",
+
+    "delete_title": "Confirmar eliminación?",
+    "delete_text": "¿Estás seguro que quieres eliminar este día?",
+    "delete_button_cancel": "Cancelar",
+    "delete_button_confirm": "Sí, eliminar"
   }
 }

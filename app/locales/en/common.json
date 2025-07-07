@@ -413,5 +413,82 @@
     },
     "buttonClose": "Close",
     "buttonCreate": "Create"
+  },
+  "tracker_page": {
+    "title": "Tips for {{name}}!",
+    "subtitle_food": "Food",
+    "food_line1": "{{name}} needs between {{minCalories}} and {{maxCalories}} kcal/day, depending on the activity levels.",
+    "food_line2": "That equals to approx. {{minGrams}}g – {{maxGrams}}g of standard food ({{kcalPerGram}} kcal/g).",
+    "no_weight": "Add the weight in the medical history to get useful information for your pet.",
+
+    "subtitle_activity": "Daily activity",
+    "activity_line": "Must walk ~{{minutesPerDay}} min/day.",
+
+    "subtitle_water": "Recommended water consumption",
+    "water_line": "{{name}} should drink approximately {{mlPerDay}} ml of water a day.",
+
+    "subtitle_burn": "Burnt calories",
+    "burn_line": "A {{minutes}} min walk burns ~{{burnedKcal}} kcal.",
+
+    "title_tracker": "Track your pet",
+
+    "label_mood": "Mood",
+    "placeholder_mood": "Mood",
+
+    "label_minutes_walked": "Minutes Walked",
+    "placeholder_minutes_walked": "0",
+
+    "label_food": "Food Consumed (gr)",
+    "placeholder_food": "0",
+
+    "label_poop_quality": "Poop Quality",
+    "placeholder_poop_quality": "poop",
+
+    "label_water": "Water Consumed (ml)",
+    "placeholder_water": "0",
+
+    "label_medications": "Medication Given",
+
+    "label_weight": "Weight",
+    "placeholder_weight": "0",
+
+    "label_sleep_hours": "Sleep Hours",
+    "placeholder_sleep_hours": "0",
+
+    "symptom_labels": {
+      "urinated": "Urinated",
+      "pooped": "Pooped",
+      "played": "Played",
+      "vomited": "Vomited",
+      "coughing": "Cough",
+      "lethargy": "Lethargy",
+      "fever": "Fever"
+    },
+
+    "button_save": "Submit Pet Data",
+
+    "title_edit": "Edit Pet Tracker",
+
+    "edit_label_mood": "Mood",
+    "edit_label_poop_quality": "Poop Quality",
+    "edit_label_minutes_walked": "Minutes Walked",
+    "edit_placeholder_minutes_walked": "0",
+    "edit_label_food": "Food Consumed (gr)",
+    "edit_placeholder_food": "0",
+    "edit_label_water": "Water Consumed (ml)",
+    "edit_placeholder_water": "0",
+    "edit_label_sleep_hours": "Sleep Hours",
+    "edit_placeholder_sleep_hours": "0",
+    "edit_label_medications": "Medication Given",
+    "edit_label_weight": "Weight",
+    "edit_placeholder_weight": "0",
+    "edit_symptoms": "Urinated - Pooped - Played - Vomited - Cough - Lethargy - Fever",
+    "edit_button_save": "Save changes",
+    "edit_button_delete": "Delete",
+
+    "delete_title": "Confirm deletion?",
+    "delete_text": "Are you sure you want to delete this day?",
+    "delete_button_cancel": "Cancel",
+    "delete_button_confirm": "Yes, delete"
   }
 }
