@@ -16,6 +16,7 @@ import { showErrorToast } from "~/utils/toast";
 import Pagination from "~/components/pagination";
 import DogLoader from "~/components/petLoader";
 import { useTranslation } from "react-i18next";
+import TagImagePreview from "~/components/TagImagePreview";
 
 export default function PetDetail() {
   const { t } = useTranslation();
@@ -1913,11 +1914,17 @@ export default function PetDetail() {
                     className="border -2 border-[#65bcbb] rounded-lg p-5 w-full md:w-[250px]"
                   >
                     <div className=" ">
-                      <img
+                      <TagImagePreview
+                        shape={tag.shape}
+                        color={tag.color}
+                        width={200}
+                        height={200}
+                      />
+                      {/* <img
                         className="w-full md:w-[225px]"
                         src="https://chap-blue.s3.us-east-2.amazonaws.com/ChatGPT+Image+Apr+14%2C+2025%2C+04_19_29+PM.png"
                         alt="dd"
-                      />
+                      /> */}
                       <div className="mt-2">
                         <p>
                           Color:<strong>{tag.color}</strong>{" "}

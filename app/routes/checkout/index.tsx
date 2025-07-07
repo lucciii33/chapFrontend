@@ -5,6 +5,7 @@ import { Link } from "@remix-run/react";
 import ShippingAddress from "../shippingAddress";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
 import "../../../styles/dashboard.css";
+import TagImagePreview from "~/components/TagImagePreview";
 
 export default function CheckoutPage() {
   const { auth, cart } = useGlobalContext();
@@ -79,11 +80,17 @@ export default function CheckoutPage() {
                         </p>
                       </div>
                       <div>
-                        <img
+                        <TagImagePreview
+                          shape={cart.tag.shape}
+                          color={cart.tag.color}
+                          width={100}
+                          height={100}
+                        />
+                        {/* <img
                           src="https://s.alicdn.com/@sc04/kf/H623bd864f88641ab95a88756ed36cd903.jpg_720x720q50.jpg"
                           className="w-[100px]"
                           alt="s"
-                        />
+                        /> */}
                       </div>
                     </div>
                   </div>

@@ -5,6 +5,7 @@ import { useGlobalContext } from "../context/GlobalProvider";
 import { TrashIcon, PlusIcon } from "@heroicons/react/24/outline";
 import DeleteDialog from "./deleteDialog";
 import { MinusIcon } from "@heroicons/react/24/outline";
+import TagImagePreview from "./TagImagePreview";
 
 export default function Cart() {
   const { auth, cart } = useGlobalContext();
@@ -95,10 +96,11 @@ export default function Cart() {
             <div key={index} className="border  rounded mt-2  p-3">
               <div>
                 <div>
-                  <img
-                    className=""
-                    src="https://chap-blue.s3.us-east-2.amazonaws.com/ChatGPT+Image+Apr+14%2C+2025%2C+04_19_29+PM.png"
-                    alt="dd"
+                  <TagImagePreview
+                    shape={item.tag.shape}
+                    color={item.tag.color}
+                    width={200}
+                    height={200}
                   />
                 </div>
                 <p className="mt-4">
