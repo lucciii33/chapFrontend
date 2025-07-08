@@ -103,6 +103,7 @@ export default function Card({ petObj }: CardProps) {
     { shape: "circular", color: "purple", imageUrl: "/circlePurple.png" },
     { shape: "square", color: "black", imageUrl: "/blackS.png" },
     { shape: "square", color: "blue", imageUrl: "/blueS.png" },
+    { shape: "square", color: "green", imageUrl: "/greenS.png" },
   ];
 
   const selectedImage = tagImages.find(
