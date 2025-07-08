@@ -489,5 +489,42 @@
     "delete_text": "¿Estás seguro que quieres eliminar este día?",
     "delete_button_cancel": "Cancelar",
     "delete_button_confirm": "Sí, eliminar"
+  },
+  "create_alerts": {
+    "subtitle": "Esta es una alerta para {{target}}",
+    "email": "Correo electrónico",
+    "message": "Mensaje",
+    "date": "Agendar fecha y hora",
+    "schedule_button": "Agendar Alerta",
+    "close_button": "Cerrar"
+  },
+  "medical_visits_pet_id": {
+    "empty_message": "No hay sesiones veterinarias registradas.",
+    "title_visit_id": "Nro. de visita",
+    "title_date": "Fecha",
+    "address": "Dirección",
+    "treatment": "Tratamiento",
+    "cause": "Causa",
+    "notes": "Notas",
+    "medical_notes": "Notas médicas",
+    "cost": "Costo",
+    "documents": "Documentos",
+    "edit_button": "Editar sesión",
+    "title_edit": "Editar sesión veterinaria",
+    "date": "Fecha",
+    "documents_empty_message": "No hay documentos adjuntos",
+    "new_documents": "Agregar nuevos documentos",
+    "save_button": "Guardar Cambios",
+    "close_button": "Cerrar"
+  },
+  "vaccines_pet_id": {
+    "title": "Hola!",
+    "subtitle": "Tus vacunas",
+    "name": "Nombre",
+    "type": "Tipo",
+    "administered_date": "Fecha de administración",
+    "expiration_date": "Fecha de expiración",
+    "empty_message": "No hay vacunas registradas.",
+    "close_button": "Cerrar"
   }
 }

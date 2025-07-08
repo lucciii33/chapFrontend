@@ -4,9 +4,11 @@ import { showErrorToast, showSuccessToast } from "~/utils/toast";
 export default function ScheduleAlertForm({
   userId,
   petId,
+  t,
 }: {
   userId: number;
   petId: number;
+  t: (key: string) => string;
 }) {
   const [alertData, setAlertData] = useState({
     phone_number: "",
@@ -118,9 +120,9 @@ export default function ScheduleAlertForm({
           />
         </div> */}
         <div className="mb-4">
-          <label className="block text-slate-700 mb-2">
+          {/* <label className="block text-slate-700 mb-2">
             esta alerta sera para {petId.name}
-          </label>
+          </label> */}
           {/* <select
             name="pet_id"
             value={alertData.pet_id}
@@ -140,35 +142,39 @@ export default function ScheduleAlertForm({
         </div>
 
         <div className="">
-          <label className="block text-slate-700 mb-2">Email</label>
+          <label className="block text-slate-700 mb-2">
+            {t("create_alerts.email")}
+          </label>
           <input
             type="text"
             name="email"
             value={alertData.email}
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-lg"
-            placeholder="Escribe el mensaje aquí..."
+            placeholder={t("create_alerts.email")}
             required
           />
         </div>
       </div>
 
       <div className="mb-4">
-        <label className="block text-slate-700 mb-2">Message</label>
+        <label className="block text-slate-700 mb-2">
+          {t("create_alerts.message")}
+        </label>
         <input
           type="text"
           name="message"
           value={alertData.message}
           onChange={handleChange}
           className="w-full px-4 py-2 border rounded-lg"
-          placeholder="Escribe el mensaje aquí..."
+          placeholder={t("create_alerts.message")}
           required
         />
       </div>
 
       <div className="mb-4">
         <label className="block text-slate-700 mb-2">
-          Scheduled Date & Time
+          {t("create_alerts.schedule_button")}
         </label>
         <input
           type="datetime-local"
@@ -184,7 +190,7 @@ export default function ScheduleAlertForm({
         type="submit"
         className="btn bg-cyan-500 text-white rounded-lg w-full py-2"
       >
-        Schedule Alert
+        {t("create_alerts.schedule_button")}
       </button>
     </form>
   );

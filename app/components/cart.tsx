@@ -99,8 +99,6 @@ export default function Cart() {
                   <TagImagePreview
                     shape={item.tag.shape}
                     color={item.tag.color}
-                    width={200}
-                    height={200}
                   />
                 </div>
                 <p className="mt-4">
@@ -119,9 +117,9 @@ export default function Cart() {
                   Quantity: <strong>{item.quantity}</strong>
                 </p>
               </div>
-              <div className="mt-3">
+              <div className="mt-3 flex">
                 <button
-                  className="border-none py-3 px-4 me-3 bg-teal-500 text-white rounded-lg"
+                  className="border-none w-full flex justify-center items-center py-3 px-4 me-3 bg-teal-500 text-white rounded-lg"
                   onClick={() =>
                     handleDecrement(
                       item.id,
@@ -135,7 +133,7 @@ export default function Cart() {
                   <MinusIcon className="h-6 w-6 text-white" />
                 </button>
 
-                <button className="border-none py-3 px-4 bg-teal-500 text-white rounded-lg">
+                <button className="border-none w-full flex justify-center items-center py-3 px-4 bg-teal-500 text-white rounded-lg">
                   <TrashIcon
                     className="h-6 w-6 text-white"
                     // onClick={async () => {
@@ -149,7 +147,7 @@ export default function Cart() {
                   />
                 </button>
                 <button
-                  className="border-none py-3 px-4 ms-3 bg-teal-500 text-white rounded-lg"
+                  className="border-none  w-full flex justify-center items-center py-3 px-4 ms-3 bg-teal-500 text-white rounded-lg"
                   onClick={() =>
                     handleIncrement(
                       item.id,

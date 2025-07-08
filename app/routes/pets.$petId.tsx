@@ -157,13 +157,13 @@ export default function PetDetail() {
 
       if (response) {
         setMessage("Vacuna creada con éxito.");
-        getPetById(Number(petId)); // Recargar datos de la mascota
+        getPetById(Number(petId));
         setVaccineData({
           name: "",
           vaccine_type: "",
           date_administered: "",
           expiration_date: "",
-        }); // Resetear formulario
+        });
       } else {
         setMessage("No se pudo crear la vacuna.");
       }
@@ -1890,12 +1890,15 @@ export default function PetDetail() {
       {/* //modal here to create a   */}
       <dialog id="my_modal_5_pet_id_alerts" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Hello!</h3>
-          <ScheduleAlertForm userId={auth.user?.id} petId={petByID} />
+          <h3 className="font-bold text-lg">
+            {" "}
+            {t("create_alerts.subtitle", { target: petByID.name })}
+          </h3>
+          <ScheduleAlertForm userId={auth.user?.id} petId={petByID} t={t} />
           <div className="modal-action">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
-              <button className="btn">Close</button>
+              <button className="btn">{t("create_alerts.close_button")}</button>
             </form>
           </div>
         </div>
@@ -1987,13 +1990,15 @@ export default function PetDetail() {
                   <div className="flex justify-between items-center">
                     <div>
                       <h3 className="text-lg font-bold mb-2 text-teal-500">
-                        Visita ID: {vetSession.id}
+                        {t("medical_visits_pet_id.title_visit_id")}:{" "}
+                        {vetSession.id}
                       </h3>
                     </div>
 
                     <div>
                       <h3 className="text-lg font-bold mb-2 text-teal-500">
-                        Date: {vetSession.date}
+                        {t("medical_visits_pet_id.title_date")}:{" "}
+                        {vetSession.date}
                       </h3>
                     </div>
                   </div>
@@ -2001,37 +2006,37 @@ export default function PetDetail() {
                   <div className="space-y-1 text-sm">
                     <p>
                       <span className="font-semibold text-gray-300">
-                        Dirección:
+                        {t("medical_visits_pet_id.address")}
                       </span>{" "}
                       {vetSession.address}
                     </p>
                     <p>
                       <span className="font-semibold text-gray-300">
-                        Tratamiento:
+                        {t("medical_visits_pet_id.treatment")}
                       </span>{" "}
                       {vetSession.treatment}
                     </p>
                     <p>
                       <span className="font-semibold text-gray-300">
-                        Causa:
+                        {t("medical_visits_pet_id.cause")}
                       </span>{" "}
                       {vetSession.cause}
                     </p>
                     <p>
                       <span className="font-semibold text-gray-300">
-                        Notas:
+                        {t("medical_visits_pet_id.notes")}
                       </span>{" "}
                       {vetSession.notes}
                     </p>
                     <p>
                       <span className="font-semibold text-gray-300">
-                        Notas Médicas:
+                        {t("medical_visits_pet_id.medical_notes")}
                       </span>{" "}
                       {vetSession.medical_notes}
                     </p>
                     <p>
                       <span className="font-semibold text-gray-300">
-                        Costo:
+                        {t("medical_visits_pet_id.cost")}
                       </span>{" "}
                       {vetSession.cost ? `$${vetSession.cost}` : "N/A"}
                     </p>
@@ -2039,7 +2044,9 @@ export default function PetDetail() {
 
                   {vetSession?.documents?.length > 0 && (
                     <div className="mt-3">
-                      <p className="font-semibold text-gray-300">Documentos:</p>
+                      <p className="font-semibold text-gray-300">
+                        {t("medical_visits_pet_id.documents")}:
+                      </p>
                       <ul className="list-disc list-inside text-sm text-teal-500">
                         {vetSession?.documents?.map((item, index) => (
                           <li key={index}>
@@ -2062,7 +2069,7 @@ export default function PetDetail() {
                       className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 rounded-md"
                       onClick={() => openEditModal(vetSession)}
                     >
-                      Editar sesión
+                      {t("medical_visits_pet_id.edit_button")}
                     </button>
 
                     <TrashIcon
@@ -2077,14 +2084,17 @@ export default function PetDetail() {
               ))
             ) : (
               <p className="text-gray-400">
-                No hay sesiones veterinarias registradas.
+                {t("medical_visits_pet_id.empty_message")}
               </p>
             )}
           </div>
           <div className="modal-action">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
-              <button className="btn">Close</button>
+              <button className="btn">
+                {" "}
+                {t("medical_visits_pet_id.close_button")}
+              </button>
             </form>
           </div>
           <Pagination
@@ -2100,9 +2110,12 @@ export default function PetDetail() {
       {/* //modal here to vaccines  */}
       <dialog id="my_modal_8_pet_id" className="modal">
         <div className="modal-box w-full max-w-7xl">
-          <h3 className="font-bold text-lg">Hello!</h3>
+          <h3 className="font-bold text-lg">
+            {" "}
+            {t("vaccines_pet_id.subtitle")}
+          </h3>
           <div>
-            Your vaccines:
+            {t("vaccines_pet_id.subtitle")}
             {petByID.medical_history?.length > 0 &&
             petByID?.medical_history[0]?.vaccines?.length > 0 ? (
               petByID?.medical_history[0]?.vaccines?.map((vaccine) => (
@@ -2113,23 +2126,25 @@ export default function PetDetail() {
                   <div className="space-y-1 text-sm">
                     <p>
                       <span className="font-semibold text-gray-300">
-                        Nombre:
+                        {t("vaccines_pet_id.name")}
                       </span>{" "}
                       {vaccine.name}
                     </p>
                     <p>
-                      <span className="font-semibold text-gray-300">Tipo:</span>{" "}
+                      <span className="font-semibold text-gray-300">
+                        {t("vaccines_pet_id.type")}:
+                      </span>{" "}
                       {vaccine.vaccine_type}
                     </p>
                     <p>
                       <span className="font-semibold text-gray-300">
-                        Fecha de administración:
+                        {t("vaccines_pet_id.administered_date")}:
                       </span>{" "}
                       {vaccine.date_administered}
                     </p>
                     <p>
                       <span className="font-semibold text-gray-300">
-                        Fecha de expiración:
+                        {t("vaccines_pet_id.expiration_date")}:
                       </span>{" "}
                       {vaccine.expiration_date}
                     </p>
@@ -2147,14 +2162,18 @@ export default function PetDetail() {
                 </div>
               ))
             ) : (
-              <p className="text-gray-400">No hay vacunas registradas.</p>
+              <p className="text-gray-400">
+                {t("vaccines_pet_id.empty_message")}
+              </p>
             )}
           </div>
 
           <div className="modal-action">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
-              <button className="btn">Close</button>
+              <button className="btn">
+                {t("vaccines_pet_id.close_button")}
+              </button>
             </form>
           </div>
         </div>

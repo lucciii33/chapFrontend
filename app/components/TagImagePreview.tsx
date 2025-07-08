@@ -1,10 +1,10 @@
 import React from "react";
 
 const tagImageMap = [
-  { shape: "square", color: "purple", imageUrl: "/purpleSqure.png" },
+  { shape: "square", color: "purple", imageUrl: "/purpleS.png" },
   { shape: "circular", color: "purple", imageUrl: "/circlePurple.png" },
-  { shape: "square", color: "black", imageUrl: "/blackSqure.png" },
-  { shape: "circular", color: "black", imageUrl: "/circleBlack.png" },
+  { shape: "square", color: "black", imageUrl: "/blackS.png" },
+  { shape: "square", color: "blue", imageUrl: "/blueS.png" },
 ];
 
 type Props = {
@@ -19,8 +19,8 @@ export default function TagImagePreview({
   shape,
   color,
   className = "",
-  width = 250,
-  height = 250,
+  width,
+  height,
 }: Props) {
   const match = tagImageMap.find(
     (img) =>
@@ -35,7 +35,10 @@ export default function TagImagePreview({
       src={match.imageUrl}
       alt={`Tag: ${shape} ${color}`}
       className={`object-contain ${className}`}
-      style={{ width, height }}
+      style={{
+        width: width ? `${width}px` : "auto",
+        height: height ? `${height}px` : "auto",
+      }}
     />
   ) : (
     <div
