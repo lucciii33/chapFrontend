@@ -501,6 +501,7 @@
   },
   "medical_visits_pet_id": {
     "empty_message": "There are no veterinary visits registered.",
+    "title": "Veterinary visits",
     "title_visit_id": "Visit ID",
     "title_date": "Date",
     "address": "Address",
@@ -527,5 +528,15 @@
     "expiration_date": "Expiration date",
     "empty_message": "There are no vaccines registered.",
     "close_button": "Close"
+  },
+  "your_tags": {
+    "tags_title": "Your tags",
+    "tags_empty_message": "There are no tags created",
+    "tags_button": "Close",
+    "color": "Color",
+    "shape": "Shape",
+    "paid": "Bought?",
+    "add_to_cart_button": "Add to cart",
+    "delete_button": "Delete"
   }
 }

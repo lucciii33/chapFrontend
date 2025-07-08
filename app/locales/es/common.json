@@ -500,6 +500,7 @@
   },
   "medical_visits_pet_id": {
     "empty_message": "No hay sesiones veterinarias registradas.",
+    "title": "Visitas medicas",
     "title_visit_id": "Nro. de visita",
     "title_date": "Fecha",
     "address": "Dirección",
@@ -526,5 +527,15 @@
     "expiration_date": "Fecha de expiración",
     "empty_message": "No hay vacunas registradas.",
     "close_button": "Cerrar"
+  },
+  "your_tags": {
+    "tags_title": "Tus chapas",
+    "tags_empty_message": "No hay chapas creadas",
+    "tags_button": "Cerrar",
+    "color": "Color",
+    "shape": "Forma",
+    "paid": "Comprada?",
+    "add_to_cart_button": "Agregar al carrito",
+    "delete_button": "Eliminar"
   }
 }

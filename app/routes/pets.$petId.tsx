@@ -1347,7 +1347,7 @@ export default function PetDetail() {
 
                   <div>
                     <div>
-                      <label>vaccination_status</label>
+                      <label> {t("medicalHistoryForm.behaviorLabel")}</label>
                     </div>
                     <div>
                       <input
@@ -1356,7 +1356,9 @@ export default function PetDetail() {
                         value={medicalHistoryData.behavior_notes}
                         onChange={handleInputChange}
                         className="w-full p-2 border rounded-lg"
-                        placeholder="Notas de comportamiento"
+                        placeholder={t(
+                          "medicalHistoryForm.behaviorPlaceholder"
+                        )}
                       />
                     </div>
                   </div>
@@ -1907,7 +1909,7 @@ export default function PetDetail() {
       {/* //modal here to show tags  */}
       <dialog id="my_modal_6_pet_id" className="modal">
         <div className="modal-box w-full max-w-7xl">
-          <h3 className="font-bold text-lg">Hello!</h3>
+          <h3 className="font-bold text-lg"> {t("your_tags.tags_title")}</h3>
           <div className="flex gap-5 items-center flex-col md:flex-row p-5">
             {petByID?.tags?.length > 0 ? (
               petByID?.tags?.map((tag) => {
@@ -1930,14 +1932,14 @@ export default function PetDetail() {
                       /> */}
                       <div className="mt-2">
                         <p>
-                          Color:<strong>{tag.color}</strong>{" "}
+                          {t("your_tags.color")}:<strong>{tag.color}</strong>{" "}
                         </p>
                         <p className="">
-                          Shape: <strong>{tag.shape}</strong>{" "}
+                          {t("your_tags.shape")}: <strong>{tag.shape}</strong>{" "}
                         </p>
 
                         <p className="">
-                          ¿Comprado?{" "}
+                          {t("your_tags.paid")}{" "}
                           <strong>{tag.is_purchased ? "Sí" : "No"}</strong>
                         </p>
                         {/* <p className=""> {tag.material}</p> */}
@@ -1947,13 +1949,13 @@ export default function PetDetail() {
                           className=" border-none py-3 px-4 bg-teal-700 text-white rounded-lg"
                           onClick={() => addToCart(tag.id)}
                         >
-                          Add to cart
+                          {t("your_tags.add_to_cart_button")}
                         </button>
                         <button
                           onClick={() => openDeleteModal(tag.id)}
                           className=" border-none py-3 px-4 bg-teal-500 text-white rounded-lg"
                         >
-                          Delete
+                          {t("your_tags.delete_button")}
                         </button>
                       </div>
                     </div>
@@ -1962,7 +1964,7 @@ export default function PetDetail() {
               })
             ) : (
               <div>
-                <p>You dont have tags at the moment</p>
+                <p> {t("your_tags.tags_empty_message")}</p>
               </div>
             )}
           </div>
@@ -1978,7 +1980,10 @@ export default function PetDetail() {
       {/* //modal here to show medical vets  */}
       <dialog id="my_modal_7_pet_id" className="modal">
         <div className="modal-box w-full max-w-7xl">
-          <h3 className="font-bold text-lg">Hello!</h3>
+          <h3 className="font-bold text-lg">
+            {" "}
+            {t("medical_visits_pet_id.title")}
+          </h3>
           <div className="p-5">
             {petByID?.medical_history?.length > 0 &&
             petByID.medical_history[0].vets?.length > 0 ? (
