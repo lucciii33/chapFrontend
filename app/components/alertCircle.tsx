@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ExclamationTriangleIcon, TrashIcon } from "@heroicons/react/24/solid";
 import DeleteDialog from "../components/deleteDialog";
 import { useGlobalContext } from "../context/GlobalProvider";
+import { useTranslation } from "react-i18next";
 
 type AlertCircleProps = {
   petObj: {
@@ -28,6 +29,7 @@ export default function AlertCircle({ petObj }: AlertCircleProps) {
   const { userAlerts } = useGlobalContext();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [selectedAlertId, setSelectedAlertId] = useState<number | null>(null);
+  const { t } = useTranslation();
 
   // Obtener vacunas de manera segura
   const vaccines = petObj?.medical_history?.[0]?.vaccines || [];
@@ -90,7 +92,10 @@ export default function AlertCircle({ petObj }: AlertCircleProps) {
   };
 
   return (
-    <div className="tooltip tooltip-top" data-tip="Ver alertas">
+    <div
+      className="tooltip tooltip-top"
+      data-tip={t("programmed_alerts.alert_tip")}
+    >
       <div
         className="w-10 h-10 bg-red-600 rounded-full flex justify-center items-center flex-col text-white font-bold text-center text-[8px] p-1 leading-tight cursor-pointer"
         onClick={() =>
@@ -103,11 +108,16 @@ export default function AlertCircle({ petObj }: AlertCircleProps) {
 
       <dialog id={`pet_alerts_${petObj.id}`} className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Alertas para {petObj.name}</h3>
+          <h3 className="font-bold text-lg">
+            {" "}
+            {t("programmed_alerts.title")} {petObj.name}
+          </h3>
 
           {expiringVaccine && (
             <div className="mt-4">
-              <h4 className="font-semibold">Alerta de Vacuna</h4>
+              <h4 className="font-semibold">
+                {t("programmed_alerts.subtitle_vacines")}{" "}
+              </h4>
               <div className="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-3 rounded mt-2">
                 {alertMessage}
               </div>
@@ -116,7 +126,10 @@ export default function AlertCircle({ petObj }: AlertCircleProps) {
 
           {generalAlerts.length > 0 && (
             <div className="mt-4">
-              <h4 className="font-semibold">Alertas Programadas</h4>
+              <h4 className="font-semibold">
+                {" "}
+                {t("programmed_alerts.subtitle")}
+              </h4>
               {generalAlerts.map((alert) => (
                 <div
                   key={alert.id}
@@ -149,7 +162,7 @@ export default function AlertCircle({ petObj }: AlertCircleProps) {
 
           <div className="modal-action">
             <form method="dialog">
-              <button className="btn">Cerrar</button>
+              <button className="btn"> {t("programmed_alerts.button")}</button>
             </form>
           </div>
         </div>

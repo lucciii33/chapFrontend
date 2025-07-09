@@ -9,15 +9,18 @@ import { useGlobalContext } from "../context/GlobalProvider";
 import DogLoader from "../components/petLoader";
 import axios from "axios";
 import "../../styles/dashboard.css";
+import { useTranslation } from "react-i18next";
 
 export default function PublicQr() {
+  const { t } = useTranslation();
+
   const { petId } = useParams();
   const [petData, setPetData] = useState(null);
   const [location, setLocation] = useState(null);
   const [ubicacion, setUbicacion] = useState(null);
   const [mapError, setMapError] = useState(false);
   console.log("petData", petData);
-
+  //  {t("tracker_page.label_sleep_hours")}
   // useEffect(() => {
   //   if (petId) {
   //     axios

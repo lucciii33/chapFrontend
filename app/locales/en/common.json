@@ -485,7 +485,7 @@
     "edit_symptoms": "Urinated - Pooped - Played - Vomited - Cough - Lethargy - Fever",
     "edit_button_save": "Save changes",
     "edit_button_delete": "Delete",
-
+    "create_button_save": "Create",
     "delete_title": "Confirm deletion?",
     "delete_text": "Are you sure you want to delete this day?",
     "delete_button_cancel": "Cancel",
@@ -538,5 +538,36 @@
     "paid": "Bought?",
     "add_to_cart_button": "Add to cart",
     "delete_button": "Delete"
+  },
+  "emergency_lost_flyer": {
+    "title": "Lost Pet Emergency Flyer",
+    "subtitle": "Use this page to generate a missing pet flyer. You can download it as a PDF or share it directly on social media to help find your furry friend faster.",
+    "title_lost_info": "When and where did you see your pet for the last time?",
+    "label_date_time": "Last time seen (date and time):",
+    "label_place": "Last place seen",
+    "placeholder_place": "Ex. Central Park, 8th Street, etc.",
+    "save_button": "Save information",
+    "print_button": "Print",
+    "save_pdf_button": "Save as PDF",
+    "title_poster": "Lost Pet",
+    "subtitle_poster": "A cry for help for our furry friend",
+    "breed": "Breed",
+    "age": "Age",
+    "color": "Color",
+    "personality": "Personality",
+    "last_place_seen": "Last place seen",
+    "last_date_seen": "Last time seen",
+    "owners": "Owners",
+    "owner_1": "Owner 1",
+    "owner_2": "Owner 2",
+    "phone": "Phone",
+    "message": "Call or text with any information"
+  },
+  "programmed_alerts": {
+    "title": "Alerts for",
+    "subtitle": "Programmed alerts",
+    "subtitle_vacines": "Vaccines alerts",
+    "alert_tip": "See alerts",
+    "button": "Close"
   }
 }

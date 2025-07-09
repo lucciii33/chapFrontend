@@ -484,7 +484,7 @@
     "edit_symptoms": "Orino - Defeco - Jugó - Vomitó - Tos - Letargo - Fiebre",
     "edit_button_save": "Guardar cambios",
     "edit_button_delete": "Borrar",
-
+    "create_button_save": "Crear",
     "delete_title": "Confirmar eliminación?",
     "delete_text": "¿Estás seguro que quieres eliminar este día?",
     "delete_button_cancel": "Cancelar",
@@ -537,5 +537,36 @@
     "paid": "Comprada?",
     "add_to_cart_button": "Agregar al carrito",
     "delete_button": "Eliminar"
+  },
+  "emergency_lost_flyer": {
+    "title": "Cartel de emergencia para mascotas perdidas",
+    "subtitle": "Usa esta página para crear un cartel de mascota perdida. Puedes descargarlo en PDF o compartirlo directamente en redes sociales para encontrar a tu mascota más rápido.",
+    "title_lost_info": "¿Cuándo y dónde viste por última vez a tu mascota?",
+    "label_date_time": "Última vez vista (fecha y hora):",
+    "label_place": "Último lugar visto",
+    "placeholder_place": "Ej. Parque Central, Calle 8, etc.",
+    "save_button": "Guardar información",
+    "print_button": "Imprimir",
+    "save_pdf_button": "Guardar como PDF",
+    "title_poster": "Mascota Perdida",
+    "subtitle_poster": "Un grito de ayuda para nuestro amigo peludo",
+    "breed": "Raza",
+    "age": "Edad",
+    "color": "Color",
+    "personality": "Personalidad",
+    "last_place_seen": "Último lugar visto",
+    "last_date_seen": "Última vez visto",
+    "owners": "Dueño",
+    "owner_1": "Dueño 1",
+    "owner_2": "Dueño 2",
+    "phone": "Teléfono",
+    "message": "Llama o envía un mensaje con información"
+  },
+  "programmed_alerts": {
+    "title": "Alertas para",
+    "subtitle": "Alertas programadas",
+    "subtitle_vacines": "Alertas de vacunas",
+    "alert_tip": "Ver alertas",
+    "button": "Cerrar"
   }
 }

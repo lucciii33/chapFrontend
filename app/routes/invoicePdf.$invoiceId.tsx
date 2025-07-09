@@ -1,8 +1,11 @@
 import { useParams } from "@remix-run/react";
 import { useGlobalContext } from "~/context/GlobalProvider";
 import { useEffect, useState, useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function InvoicePdf() {
+  const { t } = useTranslation();
+
   const { invoiceId } = useParams();
   const { invoices } = useGlobalContext();
   const [invoice, setInvoice] = useState<any>(null);

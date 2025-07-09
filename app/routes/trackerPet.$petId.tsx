@@ -13,6 +13,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { useTranslation } from "react-i18next";
+import { showInfoToast } from "~/utils/toast";
 
 export default function PetTracker() {
   const { t } = useTranslation();
@@ -76,6 +77,21 @@ export default function PetTracker() {
       alert("Pet ID is required");
       return;
     }
+    const existingTrackers = await getPetTrack(petId);
+
+    const today = new Date().toISOString().split("T")[0]; // Solo la fecha YYYY-MM-DD
+
+    const alreadyTrackedToday = existingTrackers?.some((t) =>
+      t.date.startsWith(today)
+    );
+
+    if (alreadyTrackedToday) {
+      showInfoToast(
+        "Ya tienes un tracker para hoy. Puedes editarlo si lo deseas."
+      );
+      return;
+    }
+
     await createPetTrack(formData);
     await getPetById(petId);
   };
@@ -368,12 +384,17 @@ export default function PetTracker() {
 
       <PetCalendar
         trackers={petByID?.trackers}
+        petId={Number(petId)}
         onDelete={async (id) => {
           await deletePetTrack(id); // llama al context
           await getPetById(petId); // recarga los datos
         }}
         onEdit={async (id, updatedData) => {
           await editPetTrack(id, updatedData);
+          await getPetById(petId);
+        }}
+        onCreate={async (data) => {
+          await createPetTrack(data);
           await getPetById(petId);
         }}
       />

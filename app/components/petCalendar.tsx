@@ -2,11 +2,20 @@ import { useState, useEffect } from "react";
 import DeleteDialog from "../components/deleteDialog";
 import { useTranslation } from "react-i18next";
 
-export default function PetCalendar({ trackers, onDelete, onEdit }) {
+export default function PetCalendar({
+  trackers,
+  onDelete,
+  onEdit,
+  onCreate,
+  petId,
+}) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedTracker, setSelectedTracker] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+
+  const [selectedDate, setSelectedDate] = useState(null); // 🆕
+
   const { t } = useTranslation();
 
   console.log("trackers", trackers);
@@ -97,6 +106,19 @@ export default function PetCalendar({ trackers, onDelete, onEdit }) {
     } else {
       setSelectedTracker(null);
       setIsModalOpen(true);
+      setFormData((prev) => ({
+        ...prev,
+        pet_id: petId,
+        date: new Date(
+          day.getFullYear(),
+          day.getMonth(),
+          day.getDate(),
+          12,
+          0,
+          0
+        ).toISOString(),
+      }));
+      setSelectedDate(day);
     }
   };
 
@@ -269,7 +291,87 @@ export default function PetCalendar({ trackers, onDelete, onEdit }) {
                 />
               </>
             ) : (
-              <p className="text-gray-700">No data available for this day.</p>
+              <>
+                <h3 className="text-xl font-bold mb-4">
+                  {t("tracker_page.title_create")}
+                </h3>
+
+                <div className="space-y-2">
+                  {[
+                    { label: "label_mood", name: "mood" },
+                    { label: "label_poop_quality", name: "poop_quality" },
+                    {
+                      label: "label_minutes_walked",
+                      name: "walked_minutes",
+                      type: "number",
+                    },
+                    {
+                      label: "label_food",
+                      name: "food_consumed",
+                      type: "number",
+                    },
+                    {
+                      label: "label_water",
+                      name: "water_consumed",
+                      type: "number",
+                    },
+                    {
+                      label: "label_sleep_hours",
+                      name: "sleep_hours",
+                      type: "number",
+                    },
+                    { label: "label_medications", name: "medication_given" },
+                    { label: "label_weight", name: "weight", type: "number" },
+                  ].map(({ label, name, type = "text" }) => (
+                    <div key={name}>
+                      <label className="block text-sm font-semibold">
+                        {t(`tracker_page.${label}`)}
+                      </label>
+                      <input
+                        type={type}
+                        name={name}
+                        value={formData?.[name] ?? ""}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border rounded-lg bg-transparent"
+                      />
+                    </div>
+                  ))}
+
+                  {[
+                    "urinated",
+                    "pooped",
+                    "played",
+                    "vomited",
+                    "coughing",
+                    "lethargy",
+                    "fever",
+                  ].map((field) => (
+                    <label key={field} className="block text-sm font-medium">
+                      <input
+                        type="checkbox"
+                        name={field}
+                        checked={formData?.[field] || false}
+                        onChange={handleChange}
+                        className="radio radio-accent mr-2"
+                      />
+                      {t(`tracker_page.symptom_labels.${field}`)}
+                    </label>
+                  ))}
+                </div>
+
+                <div className="flex justify-end mt-5">
+                  <button
+                    className="px-4 py-2 bg-teal-500 text-white rounded"
+                    onClick={async () => {
+                      await onCreate(formData);
+                      // await getPetById(formData.pet_id);
+                      setIsModalOpen(false);
+                    }}
+                  >
+                    {t("tracker_page.create_button_save")}
+                  </button>
+                </div>
+              </>
             )}
           </div>
         </div>

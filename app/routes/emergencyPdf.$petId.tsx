@@ -3,6 +3,7 @@ import { useParams } from "@remix-run/react";
 import { useGlobalContext } from "~/context/GlobalProvider";
 import "../../styles/dashboard.css";
 import html2canvas from "html2canvas-pro";
+import { useTranslation } from "react-i18next";
 
 export default function EmegencyPdf() {
   const [lastSeenTime, setLastSeenTime] = useState("");
@@ -11,6 +12,8 @@ export default function EmegencyPdf() {
   const { getPetById, petByID, editPet } = pet;
   const { petId } = useParams();
   const backendUrl = import.meta.env.VITE_REACT_APP_URL;
+  const { t } = useTranslation();
+  //  {t("tracker_page.label_sleep_hours")}
 
   useEffect(() => {
     if (petId) getPetById(petId);
@@ -117,20 +120,18 @@ export default function EmegencyPdf() {
 
       <div className="p-5">
         <h1 className="text-4xl font-bold text-center text-teal-500 mb-4">
-          Lost Pet Emergency Poster
+          {t("emergency_lost_flyer.title")}
         </h1>
         <p className="text-center text-lg text-white max-w-xl mx-auto">
-          Use this page to generate a missing pet poster. You can download it as
-          a PDF or share it directly on social media to help find your furry
-          friend faster.
+          {t("emergency_lost_flyer.subtitle")}
         </p>
 
         <div className="my-5 p-4 border rounded bg-white">
           <h2 className="text-xl font-bold mb-2 text-red-600">
-            ¿Cuándo y dónde viste por última vez a tu mascota?
+            {t("emergency_lost_flyer.title_lost_info")}
           </h2>
           <label className="block mb-2 text-sm text-gray-700">
-            Última vez vista (fecha y hora):
+            {t("emergency_lost_flyer.label_date_time")}
             <input
               type="datetime-local"
               value={lastSeenTime}
@@ -140,13 +141,13 @@ export default function EmegencyPdf() {
           </label>
 
           <label className="block mb-2 text-sm text-gray-700">
-            Último lugar visto:
+            {t("emergency_lost_flyer.label_place")}
             <input
               type="text"
               value={lastSeenPlace}
               onChange={(e) => setLastSeenPlace(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg mb-4 bg-transparent"
-              placeholder="Ej. Parque Central, Calle 8, etc."
+              placeholder={t("emergency_lost_flyer.placeholder_place")}
             />
           </label>
 
@@ -154,7 +155,7 @@ export default function EmegencyPdf() {
             onClick={handleLostPetUpdate}
             className="mt-3 bg-teal-500 text-white px-4 py-2 rounded"
           >
-            Guardar información de pérdida
+            {t("emergency_lost_flyer.save_button")}
           </button>
         </div>
 
@@ -163,16 +164,17 @@ export default function EmegencyPdf() {
           className="text-teal-500 mt-3 mb-3"
           type="button"
         >
-          Imprimir / Guardar como PDF
+          {t("emergency_lost_flyer.print_button")} /{" "}
+          {t("emergency_lost_flyer.save_pdf_button")}
         </button>
 
         <div id="pdf-content" className="bg-white p-5 rounded shadow-lg">
           <div className="w-full h-64 bg-[#e60000] flex justify-center items-center flex-col">
             <h1 className="text-4xl md:text-8xl font-extrabold text-white mb-2">
-              MISSING PET
+              {t("emergency_lost_flyer.title_poster")}
             </h1>
             <p className="text-lg font-light text-white">
-              A cry for help for our furry friend
+              {t("emergency_lost_flyer.subtitle_poster")}
             </p>
           </div>
 
@@ -190,37 +192,41 @@ export default function EmegencyPdf() {
             <div className="text-start ms-5">
               <h1 className="text-[#e60000] text-8xl">{name}</h1>
               <p className="text-[#000000] text-lg">
-                Breed: <strong>{breed}</strong>
+                {t("emergency_lost_flyer.breed")}: <strong>{breed}</strong>
               </p>
               <p className="text-[#000000] text-lg">
-                Age: <strong>{age}</strong>
+                {t("emergency_lost_flyer.age")}: <strong>{age}</strong>
               </p>
               <p className="text-[#000000] text-lg">
-                Color: <strong>{pet_color}</strong>
+                {t("emergency_lost_flyer.color")}: <strong>{pet_color}</strong>
               </p>
               <p className="text-[#000000] text-lg max-w-[300px]">
-                Personality: <strong>{personality}</strong>
+                {t("emergency_lost_flyer.personality")}:{" "}
+                <strong>{personality}</strong>
               </p>
               <div className="bg-[#e60000] w-100 h-2 mt-3 mb-3"></div>
-              <h1 className="text-[#e60000] text-6xl">Owners</h1>
+              <h1 className="text-[#e60000] text-6xl">
+                {t("emergency_lost_flyer.owners")}
+              </h1>
               <p className="text-[#000000] text-lg">
-                Owner 1: <strong>{dad_name}</strong>
+                {t("emergency_lost_flyer.owner_1")}: <strong>{dad_name}</strong>
               </p>
               <p className="text-[#000000] text-lg">
-                Owner 2: <strong>{mom_name}</strong>
+                {t("emergency_lost_flyer.owner_2")}: <strong>{mom_name}</strong>
               </p>
               <p className="text-[#000000] text-lg">
-                Phone: <strong>{phone_number}</strong>
+                {t("emergency_lost_flyer.phone")}:{" "}
+                <strong>{phone_number}</strong>
               </p>
               {petByID.last_place_pet_seen && (
                 <p className="text-[#000000] text-lg">
-                  Last seen place:{" "}
+                  {t("emergency_lost_flyer.last_place_seen")}:{" "}
                   <strong>{petByID.last_place_pet_seen}</strong>
                 </p>
               )}
               {petByID.last_time_pet_seen && (
                 <p className="text-[#000000] text-lg">
-                  Last seen time:{" "}
+                  {t("emergency_lost_flyer.last_date_seen")}:{" "}
                   <strong>
                     {new Date(petByID.last_time_pet_seen).toLocaleString(
                       "es-ES"
@@ -233,7 +239,7 @@ export default function EmegencyPdf() {
 
           <div className="w-full h-64 bg-[#e60000] flex justify-center items-center flex-col">
             <p className="text-lg font-light text-white text-center">
-              Call or text with any information
+              {t("emergency_lost_flyer.message")}
             </p>
             <h1 className="text-4xl md:text-8xl font-extrabold text-white text-center">
               {phone_number}
