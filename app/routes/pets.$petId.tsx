@@ -2097,13 +2097,16 @@ export default function PetDetail() {
               </button>
             </form>
           </div>
-          <Pagination
-            currentPage={currentPage}
-            totalPages={Math.ceil(
-              (petByID?.medical_history?.[0]?.vets?.length || 0) / itemsPerPage
-            )}
-            setCurrentPage={setCurrentPage}
-          />
+          <div className="pb-[50px]">
+            <Pagination
+              currentPage={currentPage}
+              totalPages={Math.ceil(
+                (petByID?.medical_history?.[0]?.vets?.length || 0) /
+                  itemsPerPage
+              )}
+              setCurrentPage={setCurrentPage}
+            />
+          </div>
         </div>
       </dialog>
 
