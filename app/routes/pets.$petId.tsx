@@ -1919,12 +1919,7 @@ export default function PetDetail() {
                     className="border -2 border-[#65bcbb] rounded-lg p-5 w-full md:w-[250px]"
                   >
                     <div className=" ">
-                      <TagImagePreview
-                        shape={tag.shape}
-                        color={tag.color}
-                        width={200}
-                        height={200}
-                      />
+                      <TagImagePreview shape={tag.shape} color={tag.color} />
                       {/* <img
                         className="w-full md:w-[225px]"
                         src="https://chap-blue.s3.us-east-2.amazonaws.com/ChatGPT+Image+Apr+14%2C+2025%2C+04_19_29+PM.png"
@@ -1968,7 +1963,7 @@ export default function PetDetail() {
               </div>
             )}
           </div>
-          <div className="modal-action">
+          <div className="modal-action pb-[50px]">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
               <button className="btn">Close</button>
@@ -1992,7 +1987,7 @@ export default function PetDetail() {
                   key={vetSession.id}
                   className="bg-gray-800 text-white p-6 mb-6 rounded-xl shadow-lg border border-gray-700"
                 >
-                  <div className="flex justify-between items-center">
+                  <div className="flex flex-col justify-start md:flex-row md:justify-between md:items-center">
                     <div>
                       <h3 className="text-lg font-bold mb-2 text-teal-500">
                         {t("medical_visits_pet_id.title_visit_id")}:{" "}

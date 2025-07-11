@@ -106,18 +106,46 @@ export default function PetCalendar({
     } else {
       setSelectedTracker(null);
       setIsModalOpen(true);
-      setFormData((prev) => ({
-        ...prev,
+      // setFormData((prev) => ({
+      //   ...prev,
+      //   pet_id: petId,
+      //   date: new Date(
+      //     day.getFullYear(),
+      //     day.getMonth(),
+      //     day.getDate(),
+      //     12,
+      //     0,
+      //     0
+      //   ).toISOString(),
+      // }));
+      const newDate = new Date(
+        day.getFullYear(),
+        day.getMonth(),
+        day.getDate(),
+        12,
+        0,
+        0
+      ).toISOString();
+
+      setFormData({
         pet_id: petId,
-        date: new Date(
-          day.getFullYear(),
-          day.getMonth(),
-          day.getDate(),
-          12,
-          0,
-          0
-        ).toISOString(),
-      }));
+        urinated: false,
+        pooped: false,
+        poop_quality: "",
+        mood: "",
+        walked_minutes: 0,
+        played: false,
+        food_consumed: 0,
+        water_consumed: 0,
+        vomited: false,
+        coughing: false,
+        lethargy: false,
+        fever: false,
+        medication_given: "",
+        weight: 0,
+        sleep_hours: 0,
+        date: newDate,
+      });
       setSelectedDate(day);
     }
   };

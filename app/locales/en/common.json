@@ -429,6 +429,7 @@
 
     "subtitle_burn": "Burnt calories",
     "burn_line": "A {{minutes}} min walk burns ~{{burnedKcal}} kcal.",
+    "title_create": "Create",
 
     "title_tracker": "Track your pet",
 

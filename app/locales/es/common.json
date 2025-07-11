@@ -429,6 +429,7 @@
 
     "subtitle_burn": "Calorías quemadas",
     "burn_line": "Un paseo de {{minutes}} min quema ~{{burnedKcal}} kcal.",
+    "title_create": "Crear",
 
     "title_tracker": "Diario de tu mascota",
 

@@ -94,6 +94,24 @@ export default function PetTracker() {
 
     await createPetTrack(formData);
     await getPetById(petId);
+    setFormData({
+      pet_id: petId,
+      urinated: false,
+      pooped: false,
+      poop_quality: "",
+      mood: "",
+      walked_minutes: 0,
+      played: false,
+      food_consumed: 0,
+      water_consumed: 0,
+      vomited: false,
+      coughing: false,
+      lethargy: false,
+      fever: false,
+      medication_given: "",
+      weight: 0,
+      sleep_hours: 0,
+    });
   };
 
   const symptomLabels: Record<string, string> = {
