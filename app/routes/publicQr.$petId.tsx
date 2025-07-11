@@ -20,33 +20,6 @@ export default function PublicQr() {
   const [ubicacion, setUbicacion] = useState(null);
   const [mapError, setMapError] = useState(false);
   console.log("petData", petData);
-  //  {t("tracker_page.label_sleep_hours")}
-  // useEffect(() => {
-  //   if (petId) {
-  //     axios
-  //       .get(`${import.meta.env.VITE_REACT_APP_URL}/api/public/pets/${petId}`)
-  //       .then((response) => setPetData(response.data))
-  //       .catch((error) => console.error("Error al obtener la mascota:", error));
-  //   }
-
-  //   const obtenerUbicacionGoogle = async () => {
-  //     try {
-  //       const response = await axios.post(
-  //         `https://www.googleapis.com/geolocation/v1/geolocate?key=${
-  //           import.meta.env.VITE_REACT_APP_GEOLOCATION_KEY
-  //         }`
-  //       );
-  //       const data = response.data;
-  //       setUbicacion({ lat: data.location.lat, lng: data.location.lng });
-  //     } catch (error) {
-  //       console.error("Error al obtener ubicación:", error);
-  //       setUbicacion({ lat: "40.4153528", lng: "-3.7090139" });
-  //     }
-  //   };
-
-  //   obtenerUbicacionGoogle();
-  // }, [petId]);
-
   useEffect(() => {
     if (petId) {
       axios
@@ -191,15 +164,17 @@ export default function PublicQr() {
             {petData?.lost ? (
               <div className="p-4 bg-red-500 text-white rounded-2xl shadow-lg flex flex-col items-center">
                 <h4 className="text-2xl font-bold mb-2 border-b border-white pb-2 text-center">
-                  This pet is lost, please help!
+                  {t("qr_code_view.lost_title")}
                 </h4>
                 <p className="text-center text-base">
-                  Contact the parent of the pet directly to help them find their
-                  pet.
+                  {t("qr_code_view.lost_subtitle")}
                 </p>
-                <button className="mt-4 px-2 py-2 bg-white text-red-500 font-semibold rounded-lg hover:bg-gray-200 transition">
-                  Contact Now
-                </button>
+                <a
+                  href={`tel:${petData?.phone_number}`}
+                  className="mt-4 px-2 py-2 bg-white text-red-500 font-semibold rounded-lg hover:bg-gray-200 transition"
+                >
+                  {t("qr_code_view.lost_button")}
+                </a>
               </div>
             ) : null}
           </div>
@@ -208,7 +183,7 @@ export default function PublicQr() {
             {/* Pets Information */}
             <div className="p-6 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-2xl shadow-lg">
               <h1 className="text-2xl font-bold mb-4 border-b border-white pb-2">
-                Pets Information
+                {t("qr_code_view.title_pet")}
               </h1>
               <img
                 src={
@@ -219,34 +194,55 @@ export default function PublicQr() {
                 alt="dg"
                 className="w-32 h-32 object-cover rounded-full mb-2"
               />
-              <h3 className="text-lg font-semibold">Name: {petData?.name}</h3>
-              <p className="text-base">Age: {petData?.age}</p>
-              <p className="text-base">Pet Color: {petData?.pet_color}</p>
-              <p className="text-base">Breed: {petData?.breed}</p>
-              <p className="text-base">Personality: {petData?.personality}</p>
-              <p className="text-base">Chip Number: {petData?.chip_number}</p>
-              <p className="text-base">Lost?: {petData?.lost ? "Yes" : "No"}</p>
+              <h3 className="text-lg font-semibold">
+                {t("qr_code_view.name")}: {petData?.name}
+              </h3>
+              <p className="text-base">
+                {t("qr_code_view.age")}: {petData?.age}
+              </p>
+              <p className="text-base">
+                {t("qr_code_view.pet_color")}: {petData?.pet_color}
+              </p>
+              <p className="text-base">
+                {t("qr_code_view.breed")}: {petData?.breed}
+              </p>
+              <p className="text-base">
+                {t("qr_code_view.personality")}: {petData?.personality}
+              </p>
+              <p className="text-base">
+                {t("qr_code_view.chip_number")}: {petData?.chip_number}
+              </p>
+              <p className="text-base">
+                {t("qr_code_view.lost")}: {petData?.lost ? "Yes" : "No"}
+              </p>
             </div>
 
             {/* Parents Information */}
             <div className="p-6 bg-gradient-to-r from-green-500 to-teal-500 text-white rounded-2xl shadow-lg">
               <h1 className="text-2xl font-bold mb-4 border-b border-white pb-2">
-                Parents Information
+                {t("qr_code_view.title_owners")}
               </h1>
               <h3 className="text-lg font-semibold">
-                Dad Name: {petData?.dad_name}
+                {t("qr_code_view.owner_1")}: {petData?.dad_name}
               </h3>
-              <p className="text-base">Mom Name: {petData?.mom_name}</p>
-              <p className="text-base">Phone Number: {petData?.phone_number}</p>
               <p className="text-base">
-                Neighbourhood: {petData?.neighbourhood}
+                {" "}
+                {t("qr_code_view.owner_2")}: {petData?.mom_name}
               </p>
-              <p className="text-base">Address: {petData?.address}</p>
+              <p className="text-base">
+                {t("qr_code_view.phone")}: {petData?.phone_number}
+              </p>
+              <p className="text-base">
+                {t("qr_code_view.neighbourhood")}: {petData?.neighbourhood}
+              </p>
+              <p className="text-base">
+                {t("qr_code_view.address")}: {petData?.address}
+              </p>
             </div>
 
             <div className="p-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-2xl shadow-lg">
               <h1 className="text-2xl font-bold mb-4 border-b border-white pb-2">
-                Medical Notes
+                {t("qr_code_view.title_medical")}
               </h1>
               {petData?.medical_history &&
               petData.medical_history.length &&
@@ -255,97 +251,102 @@ export default function PublicQr() {
                   {petData.medical_history.map((note) => (
                     <li key={note.id} className="text-base mb-4 border-b pb-2">
                       <p>
-                        <strong>Description:</strong>{" "}
+                        <strong>{t("qr_code_view.description")}:</strong>{" "}
                         {note.description || "N/A"}
                       </p>
                       <p>
-                        <strong>Allergies:</strong> {note.allergies || "N/A"}
+                        <strong>{t("qr_code_view.allergies")}:</strong>{" "}
+                        {note.allergies || "N/A"}
                       </p>
                       <p>
-                        <strong>Behavior Notes:</strong>{" "}
+                        <strong>{t("qr_code_view.behavior_notes")}:</strong>{" "}
                         {note.behavior_notes || "N/A"}
                       </p>
                       <p>
-                        <strong>Blood Type:</strong> {note.blood_type || "N/A"}
+                        <strong>{t("qr_code_view.blood_type")}:</strong>{" "}
+                        {note.blood_type || "N/A"}
                       </p>
                       <p>
-                        <strong>Chronic Conditions:</strong>{" "}
+                        <strong>{t("qr_code_view.chronic_treatment")}:</strong>{" "}
                         {note.chronic_conditions || "N/A"}
                       </p>
                       <p>
-                        <strong>Current Treatment:</strong>{" "}
+                        <strong>{t("qr_code_view.current_treatment")}:</strong>{" "}
                         {note.current_treatment || "N/A"}
                       </p>
                       <p>
-                        <strong>Diet:</strong> {note.diet || "N/A"}
+                        <strong>{t("qr_code_view.diet")}:</strong>{" "}
+                        {note.diet || "N/A"}
                       </p>
                       <p>
-                        <strong>Height:</strong>{" "}
+                        <strong>{t("qr_code_view.height")}:</strong>{" "}
                         {note.height !== null ? `${note.height} cm` : "N/A"}
                       </p>
                       <p>
-                        <strong>Important Notes:</strong>{" "}
+                        <strong>{t("qr_code_view.important_notes")}:</strong>{" "}
                         {note.important_notes || "N/A"}
                       </p>
-                      <p>
-                        <strong>Last Doctor Visit:</strong>{" "}
+                      {/* <p>
+                        <strong>{t("qr_code_view.medications")}:</strong>{" "}
                         {note.last_doctor_visit || "N/A"}
-                      </p>
+                      </p> */}
                       <p>
-                        <strong>Medications:</strong>{" "}
+                        <strong>{t("qr_code_view.medications")}:</strong>{" "}
                         {note.medications || "N/A"}
                       </p>
                       <p>
-                        <strong>Surgical History:</strong>{" "}
+                        <strong>{t("qr_code_view.surgical_history")}:</strong>{" "}
                         {note.surgical_history || "N/A"}
                       </p>
                       <p>
-                        <strong>Vaccination Status:</strong>{" "}
+                        <strong>{t("qr_code_view.vaccination_status")}:</strong>{" "}
                         {note.vaccination_status || "N/A"}
                       </p>
                     </li>
                   ))}
                 </ul>
               ) : (
-                <p className="text-base">No medical history available.</p>
+                <p className="text-base">
+                  {t("qr_code_view.medical_empty_message")}.
+                </p>
               )}
             </div>
 
             <div className="p-6 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-2xl shadow-lg">
               <h1 className="text-2xl font-bold mb-4 border-b border-white pb-2">
-                TRAVEL MODE
+                {t("qr_code_view.title_travel_mode")}.
               </h1>
               {petData?.care_profile && petData.show_travel_mode ? (
                 <div>
                   <p>
-                    <strong>Feeding Instructions: </strong>
+                    <strong> {t("qr_code_view.feeding_instructions")}: </strong>
                     {petData?.care_profile.feeding_instructions}
                   </p>
                   <p>
-                    <strong> Walk instructions: </strong>
+                    <strong>{t("qr_code_view.walk_instructions")}: </strong>
                     {petData?.care_profile.walk_instructions}
                   </p>
                   <p>
-                    <strong>Medication Instructions: </strong>
+                    <strong>
+                      {t("qr_code_view.medication_instructions")}:{" "}
+                    </strong>
                     {petData?.care_profile.medication_instructions}
                   </p>
                   <p>
-                    <strong>allergies: </strong>
+                    <strong>{t("qr_code_view.allergies")}: </strong>
                     {petData?.care_profile.allergies}
                   </p>
                   <p>
-                    <strong>notes: </strong>
+                    <strong>{t("qr_code_view.important_notes")}: </strong>
                     {petData?.care_profile.notes}
                   </p>
                   <p>
-                    <strong>Emergency Contac:: </strong>
+                    <strong>{t("qr_code_view.emergency_contact")}: </strong>
                     {petData?.care_profile.emergency_contac}
                   </p>
                 </div>
               ) : (
-                <p className="text-base">
-                  no travel mode at the moment available.
-                </p>
+                <p className="text-base">{t("qr_code_view.important_notes")}</p>
               )}
             </div>
 
@@ -362,11 +363,10 @@ export default function PublicQr() {
       ) : (
         <div className="flex flex-col items-center justify-center min-h-screen p-8 text-center">
           <h1 className="text-2xl font-bold text-red-600 mb-4">
-            QR Not Activated
+            {t("qr_code_view.not_active")}
           </h1>
           <p className="text-lg text-gray-700 max-w-md">
-            This QR code has not been activated yet. Please ask the pet owner to
-            complete the purchase and activation process.
+            {t("qr_code_view.not_Active_description")}
           </p>
         </div>
       )}
