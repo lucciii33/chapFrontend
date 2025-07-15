@@ -4,7 +4,7 @@ import dogHi from "../images/hidog.png";
 import nobgtag from "../images/testtag.png";
 import dogSitting from "../images/dogSitting.png";
 import dogTag from "../images/test2.png";
-import phoneimage from "../images/phonehomepage.png";
+import phoneimage from "../images/phoneimage3.png";
 import { Link } from "@remix-run/react";
 import ScrollVideo from "~/components/scroll-video";
 import "../../styles/dashboard.css";

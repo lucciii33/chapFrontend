@@ -331,8 +331,7 @@ export default function Dashboard() {
               </div>
             </div>
           ) : (
-            // Renderiza el nombre si el usuario está logueado
-            <p>Por favor, inicia sesión.</p> // Mensaje si el usuario no está logueado
+            <p>Por favor, inicia sesión.</p>
           )}
         </div>
 
@@ -1007,7 +1006,7 @@ export default function Dashboard() {
             {allPets.length > 0 ? (
               <div>
                 <Link to={`/finances`}>
-                  <button className="btn  bg-teal-500 w-full md:w-auto">
+                  <button className="btn flex justify-start  bg-teal-500 w-full md:w-auto">
                     {t("subNavbar.extraFeatures.buttonFinances")}
                   </button>
                 </Link>
