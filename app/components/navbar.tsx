@@ -14,6 +14,9 @@ import Cart from "./cart";
 import { useTranslation } from "react-i18next";
 
 export default function Navbar() {
+  const { authAdmin } = useGlobalContext(); // ✅ AGREGADO
+  const { adminUser, logoutAdmin } = authAdmin;
+  console.log("adminUser NAVBAR", adminUser);
   const [theme, setTheme] = useState("light");
   const location = useLocation();
   const { auth, cart } = useGlobalContext();
@@ -40,6 +43,12 @@ export default function Navbar() {
 
   const renderLinks = () => (
     <>
+      {adminUser && (
+        <button className="btn" onClick={logoutAdmin}>
+          {/* {t("navbar.logout")} */}
+          <PowerIcon className="h-6 w-6 text-teal-500" />
+        </button>
+      )}
       {user ? (
         <>
           <Link to="/dashboard">

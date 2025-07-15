@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "@remix-run/react";
 
 type AdminUser = {
   access_token: string;
@@ -34,6 +35,7 @@ type LoginResponse = {
 export const useAuthAdminContext = () => {
   const [adminUser, setAdminUser] = useState<AdminUser | null>(null);
   const baseUrl = import.meta.env.VITE_REACT_APP_URL;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedUser = localStorage.getItem("adminUser");
@@ -95,7 +97,8 @@ export const useAuthAdminContext = () => {
 
   const logoutAdmin = () => {
     setAdminUser(null); // Eliminar el usuario del estado
-    localStorage.removeItem("access_token"); // Eliminar el token del Local Storage
+    localStorage.removeItem("adminUser"); // Eliminar el token del Local Storage
+    navigate("/loginAdmin");
   };
 
   return { adminUser, loginAdmin, registerAdmin, logoutAdmin };

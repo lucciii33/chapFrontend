@@ -612,5 +612,32 @@
     "emergency_contact": "Emergency contact",
     "not_active": "QR Not Activated",
     "not_Active_description": "This QR code has not been activated yet. Please ask the pet owner to complete the purchase and activation process."
+  },
+  "cart": {
+    "pet_name": "Pet",
+    "tag_color": "Color",
+    "tag_shape": "Shape",
+    "tag_material": "Material",
+    "tag_quantity": "Quantity",
+    "button": "Pay Now"
+  },
+  "checkout_page": {
+    "title_checkout": "Summary",
+    "pet_name": "Pet",
+    "price": "Price",
+    "quantity": "Quantity",
+    "tag_details": "Tag details",
+    "total_price": "Total price",
+    "tax_price": "Total VAT",
+    "total_with_tax": "Total price with VAT"
+  },
+  "payment_info": {
+    "title": "Pay here",
+    "card_number_label": "Card number",
+    "expiration_label": "Expiration date",
+    "cvv_label": "CVV",
+    "discount_label": "Discount code (optional)",
+    "discount_placeholder": "Type your code",
+    "button": "Pay"
   }
 }

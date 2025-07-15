@@ -6,8 +6,10 @@ import { TrashIcon, PlusIcon } from "@heroicons/react/24/outline";
 import DeleteDialog from "./deleteDialog";
 import { MinusIcon } from "@heroicons/react/24/outline";
 import TagImagePreview from "./TagImagePreview";
+import { useTranslation } from "react-i18next";
 
 export default function Cart() {
+  const { t } = useTranslation();
   const { auth, cart } = useGlobalContext();
   const { user } = auth;
   const {
@@ -102,19 +104,19 @@ export default function Cart() {
                   />
                 </div>
                 <p className="mt-4">
-                  Pet for: <strong>{item.pet.name}</strong>
+                  {t("cart.pet_name")}: <strong>{item.pet.name}</strong>
                 </p>
                 <p>
-                  Color: <strong>{item.tag.color}</strong>
+                  {t("cart.tag_color")}: <strong>{item.tag.color}</strong>
                 </p>
                 <p>
-                  Shape: <strong>{item.tag.shape}</strong>
+                  {t("cart.tag_shape")}: <strong>{item.tag.shape}</strong>
                 </p>
                 <p>
-                  Material: <strong>{item.tag.material}</strong>
+                  {t("cart.tag_material")}: <strong>{item.tag.material}</strong>
                 </p>
                 <p>
-                  Quantity: <strong>{item.quantity}</strong>
+                  {t("cart.tag_quantity")}: <strong>{item.quantity}</strong>
                 </p>
               </div>
               <div className="mt-3 flex">
@@ -167,7 +169,7 @@ export default function Cart() {
       </div>
       <Link to="/checkout" onClick={() => closeSideBar()}>
         <button className="w-full border-none py-3 px-4 mt-5 bg-teal-500 text-white rounded-lg">
-          Pay now
+          {t("cart.button")}
         </button>
       </Link>
 

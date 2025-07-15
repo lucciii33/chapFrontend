@@ -362,6 +362,12 @@ export default function PetDetail() {
             console.log("Item added to cart successfully:", response);
             setMessage("Item added to cart!");
             getCartByUser(user.id);
+            const modal = document.getElementById(
+              "my_modal_6_pet_id"
+            ) as HTMLDialogElement;
+            if (modal?.open) {
+              modal.close();
+            }
           }
         })
         .catch((error) => {

@@ -11,6 +11,7 @@ import { useGlobalContext } from "../context/GlobalProvider";
 import { ShippingAddressContext } from "../context/ShippingAddressContext";
 import { showErrorToast, showSuccessToast } from "~/utils/toast";
 import { useNavigate } from "@remix-run/react";
+import { useTranslation } from "react-i18next";
 
 // Función auxiliar para llamar al backend
 
@@ -33,6 +34,7 @@ const CheckoutForm: React.FC<{
   const { allCarts } = cart;
   console.log("user", user);
   console.log("allCarts", allCarts);
+  const { t } = useTranslation();
   const stripe = useStripe();
   const elements = useElements();
   const navigate = useNavigate();
@@ -210,7 +212,7 @@ const CheckoutForm: React.FC<{
 
   return (
     <div>
-      <h2 className="p-2">Paga aqui</h2>
+      <h2 className="p-2">{t("payment_info.title")}</h2>
       <form onSubmit={handleSubmit} style={{}}>
         <div
           style={{
@@ -223,7 +225,10 @@ const CheckoutForm: React.FC<{
           {/* <CardElement options={{ style: { base: { fontSize: "16px" } } }} /> */}
           <div className="space-y-4">
             <div className="border p-2 rounded">
-              <label className="block text-sm mb-1">Número de tarjeta</label>
+              {/* {t("subNavbar.extraFeatures.buttonFinances")} */}
+              <label className="block text-sm mb-1">
+                {t("payment_info.card_number_label")}
+              </label>
               <CardNumberElement
                 options={{
                   style: { base: { fontSize: "16px" } },
@@ -233,14 +238,18 @@ const CheckoutForm: React.FC<{
             </div>
 
             <div className="border p-2 rounded">
-              <label className="block text-sm mb-1">Fecha de expiración</label>
+              <label className="block text-sm mb-1">
+                {t("payment_info.expiration_label")}
+              </label>
               <CardExpiryElement
                 options={{ style: { base: { fontSize: "16px" } } }}
               />
             </div>
 
             <div className="border p-2 rounded">
-              <label className="block text-sm mb-1">CVC</label>
+              <label className="block text-sm mb-1">
+                {t("payment_info.cvv_label")}
+              </label>
               <CardCvcElement
                 options={{ style: { base: { fontSize: "16px" } } }}
               />
@@ -248,13 +257,13 @@ const CheckoutForm: React.FC<{
 
             <div className="mt-4">
               <label className="block text-sm mb-1">
-                Código de descuento (opcional)
+                {t("payment_info.discount_label")}
               </label>
               <input
                 type="text"
                 value={couponCode}
                 onChange={handleCouponChange}
-                placeholder="Introduce tu código"
+                placeholder={t("payment_info.discount_placeholder")}
                 className="border p-2 w-full rounded"
               />
             </div>
@@ -267,7 +276,7 @@ const CheckoutForm: React.FC<{
             style={{ marginTop: 20 }}
             className="btn  bg-teal-500 w-full"
           >
-            Pagar
+            {t("payment_info.button")}
           </button>
         </div>
       </form>

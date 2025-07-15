@@ -611,5 +611,32 @@
     "emergency_contact": "Contacto de emergencia",
     "not_active": "QR Inactivo",
     "not_Active_description": "Este código QR no ha sido activado aun. Por favor, pide al dueño de la mascota que complete el proceso de compra y activación."
+  },
+  "cart": {
+    "pet_name": "Mascota",
+    "tag_color": "Color",
+    "tag_shape": "Forma",
+    "tag_material": "Material",
+    "tag_quantity": "Cantidad",
+    "button": "Paga Ahora"
+  },
+  "checkout_page": {
+    "title_checkout": "Resumen",
+    "pet_name": "Mascota",
+    "price": "Precio",
+    "quantity": "Cantidad",
+    "tag_details": "Detalles de chapa",
+    "total_price": "Precio total",
+    "tax_price": "Total IVA",
+    "total_with_tax": "Precio total con IVA"
+  },
+  "payment_info": {
+    "title": "Paga aquí",
+    "card_number_label": "Número de tarjeta",
+    "expiration_label": "Fecha de expiración",
+    "cvv_label": "CVV",
+    "discount_label": "Código de descuento (opcional)",
+    "discount_placeholder": "Ingresa tu código",
+    "button": "Pagar"
   }
 }

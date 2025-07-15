@@ -48,7 +48,9 @@ export default function Login() {
       <div className="w-1/2 flex items-center justify-center bg-neutral-950">
         <div className="w-full max-w-lg px-4 ">
           <div className="flex items-center justify-center">
-            <h1 className="text-2xl font-bold mb-4 text-slate-50">Login</h1>
+            <h1 className="text-2xl font-bold mb-4 text-slate-50">
+              Login ADMIN
+            </h1>
           </div>
           <div className="mb-4">
             <label className="block text-slate-50">Email</label>
