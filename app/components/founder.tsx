@@ -36,7 +36,7 @@ export default function Founders() {
               className="text-[30px] md:text-[70px] text-center md:text-start font-bold text-white  p-5 md:whitespace-nowrap"
               style={{ fontFamily: "chapFont" }}
             >
-              the Founders
+              {t(`founder.title`)}
             </h1>
           </div>
         </div>

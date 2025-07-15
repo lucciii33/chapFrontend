@@ -32,7 +32,7 @@ type CardProps = {
 };
 export default function Card({ petObj }: CardProps) {
   const [selectPetId, setSelectPetId] = useState<number | null>(null);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { auth, pet, tag, cart, comingFromCard, inventory } =
@@ -289,13 +289,15 @@ export default function Card({ petObj }: CardProps) {
       )}
       <dialog id="my_modal_2" className="modal">
         <div className="modal-box w-3/4 max-w-4xl h-auto p-6">
-          <h3 className="font-bold text-lg">Crea Tu chapa aqui</h3>
+          <h3 className="font-bold text-lg">
+            {t("petCreation.create_tag_here")}
+          </h3>
           <>
             <div className="flex flex-col md:flex-row mt-3">
               <div className="w-full md:w-1/2 order-2 md:order-1 md:border-r  border-gray-500 ">
                 <div className="me-5">
                   <div>
-                    <label>Material</label>
+                    <label>{t("petCreation.step2.step3.material")}</label>
                   </div>
                   <div>
                     <select
@@ -304,7 +306,9 @@ export default function Card({ petObj }: CardProps) {
                       onChange={handleTagChange}
                       className="w-full px-4 py-2 border rounded-lg"
                     >
-                      <option value="aluminum">aluminum</option>
+                      <option value="aluminum">
+                        {t("petCreation.step2.step3.material_al")}
+                      </option>
                       {/* <option value="plastic">Plástico</option>
                       <option value="leather">Cuero</option> */}
                     </select>
@@ -313,7 +317,7 @@ export default function Card({ petObj }: CardProps) {
 
                 <div className="me-5">
                   <div>
-                    <label>Shape</label>
+                    <label>{t("petCreation.step2.step3.shape.label")}</label>
                   </div>
                   <div>
                     <select
@@ -339,7 +343,11 @@ export default function Card({ petObj }: CardProps) {
                     </select>
                     {stockStatus?.description ? (
                       <p className="text-sm text-blue-600 m-0">
-                        {stockStatus?.description}
+                        {
+                          i18n.language === "es"
+                            ? "Ideal para mascotas pequeñas(Sin border de silicon)" // traducción manual
+                            : "Great for small pets (No silicon border)" // valor original de la API
+                        }
                       </p>
                     ) : (
                       ""
@@ -349,7 +357,7 @@ export default function Card({ petObj }: CardProps) {
 
                 <div className="me-5">
                   <div>
-                    <label>Color</label>
+                    <label>{t("petCreation.step2.step3.color.label")}</label>
                   </div>
                   <div>
                     <select
@@ -410,7 +418,7 @@ export default function Card({ petObj }: CardProps) {
                   className="btn  bg-teal-500 w-[92%] mt-2 me-2"
                   onClick={handleCreateTag}
                 >
-                  Crea tu chapa aqui
+                  {t("petCreation.create_tag_here")}
                 </button>
               </div>
               <div className="w-full md:w-1/2 order-1 md:order-2 flex mb-4 md:mt-0 justify-center items-center">

@@ -20,7 +20,7 @@ import { showErrorToast } from "~/utils/toast";
 
 export default function Dashboard() {
   const { auth, pet, tag, cart, inventory } = useGlobalContext();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const { getInventoryForUser, inventoryItemsUser } = inventory;
 
@@ -792,7 +792,11 @@ export default function Dashboard() {
                         </select>
                         {stockStatus?.description ? (
                           <p className="text-sm text-blue-600 m-0">
-                            {stockStatus?.description}
+                            {
+                              i18n.language === "es"
+                                ? "Ideal para mascotas pequeñas(Sin border de silicon)" // traducción manual
+                                : "Great for small pets (No silicon border)" // valor original de la API
+                            }
                           </p>
                         ) : (
                           ""
@@ -1074,17 +1078,14 @@ export default function Dashboard() {
 
       <dialog id="purchase_aler" className="modal">
         <div className="modal-box w-3/4 max-w-4xl h-auto p-6">
-          <h2>
-            Debes comprar primero la chapa de esta mascota para poder usar este
-            feature.
-          </h2>
+          <h2>{t("pet_tracker.empty_message")}</h2>
           <button
             className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600"
             onClick={() => {
               document.getElementById("purchase_aler").close();
             }}
           >
-            Close
+            {t("pet_tracker.button")}
           </button>
         </div>
       </dialog>

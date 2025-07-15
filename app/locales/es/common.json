@@ -35,6 +35,7 @@
   },
 
   "founder": {
+    "title": "Los Fundadores",
     "2019": {
       "title": "Todo empezó con Roxy.",
       "desc": "Este año tomamos una decisión que nos cambió la vida: Nos convertimos en padres perrunos. Adoptamos a Roxy y con ella llegaron los paseos, las aventuras, las dudas y los gastos. "
@@ -104,6 +105,7 @@
   },
 
   "petCreation": {
+    "create_tag_here": "Crea tu chapa aqui",
     "step1": {
       "title": "¡Bienvenido,",
       "description": "¿Estás listo para cuidar y seguir a tu mascota?\nCrea su perfil, diseña su chapa, cómprala y disfruta de todas las funcionalidades.",
@@ -141,6 +143,7 @@
         "title": "Crea la chapa",
         "description": "Puedes crearla ahora o más tarde, pero la necesitas para introducir más datos.\n¡Anímate y elige tu forma y color favorito!",
         "material": "Material: Aluminio",
+        "material_al": "Aluminio",
         "shape": {
           "label": "Forma",
           "options": {
@@ -638,5 +641,9 @@
     "discount_label": "Código de descuento (opcional)",
     "discount_placeholder": "Ingresa tu código",
     "button": "Pagar"
+  },
+  "pet_tracker": {
+    "empty_message": "Esta función estará disponible después de que completes el pago de tu chapa.",
+    "button": "Cerrar"
   }
 }
