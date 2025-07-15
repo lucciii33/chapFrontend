@@ -16,11 +16,12 @@ import {
   CheckCircleIcon,
   WrenchScrewdriverIcon,
 } from "@heroicons/react/24/solid";
-import { showErrorToast } from "~/utils/toast";
+import { showErrorToast, showInfoToast } from "~/utils/toast";
 
 export default function Dashboard() {
   const { auth, pet, tag, cart, inventory } = useGlobalContext();
   const { t, i18n } = useTranslation();
+  const [cantBuy, setCantBuy] = useState(false);
 
   const { getInventoryForUser, inventoryItemsUser } = inventory;
 
@@ -183,7 +184,7 @@ export default function Dashboard() {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value, type, checked } = e.target;
-
+    setCantBuy(false);
     setTagInfoData((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value, // Si es checkbox, usa `checked`, si no, usa `value`
@@ -192,6 +193,15 @@ export default function Dashboard() {
 
   const handleCreateTag = async () => {
     if (!validateTagInfo(tagInfoData)) return;
+    if (!stockStatus?.available) {
+      setCantBuy(true);
+      showInfoToast(
+        i18n.language === "es"
+          ? "No hay stock disponible para esta chapa."
+          : "This tag is currently out of stock."
+      );
+      return;
+    }
     if (petProfile && typeof petProfile) {
       try {
         const petId = petProfile.id;
@@ -911,8 +921,19 @@ export default function Dashboard() {
                 {stockStatus && (
                   <p className="text-sm mt-2">
                     {stockStatus.available
-                      ? `Disponibles: ${stockStatus.quantity}`
-                      : "No hay stock disponible"}
+                      ? i18n.language === "es"
+                        ? `Disponibles: ${stockStatus.quantity}`
+                        : `Available: ${stockStatus.quantity}`
+                      : i18n.language === "es"
+                      ? "No hay stock disponible"
+                      : "Out of stock"}
+                  </p>
+                )}
+                {cantBuy && (
+                  <p>
+                    {i18n.language === "es"
+                      ? `Debes elegir otra chapa, lo sentimos.`
+                      : `You need to chose another tag, we sorry`}
                   </p>
                 )}
                 <div className="modal-action">

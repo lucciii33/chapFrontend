@@ -8,6 +8,7 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 import AlertCircle from "./alertCircle";
 import UserAlerts from "./userAlerts";
 import { useTranslation } from "react-i18next";
+import { showInfoToast } from "~/utils/toast";
 
 type CardProps = {
   petObj: {
@@ -35,10 +36,12 @@ export default function Card({ petObj }: CardProps) {
   const { t, i18n } = useTranslation();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [cantBuy, setCantBuy] = useState(false);
   const { auth, pet, tag, cart, comingFromCard, inventory } =
     useGlobalContext();
   const { createTag, tagInfo } = tag;
   const { actSideBar, selectPetIdForTag, selectPetIdNew } = cart;
+
   const { getInventoryForUser, inventoryItemsUser } = inventory;
   const [stockStatus, setStockStatus] = useState<null | {
     available: boolean;
@@ -127,6 +130,7 @@ export default function Card({ petObj }: CardProps) {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value, type, checked } = e.target;
+    setCantBuy(false);
 
     setTagInfoData((prev) => ({
       ...prev,
@@ -137,10 +141,18 @@ export default function Card({ petObj }: CardProps) {
   const handleCreateTag = async () => {
     if (selectPetIdNew !== null) {
       try {
+        if (!stockStatus?.available) {
+          setCantBuy(true);
+          showInfoToast(
+            i18n.language === "es"
+              ? "No hay stock disponible para esta chapa."
+              : "This tag is currently out of stock."
+          );
+          return;
+        }
         const petId = selectPetIdNew;
         const response = await createTag(petId, tagInfoData);
         if (response) {
-          alert("¡Chapa creada con éxito!");
           await getPets(user.id);
           document.getElementById("my_modal_2").close();
         } else {
@@ -438,8 +450,19 @@ export default function Card({ petObj }: CardProps) {
             {stockStatus && (
               <p className="text-sm mt-2">
                 {stockStatus.available
-                  ? `Disponibles: ${stockStatus.quantity}`
-                  : "No hay stock disponible"}
+                  ? i18n.language === "es"
+                    ? `Disponibles: ${stockStatus.quantity}`
+                    : `Available: ${stockStatus.quantity}`
+                  : i18n.language === "es"
+                  ? "No hay stock disponible"
+                  : "Out of stock"}
+              </p>
+            )}
+            {cantBuy && (
+              <p>
+                {i18n.language === "es"
+                  ? `Debes elegir otra chapa, lo sentimos.`
+                  : `You need to chose another tag, we sorry`}
               </p>
             )}
             <div className="modal-action">

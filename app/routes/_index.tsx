@@ -11,6 +11,7 @@ import "../../styles/dashboard.css";
 import { useTranslation } from "react-i18next";
 import WhyChap from "~/components/whyChap";
 import Founders from "~/components/founder";
+import { useGlobalContext } from "~/context/GlobalProvider";
 
 export const meta: MetaFunction = () => {
   return [
@@ -20,6 +21,9 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
+  const { cart } = useGlobalContext();
+
+  const { actSideBar } = cart;
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const { t } = useTranslation();
 
@@ -52,7 +56,10 @@ export default function Index() {
             />
           )}
         </div>
-        <div className="mt-3 lg:mt-0 p-5 lg:px-4 max-w-xl lg:max-w-2xl z-10">
+        <div
+          className="mt-3 lg:mt-0 p-5 lg:px-4 max-w-xl lg:max-w-2xl z-10"
+          style={{ zIndex: actSideBar ? 0 : "auto" }}
+        >
           {/* order-1 lg:order-2 */}
           <h1
             className="text-3xl lg:text-6xl font-bold text-white"

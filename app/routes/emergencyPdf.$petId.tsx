@@ -170,10 +170,10 @@ export default function EmegencyPdf() {
 
         <div id="pdf-content" className="bg-white p-5 rounded shadow-lg">
           <div className="w-full h-64 bg-[#e60000] flex justify-center items-center flex-col">
-            <h1 className="text-4xl md:text-8xl font-extrabold text-white mb-2">
+            <h1 className="text-4xl md:text-8xl text-center font-extrabold text-white mb-2">
               {t("emergency_lost_flyer.title_poster")}
             </h1>
-            <p className="text-lg font-light text-white">
+            <p className="text-lg font-ligh text-center text-white">
               {t("emergency_lost_flyer.subtitle_poster")}
             </p>
           </div>
