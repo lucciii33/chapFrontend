@@ -12,6 +12,7 @@ type EditDialogShippinAddressProps = {
     street_address: string;
     apartment: string;
   };
+  t: () => void;
 };
 
 export default function EditDialogShippinAddress({
@@ -19,6 +20,7 @@ export default function EditDialogShippinAddress({
   onClose,
   onSave,
   initialData,
+  t,
 }: EditDialogShippinAddressProps) {
   const [formData, setFormData] = useState(initialData);
 
@@ -33,10 +35,10 @@ export default function EditDialogShippinAddress({
   return (
     <dialog id="edit-modal" className="modal" open={isOpen}>
       <div className="modal-box">
-        <h3 className="font-bold text-lg">Edit Shipping Address</h3>
+        <h3 className="font-bold text-lg">{t("saved_address.edit_title")}</h3>
 
         <div className="mt-3">
-          <label className="block">Country</label>
+          <label className="block">{t("saved_address.country_label")}</label>
           <input
             name="country"
             className="input input-bordered w-full"
@@ -46,7 +48,7 @@ export default function EditDialogShippinAddress({
         </div>
 
         <div className="mt-3">
-          <label className="block">State</label>
+          <label className="block">{t("saved_address.state_label")}</label>
           <input
             name="state"
             className="input input-bordered w-full"
@@ -56,7 +58,7 @@ export default function EditDialogShippinAddress({
         </div>
 
         <div className="mt-3">
-          <label className="block">City</label>
+          <label className="block">{t("saved_address.city_label")}</label>
           <input
             name="city"
             className="input input-bordered w-full"
@@ -66,7 +68,7 @@ export default function EditDialogShippinAddress({
         </div>
 
         <div className="mt-3">
-          <label className="block">Postal Code</label>
+          <label className="block">{t("saved_address.zip_label")}</label>
           <input
             name="postal_code"
             className="input input-bordered w-full"
@@ -76,7 +78,7 @@ export default function EditDialogShippinAddress({
         </div>
 
         <div className="mt-3">
-          <label className="block">Street Address</label>
+          <label className="block">{t("saved_address.street_label")}</label>
           <input
             name="street_address"
             className="input input-bordered w-full"
@@ -86,7 +88,7 @@ export default function EditDialogShippinAddress({
         </div>
 
         <div className="mt-3">
-          <label className="block">Apartment</label>
+          <label className="block">{t("saved_address.apartment_label")}</label>
           <input
             name="apartment"
             className="input input-bordered w-full"
@@ -97,10 +99,10 @@ export default function EditDialogShippinAddress({
 
         <div className="modal-action">
           <button className="btn" onClick={onClose}>
-            Cancel
+            {t("saved_address.button_cancel")}
           </button>
           <button className="btn btn-primary" onClick={() => onSave(formData)}>
-            Save Changes
+            {t("saved_address.button_save")}
           </button>
         </div>
       </div>

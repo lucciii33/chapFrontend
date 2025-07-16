@@ -118,14 +118,14 @@ export default function CheckoutPage() {
             {t("checkout_page.total_with_tax")}: $
             {((amountInCents + ivaInCents) / 100).toFixed(2)}{" "}
           </p>
-          <h2 className="mb-2 text-2xl mt-2">Shipping Address</h2>
+          <h2 className="mb-2 text-2xl mt-2">{t("shipping_address.title")}</h2>
           <div
             className={`mt-2 border-2 ${
               highlightAddressSection ? "border-red-500" : "border-gray-700"
             } bg-gray-700 rounded-lg p-3 transition-all duration-300`}
           >
             <div className="flex justify-between ">
-              <h1 className="text-bold">Create/edit</h1>
+              <h1 className="text-bold">{t("shipping_address.subtitle")}</h1>
               {openShippingAddress ? (
                 <ChevronUpIcon
                   className="h-6 w-6 text-teal-500"

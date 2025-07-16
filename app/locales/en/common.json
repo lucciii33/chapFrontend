@@ -647,5 +647,34 @@
   "pet_tracker": {
     "empty_message": "This feature will become accessible after you complete the payment for your tag.",
     "button": "Close"
+  },
+  "shipping_address": {
+    "title": "Shipping Address",
+    "subtitle": "Create/Edit",
+    "country_label": "Country",
+    "country_placeholder": "Select a country",
+    "state_label": "State",
+    "state_placeholder": "State",
+    "city_label": "City",
+    "city_placeholder": "City",
+    "zip_label": "Zip Code",
+    "zip_placeholder": "Zip Code",
+    "street_label": "Street Address",
+    "street_placeholder": "Street Address",
+    "apartment_label": "Apartment/Unit (optional)",
+    "apartment_placeholder": "Apartment/Unit (optional)",
+    "button_shipping": "Create Shipping Address"
+  },
+  "saved_address": {
+    "title": "Your shipping addresses",
+    "edit_title": "Edit Shipping Address",
+    "country_label": "Country",
+    "state_label": "State",
+    "city_label": "City",
+    "zip_label": "Zip Code",
+    "street_label": "Street Address",
+    "apartment_label": "Apartment/Unit",
+    "button_cancel": "Cancel",
+    "button_save": "Save Changes"
   }
 }

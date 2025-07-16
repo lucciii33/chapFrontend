@@ -6,6 +6,7 @@ import { TrashIcon, PencilIcon } from "@heroicons/react/24/solid";
 import EditDialogShippinAddress from "~/components/editDialogShippingAddress";
 import DeleteDialogAddress from "~/components/deleteDialogAddress";
 import CheckoutPage from "../checkout";
+import { useTranslation } from "react-i18next";
 
 export default function ShippingAddress({
   setRefreshAddresses,
@@ -16,6 +17,7 @@ export default function ShippingAddress({
   const user = auth.user;
   console.log("user", user);
   const [selectedAddress, setSelectedAddress] = useState<number | null>(null);
+  const { t } = useTranslation();
 
   const {
     createShippingAddress,
@@ -133,16 +135,20 @@ export default function ShippingAddress({
     <div className="flex items-center">
       <div className="">
         <div className="mt-3 border-2 p-5  !border-[#65bcbb] rounded-lg">
-          Shipping Address
+          {t("shipping_address.title")}
           <div className="mb-2 mt-3">
-            <label className="block text-slate-50">Country</label>
+            <label className="block text-slate-50">
+              {t("shipping_address.country_label")}
+            </label>
             <select
               className="w-full px-4 py-2 border rounded-lg"
               name="country"
               value={formData.country}
               onChange={handleChange}
             >
-              <option value="">Select a country</option>
+              <option value="">
+                {t("shipping_address.country_placeholder")}
+              </option>
               <option value="ES">Spain</option>
               <option value="PT">Portugal</option>
               <option value="IT">Italy</option>
@@ -157,10 +163,12 @@ export default function ShippingAddress({
           </div>
           <div className="flex md:justify-between flex-col md:flex-row">
             <div className="mb-2 w-full">
-              <label className="block text-slate-50">State</label>
+              <label className="block text-slate-50">
+                {t("shipping_address.state_label")}
+              </label>
               <input
                 className="w-full px-4 py-2 border rounded-lg"
-                placeholder="State"
+                placeholder={t("shipping_address.state_label")}
                 name="state"
                 value={formData.state}
                 onChange={handleChange}
@@ -168,11 +176,13 @@ export default function ShippingAddress({
             </div>
 
             <div className="mb-2 w-full ms-0 md:ms-2">
-              <label className="block text-slate-50">City</label>
+              <label className="block text-slate-50">
+                {t("shipping_address.city_label")}
+              </label>
               <input
                 //   type="password"
                 className="w-full px-4 py-2 border rounded-lg"
-                placeholder="City"
+                placeholder={t("shipping_address.city_label")}
                 name="city"
                 value={formData.city}
                 onChange={handleChange}
@@ -181,33 +191,40 @@ export default function ShippingAddress({
           </div>
           <div className="flex md:justify-between flex-col md:flex-row">
             <div className="mb-2 w-full">
-              <label className="block text-slate-50"> Postal code</label>
+              <label className="block text-slate-50">
+                {" "}
+                {t("shipping_address.zip_label")}
+              </label>
               <input
                 //   type="password"
                 className="w-full px-4 py-2 border rounded-lg"
-                placeholder=" Postal code"
+                placeholder={t("shipping_address.zip_label")}
                 name="postal_code"
                 value={formData.postal_code}
                 onChange={handleChange}
               />
             </div>
             <div className="mb-2 w-full ms-0 md:ms-2 ml-2">
-              <label className="block text-slate-50">Street Address</label>
+              <label className="block text-slate-50">
+                {t("shipping_address.street_label")}
+              </label>
               <input
                 //   type="password"
                 className="w-full px-4 py-2 border rounded-lg"
-                placeholder=" Street Address"
+                placeholder={t("shipping_address.street_label")}
                 name="street_address"
                 value={formData.street_address}
                 onChange={handleChange}
               />
             </div>
             <div className="mb-2 w-full">
-              <label className="block text-slate-50">Apartment</label>
+              <label className="block text-slate-50">
+                {t("shipping_address.apartment_label")}
+              </label>
               <input
                 //   type="password"
                 className="w-full px-4 py-2 border rounded-lg"
-                placeholder="Apartment"
+                placeholder={t("shipping_address.apartment_label")}
                 name="apartment"
                 value={formData.apartment}
                 onChange={handleChange}
@@ -219,12 +236,12 @@ export default function ShippingAddress({
               className="w-full border-none py-3 px-4  bg-teal-500 text-white rounded-lg"
               onClick={handleSubmit}
             >
-              Create Shipping Address
+              {t("shipping_address.button_shipping")}
             </button>
           </div>
         </div>
         <div className="mt-3 border-2 p-5 !border-[#65bcbb] rounded-lg">
-          <h2 className="text-lg font-bold">Your shipping addresses</h2>
+          <h2 className="text-lg font-bold">{t("saved_address.title")}</h2>
 
           {addresses.length > 0 ? (
             addresses.map((address, index) => (
@@ -297,6 +314,7 @@ export default function ShippingAddress({
           onClose={() => setIsEditDialogOpen(false)}
           onSave={handleEdit}
           initialData={addressToEdit}
+          t={t}
         />
       )}
     </div>

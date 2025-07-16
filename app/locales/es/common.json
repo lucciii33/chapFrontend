@@ -646,5 +646,34 @@
   "pet_tracker": {
     "empty_message": "Esta función estará disponible después de que completes el pago de tu chapa.",
     "button": "Cerrar"
+  },
+  "shipping_address": {
+    "title": "Dirección de envío",
+    "subtitle": "Crea/Edita",
+    "country_label": "País",
+    "country_placeholder": "Selecciona un país",
+    "state_label": "Provincia",
+    "state_placeholder": "Provincia",
+    "city_label": "Ciudad",
+    "city_placeholder": "Ciudad",
+    "zip_label": "Código postal",
+    "zip_placeholder": "Código postal",
+    "street_label": "Tipo de vía, Nombre, Nº",
+    "street_placeholder": "Tipo de vía,Nº de la vía",
+    "apartment_label": "Piso/Escalera/Puerta",
+    "apartment_placeholder": "Piso/Escalera/Puerta",
+    "button_shipping": "Crear dirección de envío"
+  },
+  "saved_address": {
+    "title": "Tus direcciones",
+    "edit_title": "Editar dirección",
+    "country_label": "País",
+    "state_label": "Estado",
+    "city_label": "Ciudad",
+    "zip_label": "Código postal",
+    "street_label": "Tipo de vía, Nombre de la vía, nº",
+    "apartment_label": "Piso/Escalera/Puerta",
+    "button_cancel": "Cancelar",
+    "button_save": "Guardar Cambios"
   }
 }
