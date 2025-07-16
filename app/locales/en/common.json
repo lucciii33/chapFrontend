@@ -545,6 +545,7 @@
   },
   "emergency_lost_flyer": {
     "title": "Lost Pet Emergency Flyer",
+    "share_social_media": "Share on social medial",
     "subtitle": "Use this page to generate a missing pet flyer. You can download it as a PDF or share it directly on social media to help find your furry friend faster.",
     "title_lost_info": "When and where did you see your pet for the last time?",
     "label_date_time": "Last time seen (date and time):",

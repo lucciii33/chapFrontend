@@ -96,6 +96,37 @@ export default function EmegencyPdf() {
     }
   };
 
+  const shareImage = () => {
+    const element = document.getElementById("pdf-content");
+    if (!element) return;
+
+    html2canvas(element).then((canvas) => {
+      canvas.toBlob((blob) => {
+        if (!blob) return;
+
+        const file = new File([blob], "cartel-perro-perdido.png", {
+          type: "image/png",
+        });
+
+        const filesArray = [file];
+
+        if (navigator.canShare && navigator.canShare({ files: filesArray })) {
+          navigator
+            .share({
+              files: filesArray,
+              title: "Cartel de perro perdido",
+              text: "¡Ayúdame a encontrar a mi mascota!",
+            })
+            .catch((error) =>
+              console.error("Error al intentar compartir:", error)
+            );
+        } else {
+          alert("Compartir no es compatible en este dispositivo.");
+        }
+      });
+    });
+  };
+
   return (
     <>
       <style>{`
@@ -159,21 +190,26 @@ export default function EmegencyPdf() {
           </button>
         </div>
 
-        <button
-          onClick={handleDownloadImage}
-          className="text-teal-500 mt-3 mb-3"
-          type="button"
-        >
-          {t("emergency_lost_flyer.print_button")} /{" "}
-          {t("emergency_lost_flyer.save_pdf_button")}
-        </button>
+        <div className="flex flex-col md:flex-row ">
+          <button onClick={shareImage} className="text-teal-500 mt-3 mb-3">
+            {t("emergency_lost_flyer.share_social_media")}
+          </button>
+          <button
+            onClick={handleDownloadImage}
+            className="text-teal-500 mt-0 md:mt-3 mb-3 ms-0 md:ms-2"
+            type="button"
+          >
+            {t("emergency_lost_flyer.print_button")} /{" "}
+            {t("emergency_lost_flyer.save_pdf_button")}
+          </button>
+        </div>
 
         <div id="pdf-content" className="bg-white p-5 rounded shadow-lg">
-          <div className="w-full h-64 bg-[#e60000] flex justify-center items-center flex-col">
-            <h1 className="text-4xl md:text-8xl text-center font-extrabold text-white mb-2">
+          <div className="w-full h-[10rem] md:h-64 bg-[#e60000] flex justify-center items-center flex-col">
+            <h1 className="text-3xl md:text-8xl text-center font-extrabold text-white mb-2">
               {t("emergency_lost_flyer.title_poster")}
             </h1>
-            <p className="text-lg font-ligh text-center text-white">
+            <p className="text-md md:text-lg font-ligh text-center text-white">
               {t("emergency_lost_flyer.subtitle_poster")}
             </p>
           </div>
@@ -182,7 +218,7 @@ export default function EmegencyPdf() {
             <div>
               <img
                 id="pet-photo"
-                className="h-[500px]"
+                className="h-auto md:h-[500px]"
                 src={`${backendUrl}/api/proxy-image?url=${encodeURIComponent(
                   profile_photo
                 )}`}
@@ -190,42 +226,42 @@ export default function EmegencyPdf() {
               />
             </div>
             <div className="text-start ms-5">
-              <h1 className="text-[#e60000] text-8xl">{name}</h1>
-              <p className="text-[#000000] text-lg">
+              <h1 className="text-[#e60000] text-3xl md:text-8xl">{name}</h1>
+              <p className="text-[#000000] text-md md:text-lg">
                 {t("emergency_lost_flyer.breed")}: <strong>{breed}</strong>
               </p>
-              <p className="text-[#000000] text-lg">
+              <p className="text-[#000000] text-md md:text-lg">
                 {t("emergency_lost_flyer.age")}: <strong>{age}</strong>
               </p>
-              <p className="text-[#000000] text-lg">
+              <p className="text-[#000000] text-md md:text-lg">
                 {t("emergency_lost_flyer.color")}: <strong>{pet_color}</strong>
               </p>
-              <p className="text-[#000000] text-lg max-w-[300px]">
+              <p className="text-[#000000] text-md md:text-lg max-w-[300px]">
                 {t("emergency_lost_flyer.personality")}:{" "}
                 <strong>{personality}</strong>
               </p>
               <div className="bg-[#e60000] w-100 h-2 mt-3 mb-3"></div>
-              <h1 className="text-[#e60000] text-6xl">
+              <h1 className="text-[#e60000] text-3xl md:text-8xl">
                 {t("emergency_lost_flyer.owners")}
               </h1>
-              <p className="text-[#000000] text-lg">
+              <p className="text-[#000000] text-md md:text-lg">
                 {t("emergency_lost_flyer.owner_1")}: <strong>{dad_name}</strong>
               </p>
-              <p className="text-[#000000] text-lg">
+              <p className="text-[#000000] text-md md:text-lg">
                 {t("emergency_lost_flyer.owner_2")}: <strong>{mom_name}</strong>
               </p>
-              <p className="text-[#000000] text-lg">
+              <p className="text-[#000000] text-md md:text-lg">
                 {t("emergency_lost_flyer.phone")}:{" "}
                 <strong>{phone_number}</strong>
               </p>
               {petByID.last_place_pet_seen && (
-                <p className="text-[#000000] text-lg">
+                <p className="text-[#000000] text-md md:text-lg">
                   {t("emergency_lost_flyer.last_place_seen")}:{" "}
                   <strong>{petByID.last_place_pet_seen}</strong>
                 </p>
               )}
               {petByID.last_time_pet_seen && (
-                <p className="text-[#000000] text-lg">
+                <p className="text-[#000000] text-md md:text-lg">
                   {t("emergency_lost_flyer.last_date_seen")}:{" "}
                   <strong>
                     {new Date(petByID.last_time_pet_seen).toLocaleString(
@@ -237,11 +273,11 @@ export default function EmegencyPdf() {
             </div>
           </div>
 
-          <div className="w-full h-64 bg-[#e60000] flex justify-center items-center flex-col">
+          <div className="w-full h-[10rem] md:h-64 bg-[#e60000] flex justify-center items-center flex-col">
             <p className="text-lg font-light text-white text-center">
               {t("emergency_lost_flyer.message")}
             </p>
-            <h1 className="text-4xl md:text-8xl font-extrabold text-white text-center">
+            <h1 className="text-3xl md:text-8xl font-extrabold text-white text-center">
               {phone_number}
             </h1>
           </div>

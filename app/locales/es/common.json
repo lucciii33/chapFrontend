@@ -544,6 +544,7 @@
   },
   "emergency_lost_flyer": {
     "title": "Cartel de emergencia para mascotas perdidas",
+    "share_social_media": "Compartir en redes sociales",
     "subtitle": "Usa esta página para crear un cartel de mascota perdida. Puedes descargarlo en PDF o compartirlo directamente en redes sociales para encontrar a tu mascota más rápido.",
     "title_lost_info": "¿Cuándo y dónde viste por última vez a tu mascota?",
     "label_date_time": "Última vez vista (fecha y hora):",
