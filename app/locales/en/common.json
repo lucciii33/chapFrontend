@@ -519,6 +519,7 @@
     "title_edit": "Edit veterinary session",
     "date": "Date",
     "documents_empty_message": "No attached documents",
+    "actual_documents": "Attached documents",
     "new_documents": "Add new documents",
     "save_button": "Save changes",
     "close_button": "Close"

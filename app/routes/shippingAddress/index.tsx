@@ -189,7 +189,22 @@ export default function ShippingAddress({
               />
             </div>
           </div>
-          <div className="flex md:justify-between flex-col md:flex-row">
+          <div>
+            <div className="mb-2 w-full">
+              <label className="block text-slate-50">
+                {t("shipping_address.street_label")}
+              </label>
+              <input
+                //   type="password"
+                className="w-full px-4 py-2 border rounded-lg"
+                placeholder={t("shipping_address.street_label")}
+                name="street_address"
+                value={formData.street_address}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+          <div className="flex md:justify-between gap-0 md:gap-2 flex-col md:flex-row">
             <div className="mb-2 w-full">
               <label className="block text-slate-50">
                 {" "}
@@ -201,19 +216,6 @@ export default function ShippingAddress({
                 placeholder={t("shipping_address.zip_label")}
                 name="postal_code"
                 value={formData.postal_code}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="mb-2 w-full ms-0 md:ms-2 ml-2">
-              <label className="block text-slate-50">
-                {t("shipping_address.street_label")}
-              </label>
-              <input
-                //   type="password"
-                className="w-full px-4 py-2 border rounded-lg"
-                placeholder={t("shipping_address.street_label")}
-                name="street_address"
-                value={formData.street_address}
                 onChange={handleChange}
               />
             </div>

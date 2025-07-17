@@ -518,6 +518,7 @@
     "title_edit": "Editar sesión veterinaria",
     "date": "Fecha",
     "documents_empty_message": "No hay documentos adjuntos",
+    "actual_documents": "Documentos Actuales",
     "new_documents": "Agregar nuevos documentos",
     "save_button": "Guardar Cambios",
     "close_button": "Cerrar"

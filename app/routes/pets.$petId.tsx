@@ -1777,57 +1777,64 @@ export default function PetDetail() {
       <dialog id="my_modal_4_pet_id" className="modal">
         <div className="modal-box max-w-4xl">
           <h3 className=" text-lg" style={{ fontFamily: "chapFont" }}>
-            Editar Sesión Veterinaria
+            {t("medical_visits_pet_id.title_edit")}
           </h3>
 
           {/* Inputs para editar */}
+          <label>{t("vetVisitForm.form.clinicAddressLabel")}</label>
           <input
             type="text"
             name="address"
             value={petVetInfo.address}
             onChange={handleChangeVet}
             className="w-full px-4 py-2 border rounded-lg mb-2"
-            placeholder="Dirección"
+            placeholder={t("vetVisitForm.form.clinicAddressLabel")}
           />
 
+          <label>{t("vetVisitForm.form.treatmentLabel")}</label>
           <input
             type="text"
             name="treatment"
             value={petVetInfo.treatment}
             onChange={handleChangeVet}
             className="w-full px-4 py-2 border rounded-lg mb-2"
-            placeholder="Tratamiento"
+            placeholder={t("vetVisitForm.form.treatmentLabel")}
           />
 
+          <label>{t("vetVisitForm.form.visitReasonLabel")}</label>
           <input
             type="text"
             name="cause"
             value={petVetInfo.cause}
             onChange={handleChangeVet}
             className="w-full px-4 py-2 border rounded-lg mb-2"
-            placeholder="Causa"
+            placeholder={t("vetVisitForm.form.visitReasonLabel")}
           />
 
+          <label>{t("vetVisitForm.form.visitDateLabel")}</label>
           <input
             type="date"
             name="date"
             value={petVetInfo.date ? petVetInfo.date : ""}
             onChange={handleChangeVet}
             className="w-full px-4 py-2 border rounded-lg mb-2"
-            placeholder="Fecha"
+            placeholder={t("vetVisitForm.form.visitDateLabel")}
           />
 
+          <label>{t("vetVisitForm.form.medicalNotesLabel")}</label>
           <input
             type="text"
             name="medical_notes"
             value={petVetInfo.medical_notes}
             onChange={handleChangeVet}
             className="w-full px-4 py-2 border rounded-lg mb-2"
-            placeholder="Notas médicas"
+            placeholder={t("vetVisitForm.form.medicalNotesLabel")}
           />
 
           {/* Archivos actuales */}
-          <h4 className="font-semibold mt-4">Documentos Actuales:</h4>
+          <h4 className="font-semibold mt-4">
+            {t("medical_visits_pet_id.actual_documents")}.
+          </h4>
           <div className="flex flex-wrap gap-2">
             {petVetInfo.existingFiles?.length > 0 ? (
               petVetInfo.existingFiles?.map((file, index) => (
@@ -1855,7 +1862,9 @@ export default function PetDetail() {
                 </div>
               ))
             ) : (
-              <p className="text-gray-500">No hay documentos adjuntos.</p>
+              <p className="text-gray-500">
+                {t("medical_visits_pet_id.documents_empty_message")}.
+              </p>
             )}
           </div>
 
@@ -1867,7 +1876,9 @@ export default function PetDetail() {
           />
 
           {/* Subir nuevos archivos */}
-          <h4 className="font-semibold mt-4">Agregar Nuevos Documentos:</h4>
+          <h4 className="font-semibold mt-4">
+            {t("medical_visits_pet_id.new_documents")}:
+          </h4>
           <input
             type="file"
             name="files"
@@ -1879,10 +1890,12 @@ export default function PetDetail() {
           {/* Botones */}
           <div className="modal-action">
             <button className="btn btn-primary" onClick={handleEditVetSession}>
-              Guardar Cambios
+              {t("medical_visits_pet_id.save_button")}
             </button>
             <form method="dialog">
-              <button className="btn">Cerrar</button>
+              <button className="btn">
+                {t("medical_visits_pet_id.close_button")}
+              </button>
             </form>
           </div>
         </div>
