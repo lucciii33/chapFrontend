@@ -152,6 +152,35 @@ export default function PublicQr() {
     });
   };
 
+  useEffect(() => {
+    if (!petData || !petId) return;
+
+    const storedUser = localStorage.getItem("user");
+    console.log("llamandooooo");
+    if (!storedUser) {
+      fetch(
+        `${
+          import.meta.env.VITE_REACT_APP_URL
+        }/public/pets/${petId}/notify-scan`,
+        {
+          method: "POST",
+        }
+      )
+        .then((res) => {
+          if (!res.ok) {
+            console.error("❌ Error notificando escaneo");
+          } else {
+            console.log("✅ Escaneo notificado correctamente");
+          }
+        })
+        .catch((err) => {
+          console.error("❌ Error al hacer fetch para notificar escaneo:", err);
+        });
+    } else {
+      console.log("🐶 Dueño logueado — no se envía email.");
+    }
+  }, [petData]);
+
   return (
     <div className="">
       {!petData ? (
