@@ -161,7 +161,7 @@ export default function PublicQr() {
       fetch(
         `${
           import.meta.env.VITE_REACT_APP_URL
-        }/public/pets/${petId}/notify-scan`,
+        }/api/public/pets/${petId}/notify-scan`,
         {
           method: "POST",
         }
