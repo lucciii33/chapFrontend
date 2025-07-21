@@ -1755,7 +1755,8 @@ export default function PetDetail() {
       {/* //modal here to change image  */}
       <dialog id="my_modal_3_pet_id" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Hello!</h3>
+          <h3 className="font-bold text-lg"> {t("profile_photo.title")}</h3>
+          <p className="font-thin text-md"> {t("profile_photo.subtitle")}</p>
           <p className="py-4">
             <input
               type="file"
@@ -1767,7 +1768,7 @@ export default function PetDetail() {
           <div className="modal-action">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
-              <button className="btn">Close</button>
+              <button className="btn">{t("pet_tracker.button")}</button>
             </form>
           </div>
         </div>

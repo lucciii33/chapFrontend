@@ -633,7 +633,9 @@
     "tag_details": "Detalles de chapa",
     "total_price": "Precio total",
     "tax_price": "Total IVA",
-    "total_with_tax": "Precio total con IVA"
+    "total_with_tax": "Precio total con IVA",
+    "shipping_price": "Precio de envío",
+    "total_with_shipping": "Precio total con envío"
   },
   "payment_info": {
     "title": "Paga aquí",
@@ -676,5 +678,9 @@
     "apartment_label": "Piso/Escalera/Puerta",
     "button_cancel": "Cancelar",
     "button_save": "Guardar Cambios"
+  },
+  "profile_photo": {
+    "title": "Agrega una nueva foto de perfil",
+    "subtitle": "¡Ahora todos podrán ver lo adorable que es!"
   }
 }

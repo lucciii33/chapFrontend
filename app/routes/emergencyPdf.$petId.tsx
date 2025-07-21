@@ -149,7 +149,14 @@ export default function EmegencyPdf() {
         }
       `}</style>
 
-      <div className="p-5">
+      <div className="p-5 relative">
+        {!petByID.pay_show_info && (
+          <div className="absolute inset-0 z-50 bg-gray-900 bg-opacity-80 flex items-center justify-center pointer-events-auto">
+            <p className="text-white text-center text-lg opacity-70 absolute top-1/4 md:top-auto">
+              <h2>{t("expenses.lockedFeature")}</h2>
+            </p>
+          </div>
+        )}
         <h1 className="text-4xl font-bold text-center text-teal-500 mb-4">
           {t("emergency_lost_flyer.title")}
         </h1>

@@ -1,13 +1,4 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-// import { useState } from "react";
-// import { Link } from "@remix-run/react";
-// import { useGlobalContext } from "../../context/GlobalProvider"; // Ajusta el path
-// import loginImage from "../../images/imageLogin4.png";
-// import { useGlobalContext } from "../../context/GlobalProvider";
-// import { useEffect, useState } from "react";
-// import Card from "~/components/card";
-// import tagImg from "../../images/tag.png";
-// import "../../../styles/dashboard.css";
 import { showErrorToast, showSuccessToast } from "~/utils/toast";
 import { Link } from "@remix-run/react";
 import { useGlobalContext } from "../../context/GlobalProvider";
@@ -17,7 +8,7 @@ import DeleteDialogAdmin from "~/components/deleteDialogAdmin";
 import Pagination from "~/components/pagination";
 
 export default function AdminDashboard() {
-  const { orders } = useGlobalContext(); // Accede a la info del usuario
+  const { orders } = useGlobalContext();
 
   const [showOrder, setShowOrder] = useState(false);
   const [trackerShippingNumber, setTrackerShippingNumber] = useState("");
@@ -25,8 +16,6 @@ export default function AdminDashboard() {
   const [allOrders, setAllOrders] = useState([]);
   const [filterCountry, setFilterCountry] = useState("");
   const [filterDate, setFilterDate] = useState("");
-  console.log("allOrders", allOrders);
-  console.log("filterDate", filterDate);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState<number | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);

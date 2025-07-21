@@ -17,8 +17,10 @@ export default function CheckoutPage() {
   const [openShippingAddress, setOpenShippingAddress] = useState(false);
   const [highlightAddressSection, setHighlightAddressSection] = useState(false);
   const [amountInCents, setAmountInCents] = useState(0);
+  console.log("amountInCents", amountInCents);
   const [refreshAddresses, setRefreshAddresses] = useState(false);
   const [ivaInCents, setIvaInCents] = useState(0);
+  const [shippingCost, setShippingCost] = useState(0);
 
   const [shippingAddresses, setShippingAddresses] = useState([]);
   console.log("shippingAddresses", shippingAddresses);
@@ -50,10 +52,16 @@ export default function CheckoutPage() {
     let iva = 0;
 
     if (shippingAddresses && EU_COUNTRIES.includes(shippingAddresses.country)) {
-      iva = amountInCents * 0.21; // 21% IVA
+      iva = amountInCents * 0.21;
     }
 
     setIvaInCents(Math.round(iva));
+
+    if (shippingAddresses && shippingAddresses.country === "USA") {
+      setShippingCost(1000); // 10 EUR
+    } else {
+      setShippingCost(0);
+    }
   }, [amountInCents, shippingAddresses]);
 
   return (
@@ -111,13 +119,39 @@ export default function CheckoutPage() {
             {t("checkout_page.total_price")}: $
             {(amountInCents / 100).toFixed(2)} USD
           </p>
-          <p className="text-xl pb-4 mt-4 border-b border-gray-700">
+          {ivaInCents > 0 && (
+            <p className="text-xl pb-4 mt-4 border-b border-gray-700">
+              {t("checkout_page.tax_price")}: ${(ivaInCents / 100).toFixed(2)}{" "}
+              USD
+            </p>
+          )}
+
+          {shippingCost > 0 && (
+            <p className="text-xl pb-4 mt-4 border-b border-gray-700">
+              {t("checkout_page.shipping_price")}: $
+              {(shippingCost / 100).toFixed(2)} USD
+            </p>
+          )}
+          {/* <p className="text-xl pb-4 mt-4 border-b border-gray-700">
             {t("checkout_page.tax_price")}: ${(ivaInCents / 100).toFixed(2)} USD
-          </p>
-          <p className="text-2xl pb-4 mt-4 border-b border-gray-700">
+          </p> */}
+
+          {/* <p className="text-2xl pb-4 mt-4 border-b border-gray-700">
             {t("checkout_page.total_with_tax")}: $
             {((amountInCents + ivaInCents) / 100).toFixed(2)}{" "}
-          </p>
+          </p> */}
+          {ivaInCents > 0 && (
+            <p className="text-xl pb-4 mt-4 border-b border-gray-700">
+              {t("checkout_page.total_with_tax")}: $
+              {((amountInCents + ivaInCents) / 100).toFixed(2)} USD
+            </p>
+          )}
+          {shippingCost > 0 && (
+            <p className="text-xl pb-4 mt-4 border-b border-gray-700">
+              {t("checkout_page.total_with_shipping")}: $
+              {((amountInCents + shippingCost) / 100).toFixed(2)} USD
+            </p>
+          )}
           <h2 className="mb-2 text-2xl mt-2">{t("shipping_address.title")}</h2>
           <div
             className={`mt-2 border-2 ${

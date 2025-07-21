@@ -634,7 +634,9 @@
     "tag_details": "Tag details",
     "total_price": "Total price",
     "tax_price": "Total VAT",
-    "total_with_tax": "Total price with VAT"
+    "total_with_tax": "Total price with VAT",
+    "shipping_price": "Shipping price",
+    "total_with_shipping": "Total price with shipping"
   },
   "payment_info": {
     "title": "Pay here",
@@ -677,5 +679,9 @@
     "apartment_label": "Apartment/Unit",
     "button_cancel": "Cancel",
     "button_save": "Save Changes"
+  },
+  "profile_photo": {
+    "title": "Add a new profile photo",
+    "subtitle": "Now everyone can see how adorable they are!"
   }
 }
