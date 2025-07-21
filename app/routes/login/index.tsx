@@ -30,9 +30,7 @@ export default function Login() {
     e.preventDefault();
     try {
       const result = await auth.login(loginData);
-      console.log("Result", result);
       if (result) {
-        console.log("Login exitoso", result);
         navigate("/dashboard");
       } else {
         console.error("Credenciales incorrectas");

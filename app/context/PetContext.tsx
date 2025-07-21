@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { showErrorToast, showSuccessToast } from "~/utils/toast";
+import { useTranslation } from "react-i18next";
 
 type Pet = {
   name: string;
@@ -41,6 +42,7 @@ type CreatePetResponse = {
 
 export const usePetContext = () => {
   const baseUrl = import.meta.env.VITE_REACT_APP_URL;
+  const { t } = useTranslation();
 
   const [petProfile, setPetProfile] = useState<CreatePetResponse | null>(null);
   const [allPets, setAllPets] = useState<CreatePetResponse[]>([]);
@@ -88,11 +90,11 @@ export const usePetContext = () => {
 
       const responseData: CreatePetResponse = await response.json();
       setPetProfile(responseData); // Guardamos la mascota creada en el estado
-      showSuccessToast("Tu mascota ha sido creada con exito");
+      showSuccessToast(t("dashboard_toast.pet_created"));
       return responseData;
     } catch (error) {
       console.error("Error al crear la mascota:", error);
-      showErrorToast("Error al crear la mascota");
+      showErrorToast(t("dashboard_toast.error_pet_creation"));
       return null;
     }
   };

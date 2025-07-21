@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { showErrorToast, showSuccessToast } from "~/utils/toast";
+import { useTranslation } from "react-i18next";
 
 type Tag = {
   shape: string;
@@ -21,6 +22,7 @@ type CreateTagResponse = {
 export const useTagContext = () => {
   const [tagInfo, setTagInfo] = useState<Tag | null>(null);
   const baseUrl = import.meta.env.VITE_REACT_APP_URL;
+  const { t } = useTranslation();
 
   const getToken = (): string | null => {
     const storedUser = localStorage.getItem("user");
@@ -53,11 +55,11 @@ export const useTagContext = () => {
 
       const responseData: CreateTagResponse = await response.json();
       setTagInfo(responseData); // Guardamos la mascota creada en el estado
-      showSuccessToast("Tu tag ha sido creado con exito");
+      showSuccessToast(t("dashboard_toast.tag_created"));
       return responseData;
     } catch (error) {
       console.error("Error al crear la mascota:", error);
-      showErrorToast("Error al crear el tag");
+      showErrorToast(t("dashboard_toast.error_tag_creation"));
       return null;
     }
   };

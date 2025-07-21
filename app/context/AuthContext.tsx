@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "@remix-run/react";
 import { showErrorToast, showSuccessToast } from "~/utils/toast";
+import { useTranslation } from "react-i18next";
 
 type User = {
   access_token: string;
@@ -38,6 +39,8 @@ type LoginResponse = {
 };
 
 export const useAuthContext = () => {
+  const { t } = useTranslation();
+
   const [user, setUser] = useState<User | null>(null);
   const navigate = useNavigate();
   const baseUrl = import.meta.env.VITE_REACT_APP_URL;
@@ -70,11 +73,12 @@ export const useAuthContext = () => {
       };
       setUser(userData);
       localStorage.setItem("user", JSON.stringify(userData));
-      showSuccessToast("Login exitoso");
+      // showSuccessToast("Login exitoso");
+      showSuccessToast(t("login_toast.success"));
       return responseData;
     } catch (error) {
       console.error("Error en login:", error);
-      showErrorToast("Error en el login");
+      showErrorToast(t("login_toast.error"));
       return null;
     }
   };
@@ -94,11 +98,11 @@ export const useAuthContext = () => {
       }
 
       const responseData: RegisterResponse = await response.json();
-      showSuccessToast("register exitoso");
+      showSuccessToast(t("register_toast.success"));
       return responseData;
     } catch (error) {
       console.error("Error en registro:", error);
-      showErrorToast("Error en el register");
+      showErrorToast(t("register_toast.error"));
       return null;
     }
   };
@@ -106,7 +110,7 @@ export const useAuthContext = () => {
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
-    showSuccessToast("cerrando session...");
+    showSuccessToast(t("dashboard_toast.logging_out"));
     navigate("/");
   };
 

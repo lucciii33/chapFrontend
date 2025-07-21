@@ -683,5 +683,23 @@
   "profile_photo": {
     "title": "Add a new profile photo",
     "subtitle": "Now everyone can see how adorable they are!"
+  },
+  "login_toast": {
+    "success": "Login successful",
+    "error": "Login failed. Verify all fields."
+  },
+  "register_toast": {
+    "success": "Register successful",
+    "error": "Problem with your registration"
+  },
+  "dashboard_toast": {
+    "pet_created": "Pet created successfully",
+    "error_pet_creation": "We couldn't create your pet right now",
+    "tag_created": "Tag created successfully",
+    "error_tag_creation": "We couldn't create your tag",
+    "tag_added": "Tag added to cart",
+    "error_tag_add": "Couldn't add tag to cart",
+    "tag_unavailable": "Sorry, this tag is not available at the moment.",
+    "logging_out": "Logging out"
   }
 }

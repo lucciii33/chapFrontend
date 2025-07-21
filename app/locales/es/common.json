@@ -682,5 +682,23 @@
   "profile_photo": {
     "title": "Agrega una nueva foto de perfil",
     "subtitle": "¡Ahora todos podrán ver lo adorable que es!"
+  },
+  "login_toast": {
+    "success": "Inicio exitoso",
+    "error": "Error al iniciar. Verifica todos los campos."
+  },
+  "register_toast": {
+    "success": "Registro exitoso",
+    "error": "Problemas con tu registro"
+  },
+  "dashboard_toast": {
+    "pet_created": "Mascota creada con éxito",
+    "error_pet_creation": "No hemos podido crear tu mascota ahora",
+    "tag_created": "Chapa creada con éxito",
+    "error_tag_creation": "No hemos podido crear tu chapa",
+    "tag_added": "Chapa agregada al carrito",
+    "tag_unavailable": "Lo sentimos, esta chapa está agotada en este momento.",
+    "error_tag_add": "No se pudo agregar la chapa al carrito",
+    "logging_out": "Cerrando sesión"
   }
 }

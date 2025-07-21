@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { showErrorToast, showSuccessToast } from "~/utils/toast";
+import { useTranslation } from "react-i18next";
 
 type Cart = {
   tag_id: number;
@@ -56,6 +57,7 @@ type CreateCartResponse = Cart & {
 };
 
 export const useCartContext = () => {
+  const { t } = useTranslation();
   const [cartProfile, setCartProfile] = useState<CreateCartResponse | null>(
     null
   );
@@ -96,12 +98,12 @@ export const useCartContext = () => {
       }
 
       const responseData: CreateCartResponse = await response.json();
-      showSuccessToast("Tu tag ha sido agregado a tu carrito con exito");
+      showSuccessToast(t("dashboard_toast.tag_added"));
       setCartProfile(responseData); // Guardamos la mascota creada en el estado
       return responseData;
     } catch (error) {
       console.error("Error al crear la mascota:", error);
-      showErrorToast("Error al agregar el tag al carrito");
+      showErrorToast(t("dashboard_toast.error_tag_add"));
 
       return null;
     }
