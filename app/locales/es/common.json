@@ -700,5 +700,40 @@
     "tag_unavailable": "Lo sentimos, esta chapa está agotada en este momento.",
     "error_tag_add": "No se pudo agregar la chapa al carrito",
     "logging_out": "Cerrando sesión"
+  },
+  "cart_toast": {
+    "success": "Carrito editado con éxito",
+    "error": "Error al agregar al carrito",
+    "error_delete": "Error al eliminar la chapa del carrito",
+    "delete": "Tu chapa ha sido eliminada con exito"
+  },
+  "modal": {
+    "delete_confirmation": "¿Está seguro que desea eliminar esto?",
+    "cancel": "Cancelar",
+    "confirm": "Si, Eliminar",
+    "title": "Eliminar"
+  },
+  "password_recovery": {
+    "instructions": "Si el correo existe, recibirás un link de recuperación",
+    "email_placeholder": "Agrega tu email",
+    "send_button": "Enviar email de recuperación",
+    "close_button": "Cerrar",
+    "email_validation": "Por favor ingresa un correo válido",
+    "toast_success": "Correo de recuperación enviado",
+    "toast_error": "No se pudo enviar el correo de recuperación",
+    "request_error": "Error al solicitar recuperación de contraseña",
+    "success": "Contraseña actualizada correctamente"
+  },
+  "address": {
+    "created": "Dirección creada con éxito",
+    "edited": "Dirección editada con éxito",
+    "updated": "Dirección actualizada con éxito",
+    "deleted": "Dirección eliminada con éxito",
+    "error": "Error en la solicitud",
+    "delete_error": "Error al eliminar la dirección"
+  },
+  "payment": {
+    "success": "Compra exitosa",
+    "error": "Pago fallido. Verifica todos los campos."
   }
 }

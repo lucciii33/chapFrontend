@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 type DeleteDialogProps = {
   isOpen: boolean;
@@ -11,9 +12,11 @@ export default function DeleteDialog({
   isOpen,
   onClose,
   onConfirm,
-  itemName = "this item",
+  itemName = "",
 }: DeleteDialogProps) {
   console.log("isOpen", isOpen);
+  const { t } = useTranslation();
+
   // useEffect(() => {
   //   if (isOpen) {
   //     document.getElementById("delete-modal")?.showModal();
@@ -35,11 +38,12 @@ export default function DeleteDialog({
   return (
     <dialog ref={dialogRef} className="modal">
       <div className="modal-box">
-        <h3 className="font-bold text-lg">Confirm Deletion</h3>
-        <p className="py-4">Are you sure you want to delete {itemName}?</p>
+        <h3 className="font-bold text-lg">{t("modal.title")}</h3>
+        {/* Are you sure you want to delete {itemName}? */}
+        <p className="py-4">{t("modal.delete_confirmation")}</p>
         <div className="modal-action">
           <button className="btn" onClick={onClose}>
-            Cancel
+            {t("modal.cancel")}
           </button>
           <button
             className="btn btn-error"
@@ -48,7 +52,7 @@ export default function DeleteDialog({
               onConfirm();
             }}
           >
-            Yes, Delete
+            {t("modal.confirm")}
           </button>
         </div>
       </div>

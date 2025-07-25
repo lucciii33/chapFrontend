@@ -42,18 +42,18 @@ export default function Login() {
 
   const handleResetRequest = async () => {
     if (!resetPassword) {
-      showErrorToast("Por favor ingresa un correo válido");
+      showErrorToast(t("password_recovery.email_validation"));
       return;
     }
 
     const result = await auth.requestPasswordReset(resetPassword);
 
     if (result?.success) {
-      showSuccessToast("Correo de recuperación enviado");
+      showSuccessToast(t("password_recovery.toast_success"));
       document.getElementById("resetPassword").close();
       setResetpassword(""); // Limpiar input
     } else {
-      showErrorToast("No se pudo enviar el correo de recuperación");
+      // showErrorToast(t("password_recovery.toast_error"));
     }
   };
   return (
@@ -129,10 +129,11 @@ export default function Login() {
       <dialog id="resetPassword" className="modal">
         <div className="modal-box w-3/4 max-w-4xl h-auto p-6">
           <div>
-            <label>Add your email</label>
+            <label> {t("password_recovery.email_placeholder")}</label>
           </div>
           <div>
             <input
+              placeholder={t("password_recovery.email_placeholder")}
               type="email"
               value={resetPassword}
               onChange={(e) => setResetpassword(e.target.value)}
@@ -143,13 +144,13 @@ export default function Login() {
             className="mt-4 py-2 px-4 bg-teal-500 text-white rounded-lg"
             onClick={handleResetRequest}
           >
-            Enviar email de recuperación
+            {t("password_recovery.send_button")}
           </button>
           <button
             onClick={() => document.getElementById("resetPassword").close()}
             className="ms-2 py-2 px-4 bg-slate-800 text-white rounded-lg"
           >
-            close
+            {t("password_recovery.close_button")}
           </button>
         </div>
       </dialog>

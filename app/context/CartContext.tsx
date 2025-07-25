@@ -155,11 +155,11 @@ export const useCartContext = () => {
       }
 
       const responseData: CreateCartResponse = await response.json();
-      showSuccessToast("Tu tag ha sido eliminado con exito");
+      showSuccessToast(t("cart_toast.delete"));
       return responseData;
     } catch (error) {
       console.error("Error al crear la mascota:", error);
-      showErrorToast("Error al eliminar el tag del carrito");
+      showErrorToast(t("cart_toast.error_delete"));
       return null;
     }
   };
@@ -185,12 +185,12 @@ export const useCartContext = () => {
       }
 
       const responseData: CreateCartResponse = await response.json();
-      showSuccessToast("Tu carrito ha sido editado con exito");
+      showSuccessToast(t("cart_toast.success"));
       // setPetProfile(responseData); // Guardamos la mascota creada en el estado
       return responseData;
     } catch (error) {
       console.error("Error al crear la mascota:", error);
-      showErrorToast("Error al editar el tag del carrito");
+      showErrorToast(t("cart_toast.error"));
       return null;
     }
   };

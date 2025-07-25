@@ -68,7 +68,6 @@ export default function PetDetail() {
     medical_notes: "",
     files: [],
   });
-  console.log("petVetInfopetVetInfopetVetInfo", petVetInfo);
 
   const [collapseBox, setCollapseBox] = useState({
     generalInfo: false,
@@ -359,7 +358,6 @@ export default function PetDetail() {
       createCart(user.id, cartData)
         .then((response) => {
           if (response) {
-            console.log("Item added to cart successfully:", response);
             setMessage("Item added to cart!");
             getCartByUser(user.id);
             const modal = document.getElementById(
@@ -1699,12 +1697,6 @@ export default function PetDetail() {
                       {t("create_vaccine.button.close")}
                     </button>
                   </div>
-                  <DeleteDialog
-                    isOpen={isDeleteVaccineDialogOpen}
-                    onClose={() => setIsDeleteVaccineDialogOpen(false)}
-                    onConfirm={handleDeleteVaccineFunc}
-                    itemName={`Vacuna: ${vaccineIdToDelete ?? ""}`}
-                  />
                 </div>
               ) : (
                 ""
@@ -1743,6 +1735,13 @@ export default function PetDetail() {
         onClose={closeDeleteModal}
         onConfirm={confirmDelete}
         itemName="este tag"
+      />
+
+      <DeleteDialog
+        isOpen={isDeleteVaccineDialogOpen}
+        onClose={() => setIsDeleteVaccineDialogOpen(false)}
+        onConfirm={handleDeleteVaccineFunc}
+        itemName={`Vacuna: ${vaccineIdToDelete ?? ""}`}
       />
 
       <DeleteDialog

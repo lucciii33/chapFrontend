@@ -126,12 +126,10 @@ export const useAuthContext = () => {
         throw new Error("Error al solicitar recuperación de contraseña");
       }
 
-      showSuccessToast(
-        "Si el correo existe, se ha enviado un link de recuperación"
-      );
+      showSuccessToast(t("password_recovery.instructions"));
     } catch (error) {
       console.error("Error al solicitar reset:", error);
-      showErrorToast("Error al solicitar recuperación");
+      showErrorToast(t("password_recovery.toast_error"));
     }
   };
 

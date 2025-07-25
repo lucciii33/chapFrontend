@@ -701,5 +701,40 @@
     "error_tag_add": "Couldn't add tag to cart",
     "tag_unavailable": "Sorry, this tag is not available at the moment.",
     "logging_out": "Logging out"
+  },
+  "cart_toast": {
+    "success": "Cart updated successfully",
+    "error": "Add to cart failed",
+    "delete": "Your tag have been deleted successfully",
+    "error_delete": "Error trying to delete your tag"
+  },
+  "modal": {
+    "delete_confirmation": "Are you sure you want to delete this?",
+    "cancel": "Cancel",
+    "confirm": "Yes, Delete",
+    "title": "Delete"
+  },
+  "password_recovery": {
+    "instructions": "If the email exists, you'll receive a link to reset",
+    "email_placeholder": "Add your email",
+    "send_button": "Send recovery email",
+    "close_button": "Close",
+    "email_validation": "Please enter a valid email",
+    "toast_success": "Recovery email sent",
+    "toast_error": "Failed to send recovery email",
+    "request_error": "Error requesting password recovery",
+    "success": "Password updated successfully"
+  },
+  "address": {
+    "created": "Address created successfully",
+    "edited": "Address edited successfully",
+    "updated": "Address updated successfully",
+    "deleted": "Address deleted successfully",
+    "error": "Failed request",
+    "delete_error": "Failed to delete address"
+  },
+  "payment": {
+    "success": "Payment successful",
+    "error": "Payment failed. Verify all fields."
   }
 }

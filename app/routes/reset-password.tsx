@@ -2,8 +2,11 @@ import { useSearchParams } from "@remix-run/react";
 import { useState } from "react";
 import { useGlobalContext } from "~/context/GlobalProvider";
 import { showErrorToast, showSuccessToast } from "~/utils/toast";
+import { useTranslation } from "react-i18next";
 
 export default function ResetPasswordPage() {
+  const { t } = useTranslation();
+
   const { auth } = useGlobalContext();
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
@@ -44,9 +47,9 @@ export default function ResetPasswordPage() {
     const result = await auth.resetPassword(token, newPassword);
 
     if (result?.success) {
-      showSuccessToast("Contraseña actualizada correctamente");
+      showSuccessToast(t("password_recovery.success"));
     } else {
-      showErrorToast("Error al actualizar contraseña");
+      showErrorToast(t("password_recovery.request_error"));
     }
   };
 

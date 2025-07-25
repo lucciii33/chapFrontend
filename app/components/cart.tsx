@@ -20,8 +20,7 @@ export default function Cart() {
     actSideBar,
     closeSideBar,
   } = cart;
-  console.log("user", user);
-  console.log("allCarts", allCarts);
+
   const getCartByUserFunc = () => {
     if (user) {
       getCartByUser(user.id);
