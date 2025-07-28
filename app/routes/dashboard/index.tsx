@@ -102,7 +102,10 @@ export default function Dashboard() {
 
   const tagImages = [
     { shape: "square", color: "purple", imageUrl: "/purpleS.png" },
-    { shape: "circular", color: "purple", imageUrl: "/circlePurple.png" },
+    { shape: "circular", color: "purple", imageUrl: "/Cpurple.png" },
+    { shape: "circular", color: "blue", imageUrl: "/Cblue.png" },
+    { shape: "circular", color: "green", imageUrl: "/Cgreen.png" },
+    { shape: "circular", color: "black", imageUrl: "/Cblack.png" },
     { shape: "square", color: "black", imageUrl: "/blackS.png" },
     { shape: "square", color: "blue", imageUrl: "/blueS.png" },
     { shape: "square", color: "green", imageUrl: "/greenS.png" },
