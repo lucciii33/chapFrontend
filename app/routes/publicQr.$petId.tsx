@@ -157,6 +157,7 @@ export default function PublicQr() {
 
     const storedUser = localStorage.getItem("user");
     if (!storedUser) {
+      console.log("📤 Enviando ubicación en notify-scan:", ubicacion);
       fetch(
         `${
           import.meta.env.VITE_REACT_APP_URL
