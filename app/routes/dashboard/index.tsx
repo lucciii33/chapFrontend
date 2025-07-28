@@ -1010,53 +1010,57 @@ export default function Dashboard() {
           </div>
         </dialog>
       </div>
-      <div className="px-5">
-        <div className="border-2 border-teal-500 p-4 rounded-md">
-          <div className="flex items-center">
-            <h2
-              style={{ fontFamily: "chapFont" }}
-              className="text-2xl font-semibold text-teal-500"
-            >
-              {t("subNavbar.extraFeatures.title")}
-            </h2>
-            <div>
-              <span>
-                {" "}
-                <SparklesIcon className="text-teal-500 h-6 w-6" />
-              </span>
+      {allPets.length > 0 ? (
+        <div className="px-5">
+          <div className="border-2 border-teal-500 p-4 rounded-md">
+            <div className="flex items-center">
+              <h2
+                style={{ fontFamily: "chapFont" }}
+                className="text-2xl font-semibold text-teal-500"
+              >
+                {t("subNavbar.extraFeatures.title")}
+              </h2>
+              <div>
+                <span>
+                  {" "}
+                  <SparklesIcon className="text-teal-500 h-6 w-6" />
+                </span>
+              </div>
+            </div>
+            <p className="m-0">{t("subNavbar.extraFeatures.description")} </p>
+            <div className="flex flex-col md:flex-row gap-2 mt-4">
+              {allPets.length > 0 ? (
+                <div>
+                  <Link to={`/finances`}>
+                    <button className="btn flex justify-start  bg-teal-500 w-full md:w-auto">
+                      {t("subNavbar.extraFeatures.buttonFinances")}
+                    </button>
+                  </Link>
+                </div>
+              ) : (
+                ""
+              )}
+              {allPets?.length > 0 && (
+                <select
+                  onChange={handlePetSelect}
+                  className="btn bg-teal-500 text-white px-4 py-2 w-full md:w-auto rounded-md shadow-md cursor-pointer"
+                >
+                  <option value="">
+                    {t("subNavbar.extraFeatures.buttonDiary")}
+                  </option>
+                  {allPets?.map((pet) => (
+                    <option key={pet.id} value={pet.id}>
+                      {pet.name}
+                    </option>
+                  ))}
+                </select>
+              )}
             </div>
           </div>
-          <p className="m-0">{t("subNavbar.extraFeatures.description")} </p>
-          <div className="flex flex-col md:flex-row gap-2 mt-4">
-            {allPets.length > 0 ? (
-              <div>
-                <Link to={`/finances`}>
-                  <button className="btn flex justify-start  bg-teal-500 w-full md:w-auto">
-                    {t("subNavbar.extraFeatures.buttonFinances")}
-                  </button>
-                </Link>
-              </div>
-            ) : (
-              ""
-            )}
-            {allPets?.length > 0 && (
-              <select
-                onChange={handlePetSelect}
-                className="btn bg-teal-500 text-white px-4 py-2 w-full md:w-auto rounded-md shadow-md cursor-pointer"
-              >
-                <option value="">
-                  {t("subNavbar.extraFeatures.buttonDiary")}
-                </option>
-                {allPets?.map((pet) => (
-                  <option key={pet.id} value={pet.id}>
-                    {pet.name}
-                  </option>
-                ))}
-              </select>
-            )}
-          </div>
         </div>
-      </div>
+      ) : (
+        ""
+      )}
 
       {/* <div className="flex flex-wrap justify-center gap-4 mt-4">
         {allPets.map((pet) => {
