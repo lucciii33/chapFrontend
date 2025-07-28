@@ -882,7 +882,7 @@ export default function Dashboard() {
                     </div> */}
 
                     <button
-                      className="btn  bg-teal-500 w-[92%] mt-2 me-2"
+                      className="btn  bg-teal-500 w-full md:w-[92%] mt-2 me-2"
                       onClick={handleCreateTag}
                     >
                       {t("petCreation.step2.step3.button")}
