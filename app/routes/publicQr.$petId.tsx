@@ -153,7 +153,7 @@ export default function PublicQr() {
   };
 
   useEffect(() => {
-    if (!petData || !petId) return;
+    if (!petData || !petId || !ubicacion?.lat || !ubicacion?.lng) return;
 
     const storedUser = localStorage.getItem("user");
     if (!storedUser) {
