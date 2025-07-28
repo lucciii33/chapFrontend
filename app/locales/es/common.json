@@ -345,6 +345,7 @@
     "description": "Descripción",
     "category": "Categoría",
     "selectCategory": "Selecciona una categoría",
+    "filter_b": "Filtrar",
     "categoryOptions": {
       "health": "Salud",
       "food": "Comida",
@@ -376,7 +377,7 @@
       "action": "Acción"
     },
     "totalExpense": "GASTO TOTAL",
-    "lockedFeature": "Esta función estará disponible después de que completes el pago de la chapa",
+    "lockedFeature": "Adquiere tu chapa y desbloquea esta y muchas funciones más.",
     "buttonClose": "Cerrar"
   },
   "travelMode": {
@@ -647,7 +648,8 @@
     "button": "Pagar"
   },
   "pet_tracker": {
-    "empty_message": "Esta función estará disponible después de que completes el pago de tu chapa.",
+    "empty_message": "Adquiere tu chapa y desbloquea esta y muchas funciones más.",
+    "buy_message_2": "Una vez que tu mascota tenga su chapa, podrás acceder a esta función especial.",
     "button": "Cerrar"
   },
   "shipping_address": {

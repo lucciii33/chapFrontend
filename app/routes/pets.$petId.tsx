@@ -1534,14 +1534,6 @@ export default function PetDetail() {
 
                   {/* Botón para crear el historial */}
                   <div className="flex gap-3 flex-col md:flex-row justify-end mb-4 mt-4">
-                    {" "}
-                    <button
-                      className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full md:w-auto"
-                      onClick={handleCreateVetSession}
-                      // disabled={loading}
-                    >
-                      {t("vetVisitForm.buttonClose")}
-                    </button>
                     {/* <button
                   className="border-none py-3 px-4  bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
                   onClick={() =>
@@ -1553,6 +1545,13 @@ export default function PetDetail() {
                     <button
                       className="btn py-3 px-4 rounded-lg"
                       onClick={() => toggleCollapse("vetSession")}
+                    >
+                      {t("vetVisitForm.buttonClose")}
+                    </button>
+                    <button
+                      className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full md:w-auto"
+                      onClick={handleCreateVetSession}
+                      // disabled={loading}
                     >
                       {t("vetVisitForm.buttonCreate")}
                     </button>

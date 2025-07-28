@@ -156,7 +156,6 @@ export default function PublicQr() {
     if (!petData || !petId) return;
 
     const storedUser = localStorage.getItem("user");
-    console.log("llamandooooo");
     if (!storedUser) {
       fetch(
         `${
@@ -164,6 +163,13 @@ export default function PublicQr() {
         }/api/public/pets/${petId}/notify-scan`,
         {
           method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            latitude: ubicacion?.lat,
+            longitude: ubicacion?.lng,
+          }),
         }
       )
         .then((res) => {

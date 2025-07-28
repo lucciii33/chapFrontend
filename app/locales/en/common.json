@@ -345,6 +345,7 @@
     "description": "Description",
     "category": "Category",
     "selectCategory": "Select a category",
+    "filter_b": "Filter",
     "categoryOptions": {
       "health": "Health",
       "food": "Food",
@@ -376,7 +377,7 @@
     "expense_label_dogs": "Filter by Pet",
     "expense_label_select": "All pets",
     "totalExpense": "TOTAL EXPENSE",
-    "lockedFeature": "This feature will be available after you complete the payment of your tag",
+    "lockedFeature": "Get your tag and unlock this and many more features.",
     "buttonClose": "Close"
   },
   "travelMode": {
@@ -648,7 +649,8 @@
     "button": "Pay"
   },
   "pet_tracker": {
-    "empty_message": "This feature will become accessible after you complete the payment for your tag.",
+    "empty_message": "Get your tag and unlock this and many more features.",
+    "buy_message_2": "Once your pet has its tag, you'll unlock this special feature.",
     "button": "Close"
   },
   "shipping_address": {

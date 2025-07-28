@@ -430,10 +430,10 @@ export default function Finances() {
 
             <div className="w-full">
               <button
-                className="w-full md:w-auto px-4 py-2 bg-[#65bcbb] text-white rounded-lg"
+                className="w-full md:w-auto px-4 py-3 border-none ms-0 mt-5 bg-teal-500 text-white rounded-lg"
                 onClick={filterDates}
               >
-                Filtrar
+                {t("expenses.filter_b")}
               </button>
             </div>
           </div>
@@ -498,7 +498,7 @@ export default function Finances() {
 
       <dialog id="purchase_aler_2" className="modal">
         <div className="modal-box w-3/4 max-w-4xl h-auto p-6">
-          <h2>{t("expenses.lockedFeature")}</h2>
+          <h2>{t("pet_tracker.buy_message_2")}</h2>
           <button
             className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600"
             onClick={() => {

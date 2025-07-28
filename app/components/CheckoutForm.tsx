@@ -44,6 +44,15 @@ const CheckoutForm: React.FC<{
   const [couponCode, setCouponCode] = useState("");
   const [discount, setDiscount] = useState(0);
 
+  const couponDiscounts: Record<string, number> = {
+    FRIENDS10: 10,
+    CHAP20: 20,
+    LUCKY30: 30,
+    ROXY40: 40,
+    TAG50: 50,
+    FAMILY100: 99,
+  };
+
   useEffect(() => {
     const totalPrice = allCarts.reduce(
       (acc, item) => acc + item.price * item.quantity,
@@ -57,15 +66,12 @@ const CheckoutForm: React.FC<{
 
   // 2. Función para manejar el cambio del input
   const handleCouponChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    const value = e.target.value.trim().toUpperCase(); // Por si lo escriben en minúscula
     setCouponCode(value);
 
     // Si coincide con el código "TAG20", aplicamos 20% descuento
-    if (value === "TAG20") {
-      setDiscount(20); // 20%
-    } else {
-      setDiscount(0); // No descuento
-    }
+    const discountValue = couponDiscounts[value] || 0;
+    setDiscount(discountValue);
   };
 
   const [addresses, setAddresses] = useState([]);
