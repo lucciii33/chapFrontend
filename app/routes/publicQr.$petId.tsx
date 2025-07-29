@@ -348,6 +348,90 @@ export default function PublicQr() {
               )}
             </div>
 
+            {petData?.show_vet_visit && petData.medical_history?.length > 0 && (
+              <div
+                className="p-6
+                bg-gradient-to-r
+                from-purple-500
+                to-pink-500
+                text-white
+                rounded-2xl
+                shadow-lg"
+              >
+                <h2 className="text-xl font-bold mb-4">
+                  {" "}
+                  {t("vet_visits_public.title")}
+                </h2>
+
+                <div className="overflow-x-auto flex gap-4 pb-2">
+                  {petData.medical_history.map((mh) =>
+                    mh.vets.map((vet) => (
+                      <div
+                        key={vet.id}
+                        className="min-w-[300px] bg-white rounded-lg text-black shadow-md p-4 flex-shrink-0"
+                      >
+                        <p>
+                          <strong>{t("vet_visits_public.fields.date")}:</strong>{" "}
+                          {vet.date
+                            ? new Date(vet.date).toLocaleDateString()
+                            : "N/A"}
+                        </p>
+                        <p>
+                          <strong>
+                            {t("vet_visits_public.fields.address")}:
+                          </strong>{" "}
+                          {vet.address || "N/A"}
+                        </p>
+                        <p>
+                          <strong>
+                            {t("vet_visits_public.fields.treatment")}:
+                          </strong>{" "}
+                          {vet.treatment || "N/A"}
+                        </p>
+                        <p>
+                          <strong>
+                            {t("vet_visits_public.fields.notes")}:
+                          </strong>{" "}
+                          {vet.notes || "N/A"}
+                        </p>
+                        <p>
+                          <strong>
+                            {t("vet_visits_public.fields.cause")}:
+                          </strong>{" "}
+                          {vet.cause || "N/A"}
+                        </p>
+                        <p>
+                          <strong>{t("vet_visits_public.fields.cost")}:</strong>{" "}
+                          {vet.cost ? `$${vet.cost}` : "N/A"}
+                        </p>
+                        {vet.documents.length > 0 && (
+                          <div className="mt-2">
+                            <p className="font-semibold">
+                              {t("vet_visits_public.fields.documents")}:
+                            </p>
+                            <ul className="list-disc list-inside">
+                              {vet.documents.map((doc) => (
+                                <li key={doc.id}>
+                                  <a
+                                    href={doc.file_url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-blue-600 underline"
+                                  >
+                                    {doc.filename}
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+            )}
+
             <div className="p-6 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-2xl shadow-lg">
               <h1 className="text-2xl font-bold mb-4 border-b border-white pb-2">
                 {t("qr_code_view.title_travel_mode")}.

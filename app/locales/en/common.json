@@ -118,7 +118,8 @@
       "settings": {
         "lost": "My pet is lost",
         "medicalHistory": "Show medical history",
-        "travelMode": "Show travel mode"
+        "travelMode": "Show travel mode",
+        "showVetVisits": "Show vet visits"
       },
       "form": {
         "owner1": "Owner 1",
@@ -738,5 +739,18 @@
   "payment": {
     "success": "Payment successful",
     "error": "Payment failed. Verify all fields."
+  },
+  "vet_visits_public": {
+    "title": "Vet Visits",
+    "fields": {
+      "date": "Date",
+      "address": "Address",
+      "treatment": "Treatment",
+      "notes": "Notes",
+      "cause": "Cause",
+      "cost": "Cost",
+      "documents": "Documents"
+    },
+    "not_available": "N/A"
   }
 }

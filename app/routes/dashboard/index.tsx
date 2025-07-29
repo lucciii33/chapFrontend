@@ -66,6 +66,7 @@ export default function Dashboard() {
     chip_number: 0,
     show_medical_history: false,
     show_travel_mode: false,
+    show_vet_visit: false,
   });
 
   console.log("allPets", allPets);
@@ -505,6 +506,25 @@ export default function Dashboard() {
                             setPetInfo((prevInfo) => ({
                               ...prevInfo,
                               show_travel_mode: e.target.checked,
+                            }))
+                          }
+                          className="radio radio-accent"
+                        />
+                      </div>
+
+                      <div className="mb-4 flex items-center">
+                        <label className="mr-2">
+                          {t("petCreation.step2.settings.showVetVisits")}{" "}
+                          {/* Agrega la traducción */}
+                        </label>
+                        <input
+                          type="checkbox"
+                          name="show_vet_visit"
+                          checked={petInfo.show_vet_visit}
+                          onChange={(e) =>
+                            setPetInfo((prevInfo) => ({
+                              ...prevInfo,
+                              show_vet_visit: e.target.checked,
                             }))
                           }
                           className="radio radio-accent"

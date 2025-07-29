@@ -118,7 +118,8 @@
       "settings": {
         "lost": "Mascota perdida",
         "medicalHistory": "Mostrar historial médico",
-        "travelMode": "Mostrar modo viaje"
+        "travelMode": "Mostrar modo viaje",
+        "showVetVisits": "Mostrar visitas veterinarias"
       },
       "form": {
         "owner1": "Dueño 1",
@@ -737,5 +738,18 @@
   "payment": {
     "success": "Compra exitosa",
     "error": "Pago fallido. Verifica todos los campos."
+  },
+  "vet_visits_public": {
+    "title": "Visitas Veterinarias",
+    "fields": {
+      "date": "Fecha",
+      "address": "Dirección",
+      "treatment": "Tratamiento",
+      "notes": "Notas",
+      "cause": "Causa",
+      "cost": "Costo",
+      "documents": "Documentos"
+    },
+    "not_available": "N/A"
   }
 }

@@ -227,6 +227,7 @@ export default function PetDetail() {
     chip_number: 0,
     show_medical_history: false,
     show_travel_mode: false,
+    show_vet_visit: false,
   });
 
   useEffect(() => {
@@ -260,7 +261,8 @@ export default function PetDetail() {
         neighbourhood: petByID.neighbourhood || "",
         chip_number: petByID.chip_number || 0,
         show_medical_history: petByID.show_medical_history || false,
-        show_travel_mode: petByID.show_travel_mode || false, // ✅
+        show_travel_mode: petByID.show_travel_mode || false,
+        show_vet_visit: petByID.show_vet_visit || false,
       });
     }
   }, [petByID]);
@@ -851,6 +853,19 @@ export default function PetDetail() {
                           type="checkbox"
                           name="show_travel_mode"
                           checked={petInfo.show_travel_mode}
+                          onChange={handleChange}
+                          className="radio radio-accent"
+                        />
+                      </div>
+
+                      <div className="flex items-center">
+                        <label className="mr-2">
+                          {t("petCreation.step2.settings.showVetVisits")}
+                        </label>
+                        <input
+                          type="checkbox"
+                          name="show_vet_visit"
+                          checked={petInfo.show_vet_visit}
                           onChange={handleChange}
                           className="radio radio-accent"
                         />
