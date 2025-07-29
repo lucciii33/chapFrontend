@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { use } from "i18next";
 import { Link } from "@remix-run/react";
+import { useTranslation } from "react-i18next";
 
 export default function ShippingAddress() {
   const [size, setSize] = useState([0, 0]);
@@ -12,6 +13,7 @@ export default function ShippingAddress() {
   const { auth, cart } = useGlobalContext();
   const { user } = auth;
   const { getCartByUser } = cart;
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     setIsClient(true); // Ya podemos usar window
@@ -51,19 +53,19 @@ export default function ShippingAddress() {
           style={{ fontFamily: "chapFont" }}
           className="text-2xl font-semibold text-teal-500 mb-2"
         >
-          ¡Thanks for shopping!
+          {t("order_confirmation.thanks")}
         </h2>
         <p className="text-sm text-gray-500 mb-4">
-          If you have any questions please contact:
+          {t("order_confirmation.contact_text")}
         </p>
-        <p>LUCCI@GMAIL.COM</p>
+        <p>{t("order_confirmation.contact_email")}</p>
         <Link to="/dashboard">
           {" "}
           <button
             className="btn bg-teal-500 mt-4 hover:bg-teal-600 text-white px-6 py-2 rounded-md transition duration-300 border-none"
             onClick={() => document.getElementById("my_modal_1").showModal()}
           >
-            Go back to dashboard
+            {t("order_confirmation.back_dash_button")}
           </button>{" "}
         </Link>
       </div>

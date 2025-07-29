@@ -56,6 +56,8 @@ export default function PetDetail() {
   const [vaccineIdToDelete, setVaccineIdToDelete] = useState<number | null>(
     null
   );
+  const [highlightDateInput, setHighlightDateInput] = useState(false);
+
   const [isDeleteVaccineDialogOpen, setIsDeleteVaccineDialogOpen] =
     useState(false);
 
@@ -456,8 +458,15 @@ export default function PetDetail() {
       return;
     }
 
+    if (!petVetInfo.date) {
+      showErrorToast("Debes seleccionar una fecha para registrar la visita.");
+      setHighlightDateInput(true); // para marcar el input en rojo
+      return;
+    }
+
     const medicalHistoryId = petByID.medical_history[0].id;
 
+    setHighlightDateInput(false);
     setLoading(true);
 
     try {
@@ -1384,7 +1393,12 @@ export default function PetDetail() {
 
                   {/* Botón para crear el historial */}
                   <div className="flex justify-end mt-4 gap-2">
-                    {" "}
+                    <button
+                      className="btn py-3 px-4 rounded-lg"
+                      onClick={() => toggleCollapse("medicalHistory2")}
+                    >
+                      {t("medicalHistoryForm.buttonClose")}
+                    </button>{" "}
                     <button
                       className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full md:w-auto"
                       onClick={handleCreateOrEditMedicalHistory}
@@ -1393,12 +1407,6 @@ export default function PetDetail() {
                       {loading
                         ? t("medicalHistoryForm.buttonCreateLoading")
                         : t("medicalHistoryForm.buttonCreate")}
-                    </button>
-                    <button
-                      className="btn py-3 px-4 rounded-lg"
-                      onClick={() => toggleCollapse("medicalHistory2")}
-                    >
-                      {t("medicalHistoryForm.buttonClose")}
                     </button>
                   </div>
                 </div>
@@ -1489,8 +1497,15 @@ export default function PetDetail() {
                         type="date"
                         name="date"
                         value={petVetInfo.date || ""}
-                        onChange={handleChangeVet} // Maneja la carga de archivos
-                        className="w-full px-4 py-2 border rounded-lg"
+                        onChange={(e) => {
+                          handleChangeVet(e);
+                          setHighlightDateInput(false);
+                        }} // Maneja la carga de archivos
+                        className={`w-full px-4 py-2 border rounded-lg ${
+                          highlightDateInput
+                            ? "border-red-500"
+                            : "border-gray-300"
+                        }`}
                       />
                     </div>
                   </div>

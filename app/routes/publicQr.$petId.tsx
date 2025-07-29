@@ -319,6 +319,10 @@ export default function PublicQr() {
                         {note.height !== null ? `${note.height} cm` : "N/A"}
                       </p>
                       <p>
+                        <strong>{t("qr_code_view.weight")}:</strong>{" "}
+                        {note.weight !== null ? `${note.weight} kg` : "N/A"}
+                      </p>
+                      <p>
                         <strong>{t("qr_code_view.important_notes")}:</strong>{" "}
                         {note.important_notes || "N/A"}
                       </p>

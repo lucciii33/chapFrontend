@@ -606,6 +606,7 @@
     "current_treatment": "Current treatment",
     "diet": "Diet",
     "height": "Height",
+    "weight": "Weight",
     "important_notes": "Important notes",
     "medications": "Medications",
     "surgical_history": "Surgical history",
@@ -752,5 +753,11 @@
       "documents": "Documents"
     },
     "not_available": "N/A"
+  },
+  "order_confirmation": {
+    "thanks": "Thanks for shopping!",
+    "contact_text": "If you have any questions please contact:",
+    "contact_email": "LUCCI@GMAIL.COM",
+    "back_dash_button": "Go back to dashboard"
   }
 }

@@ -604,7 +604,8 @@
     "chronic_treatment": "Condiciones crónicas",
     "current_treatment": "Tratamiento actual",
     "diet": "Dieta",
-    "height": "Peso",
+    "height": "Altura",
+    "weight": "Peso",
     "important_notes": "Notas importantes",
     "medications": "Medicamentos",
     "surgical_history": "Historial de cirugías",
@@ -751,5 +752,11 @@
       "documents": "Documentos"
     },
     "not_available": "N/A"
+  },
+  "order_confirmation": {
+    "thanks": "¡Gracias por tu compra!",
+    "contact_text": "Si tienes alguna duda por favor contacta a:",
+    "contact_email": "LUCCI@GMAIL.COM",
+    "back_dash_button": "Volver al panel"
   }
 }
