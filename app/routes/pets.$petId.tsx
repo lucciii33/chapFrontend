@@ -451,15 +451,13 @@ export default function PetDetail() {
       !petByID.medical_history ||
       petByID.medical_history?.length === 0
     ) {
-      showErrorToast(
-        "Debes crear primero el historial médico para poder registrar una visita."
-      );
+      showErrorToast(t("medical_history_validation.require_history"));
       setHighlightMedicalBox(true);
       return;
     }
 
     if (!petVetInfo.date) {
-      showErrorToast("Debes seleccionar una fecha para registrar la visita.");
+      showErrorToast(t("medical_history_validation.require_date"));
       setHighlightDateInput(true); // para marcar el input en rojo
       return;
     }
@@ -479,6 +477,7 @@ export default function PetDetail() {
           address: "",
           treatment: "",
           notes: "",
+          cost: 0,
           cause: "",
           date: "",
           medical_notes: "",
@@ -530,7 +529,8 @@ export default function PetDetail() {
 
     setLoading(true);
     try {
-      const response = await editVetSession(vetId, petVetInfo); // 🚀 DIRECTO, SIN FORM DATA
+      console.log("petVetInfo petVetInfo petVetInfo", petVetInfo);
+      const response = await editVetSession(vetId, petVetInfo);
 
       if (response) {
         setMessage("Sesión veterinaria editada con éxito.");
@@ -553,7 +553,7 @@ export default function PetDetail() {
       treatment: vetSession.treatment || "",
       notes: vetSession.notes || "",
       cause: vetSession.cause || "",
-      cost: vetSession.cost ? String(vetSession.cost) : "",
+      cost: vetSession.cost ? String(vetSession.cost) : 0,
       medical_notes: vetSession.medical_notes || "",
       files: [],
       existingFiles: vetSession.documents || [],
@@ -1805,9 +1805,23 @@ export default function PetDetail() {
       {/* //modal here to create or edit medical vet session   */}
       <dialog id="my_modal_4_pet_id" className="modal">
         <div className="modal-box max-w-4xl">
-          <h3 className=" text-lg" style={{ fontFamily: "chapFont" }}>
-            {t("medical_visits_pet_id.title_edit")}
-          </h3>
+          <div className="flex justify-between items-center">
+            <div>
+              <h3 className=" text-lg" style={{ fontFamily: "chapFont" }}>
+                {t("medical_visits_pet_id.title_edit")}
+              </h3>
+            </div>
+            <div>
+              <div
+                className="bg-slate-800 p-5 w-6 h-6 flex justify-center items-center rounded-lg"
+                onClick={() =>
+                  document.getElementById("my_modal_4_pet_id").close()
+                }
+              >
+                <div>X</div>
+              </div>
+            </div>
+          </div>
 
           {/* Inputs para editar */}
           <label>{t("vetVisitForm.form.clinicAddressLabel")}</label>
@@ -1828,6 +1842,16 @@ export default function PetDetail() {
             onChange={handleChangeVet}
             className="w-full px-4 py-2 border rounded-lg mb-2"
             placeholder={t("vetVisitForm.form.treatmentLabel")}
+          />
+
+          <label>{t("vetVisitForm.form.costLabel")}</label>
+          <input
+            type="number"
+            name="cost"
+            value={petVetInfo.cost}
+            onChange={handleChangeVet}
+            className="w-full px-4 py-2 border rounded-lg mb-2"
+            placeholder={t("vetVisitForm.form.costLabel")}
           />
 
           <label>{t("vetVisitForm.form.visitReasonLabel")}</label>
@@ -1918,7 +1942,10 @@ export default function PetDetail() {
 
           {/* Botones */}
           <div className="modal-action">
-            <button className="btn btn-primary" onClick={handleEditVetSession}>
+            <button
+              className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 rounded-md"
+              onClick={handleEditVetSession}
+            >
               {t("medical_visits_pet_id.save_button")}
             </button>
             <form method="dialog">
@@ -1940,10 +1967,25 @@ export default function PetDetail() {
       {/* //modal here to create a   */}
       <dialog id="my_modal_5_pet_id_alerts" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">
-            {" "}
-            {t("create_alerts.subtitle", { target: petByID.name })}
-          </h3>
+          <div className="flex justify-between items-center">
+            <div>
+              <h3 className="font-bold text-lg">
+                {" "}
+                {t("create_alerts.subtitle", { target: petByID.name })}
+              </h3>
+            </div>
+            <div>
+              <div
+                className="bg-slate-800 p-5 w-6 h-6 flex justify-center items-center rounded-lg"
+                onClick={() =>
+                  document.getElementById("my_modal_5_pet_id_alerts").close()
+                }
+              >
+                <div>X</div>
+              </div>
+            </div>
+          </div>
+
           <ScheduleAlertForm userId={auth.user?.id} petId={petByID} t={t} />
           <div className="modal-action">
             <form method="dialog">
@@ -1957,7 +1999,24 @@ export default function PetDetail() {
       {/* //modal here to show tags  */}
       <dialog id="my_modal_6_pet_id" className="modal">
         <div className="modal-box w-full max-w-7xl">
-          <h3 className="font-bold text-lg"> {t("your_tags.tags_title")}</h3>
+          <div className="flex justify-between items-center">
+            <div>
+              <h3 className="font-bold text-lg">
+                {" "}
+                {t("your_tags.tags_title")}
+              </h3>
+            </div>
+            <div>
+              <div
+                className="bg-slate-800 p-5 w-6 h-6 flex justify-center items-center rounded-lg"
+                onClick={() =>
+                  document.getElementById("my_modal_6_pet_id").close()
+                }
+              >
+                <div>X</div>
+              </div>
+            </div>
+          </div>
           <div className="flex gap-5 items-center flex-col md:flex-row p-5">
             {petByID?.tags?.length > 0 ? (
               petByID?.tags?.map((tag) => {
@@ -2023,10 +2082,23 @@ export default function PetDetail() {
       {/* //modal here to show medical vets  */}
       <dialog id="my_modal_7_pet_id" className="modal">
         <div className="modal-box w-full max-w-7xl">
-          <h3 className="font-bold text-lg">
-            {" "}
-            {t("medical_visits_pet_id.title")}
-          </h3>
+          <div>
+            <div className="flex justify-between items-center">
+              <h3 className="font-bold text-lg">
+                {" "}
+                {t("medical_visits_pet_id.title")}
+              </h3>
+              <div
+                className="bg-slate-800 p-5 w-6 h-6 flex justify-center items-center rounded-lg"
+                onClick={() =>
+                  document.getElementById("my_modal_7_pet_id").close()
+                }
+              >
+                <div>X</div>
+              </div>
+            </div>
+          </div>
+
           <div className="p-5">
             {petByID?.medical_history?.length > 0 &&
             petByID.medical_history[0].vets?.length > 0 ? (
@@ -2161,18 +2233,32 @@ export default function PetDetail() {
       {/* //modal here to vaccines  */}
       <dialog id="my_modal_8_pet_id" className="modal">
         <div className="modal-box w-full max-w-7xl">
-          <h3 className="font-bold text-lg">
-            {" "}
-            {t("vaccines_pet_id.subtitle")}
-          </h3>
+          <div className="flex justify-between items-center">
+            <div>
+              <h3 className="font-bold text-lg">
+                {" "}
+                {t("vaccines_pet_id.subtitle")}
+              </h3>
+            </div>
+            <div>
+              <div
+                className="bg-slate-800 p-5 w-6 h-6 flex justify-center items-center rounded-lg"
+                onClick={() =>
+                  document.getElementById("my_modal_8_pet_id").close()
+                }
+              >
+                <div>X</div>
+              </div>
+            </div>
+          </div>
+
           <div>
-            {t("vaccines_pet_id.subtitle")}
             {petByID.medical_history?.length > 0 &&
             petByID?.medical_history[0]?.vaccines?.length > 0 ? (
               petByID?.medical_history[0]?.vaccines?.map((vaccine) => (
                 <div
                   key={vaccine.id}
-                  className="bg-gray-800 text-white p-6 rounded-xl mb-4 shadow-lg border border-gray-700"
+                  className="bg-gray-800 text-white p-6 mt-3 rounded-xl mb-4 shadow-lg border border-gray-700"
                 >
                   <div className="space-y-1 text-sm">
                     <p>

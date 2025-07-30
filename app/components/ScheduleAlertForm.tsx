@@ -141,7 +141,7 @@ export default function ScheduleAlertForm({
           </select> */}
         </div>
 
-        <div className="">
+        {/* <div className="">
           <label className="block text-slate-700 mb-2">
             {t("create_alerts.email")}
           </label>
@@ -154,7 +154,7 @@ export default function ScheduleAlertForm({
             placeholder={t("create_alerts.email")}
             required
           />
-        </div>
+        </div> */}
       </div>
 
       <div className="mb-4">
@@ -188,7 +188,7 @@ export default function ScheduleAlertForm({
 
       <button
         type="submit"
-        className="btn bg-cyan-500 text-white rounded-lg w-full py-2"
+        className=" border-none py-3 px-4 bg-teal-500 text-white rounded-lg w-full"
       >
         {t("create_alerts.schedule_button")}
       </button>

@@ -758,5 +758,9 @@
     "contact_text": "Si tienes alguna duda por favor contacta a:",
     "contact_email": "LUCCI@GMAIL.COM",
     "back_dash_button": "Volver al panel"
+  },
+  "medical_history_validation": {
+    "require_history": "Debes crear primero el historial médico para poder registrar una visita",
+    "require_date": "Debes seleccionar una fecha para registrar la visita"
   }
 }

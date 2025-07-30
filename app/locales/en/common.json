@@ -759,5 +759,9 @@
     "contact_text": "If you have any questions please contact:",
     "contact_email": "LUCCI@GMAIL.COM",
     "back_dash_button": "Go back to dashboard"
+  },
+  "medical_history_validation": {
+    "require_history": "You must first create a medical history to register a visit",
+    "require_date": "You must select a date to register the visit"
   }
 }

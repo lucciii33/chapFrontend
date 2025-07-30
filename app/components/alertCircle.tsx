@@ -108,10 +108,24 @@ export default function AlertCircle({ petObj }: AlertCircleProps) {
 
       <dialog id={`pet_alerts_${petObj.id}`} className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">
-            {" "}
-            {t("programmed_alerts.title")} {petObj.name}
-          </h3>
+          <div className="flex justify-between items-center">
+            <div>
+              <h3 className="font-bold text-lg">
+                {" "}
+                {t("programmed_alerts.title")} {petObj.name}
+              </h3>
+            </div>
+            <div>
+              <div
+                className="bg-slate-800 p-5 w-6 h-6 flex justify-center items-center rounded-lg"
+                onClick={() =>
+                  document.getElementById(`pet_alerts_${petObj.id}`).close()
+                }
+              >
+                <div>X</div>
+              </div>
+            </div>
+          </div>
 
           {expiringVaccine && (
             <div className="mt-4">

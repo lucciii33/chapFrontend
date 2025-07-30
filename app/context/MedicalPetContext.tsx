@@ -193,7 +193,7 @@ export const useMedicalPetContext = () => {
     formData.append("treatment", data.treatment || "");
     formData.append("notes", data.notes || "");
     formData.append("cause", data.cause || "");
-    formData.append("cost", data.cost ? String(data.cost) : "");
+    formData.append("cost", data.cost ? String(data.cost) : 0);
     formData.append("medical_notes", data.medical_notes || "");
     formData.append("date", data.date || "");
 
