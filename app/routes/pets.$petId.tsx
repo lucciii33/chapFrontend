@@ -86,6 +86,18 @@ export default function PetDetail() {
     expiration_date: "",
   });
 
+  useEffect(() => {
+    if (comingFromCardButton) {
+      const modal = document.getElementById(
+        "my_modal_6_pet_id"
+      ) as HTMLDialogElement;
+      if (modal) {
+        modal.showModal();
+      }
+      setComingFromCardButton(false);
+    }
+  }, [comingFromCardButton]);
+
   const validateVaccineData = (data) => {
     const errors = {};
 
