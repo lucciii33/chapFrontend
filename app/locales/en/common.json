@@ -63,7 +63,8 @@
   "navbar": {
     "login": "Login",
     "dashboard": "Dashboard",
-    "logout": "Logout"
+    "logout": "Logout",
+    "waitList": "Waitlist"
   },
 
   "login_page": {
@@ -763,5 +764,10 @@
   "medical_history_validation": {
     "require_history": "You must first create a medical history to register a visit",
     "require_date": "You must select a date to register the visit"
+  },
+  "checkout": {
+    "no_address": "No address selected, please create an address",
+    "incomplete_card": "Please complete all card fields",
+    "success": "Purchase successful!"
   }
 }

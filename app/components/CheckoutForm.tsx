@@ -39,6 +39,10 @@ const CheckoutForm: React.FC<{
   const elements = useElements();
   const navigate = useNavigate();
 
+  const [cardNumberComplete, setCardNumberComplete] = useState(false);
+  const [cardExpiryComplete, setCardExpiryComplete] = useState(false);
+  const [cardCvcComplete, setCardCvcComplete] = useState(false);
+
   const { getShippingAddresses } = ShippingAddressContext();
 
   const [couponCode, setCouponCode] = useState("");
@@ -163,9 +167,7 @@ const CheckoutForm: React.FC<{
 
     const selectedAddress = addresses.find((addr) => addr.is_selected);
     if (!selectedAddress) {
-      showErrorToast(
-        "No se ha seleccionado ninguna dirección, por favor crea una dirección"
-      );
+      showErrorToast(t("checkout.no_address"));
       openShippingModal();
       setHighlightAddressSection(true);
       return;
@@ -173,6 +175,11 @@ const CheckoutForm: React.FC<{
 
     if (!stripe || !elements) {
       console.error("Stripe no está cargado correctamente");
+      return;
+    }
+
+    if (!cardNumberComplete || !cardExpiryComplete || !cardCvcComplete) {
+      showErrorToast(t("checkout.incomplete_card"));
       return;
     }
 
@@ -201,13 +208,11 @@ const CheckoutForm: React.FC<{
           },
         }
       );
-      console.log("🧾 Resultado confirmCardPayment:", { error, paymentIntent });
-      showSuccessToast("Compra exitosa!");
 
       if (error) {
         console.error("Error en el pago:", error.message);
       } else if (paymentIntent?.status === "succeeded") {
-        console.log("¡Pago exitoso!", paymentIntent?.status);
+        showSuccessToast(t("checkout.success"));
         await createOrder();
         navigate("/ThanksForShopping");
       }
@@ -230,7 +235,11 @@ const CheckoutForm: React.FC<{
         >
           {/* <CardElement options={{ style: { base: { fontSize: "16px" } } }} /> */}
           <div className="space-y-4">
-            <div className="border p-2 rounded">
+            <div
+              className={`border p-2 rounded ${
+                !cardNumberComplete ? "border-red-500" : "border-gray-300"
+              }`}
+            >
               {/* {t("subNavbar.extraFeatures.buttonFinances")} */}
               <label className="block text-sm mb-1">
                 {t("payment_info.card_number_label")}
@@ -240,24 +249,35 @@ const CheckoutForm: React.FC<{
                   style: { base: { fontSize: "16px" } },
                   showIcon: true,
                 }}
+                onChange={(e) => setCardNumberComplete(e.complete)}
               />
             </div>
 
-            <div className="border p-2 rounded">
+            <div
+              className={`border p-2 rounded ${
+                !cardExpiryComplete ? "border-red-500" : "border-gray-300"
+              }`}
+            >
               <label className="block text-sm mb-1">
                 {t("payment_info.expiration_label")}
               </label>
               <CardExpiryElement
                 options={{ style: { base: { fontSize: "16px" } } }}
+                onChange={(e) => setCardExpiryComplete(e.complete)}
               />
             </div>
 
-            <div className="border p-2 rounded">
+            <div
+              className={`border p-2 rounded ${
+                !cardCvcComplete ? "border-red-500" : "border-gray-300"
+              }`}
+            >
               <label className="block text-sm mb-1">
                 {t("payment_info.cvv_label")}
               </label>
               <CardCvcElement
                 options={{ style: { base: { fontSize: "16px" } } }}
+                onChange={(e) => setCardCvcComplete(e.complete)}
               />
             </div>
 

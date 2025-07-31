@@ -63,7 +63,8 @@
   "navbar": {
     "login": "Inicio",
     "dashboard": "Panel",
-    "logout": "Abandonar"
+    "logout": "Abandonar",
+    "waitList": "Lista de espera"
   },
 
   "login_page": {
@@ -762,5 +763,10 @@
   "medical_history_validation": {
     "require_history": "Debes crear primero el historial médico para poder registrar una visita",
     "require_date": "Debes seleccionar una fecha para registrar la visita"
+  },
+  "checkout": {
+    "no_address": "No se ha seleccionado ninguna dirección, por favor crea una dirección",
+    "incomplete_card": "Por favor completa todos los campos de la tarjeta",
+    "success": "¡Compra exitosa!"
   }
 }

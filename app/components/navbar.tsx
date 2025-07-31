@@ -93,6 +93,11 @@ export default function Navbar() {
               {t("navbar.login")}
             </button>
           </Link>
+          <Link to="/waitList">
+            <button className="btn w-full md:w-auto">
+              {t("navbar.waitList")}
+            </button>
+          </Link>
           <button
             className="btn text-teal-500"
             onClick={toggleLang}
