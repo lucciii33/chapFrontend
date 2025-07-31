@@ -12,6 +12,7 @@ import { useComingFromCardContext } from "./ComingFromCardContext";
 import { useUserAlerts } from "./AlertContext";
 import { useInventoryContext } from "./InventoryContext";
 import { useInvoiceAdminContext } from "./invoicesContext";
+import { useWaitlistApi } from "./waitListContext";
 
 type GlobalContextType = {
   auth: ReturnType<typeof useAuthContext>;
@@ -27,6 +28,7 @@ type GlobalContextType = {
   userAlerts: ReturnType<typeof useUserAlerts>;
   inventory: ReturnType<typeof useInventoryContext>;
   invoices: ReturnType<typeof useInvoiceAdminContext>;
+  waitlist: ReturnType<typeof useWaitlistApi>;
 };
 
 const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
@@ -45,6 +47,7 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
   const userAlerts = useUserAlerts();
   const inventory = useInventoryContext();
   const invoices = useInvoiceAdminContext();
+  const waitlist = useWaitlistApi();
   return (
     <GlobalContext.Provider
       value={{
@@ -61,6 +64,7 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
         userAlerts,
         inventory,
         invoices,
+        waitlist,
       }}
     >
       {children}

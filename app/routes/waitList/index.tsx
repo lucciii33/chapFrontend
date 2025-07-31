@@ -4,27 +4,25 @@ import Confetti from "react-confetti";
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { useTranslation } from "react-i18next";
+import { showErrorToast, showSuccessToast } from "~/utils/toast";
 
 export default function WaitList() {
   const { t, i18n } = useTranslation();
   const [size, setSize] = useState({ width: 0, height: 0 });
   const [isClient, setIsClient] = useState(false);
-  const { auth, cart } = useGlobalContext();
+  const { waitlist } = useGlobalContext();
 
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     country: "venezuela",
   });
-  console.log("formData", formData);
 
   useEffect(() => {
     setIsClient(true);
-
     const handleResize = () => {
       setSize({ width: window.innerWidth, height: window.innerHeight });
     };
-
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -38,10 +36,32 @@ export default function WaitList() {
     }));
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const payload = {
+      full_name: formData.fullName,
+      email: formData.email,
+      country: formData.country,
+    };
+
+    const result = await waitlist.createWaitlistEntry(payload);
+    if (result) {
+      showSuccessToast("¡Gracias! Revisa tu email pronto 📬");
+      setFormData({
+        fullName: "",
+        email: "",
+        country: "venezuela",
+      });
+    } else {
+      showErrorToast("Hubo un error. Intenta más tarde.");
+    }
+  };
+
   return (
     <div className="flex h-[100vh] justify-center items-center bg-white">
       {isClient && <Confetti width={size.width} height={size.height} />}
-      <div className="text-center text-black bg-slate-100 w-[500px] max-w-full p-6 shadow-md border border-slate-200 rounded-2xl">
+      <div className="text-center text-black bg-slate-100 w-[500px] max-w-full p-6 shadow-md border border-slate-200 rounded-2xl mx-3">
         <h1 className="text-2xl font-bold mb-4">¡Gracias por estar aquí!</h1>
         <p className="mb-6 text-sm">
           Completa estos campos y entrarás en una lista de espera. Luego te
@@ -49,7 +69,7 @@ export default function WaitList() {
           usar cuando compres tus tags.
         </p>
 
-        <form className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <input
               type="text"

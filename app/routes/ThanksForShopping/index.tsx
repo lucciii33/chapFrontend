@@ -48,7 +48,7 @@ export default function ShippingAddress() {
   return (
     <div className="flex h-[100vh] justify-center items-center">
       {isClient && <Confetti width={width} height={height} />}
-      <div className="text-center text-black bg-slate-100 w-[500px] max-w-full p-6 shadow-md border border-slate-200 rounded-2xl">
+      <div className="text-center text-black bg-slate-100 w-[500px] max-w-full p-6 shadow-md border border-slate-200 rounded-2xl mx-3">
         <h2
           style={{ fontFamily: "chapFont" }}
           className="text-2xl font-semibold text-teal-500 mb-2"
