@@ -21,7 +21,7 @@ export const useWaitlistApi = () => {
   const [waitlist, setWaitlist] = useState<WaitlistEntry[]>([]);
 
   const getToken = (): string | null => {
-    const storedUser = localStorage.getItem("user");
+    const storedUser = localStorage.getItem("adminUser");
     if (storedUser) {
       const user = JSON.parse(storedUser);
       return user.access_token;

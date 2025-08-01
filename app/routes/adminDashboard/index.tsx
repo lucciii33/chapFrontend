@@ -152,6 +152,9 @@ export default function AdminDashboard() {
       <Link to="/adminInvoices" className="ms-4">
         INVOICES
       </Link>
+      <Link to="/adminWaitlist" className="ms-4">
+        WAITLIST
+      </Link>
       <div className="flex">
         <div className="mb-2 mt-3">
           <label className="block text-black">date</label>
