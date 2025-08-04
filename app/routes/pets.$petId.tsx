@@ -1817,7 +1817,7 @@ export default function PetDetail() {
       {/* //modal here to create or edit medical vet session   */}
       <dialog id="my_modal_4_pet_id" className="modal">
         <div className="modal-box max-w-4xl">
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center mt-[30px]">
             <div>
               <h3 className=" text-lg" style={{ fontFamily: "chapFont" }}>
                 {t("medical_visits_pet_id.title_edit")}
@@ -1979,7 +1979,7 @@ export default function PetDetail() {
       {/* //modal here to create a   */}
       <dialog id="my_modal_5_pet_id_alerts" className="modal">
         <div className="modal-box">
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center mt-[30px]">
             <div>
               <h3 className="font-bold text-lg">
                 {" "}
@@ -2011,7 +2011,7 @@ export default function PetDetail() {
       {/* //modal here to show tags  */}
       <dialog id="my_modal_6_pet_id" className="modal">
         <div className="modal-box w-full max-w-7xl">
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center mt-[30px]">
             <div>
               <h3 className="font-bold text-lg">
                 {" "}
@@ -2095,7 +2095,7 @@ export default function PetDetail() {
       <dialog id="my_modal_7_pet_id" className="modal">
         <div className="modal-box w-full max-w-7xl">
           <div>
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center mt-[30px]">
               <h3 className="font-bold text-lg">
                 {" "}
                 {t("medical_visits_pet_id.title")}
@@ -2245,7 +2245,7 @@ export default function PetDetail() {
       {/* //modal here to vaccines  */}
       <dialog id="my_modal_8_pet_id" className="modal">
         <div className="modal-box w-full max-w-7xl">
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center mt-[30px]">
             <div>
               <h3 className="font-bold text-lg">
                 {" "}

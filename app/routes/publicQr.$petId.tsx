@@ -466,7 +466,7 @@ export default function PublicQr() {
                   </p>
                   <p>
                     <strong>{t("qr_code_view.emergency_contact")}: </strong>
-                    {petData?.care_profile.emergency_contac}
+                    {petData?.care_profile.emergency_contact}
                   </p>
                 </div>
               ) : (

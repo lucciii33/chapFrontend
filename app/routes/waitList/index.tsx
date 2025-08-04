@@ -69,36 +69,53 @@ export default function WaitList() {
           usar cuando compres tus tags.
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <input
-              type="text"
-              name="fullName"
-              placeholder="Nombre completo"
-              value={formData.fullName}
-              onChange={handleChange}
-              className="w-full px-4 py-2 rounded-md border border-slate-300 focus:outline-none"
-            />
+        <form onSubmit={handleSubmit} className="space-y-4 ">
+          <div className="flex justify-start flex-col">
+            <div className="flex">
+              <label>Nombre completo</label>
+            </div>
+            <div>
+              <input
+                type="text"
+                name="fullName"
+                placeholder="Nombre completo"
+                value={formData.fullName}
+                onChange={handleChange}
+                className="w-full px-4 py-2 rounded-md border text-white border-slate-300 focus:outline-none"
+              />
+            </div>
           </div>
-          <div>
-            <input
-              type="email"
-              name="email"
-              placeholder="Correo electrónico"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full px-4 py-2 rounded-md border border-slate-300 focus:outline-none"
-            />
+          <div className="flex justify-start flex-col">
+            <div className="flex">
+              <label>Correo electrónico</label>
+            </div>
+            <div>
+              <input
+                type="email"
+                name="email"
+                placeholder="Correo electrónico"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full px-4 py-2 rounded-md border text-white border-slate-300 focus:outline-none"
+              />
+            </div>
           </div>
-          <div>
-            <select
-              name="country"
-              value={formData.country}
-              onChange={handleChange}
-              className="w-full px-4 py-2 rounded-md border border-slate-300 focus:outline-none bg-white"
-            >
-              <option value="venezuela">Venezuela</option>
-            </select>
+          <div className="flex justify-start flex-col">
+            <div className="flex">
+              <label>País</label>
+            </div>
+            <div>
+              <select
+                name="country"
+                value={formData.country}
+                onChange={handleChange}
+                className=" text-black w-full px-4 py-2 rounded-md border border-slate-300 focus:outline-none bg-white"
+              >
+                <option className="text-black" value="venezuela">
+                  Venezuela
+                </option>
+              </select>
+            </div>
           </div>
 
           <button
