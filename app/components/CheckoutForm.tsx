@@ -12,6 +12,7 @@ import { ShippingAddressContext } from "../context/ShippingAddressContext";
 import { showErrorToast, showSuccessToast } from "~/utils/toast";
 import { useNavigate } from "@remix-run/react";
 import { useTranslation } from "react-i18next";
+import DogLoader from "./petLoader";
 
 // Función auxiliar para llamar al backend
 
@@ -42,6 +43,7 @@ const CheckoutForm: React.FC<{
   const [cardNumberComplete, setCardNumberComplete] = useState(false);
   const [cardExpiryComplete, setCardExpiryComplete] = useState(false);
   const [cardCvcComplete, setCardCvcComplete] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const { getShippingAddresses } = ShippingAddressContext();
 
@@ -165,6 +167,8 @@ const CheckoutForm: React.FC<{
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
+    if (isProcessing) return;
+
     const selectedAddress = addresses.find((addr) => addr.is_selected);
     if (!selectedAddress) {
       showErrorToast(t("checkout.no_address"));
@@ -182,6 +186,8 @@ const CheckoutForm: React.FC<{
       showErrorToast(t("checkout.incomplete_card"));
       return;
     }
+
+    setIsProcessing(true);
 
     try {
       const petIds = Array.from(new Set(allCarts.map((item) => item.pet_id)));
@@ -218,6 +224,8 @@ const CheckoutForm: React.FC<{
       }
     } catch (error) {
       console.error("Error inesperado:", error);
+    } finally {
+      setIsProcessing(false); // ✅ Lo desbloqueamos
     }
   };
 
@@ -298,11 +306,11 @@ const CheckoutForm: React.FC<{
         <div className="w-full">
           <button
             type="submit"
-            disabled={!stripe || !elements}
+            disabled={!stripe || !elements || isProcessing}
             style={{ marginTop: 20 }}
             className="btn  bg-teal-500 w-full"
           >
-            {t("payment_info.button")}
+            {isProcessing ? <DogLoader /> : t("payment_info.button")}
           </button>
         </div>
       </form>
