@@ -36,6 +36,15 @@ export default function Index() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_REACT_APP_URL}/users/test-country`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("DEBUG country headers:", data);
+      })
+      .catch((err) => console.error("Error test-country:", err));
+  }, []);
+
   return (
     <>
       <div className="flex h-[100%] lg:h-screen items-center justify-evenly bg-teal-500 flex-col lg:flex-row py-5 lg:py-0">
