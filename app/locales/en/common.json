@@ -710,7 +710,7 @@
   "cart_toast": {
     "success": "Cart updated successfully",
     "error": "Add to cart failed",
-    "delete": "Your tag have been deleted successfully",
+    "delete": "Your tag has been deleted successfully",
     "error_delete": "Error trying to delete your tag"
   },
   "modal": {

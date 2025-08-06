@@ -482,7 +482,7 @@ export default function Card({ petObj }: CardProps) {
               <p>
                 {i18n.language === "es"
                   ? `Debes elegir otra chapa, lo sentimos.`
-                  : `You need to chose another tag, we sorry`}
+                  : `You need to chose another tag, we are sorry`}
               </p>
             )}
             <div className="modal-action">

@@ -1100,7 +1100,7 @@ export default function Dashboard() {
       </div> */}
       <div className="flex justify-center items-center  min-h-[80vh] ">
         {allPets.length === 0 ? (
-          <div className="text-center text-black bg-slate-100 w-[500px] max-w-full p-6 shadow-md border border-slate-200 rounded-2xl">
+          <div className="text-center text-black bg-slate-100 w-[500px] max-w-full p-6 shadow-md border border-slate-200 rounded-2xl mx-4">
             <h2
               style={{ fontFamily: "chapFont" }}
               className="text-2xl font-semibold text-teal-500 mb-2"
