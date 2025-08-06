@@ -55,10 +55,11 @@ export default function ResetPasswordPage() {
 
   return (
     <div className="p-8 max-w-md mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Restablecer Contraseña</h1>
+      <h1 className="text-2xl font-bold mb-4">{t("password_reset.title")}</h1>
+      <label>{t("password_reset.new_password")}</label>
       <input
         type="password"
-        placeholder="Nueva contraseña"
+        placeholder={t("password_reset.new_password")}
         value={newPassword}
         onChange={(e) => setNewPassword(e.target.value)}
         className={`w-full p-2 border rounded mb-1 ${
@@ -69,7 +70,7 @@ export default function ResetPasswordPage() {
         onClick={handleReset}
         className="w-full bg-teal-600 text-white py-2 rounded"
       >
-        Cambiar contraseña
+        {t("password_reset.change_password")}
       </button>
     </div>
   );

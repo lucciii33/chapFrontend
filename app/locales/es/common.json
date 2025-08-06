@@ -729,6 +729,11 @@
     "request_error": "Error al solicitar recuperación de contraseña",
     "success": "Contraseña actualizada correctamente"
   },
+  "password_reset": {
+    "title": "Restablecer Contraseña",
+    "new_password": "Nueva contraseña",
+    "change_password": "Cambiar contraseña"
+  },
   "address": {
     "created": "Dirección creada con éxito",
     "edited": "Dirección editada con éxito",
@@ -756,7 +761,7 @@
   },
   "order_confirmation": {
     "thanks": "¡Gracias por tu compra!",
-    "contact_text": "Si tienes alguna duda por favor contacta a:",
+    "contact_text": "En breve te enviaremos un correo electrónico con los detalles de tu pedido.",
     "contact_email": "LUCCI@GMAIL.COM",
     "back_dash_button": "Volver al panel"
   },

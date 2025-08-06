@@ -58,7 +58,7 @@ export default function ShippingAddress() {
         <p className="text-sm text-gray-500 mb-4">
           {t("order_confirmation.contact_text")}
         </p>
-        <p>{t("order_confirmation.contact_email")}</p>
+        {/* <p>{t("order_confirmation.contact_email")}</p> */}
         <Link to="/dashboard">
           {" "}
           <button

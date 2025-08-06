@@ -47,8 +47,8 @@ export default function Login() {
     }
 
     const result = await auth.requestPasswordReset(resetPassword);
-
-    if (result?.success) {
+    console.log("result", result);
+    if (result?.status === 200) {
       showSuccessToast(t("password_recovery.toast_success"));
       document.getElementById("resetPassword").close();
       setResetpassword(""); // Limpiar input

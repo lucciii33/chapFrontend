@@ -730,6 +730,11 @@
     "request_error": "Error requesting password recovery",
     "success": "Password updated successfully"
   },
+  "password_reset": {
+    "title": "Reset Password",
+    "new_password": "New password",
+    "change_password": "Change password"
+  },
   "address": {
     "created": "Address created successfully",
     "edited": "Address edited successfully",
@@ -757,7 +762,7 @@
   },
   "order_confirmation": {
     "thanks": "Thanks for shopping!",
-    "contact_text": "If you have any questions please contact:",
+    "contact_text": "You will receive an order confirmation email soon",
     "contact_email": "LUCCI@GMAIL.COM",
     "back_dash_button": "Go back to dashboard"
   },

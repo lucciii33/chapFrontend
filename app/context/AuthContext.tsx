@@ -127,6 +127,7 @@ export const useAuthContext = () => {
       }
 
       showSuccessToast(t("password_recovery.instructions"));
+      return response;
     } catch (error) {
       console.error("Error al solicitar reset:", error);
       showErrorToast(t("password_recovery.toast_error"));
