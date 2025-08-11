@@ -835,5 +835,8 @@
     "alert_schedule_error": "Could not schedule alert",
     "alert_deleted": "Alert deleted successfully",
     "alert_delete_error": "Could not delete alert"
+  },
+  "tag_description": {
+    "text": "With this tag, you can add general medical information, record vaccinations and veterinary visits, obtain the location when scanning the tag (you will receive a message with its location), generate lost pet flyers in PDF, create alerts, perform daily check-ups to detect infections, illnesses, or track training, receive useful tips, and keep track of your pet-related expenses."
   }
 }

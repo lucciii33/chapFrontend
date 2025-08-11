@@ -833,5 +833,8 @@
     "alert_schedule_error": "No se pudo programar la alerta",
     "alert_deleted": "Alerta eliminada correctamente",
     "alert_delete_error": "No se pudo eliminar la alerta"
+  },
+  "tag_description": {
+    "text": "Con esta chapa podrás agregar información médica general, registrar vacunas y visitas veterinarias, obtener la ubicación al escanear el tag (recibirás un mensaje con su localización), generar flyers de mascota perdida en PDF, crear alertas, realizar chequeos diarios para detectar infecciones, enfermedades o seguir entrenamientos, recibir consejos útiles y llevar un control de tus finanzas sobre lo que gastas en tus mascotas."
   }
 }

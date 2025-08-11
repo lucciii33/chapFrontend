@@ -307,9 +307,9 @@ export default function Card({ petObj }: CardProps) {
         </div>
       )}
       <dialog id="my_modal_2" className="modal">
-        <div className="modal-box w-3/4 max-w-4xl h-auto p-6">
+        <div className="modal-box w-full max-w-full sm:w-3/4 sm:max-w-4xl h-auto p-6">
           <div className="flex justify-between items-center">
-            <div>
+            <div className="">
               <h3 className="font-bold text-lg">
                 {t("petCreation.create_tag_here")}
               </h3>
@@ -322,6 +322,9 @@ export default function Card({ petObj }: CardProps) {
                 <div>X</div>
               </div>
             </div>
+          </div>
+          <div>
+            <p className="m-2 text-sm">{t("tag_description.text")}</p>
           </div>
 
           <>

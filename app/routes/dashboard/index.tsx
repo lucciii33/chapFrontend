@@ -764,6 +764,9 @@ export default function Dashboard() {
                     </span>
                   </div>
                 </div>
+                <div>
+                  <p className="m-2 text-sm">{t("tag_description.text")}</p>
+                </div>
                 <p className="mt-0 text-md">
                   {t("petCreation.step2.step3.description")}
                 </p>
