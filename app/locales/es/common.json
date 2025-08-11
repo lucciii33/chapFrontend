@@ -781,7 +781,8 @@
     "expense_update_error": "No se pudo actualizar el gasto",
     "expense_deleted": "Gasto eliminado con éxito",
     "expense_delete_error": "No se pudo eliminar el gasto",
-    "no_finances": "No tienes finanzas en este momento, agrega alguna"
+    "no_finances": "No tienes finanzas en este momento, agrega alguna",
+    "error_validate": "La fecha y el monto son obligatorios"
   },
   "diary": {
     "diary_saved": "Datos guardados con éxito",

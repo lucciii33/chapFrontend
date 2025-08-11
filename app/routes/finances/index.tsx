@@ -7,6 +7,7 @@ import { TrashIcon } from "@heroicons/react/24/solid";
 import { formatDate } from "../../utils/dateFormat";
 import "../../../styles/dashboard.css";
 import { useTranslation } from "react-i18next";
+import { showErrorToast } from "~/utils/toast";
 
 export default function Finances() {
   const { auth, pet, finances } = useGlobalContext();
@@ -18,6 +19,10 @@ export default function Finances() {
   const [allFinances, setAllFinances] = useState([]);
   const [filteredFinances, setFilteredFinances] = useState([]);
   const [selectedPetId, setSelectedPetId] = useState(0);
+  const [errors, setErrors] = useState({
+    expense_date: false,
+    amount: false,
+  });
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -133,6 +138,27 @@ export default function Finances() {
   };
 
   const handleSaveExpense = async () => {
+    let hasError = false;
+    const newErrors = { expense_date: false, amount: false }; // objeto nuevo (no mutamos state)
+
+    if (!expenseData.expense_date) {
+      newErrors.expense_date = true;
+      hasError = true;
+    }
+
+    if (!expenseData.amount || Number(expenseData.amount) <= 0) {
+      newErrors.amount = true;
+      hasError = true;
+    }
+
+    if (hasError) {
+      setErrors(newErrors); // ← React ve un objeto distinto y re-renderiza
+      showErrorToast(t("finances.error_validate"));
+      return;
+    }
+
+    // limpiar errores si todo ok
+    setErrors({ expense_date: false, amount: false });
     const selectedPet = allPets.find((pet) => pet.id === expenseData.pet_id);
     const hasPurchasedTag = selectedPet?.tags?.some((tag) => tag.is_purchased);
 
@@ -157,9 +183,6 @@ export default function Finances() {
           receipt_photo_url: "dddd",
           recurring: false,
         });
-
-        // Opcional: feedback visual
-        console.log("Gasto guardado correctamente");
       }
     } catch (error) {
       console.error("Error al guardar el gasto:", error);
@@ -265,7 +288,9 @@ export default function Finances() {
             </label>
             <input
               type="date"
-              className="w-full px-4 py-2 border rounded-lg"
+              className={`w-full px-4 py-2 border rounded-lg ${
+                errors.expense_date ? "border-red-500" : ""
+              }`}
               placeholder={t("expenses.expenseDate")}
               name="expense_date"
               value={expenseData.expense_date}
@@ -292,7 +317,9 @@ export default function Finances() {
             </label>
             <input
               type="number"
-              className="w-full px-4 py-2 border rounded-lg"
+              className={`w-full px-4 py-2 border rounded-lg ${
+                errors.amount ? "border-red-500" : ""
+              }`}
               placeholder={t("expenses.amount")}
               name="amount"
               value={expenseData.amount}

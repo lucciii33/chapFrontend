@@ -783,7 +783,8 @@
     "expense_deleted": "Expense deleted successfully",
     "expense_delete_error": "Expense could not be deleted",
     "no_finances": "No finances at this time, add one",
-    "expenses_load_error": "Could not load expenses"
+    "expenses_load_error": "Could not load expenses",
+    "error_validate": "The date and the amount are required"
   },
   "diary": {
     "diary_saved": "Pet data successfully saved",
