@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { showErrorToast, showSuccessToast, showInfoToast } from "~/utils/toast";
+import { useTranslation } from "react-i18next";
 
 type Finance = {
   user_id: number;
@@ -30,6 +31,8 @@ type FinanceResponse = {
 
 export const useFinanceContext = () => {
   const [financeInfo, setFinanceInfo] = useState<FinanceResponse | null>(null);
+  const { t } = useTranslation();
+
   const baseUrl = import.meta.env.VITE_REACT_APP_URL;
 
   const getToken = (): string | null => {
@@ -61,11 +64,12 @@ export const useFinanceContext = () => {
 
       const responseData: FinanceResponse = await response.json();
       setFinanceInfo(responseData);
-      showSuccessToast("Tu gasto ha sido registrado con éxito");
+      showSuccessToast(t("finances.expense_saved"));
+
       return responseData;
     } catch (error) {
       console.error("Error al crear el gasto:", error);
-      showErrorToast("No se pudo registrar el gasto");
+      showErrorToast(t("finances.expense_save_error"));
       return null;
     }
   };
@@ -76,7 +80,6 @@ export const useFinanceContext = () => {
     try {
       const token = getToken();
       if (!token) throw new Error("Usuario no autenticado");
-      console.log("llamando desde conetxttt");
 
       const response = await fetch(`${baseUrl}/api/financial/${userId}`, {
         method: "GET",
@@ -87,16 +90,13 @@ export const useFinanceContext = () => {
 
       if (response.status === 404) {
         console.log("Usuario sin finanzas aún, no es error.");
-        showInfoToast(
-          "No tienes ninguna finanza en este momento, Agrega alguna."
-        );
+        showInfoToast(t("finances.no_finances"));
         return [];
       }
 
       if (!response.ok) throw new Error("Error al obtener los gastos");
 
       const data: FinanceResponse[] = await response.json();
-      console.log("datadatadatadata", data);
       if (Array.isArray(data) && data.length === 0) {
         return []; // o null, como prefieras manejarlo
       }
@@ -104,7 +104,7 @@ export const useFinanceContext = () => {
       return data;
     } catch (error) {
       console.log("Error al obtener los gastos:", error?.response?.status);
-      showErrorToast("No se pudieron cargar los gastos");
+      showErrorToast(t("finances.expenses_load_error"));
       return null;
     }
   };
@@ -128,11 +128,11 @@ export const useFinanceContext = () => {
 
       if (!response.ok) throw new Error("Error al actualizar el gasto");
 
-      showSuccessToast("El gasto fue actualizado correctamente");
+      showSuccessToast(t("finances.expense_updated"));
       return true;
     } catch (error) {
       console.error("Error al actualizar el gasto:", error);
-      showErrorToast("No se pudo actualizar el gasto");
+      showErrorToast(t("finances.expense_update_error"));
       return false;
     }
   };
@@ -151,11 +151,11 @@ export const useFinanceContext = () => {
 
       if (!response.ok) throw new Error("Error al eliminar el gasto");
 
-      showSuccessToast("El gasto fue eliminado correctamente");
+      showSuccessToast(t("finances.expense_deleted"));
       return true;
     } catch (error) {
       console.error("Error al eliminar el gasto:", error);
-      showErrorToast("No se pudo eliminar el gasto");
+      showErrorToast(t("finances.expense_delete_error"));
       return false;
     }
   };

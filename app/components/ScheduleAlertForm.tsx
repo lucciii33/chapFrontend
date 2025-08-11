@@ -26,33 +26,6 @@ export default function ScheduleAlertForm({
     }));
   };
 
-  // const [userPets, setUserPets] = useState([]);
-
-  // useEffect(() => {
-  //   const fetchPets = async () => {
-  //     const storedUser = localStorage.getItem("user");
-  //     const token = storedUser ? JSON.parse(storedUser).access_token : null;
-
-  //     if (!token) return;
-
-  //     const res = await fetch(
-  //       `${import.meta.env.VITE_REACT_APP_URL}/api/users/${userId}/pets`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     );
-
-  //     if (res.ok) {
-  //       const data = await res.json();
-  //       setUserPets(data);
-  //     }
-  //   };
-
-  //   fetchPets();
-  // }, [userId]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -88,7 +61,7 @@ export default function ScheduleAlertForm({
         throw new Error(error.detail || "Error scheduling alert");
       }
 
-      showSuccessToast("Alerta programada correctamente");
+      showSuccessToast(t("alerts_toast.alert_scheduled"));
       document.getElementById("my_modal_5_pet_id_alerts").close();
 
       setAlertData({
@@ -96,11 +69,11 @@ export default function ScheduleAlertForm({
         message: "",
         scheduled_date: "",
         email: "",
-        pet_id: "", // reset
+        pet_id: petId.id, // reset
       });
     } catch (error) {
       console.error(error);
-      showErrorToast(error.message);
+      showErrorToast(t("alerts_toast.alert_schedule_error"));
     }
   };
 

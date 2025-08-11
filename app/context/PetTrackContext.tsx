@@ -1,4 +1,5 @@
 import { showErrorToast, showSuccessToast } from "~/utils/toast";
+import { useTranslation } from "react-i18next";
 
 export interface PetFormData {
   pet_id: number | "";
@@ -20,6 +21,8 @@ export interface PetFormData {
 }
 
 export const PetTrackerContext = () => {
+  const { t } = useTranslation();
+
   const baseUrl = import.meta.env.VITE_REACT_APP_URL;
 
   const getToken = (): string | null => {
@@ -50,10 +53,10 @@ export const PetTrackerContext = () => {
 
       if (!response.ok) throw new Error("Network response was not ok");
 
-      showSuccessToast("Pet data successfully saved");
+      showSuccessToast(t("diary.diary_saved"));
     } catch (error) {
       console.error(error);
-      showErrorToast("Error saving pet data");
+      showErrorToast(t("diary.diary_save_error"));
     }
   };
 
@@ -73,7 +76,7 @@ export const PetTrackerContext = () => {
 
       return await response.json();
     } catch (error) {
-      showErrorToast("Error fetching pet data");
+      showErrorToast(t("diary.diary_load_error"));
       console.error(error);
       return null;
     }
@@ -96,10 +99,10 @@ export const PetTrackerContext = () => {
 
       if (!response.ok) throw new Error("Network response was not ok");
 
-      showSuccessToast("Pet data successfully deleted");
+      showSuccessToast(t("diary.diary_deleted"));
     } catch (error) {
       console.error(error);
-      showErrorToast("Error deleting pet data");
+      showErrorToast(t("diary.diary_delete_error"));
     }
   };
 
@@ -122,10 +125,10 @@ export const PetTrackerContext = () => {
 
       if (!response.ok) throw new Error("Network response was not ok");
 
-      showSuccessToast("Pet data successfully updated");
+      showSuccessToast(t("diary.diary_updated"));
     } catch (error) {
       console.error(error);
-      showErrorToast("Error updating pet data");
+      showErrorToast(t("diary.diary_update_error"));
     }
   };
 

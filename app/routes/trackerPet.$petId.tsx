@@ -86,9 +86,7 @@ export default function PetTracker() {
     );
 
     if (alreadyTrackedToday) {
-      showInfoToast(
-        "Ya tienes un tracker para hoy. Puedes editarlo si lo deseas."
-      );
+      showInfoToast(t("diary.diary_already_exists_toast"));
       return;
     }
 

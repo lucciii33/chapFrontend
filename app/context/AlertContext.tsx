@@ -1,5 +1,7 @@
 // hooks/useUserAlerts.ts
+import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
+import { showErrorToast, showSuccessToast } from "~/utils/toast";
 
 export interface Alert {
   id: number;
@@ -12,6 +14,8 @@ export interface Alert {
 }
 
 export const useUserAlerts = (userId: number | undefined) => {
+  const { t } = useTranslation();
+
   const [alerts, setAlerts] = useState<Alert[]>([]);
   console.log("alertsalertsalerts", alerts);
   const [loading, setLoading] = useState(false);
@@ -63,9 +67,11 @@ export const useUserAlerts = (userId: number | undefined) => {
 
       // Actualizar lista local sin la alerta eliminada
       await fetchAlerts();
+      showSuccessToast(t("alerts_toast.alert_deleted"));
       setAlerts((prev) => prev.filter((alert) => alert.id !== alertId));
     } catch (err: any) {
       setError(err.message);
+      showErrorToast(t("alerts_toast.alert_delete_error"));
     }
   };
 

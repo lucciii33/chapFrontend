@@ -1,4 +1,5 @@
 import { showErrorToast, showSuccessToast } from "~/utils/toast";
+import { useTranslation } from "react-i18next";
 
 type PetTravelMode = {
   pet_id: number;
@@ -23,6 +24,8 @@ type PetTravelModeResponse = {
 };
 
 export const useTravelModelContext = () => {
+  const { t } = useTranslation();
+
   const baseUrl = import.meta.env.VITE_REACT_APP_URL;
 
   const getToken = (): string | null => {
@@ -53,11 +56,11 @@ export const useTravelModelContext = () => {
       if (!response.ok) throw new Error("Error al crear el travle mode");
 
       const responseData: PetTravelModeResponse = await response.json();
-      showSuccessToast("Tu gasto ha sido registrado con éxito");
+      showSuccessToast(t("travel_mode_toast.travel_mode_created"));
       return responseData;
     } catch (error) {
       console.error("Error al crear el gasto:", error);
-      showErrorToast("No se pudo registrar el gasto");
+      showErrorToast(t("travel_mode_toast.travel_mode_create_error"));
       return null;
     }
   };
@@ -86,7 +89,7 @@ export const useTravelModelContext = () => {
       return data;
     } catch (error) {
       console.error("Error al obtener los gastos:", error);
-      showErrorToast("No se pudieron cargar los gastos");
+      showErrorToast(t("travel_mode_toast.expenses_load_error"));
       return null;
     }
   };
@@ -113,11 +116,11 @@ export const useTravelModelContext = () => {
 
       if (!response.ok) throw new Error("Error al actualizar el gasto");
 
-      showSuccessToast("El travel mode fue actualizado correctamente");
+      showSuccessToast(t("travel_mode_toast.travel_mode_updated"));
       return true;
     } catch (error) {
       console.error("Error al actualizar el gasto:", error);
-      showErrorToast("No se pudo actualizar el travel mode");
+      showErrorToast(t("travel_mode_toast.travel_mode_update_error"));
       return false;
     }
   };

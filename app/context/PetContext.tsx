@@ -73,15 +73,13 @@ export const usePetContext = () => {
       const token = getToken();
       if (!token) throw new Error("Usuario no autenticado");
 
-      console.log("formDataformDataformData", formData);
-
       const response = await fetch(`${baseUrl}/api/users/${userId}/pets`, {
         method: "POST",
         headers: {
           // "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Añadimos el token aquí
+          Authorization: `Bearer ${token}`,
         },
-        body: formData, // Aquí pasamos los datos de la mascota
+        body: formData,
       });
 
       if (!response.ok) {
@@ -171,86 +169,14 @@ export const usePetContext = () => {
 
       const responseData: CreatePetResponse = await response.json();
       setPetByID(responseData); // Guardamos la mascota creada en el estado
-      showSuccessToast("Tu mascota ha sido eliminada con exito");
+      showSuccessToast(t("pets_mini.pet_deleted"));
       return responseData;
     } catch (error) {
       console.error("Error al crear la mascota:", error);
-      showErrorToast("Error al eliminar la mascota");
+      showErrorToast(t("pets_mini.pet_delete_error"));
       return null;
     }
   };
-
-  // const editPet = async (
-  //   petId: number,
-  //   petData: Pet
-  // ): Promise<CreatePetResponse | null> => {
-  //   try {
-  //     const token = getToken();
-  //     if (!token) throw new Error("Usuario no autenticado");
-  //     const response = await fetch(
-  //       `http://127.0.0.1:8000/api/pets/${petId}/edit`,
-  //       {
-  //         method: "PUT",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${token}`, // Añadimos el token aquí
-  //         },
-  //         body: JSON.stringify(petData), // Aquí pasamos los datos de la mascota
-  //       }
-  //     );
-
-  //     if (!response.ok) {
-  //       throw new Error("Error al crear la mascota");
-  //     }
-
-  //     const responseData: CreatePetResponse = await response.json();
-  //     // setPetProfile(responseData); // Guardamos la mascota creada en el estado
-  //     return responseData;
-  //   } catch (error) {
-  //     console.error("Error al crear la mascota:", error);
-  //     return null;
-  //   }
-  // };
-
-  // const editPet = async (
-  //   petId: number,
-  //   petData: Pet // Recibe el objeto `Pet` como argumento
-  // ): Promise<CreatePetResponse | null> => {
-  //   try {
-  //     const token = getToken();
-  //     if (!token) throw new Error("Usuario no autenticado");
-
-  //     // Crear FormData
-  //     const formData = new FormData();
-  //     if (petData.profile_photo) {
-  //       formData.append("profile_photo", petData.profile_photo); // Agrega el archivo de foto
-  //     }
-  //     const { profile_photo, ...petDataWithoutFile } = petData;
-  //     formData.append("pet_update", JSON.stringify(petDataWithoutFile)); // Agrega los demás datos
-
-  //     // Hacer el fetch
-  //     const response = await fetch(
-  //       `http://127.0.0.1:8000/api/pets/${petId}/edit`,
-  //       {
-  //         method: "PUT",
-  //         headers: {
-  //           Authorization: `Bearer ${token}`, // Agregar token
-  //         },
-  //         body: formData, // Enviar FormData como body
-  //       }
-  //     );
-
-  //     if (!response.ok) {
-  //       throw new Error("Error al editar la mascota");
-  //     }
-
-  //     const responseData: CreatePetResponse = await response.json();
-  //     return responseData; // Devuelve la respuesta
-  //   } catch (error) {
-  //     console.error("Error al editar la mascota:", error);
-  //     return null;
-  //   }
-  // };
 
   const editPet = async (
     petId: number,
@@ -289,11 +215,11 @@ export const usePetContext = () => {
       }
 
       const responseData: CreatePetResponse = await response.json();
-      showSuccessToast("Tu mascota ha sido editada con exito");
+      showSuccessToast(t("pets_mini.pet_updated"));
       return responseData;
     } catch (error) {
       console.error("Error al editar la mascota:", error);
-      showErrorToast("Error al editar la mascota");
+      showErrorToast(t("pets_mini.pet_update_error"));
       return null;
     }
   };

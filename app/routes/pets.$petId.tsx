@@ -158,7 +158,7 @@ export default function PetDetail() {
       !petByID.medical_history ||
       petByID.medical_history?.length === 0
     ) {
-      setMessage("No hay historial médico asociado para agregar la vacuna.");
+      showErrorToast(t("context_pet_med.no_medical_history_for_vaccine"));
       return;
     }
 
@@ -515,11 +515,11 @@ export default function PetDetail() {
       const response = await deleteVetSession(vetIdToDelete);
 
       if (response) {
-        setMessage("Sesión veterinaria eliminada con éxito.");
+        // setMessage("Sesión veterinaria eliminada con éxito.");
         getPetById(Number(petId)); // Recargar datos de la mascota
         setIsDeleteDialogOpen(false);
       } else {
-        setMessage("No se pudo eliminar la sesión veterinaria.");
+        // setMessage("No se pudo eliminar la sesión veterinaria.");
       }
     } catch (error) {
       console.error("Error eliminando sesión veterinaria:", error);
@@ -761,7 +761,7 @@ export default function PetDetail() {
           </div>
 
           <div className="mt-2 p-5">
-            {message && <div className="alert">{message}</div>}{" "}
+            {/* {message && <div className="alert">{message}</div>}{" "} */}
             {/* Mostrar mensaje */}
             <h1 className=" text-4xl mb-2" style={{ fontFamily: "chapFont" }}>
               {t("general_pet_id.welcome", { name: petByID.name })}

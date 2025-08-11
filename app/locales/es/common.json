@@ -773,5 +773,65 @@
     "no_address": "No se ha seleccionado ninguna dirección, por favor crea una dirección",
     "incomplete_card": "Por favor completa todos los campos de la tarjeta",
     "success": "¡Compra exitosa!"
+  },
+  "finances": {
+    "expense_saved": "Tu gasto ha sido registrado con éxito",
+    "expense_save_error": "No se pudo registrar el gasto",
+    "expense_updated": "Gasto actualizado con éxito",
+    "expense_update_error": "No se pudo actualizar el gasto",
+    "expense_deleted": "Gasto eliminado con éxito",
+    "expense_delete_error": "No se pudo eliminar el gasto",
+    "no_finances": "No tienes finanzas en este momento, agrega alguna"
+  },
+  "diary": {
+    "diary_saved": "Datos guardados con éxito",
+    "diary_save_error": "Error al guardar datos",
+    "diary_updated": "Datos actualizados con éxito",
+    "diary_update_error": "Error al actualizar datos",
+    "diary_deleted": "Datos eliminados con éxito",
+    "diary_delete_error": "Error al eliminar datos",
+    "diary_load_error": "No se pudieron cargar los datos",
+    "diary_already_exists": "Ya tienes un tracker para hoy. Puedes editarlo si deseas.",
+    "diary_already_exists_toast": "Ya tienes un tracker para hoy. Puedes editarlo si lo deseas."
+  },
+  "pets_mini": {
+    "pet_deleted": "Tu mascota ha sido eliminada con éxito",
+    "pet_updated": "Tu mascota ha sido editada con éxito",
+    "pet_delete_error": "No se pudo eliminar la mascota",
+    "pet_update_error": "No se pudo editar la mascota"
+  },
+  "context_pet_med": {
+    "medical_history_created": "Tu historial médico ha sido creado con éxito",
+    "medical_history_create_error": "Tu historial médico no pudo ser creado",
+    "medical_history_deleted": "Tu historial médico ha sido eliminado con éxito",
+    "medical_history_delete_error": "Tu historial médico no pudo ser eliminado",
+    "medical_history_updated": "Tu historial médico ha sido editado con éxito",
+    "medical_history_update_error": "Tu historial médico no pudo ser editado",
+    "vet_visit_created": "Tu visita al veterinario ha sido creada con éxito",
+    "vet_visit_create_error": "No pudimos crear tu visita al veterinario",
+    "vet_visit_updated": "Tu visita al veterinario ha sido editada con éxito",
+    "vet_visit_update_error": "No pudimos editar tu visita al veterinario",
+    "vet_visit_deleted": "Tu visita al veterinario ha sido eliminada con éxito",
+    "vet_visit_delete_error": "No pudimos eliminar tu visita al veterinario",
+    "document_deleted": "El documento ha sido eliminado con éxito",
+    "document_delete_error": "No pudimos eliminar el documento",
+    "vaccine_created": "Tu vacuna ha sido creada con éxito",
+    "vaccine_create_error": "Tu vacuna no pudo ser creada",
+    "vaccine_deleted": "La vacuna ha sido eliminada con éxito",
+    "vaccine_delete_error": "No pudimos eliminar la vacuna",
+    "no_medical_history_for_vaccine": "No hay historial médico asociado para agregar la vacuna. Agrega tu historial médico"
+  },
+  "travel_mode_toast": {
+    "travel_mode_created": "Tu modo viaje ha sido registrado con éxito",
+    "travel_mode_create_error": "No se pudo registrar el modo viaje",
+    "travel_mode_updated": "El travel mode fue actualizado correctamente",
+    "travel_mode_update_error": "No se pudo actualizar el travel mode",
+    "expenses_load_error": "No se pudieron cargar los gastos"
+  },
+  "alerts_toast": {
+    "alert_scheduled": "Alerta programada correctamente",
+    "alert_schedule_error": "No se pudo programar la alerta",
+    "alert_deleted": "Alerta eliminada correctamente",
+    "alert_delete_error": "No se pudo eliminar la alerta"
   }
 }

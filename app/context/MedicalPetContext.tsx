@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { showErrorToast, showSuccessToast } from "~/utils/toast";
+import { useTranslation } from "react-i18next";
 
 type CreateMedicalHistory = {
   description: string;
@@ -42,6 +43,7 @@ type VaccineResponse = {
 const baseUrl = import.meta.env.VITE_REACT_APP_URL;
 
 export const useMedicalPetContext = () => {
+  const { t } = useTranslation();
   const getToken = (): string | null => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
@@ -70,11 +72,11 @@ export const useMedicalPetContext = () => {
       );
 
       if (!response.ok) throw new Error("Error creating medical history");
-      showSuccessToast("Tu hsitorial medico ha sido creada con exito");
+      showSuccessToast(t("context_pet_med.medical_history_created"));
       return await response.json();
     } catch (error) {
       console.error("Error creating medical history:", error);
-      showErrorToast("Tu hsitorial medico no pudo ser creado");
+      showErrorToast(t("context_pet_med.medical_history_create_error"));
       return null;
     }
   };
@@ -95,11 +97,11 @@ export const useMedicalPetContext = () => {
       );
 
       if (!response.ok) throw new Error("Error deleting medical history");
-      showSuccessToast("Tu hsitorial medico ha sido eliminada con exito");
+      showSuccessToast(t("context_pet_med.medical_history_deleted"));
       return true;
     } catch (error) {
       console.error("Error deleting medical history:", error);
-      showErrorToast("Tu hsitorial medico no pudo ser eliminado");
+      showErrorToast(t("context_pet_med.medical_history_delete_error"));
       return false;
     }
   };
@@ -123,11 +125,11 @@ export const useMedicalPetContext = () => {
       );
 
       if (!response.ok) throw new Error("Error editing medical history");
-      showSuccessToast("Tu hsitorial medico ha sido editado con exito");
+      showSuccessToast(t("context_pet_med.medical_history_updated"));
       return await response.json();
     } catch (error) {
       console.error("Error editing medical history:", error);
-      showErrorToast("Tu hsitorial medico no pudo ser editado");
+      showErrorToast(t("context_pet_med.medical_history_update_error"));
 
       return null;
     }
@@ -172,10 +174,10 @@ export const useMedicalPetContext = () => {
       );
 
       if (!response.ok) throw new Error("Error creando la sesión veterinaria");
-      showSuccessToast("Tu visita al veterinario ha sido creada con éxito");
+      showSuccessToast(t("context_pet_med.vet_visit_created"));
       return await response.json();
     } catch (error) {
-      showErrorToast("No pudimos crear tu visita al veterinario");
+      showErrorToast(t("context_pet_med.vet_visit_create_error"));
       console.error("Error creando sesión veterinaria:", error);
       return null;
     }
@@ -214,11 +216,11 @@ export const useMedicalPetContext = () => {
       });
 
       if (!response.ok) throw new Error("Error editando la sesión veterinaria");
-      showSuccessToast("Tu visita al veterinario ha sido editada con éxito");
+      showSuccessToast(t("context_pet_med.vet_visit_updated"));
       return await response.json();
     } catch (error) {
       console.error("Error editando sesión veterinaria:", error);
-      showErrorToast("No pudimos editar tu visita al veterinario");
+      showErrorToast(t("context_pet_med.vet_visit_update_error"));
       return null;
     }
   };
@@ -237,11 +239,11 @@ export const useMedicalPetContext = () => {
       });
 
       if (!response.ok) throw new Error("Error creating medical history");
-      showSuccessToast("Tu visita al veterinario ha sido eliminada con exito");
+      showSuccessToast(t("context_pet_med.vet_visit_deleted"));
       return await response.json();
     } catch (error) {
       console.error("Error creating medical history:", error);
-      showErrorToast("no pudimos eliminar tu visita al veterinario");
+      showErrorToast("context_pet_med.vet_visit_delete_error");
       return null;
     }
   };
@@ -263,11 +265,11 @@ export const useMedicalPetContext = () => {
       );
 
       if (!response.ok) throw new Error("Error eliminando el documento");
-      showSuccessToast("El documento ha sido eliminado con éxito");
+      showSuccessToast(t("context_pet_med.document_deleted"));
       return true;
     } catch (error) {
       console.error("Error eliminando el documento:", error);
-      showErrorToast("No pudimos eliminar el documento");
+      showErrorToast(t("context_pet_med.document_delete_error"));
       return false;
     }
   };
@@ -292,11 +294,11 @@ export const useMedicalPetContext = () => {
 
       if (!response.ok)
         throw new Error("Error creating medical history VACCINE");
-      showSuccessToast("Tu vacuna ha sido creada con exito");
+      showSuccessToast(t("context_pet_med.vaccine_created"));
       return await response.json();
     } catch (error) {
       console.error("Error creating medical history:", error);
-      showErrorToast("Tu vacuna no pudo ser creado");
+      showErrorToast(t("context_pet_med.vaccine_create_error"));
       return null;
     }
   };
@@ -318,11 +320,11 @@ export const useMedicalPetContext = () => {
       );
 
       if (!response.ok) throw new Error("Error eliminando el documento");
-      showSuccessToast("El la vacuna ha sido eliminado con éxito");
+      showSuccessToast(t("context_pet_med.vaccine_deleted"));
       return true;
     } catch (error) {
       console.error("Error eliminando el documento:", error);
-      showErrorToast("No pudimos eliminar la vacuna");
+      showErrorToast(t("context_pet_med.vaccine_delete_error"));
       return false;
     }
   };
@@ -347,11 +349,11 @@ export const useMedicalPetContext = () => {
       );
 
       if (!response.ok) throw new Error("Error editing medical history");
-      showSuccessToast("Tu hsitorial medico ha sido editado con exito");
+      showSuccessToast("Tu vacuna sido editado con exito");
       return await response.json();
     } catch (error) {
       console.error("Error editing medical history:", error);
-      showErrorToast("Tu hsitorial medico no pudo ser editado");
+      showErrorToast("Tu vacuna no pudo ser editado");
 
       return null;
     }

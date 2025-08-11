@@ -1,7 +1,6 @@
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
 import { Link } from "@remix-run/react";
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 
 export default function TravelModeForm({
   travelModeData,
@@ -175,6 +174,9 @@ export default function TravelModeForm({
             </div>
 
             <div className="flex justify-end gap-2">
+              <button className="btn" onClick={onToggleCollapse}>
+                {t("expenses.buttonClose")}
+              </button>
               <button
                 onClick={handleSubmit}
                 className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full md:w-auto"
@@ -182,9 +184,6 @@ export default function TravelModeForm({
                 {travelModeData
                   ? t("travelMode.buttonEdit")
                   : t("travelMode.buttonCreate")}
-              </button>
-              <button className="btn" onClick={onToggleCollapse}>
-                {t("expenses.buttonClose")}
               </button>
             </div>
           </div>

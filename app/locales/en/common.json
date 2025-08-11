@@ -774,5 +774,66 @@
     "no_address": "No address selected, please create an address",
     "incomplete_card": "Please complete all card fields",
     "success": "Purchase successful!"
+  },
+  "finances": {
+    "expense_saved": "Expense saved successfully",
+    "expense_save_error": "Expense could not be saved",
+    "expense_updated": "Expense updated successfully",
+    "expense_update_error": "Expense could not be updated",
+    "expense_deleted": "Expense deleted successfully",
+    "expense_delete_error": "Expense could not be deleted",
+    "no_finances": "No finances at this time, add one",
+    "expenses_load_error": "Could not load expenses"
+  },
+  "diary": {
+    "diary_saved": "Pet data successfully saved",
+    "diary_save_error": "Error saving data",
+    "diary_updated": "Pet data successfully updated",
+    "diary_update_error": "Error updating data",
+    "diary_deleted": "Pet data successfully deleted",
+    "diary_delete_error": "Error deleting data",
+    "diary_load_error": "Could not load data",
+    "diary_already_exists": "You already have data today. Edit the data if you like.",
+    "diary_already_exists_toast": "You already have a tracker for today. You can edit it if you like."
+  },
+  "pets_mini": {
+    "pet_deleted": "Your pet has been successfully deleted",
+    "pet_updated": "Your pet has been successfully updated",
+    "pet_delete_error": "Could not delete pet",
+    "pet_update_error": "Could not update pet"
+  },
+  "context_pet_med": {
+    "medical_history_created": "Your medical history has been successfully created",
+    "medical_history_create_error": "Your medical history could not be created",
+    "medical_history_deleted": "Your medical history has been successfully deleted",
+    "medical_history_delete_error": "Your medical history could not be deleted",
+    "medical_history_updated": "Your medical history has been successfully updated",
+    "medical_history_update_error": "Your medical history could not be updated",
+    "vet_visit_created": "Your vet visit has been successfully created",
+    "vet_visit_create_error": "Could not create your vet visit",
+    "vet_visit_updated": "Your vet visit has been successfully updated",
+    "vet_visit_update_error": "Could not update your vet visit",
+    "vet_visit_deleted": "Your vet visit has been successfully deleted",
+    "vet_visit_delete_error": "Could not delete your vet visit",
+    "document_deleted": "The document has been successfully deleted",
+    "document_delete_error": "Could not delete the document",
+    "vaccine_created": "Your vaccine has been successfully created",
+    "vaccine_create_error": "Your vaccine could not be created",
+    "vaccine_deleted": "The vaccine has been successfully deleted",
+    "vaccine_delete_error": "Could not delete the vaccine",
+    "no_medical_history_for_vaccine": "There is no medical history associated to add the vaccine. Add your medical history"
+  },
+  "travel_mode_toast": {
+    "travel_mode_created": "Your travel mode has been successfully registered",
+    "travel_mode_create_error": "Could not register travel mode",
+    "travel_mode_updated": "The travel mode was successfully updated",
+    "travel_mode_update_error": "Could not update travel mode",
+    "expenses_load_error": "Could not load expenses"
+  },
+  "alerts_toast": {
+    "alert_scheduled": "Alert scheduled successfully",
+    "alert_schedule_error": "Could not schedule alert",
+    "alert_deleted": "Alert deleted successfully",
+    "alert_delete_error": "Could not delete alert"
   }
 }

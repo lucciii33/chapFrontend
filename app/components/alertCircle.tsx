@@ -3,6 +3,7 @@ import { ExclamationTriangleIcon, TrashIcon } from "@heroicons/react/24/solid";
 import DeleteDialog from "../components/deleteDialog";
 import { useGlobalContext } from "../context/GlobalProvider";
 import { useTranslation } from "react-i18next";
+import { showSuccessToast } from "~/utils/toast";
 
 type AlertCircleProps = {
   petObj: {
@@ -81,6 +82,7 @@ export default function AlertCircle({ petObj }: AlertCircleProps) {
     if (selectedAlertId !== null) {
       try {
         await userAlerts.deleteAlert(selectedAlertId);
+        showSuccessToast(t("alerts_toast.alert_deleted"));
       } catch (error) {
         console.error("Error al eliminar alerta:", error);
       } finally {
