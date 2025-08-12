@@ -17,12 +17,14 @@
     "subTitle": "Simple, rápida y sin complicaciones.",
     "smalText": "Todo lo que tu mascota necesita, en un solo lugar.",
     "featureOne": "Modifica tu información y la de tu mascota cuantas veces quieras.",
-    "featureTwo": "Obtén su ubicación aproximada si se pierde.",
+    "featureTwo": "Recibe un correo electrónico con la ubicación aproximada del perro en un mapa cuando alguien escanee la placa si se pierde.",
     "featureTree": "Controla gastos y finanzas por mascota.",
     "featureFour": "Ten a la mano historial médico, visitas veterinarias y vacunas.",
     "featureFive": "Sube archivos, informes y laboratorios fácilmente.",
     "featureSix": "Registra a diario su alimentación, salud y conducta.",
-    "featureSeven": "Activa el modo viaje con instrucciones para un cuidado personalizado."
+    "featureSeven": "Activa el modo viaje con instrucciones para un cuidado personalizado.",
+    "featureEigth": "Genera un cartel de mascota perdida en segundos — listo para imprimir o compartir en redes sociales.",
+    "featureNine": "GPS en tiempo real las 24 horas – (próximamente)"
   },
 
   "ChapStats": {
@@ -793,7 +795,8 @@
     "diary_delete_error": "Error al eliminar datos",
     "diary_load_error": "No se pudieron cargar los datos",
     "diary_already_exists": "Ya tienes un tracker para hoy. Puedes editarlo si deseas.",
-    "diary_already_exists_toast": "Ya tienes un tracker para hoy. Puedes editarlo si lo deseas."
+    "diary_already_exists_toast": "Ya tienes un tracker para hoy. Puedes editarlo si lo deseas.",
+    "fill_one_field_toast": "Debes llenar al menos un campo antes de guardar."
   },
   "pets_mini": {
     "pet_deleted": "Tu mascota ha sido eliminada con éxito",

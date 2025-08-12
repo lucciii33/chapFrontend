@@ -12,6 +12,8 @@ const features = [
   "whyChap.featureFive",
   "whyChap.featureSix",
   "whyChap.featureSeven",
+  "whyChap.featureEigth",
+  "whyChap.featureNine",
 ];
 
 export default function WhyChap() {

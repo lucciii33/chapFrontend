@@ -10,6 +10,15 @@ export default function Founders() {
   const [selectedYear, setSelectedYear] = useState("2019");
 
   const years = ["2019", "2022", "2024", "2025"];
+  const imagesByYear = {
+    "2019":
+      "https://chap-blue.s3.us-east-2.amazonaws.com/PHOTO-2025-08-12-16-17-48.jpg",
+    "2022":
+      "https://chap-blue.s3.us-east-2.amazonaws.com/PHOTO-2025-08-12-16-18-00.jpg",
+    "2024": "https://chap-blue.s3.us-east-2.amazonaws.com/IMG_1038.jpg",
+    "2025":
+      "https://chap-blue.s3.us-east-2.amazonaws.com/15889f1e-b3c7-4d93-ac34-c8bca93fe2dc.JPG",
+  };
 
   return (
     <div className="bg-white dark:bg-[#fdfdfd] py-0 px-0 h-100%">
@@ -46,7 +55,7 @@ export default function Founders() {
           <div>
             {/* Aquí pones tu imagen */}
             <img
-              src="https://chap-blue.s3.us-east-2.amazonaws.com/15889f1e-b3c7-4d93-ac34-c8bca93fe2dc.JPG"
+              src={imagesByYear[selectedYear]}
               alt="algo"
               className="w-[40rem] h-[40rem] shadow-lg object-cover"
             />

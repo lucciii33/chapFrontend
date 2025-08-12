@@ -17,12 +17,14 @@
     "subTitle": "Simple, fast, and hassle-free.",
     "smalText": "everything your pet needs, all in one place",
     "featureOne": "Update your information and your pet’s as many times as you need.",
-    "featureTwo": "Get their approximate location if they go missing.",
+    "featureTwo": "Receive an email with the dog's approximate location on a map when someone scans the tag if they get lost.",
     "featureTree": "Track expenses and manage your pet's finances.",
     "featureFour": "Keep medical history, vet visits, and vaccinations in one place.",
     "featureFive": "Easily upload files, lab results, and reports.",
     "featureSix": "Log daily meals, mood, behavior, and health.",
-    "featureSeven": "Activate the travel mode with instructions for personalized care."
+    "featureSeven": "Activate the travel mode with instructions for personalized care.",
+    "featureEigth": "Generate a missing pet poster in seconds — ready to print or share on social media!.",
+    "featureNine": "24-hour real-time GPS – (coming soon)"
   },
 
   "ChapStats": {
@@ -795,7 +797,8 @@
     "diary_delete_error": "Error deleting data",
     "diary_load_error": "Could not load data",
     "diary_already_exists": "You already have data today. Edit the data if you like.",
-    "diary_already_exists_toast": "You already have a tracker for today. You can edit it if you like."
+    "diary_already_exists_toast": "You already have a tracker for today. You can edit it if you like.",
+    "fill_one_field_toast": "Add at least one field before saving."
   },
   "pets_mini": {
     "pet_deleted": "Your pet has been successfully deleted",

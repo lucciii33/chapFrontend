@@ -289,6 +289,12 @@ export default function PetCalendar({
                 </div>
                 <div className="flex justify-between mt-5">
                   <button
+                    className="px-4 py-2 bg-teal-700 text-white rounded"
+                    onClick={() => setShowDeleteDialog(true)}
+                  >
+                    {t(`tracker_page.edit_button_delete`)}
+                  </button>
+                  <button
                     className="px-4 py-2 bg-teal-500 text-white rounded"
                     onClick={async () => {
                       await onEdit(selectedTracker.id, formData); // << guarda cambios
@@ -297,13 +303,6 @@ export default function PetCalendar({
                   >
                     {" "}
                     {t(`tracker_page.edit_button_save`)}
-                  </button>
-
-                  <button
-                    className="px-4 py-2 bg-teal-700 text-white rounded"
-                    onClick={() => setShowDeleteDialog(true)}
-                  >
-                    {t(`tracker_page.edit_button_delete`)}
                   </button>
                 </div>
 

@@ -23,7 +23,6 @@ export default function PetTracker() {
   const { pet } = useGlobalContext();
   const { getPetById, petByID, editPet } = pet;
   const { petId } = useParams();
-  console.log("petByIDINTRACK", petByID);
 
   useEffect(() => {
     if (petId) {
@@ -52,6 +51,16 @@ export default function PetTracker() {
     sleep_hours: 0,
   });
 
+  const hasAnyValue = (data: typeof formData) => {
+    return Object.entries(data).some(([key, value]) => {
+      if (key === "pet_id") return false; // no cuenta
+      if (typeof value === "boolean") return value === true; // algún checkbox marcado
+      if (typeof value === "number") return value > 0; // números > 0
+      if (typeof value === "string") return value.trim() !== ""; // textos no vacíos
+      return false;
+    });
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, type, checked, value } = e.target;
 
@@ -77,6 +86,12 @@ export default function PetTracker() {
       alert("Pet ID is required");
       return;
     }
+
+    if (!hasAnyValue(formData)) {
+      showInfoToast(t("diary.fill_one_field_toast"));
+      return;
+    }
+
     const existingTrackers = await getPetTrack(petId);
 
     const today = new Date().toISOString().split("T")[0]; // Solo la fecha YYYY-MM-DD
