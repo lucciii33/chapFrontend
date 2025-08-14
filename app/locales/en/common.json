@@ -842,5 +842,8 @@
   },
   "tag_description": {
     "text": "With this tag, you can add general medical information, record vaccinations and veterinary visits, obtain the location when scanning the tag (you will receive a message with its location), generate lost pet flyers in PDF, create alerts, perform daily check-ups to detect infections, illnesses, or track training, receive useful tips, and keep track of your pet-related expenses."
+  },
+  "download_tips": {
+    "pdf_recommendation": "For best results when printing flyers to distribute or post on walls/trees, we recommend downloading the PDF from a computer."
   }
 }

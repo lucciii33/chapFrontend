@@ -14,6 +14,20 @@ export default function EmegencyPdf() {
   const backendUrl = import.meta.env.VITE_REACT_APP_URL;
   const { t } = useTranslation();
 
+  const [isMobile, setIsMobile] = useState(false);
+  console.log("isMobile", isMobile);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+
+    checkMobile(); // Comprobación inicial
+    window.addEventListener("resize", checkMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
+
   useEffect(() => {
     if (petId) getPetById(petId);
   }, [petId]);
@@ -201,13 +215,22 @@ export default function EmegencyPdf() {
           </button>
         </div>
 
+        {isMobile && (
+          <div className="my-5 p-4 mt-4 border rounded bg-white text-black">
+            {t("download_tips.pdf_recommendation")}
+          </div>
+        )}
+
         <div className="flex flex-col md:flex-row ">
-          <button onClick={shareImage} className="text-teal-500 mt-3 mb-3">
+          <button
+            onClick={shareImage}
+            className="bg-teal-500 text-white md:bg-transparent rounded px-4 py-2 md:px-0 md:py-0 md:text-teal-500 mt-0 md:mt-3 mb-3"
+          >
             {t("emergency_lost_flyer.share_social_media")}
           </button>
           <button
             onClick={handleDownloadImage}
-            className="text-teal-500 mt-0 md:mt-3 mb-3 ms-0 md:ms-2"
+            className="bg-teal-500 text-white md:bg-transparent rounded md:text-teal-500 mt-0 px-4 py-2 md:px-0 md:py-0 md:mt-3 mb-3 ms-0 md:ms-2"
             type="button"
           >
             {t("emergency_lost_flyer.print_button")} /{" "}
