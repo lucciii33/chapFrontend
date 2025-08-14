@@ -13,7 +13,6 @@ export default function EmegencyPdf() {
   const { petId } = useParams();
   const backendUrl = import.meta.env.VITE_REACT_APP_URL;
   const { t } = useTranslation();
-  //  {t("tracker_page.label_sleep_hours")}
 
   useEffect(() => {
     if (petId) getPetById(petId);
@@ -100,7 +99,12 @@ export default function EmegencyPdf() {
     const element = document.getElementById("pdf-content");
     if (!element) return;
 
-    html2canvas(element).then((canvas) => {
+    html2canvas(element, {
+      scale: 2,
+      useCORS: true,
+      allowTaint: false,
+      backgroundColor: null,
+    }).then((canvas) => {
       canvas.toBlob((blob) => {
         if (!blob) return;
 
@@ -226,6 +230,7 @@ export default function EmegencyPdf() {
               <img
                 id="pet-photo"
                 className="h-auto md:h-[500px]"
+                crossOrigin="anonymous"
                 src={`${backendUrl}/api/proxy-image?url=${encodeURIComponent(
                   profile_photo
                 )}`}
