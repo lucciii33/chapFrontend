@@ -17,6 +17,7 @@ import {
   WrenchScrewdriverIcon,
 } from "@heroicons/react/24/solid";
 import { showErrorToast, showInfoToast } from "~/utils/toast";
+import GpsModal from "~/components/GpsModal";
 
 export default function Dashboard() {
   const { auth, pet, tag, cart, inventory } = useGlobalContext();
@@ -35,7 +36,6 @@ export default function Dashboard() {
     getInventoryForUser();
   }, []);
 
-  console.log("inventoryItemsUser", inventoryItemsUser);
   const user = auth.user;
   const { createPet, getPets, allPets, petProfile } = pet;
   const { createTag, tagInfo } = tag;
@@ -74,6 +74,10 @@ export default function Dashboard() {
   const [welcomeModal, setWelcomeModal] = useState(true);
   const [petInfoModal, setPetInfoModal] = useState(false);
   const [petChapModal, setPetChapModal] = useState(false);
+
+  ///newww
+  const [gpsModel, setGpsModal] = useState(false);
+
   const [addTocardOrBuy, setAddTocardOrBuy] = useState(false);
   const [errors, setErrors] = useState({});
   const [errorsTag, setErrorsTag] = useState({});
@@ -199,6 +203,17 @@ export default function Dashboard() {
     }));
   };
 
+  const handleGpsApiCall = async () => {
+    try {
+      // Simulación de llamada API
+      await new Promise((resolve) => setTimeout(resolve, 800)); // 0.8s delay
+      setGpsModal(false);
+      setAddTocardOrBuy(true);
+    } catch (error) {
+      console.error("Error simulando GPS API:", error);
+    }
+  };
+
   const handleCreateTag = async () => {
     if (!validateTagInfo(tagInfoData)) return;
     if (!stockStatus?.available) {
@@ -213,14 +228,12 @@ export default function Dashboard() {
     if (petProfile && typeof petProfile) {
       try {
         const petId = petProfile.id;
-        const response = await createTag(petId, tagInfoData); // Usamos el estado `tagInfo` directamente
+        const response = await createTag(petId, tagInfoData);
         if (response) {
-          // alert("¡Chapa creada con éxito!");
           await getPets(user.id);
           setPetChapModal(false);
-          setAddTocardOrBuy(true);
-
-          // document.getElementById("my_modal_1").close();
+          setGpsModal(true);
+          setAddTocardOrBuy(false);
         } else {
           alert("Hubo un error al crear la chapa");
         }
@@ -388,12 +401,20 @@ export default function Dashboard() {
               <div className="box-line w-16 h-1 bg-gray-300"></div>
               <div
                 className={`box-ball w-10 h-10 flex justify-center items-center rounded-full ${
+                  gpsModel ? "bg-teal-500 text-white" : "bg-gray-300 text-black"
+                } font-bold`}
+              >
+                4
+              </div>
+              <div className="box-line w-16 h-1 bg-gray-300"></div>
+              <div
+                className={`box-ball w-10 h-10 flex justify-center items-center rounded-full ${
                   addTocardOrBuy
                     ? "bg-teal-500 text-white"
                     : "bg-gray-300 text-black"
                 } font-bold`}
               >
-                4
+                5
               </div>
             </div>
             {welcomeModal && (
@@ -976,6 +997,13 @@ export default function Dashboard() {
                   </button>
                 </div>
               </>
+            )}
+            {gpsModel && (
+              <GpsModal
+                gpsModal={gpsModel}
+                setGpsModal={setGpsModal}
+                handleGpsApiCall={handleGpsApiCall}
+              />
             )}
             {addTocardOrBuy && (
               <div className="font-bold text-lg">

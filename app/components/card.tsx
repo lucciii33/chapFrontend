@@ -9,6 +9,7 @@ import AlertCircle from "./alertCircle";
 import UserAlerts from "./userAlerts";
 import { useTranslation } from "react-i18next";
 import { showInfoToast } from "~/utils/toast";
+import GpsModal from "./GpsModal";
 
 type CardProps = {
   petObj: {
@@ -42,6 +43,11 @@ export default function Card({ petObj }: CardProps) {
   const { createTag, tagInfo } = tag;
   const { actSideBar, selectPetIdForTag, selectPetIdNew } = cart;
 
+  const [tagTrackGps, setTagTrackGps] = useState({
+    gps: false,
+    tag: true,
+  });
+
   const { getInventoryForUser, inventoryItemsUser } = inventory;
   const [stockStatus, setStockStatus] = useState<null | {
     available: boolean;
@@ -65,11 +71,11 @@ export default function Card({ petObj }: CardProps) {
 
   const confirmDelete = async () => {
     if (selectPetId !== null) {
-      await deletePetById(selectPetId); // Lógica para eliminar la mascota
-      await getPets(user.id); // Refresca la lista de mascotas
+      await deletePetById(selectPetId);
+      await getPets(user.id);
     }
-    setIsModalOpen(false); // Cierra el modal
-    setSelectPetId(null); // Limpia el estado
+    setIsModalOpen(false);
+    setSelectPetId(null);
   };
 
   const [tagInfoData, setTagInfoData] = useState({
@@ -161,7 +167,8 @@ export default function Card({ petObj }: CardProps) {
         const response = await createTag(petId, tagInfoData);
         if (response) {
           await getPets(user.id);
-          document.getElementById("my_modal_2").close();
+          setTagTrackGps({ gps: true, tag: false });
+          // document.getElementById("my_modal_2").close();
         } else {
           alert("Hubo un error al crear la chapa");
         }
@@ -171,6 +178,17 @@ export default function Card({ petObj }: CardProps) {
       }
     } else {
       alert("El perfil de la mascota no tiene un ID válido.");
+    }
+  };
+
+  const handleGpsApiCall = async () => {
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      document.getElementById("my_modal_2").close();
+      setTagTrackGps({ gps: false, tag: true });
+      setSelectPetIdTag(null);
+    } catch (error) {
+      console.error("Error en GPS:", error);
     }
   };
 
@@ -308,120 +326,132 @@ export default function Card({ petObj }: CardProps) {
       )}
       <dialog id="my_modal_2" className="modal">
         <div className="modal-box w-full max-w-full sm:w-3/4 sm:max-w-4xl h-auto p-6">
-          <div className="flex justify-between items-center">
-            <div className="">
+          {tagTrackGps.tag && (
+            <div>
+              <div className="flex justify-between items-center">
+                <div className="">
+                  <h3 className="font-bold text-lg">
+                    {t("petCreation.create_tag_here")}
+                  </h3>
+                </div>
+                <div>
+                  <div
+                    className="bg-slate-800 p-5 w-6 h-6 flex justify-center items-center rounded-lg"
+                    onClick={() =>
+                      document.getElementById("my_modal_2").close()
+                    }
+                  >
+                    <div>X</div>
+                  </div>
+                </div>
+              </div>{" "}
               <h3 className="font-bold text-lg">
                 {t("petCreation.create_tag_here")}
               </h3>
-            </div>
-            <div>
-              <div
-                className="bg-slate-800 p-5 w-6 h-6 flex justify-center items-center rounded-lg"
-                onClick={() => document.getElementById("my_modal_2").close()}
-              >
-                <div>X</div>
+              <div>
+                <p className="m-2 text-sm">{t("tag_description.text")}</p>
               </div>
-            </div>
-          </div>
-          <div>
-            <p className="m-2 text-sm">{t("tag_description.text")}</p>
-          </div>
-
-          <>
-            <div className="flex flex-col md:flex-row mt-3">
-              <div className="w-full md:w-1/2 order-2 md:order-1 md:border-r  border-gray-500 ">
-                <div className="me-5">
-                  <div>
-                    <label>{t("petCreation.step2.step3.material")}</label>
-                  </div>
-                  <div>
-                    <select
-                      name="material"
-                      value={tagInfoData.material}
-                      onChange={handleTagChange}
-                      className="w-full px-4 py-2 border rounded-lg"
-                    >
-                      <option value="aluminum">
-                        {t("petCreation.step2.step3.material_al")}
-                      </option>
-                      {/* <option value="plastic">Plástico</option>
+              <>
+                <div className="flex flex-col md:flex-row mt-3">
+                  <div className="w-full md:w-1/2 order-2 md:order-1 md:border-r  border-gray-500 ">
+                    <div className="me-5">
+                      <div>
+                        <label>{t("petCreation.step2.step3.material")}</label>
+                      </div>
+                      <div>
+                        <select
+                          name="material"
+                          value={tagInfoData.material}
+                          onChange={handleTagChange}
+                          className="w-full px-4 py-2 border rounded-lg"
+                        >
+                          <option value="aluminum">
+                            {t("petCreation.step2.step3.material_al")}
+                          </option>
+                          {/* <option value="plastic">Plástico</option>
                       <option value="leather">Cuero</option> */}
-                    </select>
-                  </div>
-                </div>
+                        </select>
+                      </div>
+                    </div>
 
-                <div className="me-5">
-                  <div>
-                    <label>{t("petCreation.step2.step3.shape.label")}</label>
-                  </div>
-                  <div>
-                    <select
-                      name="shape"
-                      value={tagInfoData.shape}
-                      onChange={handleTagChange}
-                      className="w-full px-4 py-2 border rounded-lg"
-                    >
-                      <option value="circular">
-                        {" "}
-                        {t("petCreation.step2.step3.shape.options.circle")}
-                      </option>
-                      <option value="circular-small">
-                        {" "}
-                        {t(
-                          "petCreation.step2.step3.shape.options.circular-small"
+                    <div className="me-5">
+                      <div>
+                        <label>
+                          {t("petCreation.step2.step3.shape.label")}
+                        </label>
+                      </div>
+                      <div>
+                        <select
+                          name="shape"
+                          value={tagInfoData.shape}
+                          onChange={handleTagChange}
+                          className="w-full px-4 py-2 border rounded-lg"
+                        >
+                          <option value="circular">
+                            {" "}
+                            {t("petCreation.step2.step3.shape.options.circle")}
+                          </option>
+                          <option value="circular-small">
+                            {" "}
+                            {t(
+                              "petCreation.step2.step3.shape.options.circular-small"
+                            )}
+                          </option>
+                          <option value="square">
+                            {" "}
+                            {t(
+                              "petCreation.step2.step3.shape.options.rectangle"
+                            )}
+                          </option>
+                        </select>
+                        {stockStatus?.description ? (
+                          <p className="text-sm text-blue-600 m-0">
+                            {
+                              i18n.language === "es"
+                                ? "Ideal para mascotas pequeñas(Sin border de silicon)" // traducción manual
+                                : "Great for small pets (No silicon border)" // valor original de la API
+                            }
+                          </p>
+                        ) : (
+                          ""
                         )}
-                      </option>
-                      <option value="square">
-                        {" "}
-                        {t("petCreation.step2.step3.shape.options.rectangle")}
-                      </option>
-                    </select>
-                    {stockStatus?.description ? (
-                      <p className="text-sm text-blue-600 m-0">
-                        {
-                          i18n.language === "es"
-                            ? "Ideal para mascotas pequeñas(Sin border de silicon)" // traducción manual
-                            : "Great for small pets (No silicon border)" // valor original de la API
-                        }
-                      </p>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                </div>
+                      </div>
+                    </div>
 
-                <div className="me-5">
-                  <div>
-                    <label>{t("petCreation.step2.step3.color.label")}</label>
-                  </div>
-                  <div>
-                    <select
-                      name="color"
-                      value={tagInfoData.color}
-                      onChange={handleTagChange}
-                      className={`w-full px-4 py-2 border rounded-lg border-gray-300`}
-                    >
-                      <option value="purple">
-                        {" "}
-                        {t("petCreation.step2.step3.color.options.purple")}
-                      </option>
-                      <option value="black">
-                        {t("petCreation.step2.step3.color.options.black")}
-                      </option>
-                      <option value="blue">
-                        {t("petCreation.step2.step3.color.options.blue")}
-                      </option>
-                      <option value="green">
-                        {t("petCreation.step2.step3.color.options.green")}
-                      </option>
+                    <div className="me-5">
+                      <div>
+                        <label>
+                          {t("petCreation.step2.step3.color.label")}
+                        </label>
+                      </div>
+                      <div>
+                        <select
+                          name="color"
+                          value={tagInfoData.color}
+                          onChange={handleTagChange}
+                          className={`w-full px-4 py-2 border rounded-lg border-gray-300`}
+                        >
+                          <option value="purple">
+                            {" "}
+                            {t("petCreation.step2.step3.color.options.purple")}
+                          </option>
+                          <option value="black">
+                            {t("petCreation.step2.step3.color.options.black")}
+                          </option>
+                          <option value="blue">
+                            {t("petCreation.step2.step3.color.options.blue")}
+                          </option>
+                          <option value="green">
+                            {t("petCreation.step2.step3.color.options.green")}
+                          </option>
 
-                      {/* <option value="heart">Heart</option>
+                          {/* <option value="heart">Heart</option>
                           <option value="bone">Bone</option> */}
-                    </select>
-                  </div>
-                </div>
+                        </select>
+                      </div>
+                    </div>
 
-                {/* <div className="flex items-center mt-2">
+                    {/* <div className="flex items-center mt-2">
                   <div>
                     <label>Name</label>
                   </div>
@@ -449,56 +479,87 @@ export default function Card({ petObj }: CardProps) {
                   </div>
                 </div> */}
 
-                <button
-                  className="btn  bg-teal-500 w-[92%] mt-2 me-2"
-                  onClick={handleCreateTag}
-                >
-                  {t("petCreation.create_tag_here")}
-                </button>
-              </div>
-              <div className="w-full md:w-1/2 order-1 md:order-2 flex mb-4 md:mt-0 justify-center items-center">
-                {selectedImage ? (
-                  <img
-                    src={selectedImage.imageUrl}
-                    alt="Preview"
-                    className="w-[250px] h-[250px] object-contain"
-                  />
-                ) : (
-                  <div className="w-[250px] h-[250px] bg-gray-200 flex items-center justify-center text-gray-500">
-                    Sin preview
+                    <button
+                      className="btn  bg-teal-500 w-[92%] mt-2 me-2"
+                      onClick={handleCreateTag}
+                    >
+                      {t("petCreation.create_tag_here")}
+                    </button>
                   </div>
+                  <div className="w-full md:w-1/2 order-1 md:order-2 flex mb-4 md:mt-0 justify-center items-center">
+                    {selectedImage ? (
+                      <img
+                        src={selectedImage.imageUrl}
+                        alt="Preview"
+                        className="w-[250px] h-[250px] object-contain"
+                      />
+                    ) : (
+                      <div className="w-[250px] h-[250px] bg-gray-200 flex items-center justify-center text-gray-500">
+                        Sin preview
+                      </div>
+                    )}
+                  </div>
+                </div>
+                {stockStatus && (
+                  <p className="text-sm mt-2">
+                    {stockStatus.available
+                      ? i18n.language === "es"
+                        ? `Disponibles: ${stockStatus.quantity}`
+                        : `Available: ${stockStatus.quantity}`
+                      : i18n.language === "es"
+                      ? "No hay stock disponible"
+                      : "Out of stock"}
+                  </p>
                 )}
+                {cantBuy && (
+                  <p>
+                    {i18n.language === "es"
+                      ? `Debes elegir otra chapa, lo sentimos.`
+                      : `You need to chose another tag, we are sorry`}
+                  </p>
+                )}
+                <div className="modal-action">
+                  <button
+                    onClick={() => {
+                      document.getElementById("my_modal_2").close();
+                      setSelectPetIdTag(null); // Cierra el modal
+                    }}
+                  >
+                    {t("petCreation.step4.buttons.close")}
+                  </button>
+                </div>
+              </>
+            </div>
+          )}
+          {tagTrackGps.gps && (
+            <div>
+              <div className="flex justify-between items-center">
+                <div className="">
+                  <h3 className="font-bold text-lg">
+                    {/* {t("petCreation.create_tag_here")} */}
+                    crea tu gps aqui
+                  </h3>
+                </div>
+                <div>
+                  <div
+                    className="bg-slate-800 p-5 w-6 h-6 flex justify-center items-center rounded-lg"
+                    onClick={() =>
+                      document.getElementById("my_modal_2").close()
+                    }
+                  >
+                    <div>X</div>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-4">
+                <GpsModal
+                  gpsModal={tagTrackGps.gps}
+                  setGpsModal={(v) => setTagTrackGps({ gps: v, tag: !v })}
+                  handleGpsApiCall={handleGpsApiCall}
+                />
               </div>
             </div>
-            {stockStatus && (
-              <p className="text-sm mt-2">
-                {stockStatus.available
-                  ? i18n.language === "es"
-                    ? `Disponibles: ${stockStatus.quantity}`
-                    : `Available: ${stockStatus.quantity}`
-                  : i18n.language === "es"
-                  ? "No hay stock disponible"
-                  : "Out of stock"}
-              </p>
-            )}
-            {cantBuy && (
-              <p>
-                {i18n.language === "es"
-                  ? `Debes elegir otra chapa, lo sentimos.`
-                  : `You need to chose another tag, we are sorry`}
-              </p>
-            )}
-            <div className="modal-action">
-              <button
-                onClick={() => {
-                  document.getElementById("my_modal_2").close();
-                  setSelectPetIdTag(null); // Cierra el modal
-                }}
-              >
-                {t("petCreation.step4.buttons.close")}
-              </button>
-            </div>
-          </>
+          )}
         </div>
       </dialog>
     </div>
