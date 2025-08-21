@@ -40,7 +40,7 @@ export default function Card({ petObj }: CardProps) {
   const [cantBuy, setCantBuy] = useState(false);
   const { auth, pet, tag, cart, comingFromCard, inventory } =
     useGlobalContext();
-  const { createTag, tagInfo } = tag;
+  const { createTag, tagInfo, createGps } = tag;
   const { actSideBar, selectPetIdForTag, selectPetIdNew } = cart;
 
   const [tagTrackGps, setTagTrackGps] = useState({
@@ -181,9 +181,19 @@ export default function Card({ petObj }: CardProps) {
     }
   };
 
-  const handleGpsApiCall = async () => {
+  const handleGpsApiCall = async (data: {
+    deviceType: string;
+    gpsColor: string;
+  }) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      if (selectPetIdNew !== null) {
+        await createGps({
+          pet_id: selectPetIdNew,
+          device_type: data.deviceType,
+          color: data.gpsColor,
+        });
+      }
+
       document.getElementById("my_modal_2").close();
       setTagTrackGps({ gps: false, tag: true });
       setSelectPetIdTag(null);

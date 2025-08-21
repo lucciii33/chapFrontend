@@ -25,6 +25,7 @@ export default function PetDetail() {
   const navigate = useNavigate();
   const [highlightMedicalBox, setHighlightMedicalBox] = useState(false);
   const { getPetById, petByID, editPet, deletePetById } = pet;
+  console.log("petByID", petByID);
   const { createCart, cartProfile, getCartByUser } = cart;
   const { deletePetTag } = tag;
   const { comingFromCardButton, setComingFromCardButton } = comingFromCard;
@@ -2079,6 +2080,56 @@ export default function PetDetail() {
             ) : (
               <div>
                 <p> {t("your_tags.tags_empty_message")}</p>
+              </div>
+            )}
+          </div>
+          <div className="flex gap-5 items-center flex-col md:flex-row p-5">
+            {petByID?.gps_devices?.length > 0 ? (
+              petByID?.gps_devices?.map((gps) => (
+                <div
+                  key={gps.id}
+                  className="border -2 border-[#65bcbb] rounded-lg p-5 w-full md:w-[250px]"
+                >
+                  <img
+                    src={
+                      gps.device_type === "android"
+                        ? "/android.jpg"
+                        : "/iphone.png"
+                    }
+                    alt="GPS Device"
+                    className="w-full md:w-[225px] object-contain"
+                  />
+                  <div className="mt-2">
+                    <p>
+                      Device: <strong>{gps.device_type}</strong>
+                    </p>
+                    <p>
+                      Color: <strong>{gps.color}</strong>
+                    </p>
+                    <p>
+                      {t("your_tags.paid")}{" "}
+                      <strong>{gps.is_purchased ? "Sí" : "No"}</strong>
+                    </p>
+                  </div>
+                  <div className="mt-4 flex justify-between gap-3 w-full">
+                    <button
+                      className=" border-none py-3 px-4 bg-teal-700 text-white rounded-lg"
+                      onClick={() => addToCart(gps.id)}
+                    >
+                      {t("your_tags.add_to_cart_button")}
+                    </button>
+                    <button
+                      onClick={() => openDeleteModal(gps.id)}
+                      className=" border-none py-3 px-4 bg-teal-500 text-white rounded-lg"
+                    >
+                      {t("your_tags.delete_button")}
+                    </button>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div>
+                <p>No hay GPS para esta mascota</p>
               </div>
             )}
           </div>

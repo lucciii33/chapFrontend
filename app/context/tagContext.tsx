@@ -19,6 +19,25 @@ type CreateTagResponse = {
   color: string;
 };
 
+type Gps = {
+  device_type?: string;
+  color?: string;
+  is_purchased?: boolean;
+  is_active?: boolean;
+  stripe_number?: string;
+  pet_id: number;
+};
+
+type CreateGpsResponse = {
+  id: number;
+  device_type?: string;
+  color?: string;
+  is_purchased: boolean;
+  is_active: boolean;
+  stripe_number?: string;
+  pet_id: number;
+};
+
 export const useTagContext = () => {
   const [tagInfo, setTagInfo] = useState<Tag | null>(null);
   const baseUrl = import.meta.env.VITE_REACT_APP_URL;
@@ -84,9 +103,69 @@ export const useTagContext = () => {
     }
   };
 
+  const createGps = async (gpsData: Gps): Promise<CreateGpsResponse | null> => {
+    try {
+      const token = getToken();
+      if (!token) throw new Error("Usuario no autenticado");
+
+      const response = await fetch(`${baseUrl}/api/gps`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(gpsData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error al crear el GPS");
+      }
+
+      const responseData: CreateGpsResponse = await response.json();
+
+      showSuccessToast(t("dashboard_toast.gps_created"));
+      return responseData;
+    } catch (error) {
+      console.error("Error al crear el GPS:", error);
+      showErrorToast(t("dashboard_toast.error_gps_creation"));
+      return null;
+    }
+  };
+
+  const listGpsByPet = async (token, petId) => {
+    const res = await fetch(`${baseUrl}/api/pets/${petId}/gps`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error(`Error listando GPS: ${res.status}`);
+    }
+    return res.json();
+  };
+
+  const deleteGps = async (token, gpsId) => {
+    const res = await fetch(`${baseUrl}/api/gps/${gpsId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error(`Error eliminando GPS: ${res.status}`);
+    }
+    return res.json();
+  };
+
   return {
     createTag,
     tagInfo,
     deletePetTag,
+    createGps,
+    listGpsByPet,
+    deleteGps,
   };
 };

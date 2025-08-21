@@ -38,7 +38,7 @@ export default function Dashboard() {
 
   const user = auth.user;
   const { createPet, getPets, allPets, petProfile } = pet;
-  const { createTag, tagInfo } = tag;
+  const { createTag, tagInfo, createGps } = tag;
   const { createCart, cartProfile, getCartByUser } = cart;
   const [tagInfoData, setTagInfoData] = useState({
     shape: "circular",
@@ -68,8 +68,6 @@ export default function Dashboard() {
     show_travel_mode: false,
     show_vet_visit: false,
   });
-
-  console.log("allPets", allPets);
 
   const [welcomeModal, setWelcomeModal] = useState(true);
   const [petInfoModal, setPetInfoModal] = useState(false);
@@ -203,17 +201,6 @@ export default function Dashboard() {
     }));
   };
 
-  const handleGpsApiCall = async () => {
-    try {
-      // Simulación de llamada API
-      await new Promise((resolve) => setTimeout(resolve, 800)); // 0.8s delay
-      setGpsModal(false);
-      setAddTocardOrBuy(true);
-    } catch (error) {
-      console.error("Error simulando GPS API:", error);
-    }
-  };
-
   const handleCreateTag = async () => {
     if (!validateTagInfo(tagInfoData)) return;
     if (!stockStatus?.available) {
@@ -311,6 +298,28 @@ export default function Dashboard() {
     const response = await addToCart();
     if (response) {
       navigate("/checkout");
+    }
+  };
+
+  const handleGpsApiCall = async (data: {
+    deviceType: string;
+    gpsColor: string;
+  }) => {
+    try {
+      const petId = petProfile.id;
+      if (petId) {
+        await createGps({
+          pet_id: petId,
+          device_type: data.deviceType,
+          color: data.gpsColor,
+        });
+      }
+
+      document.getElementById("my_modal_2")?.close();
+      setGpsModal(false);
+      setAddTocardOrBuy(true);
+    } catch (error) {
+      console.error("Error en GPS:", error);
     }
   };
 

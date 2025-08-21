@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 interface GpsModalProps {
   gpsModal: boolean;
   setGpsModal: (value: boolean) => void;
-  handleGpsApiCall: () => void;
+  handleGpsApiCall: (data: { deviceType: string; gpsColor: string }) => void;
 }
 
 export default function GpsModal({
@@ -133,7 +133,12 @@ export default function GpsModal({
       <div className="modal-action flex gap-2 items-center">
         <button
           className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600"
-          onClick={handleGpsApiCall}
+          onClick={() => {
+            handleGpsApiCall({
+              deviceType,
+              gpsColor,
+            });
+          }}
         >
           {i18n.language === "es" ? "Guardar y continuar" : "Save & Continue"}
         </button>
