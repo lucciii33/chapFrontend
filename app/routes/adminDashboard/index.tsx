@@ -146,6 +146,7 @@ export default function AdminDashboard() {
     }
   };
 
+  console.log("currentOrders", currentOrders);
   return (
     <div className="p-[40px]">
       <Link to="/inventory">INVENTORY</Link>
@@ -218,7 +219,7 @@ export default function AdminDashboard() {
                 <p className="ms-2">
                   <strong>Total:</strong> ${order?.total_price}
                 </p>
-                <p className="ms-2">
+                <p className={`ms-2`}>
                   <strong>Status:</strong>
                   {order?.status}
                 </p>
@@ -236,71 +237,99 @@ export default function AdminDashboard() {
             {showOrder === order?.id && (
               <div className="mt-4">
                 <h3 className="font-semibold">Detalles del pedido:</h3>
-                <p>
+                <p className="mb-3">
                   <strong>Status:</strong> {order?.status}
                 </p>
                 {order?.order_data.map((item, index) => (
-                  <div key={index} className="p-2 border-b">
-                    <p>
-                      <strong>Mascota:</strong> {item?.pet.name}
-                    </p>
-                    <p>
-                      <strong>Tag:</strong> {item?.tag.shape} -{" "}
-                      {item.tag.material}
-                    </p>
-                    <p>
-                      <strong>Quantity</strong> ${item?.quantity}
-                    </p>
-                    <p>
-                      <strong>Precio:</strong> ${item?.price}
-                    </p>
-                    <button
-                      onClick={() =>
-                        handleDownloadQR(
-                          item.tag.qr_url_link,
-                          `qr_${item.pet.name || "tag"}.png`
-                        )
-                      }
-                    >
-                      <img
-                        src={item.tag.qr_url_link}
-                        alt="QR Code"
-                        className="w-20 h-20 mt-2"
-                      />
-                    </button>
-
-                    <div>
-                      <h2>
-                        <strong>shipping address</strong>
-                      </h2>
-                      <p>
-                        <strong>Street address:</strong>{" "}
-                        {order?.shipping_address.street_address}
-                      </p>
-                      <p>
-                        {" "}
-                        <strong>state:</strong> {order?.shipping_address.state}
-                      </p>
-                      <p>
-                        <strong>postal_code:</strong>{" "}
-                        {order?.shipping_address.postal_code}
-                      </p>
-                      <p>
-                        <strong>country</strong>{" "}
-                        {order?.shipping_address.country}
-                      </p>
-                      <p>
-                        <strong>city</strong> {order?.shipping_address.city}
-                      </p>
-                      <p>
-                        <strong>apartment</strong>{" "}
-                        {order?.shipping_address.apartment}
-                      </p>
-                    </div>
+                  <div key={index}>
+                    <strong>Item #{index + 1}</strong>
+                    {item?.tag && (
+                      <div className="p-2 border-b mb-2">
+                        <p>
+                          <strong>Mascota:</strong> {item?.pet.name}
+                        </p>
+                        <p>
+                          <strong>Tag:</strong> {item?.tag.shape} -{" "}
+                          {item.tag.material}
+                        </p>
+                        <p>
+                          <strong>Quantity</strong> ${item?.quantity}
+                        </p>
+                        <p>
+                          <strong>Precio:</strong> ${item?.price}
+                        </p>
+                        <button
+                          onClick={() =>
+                            handleDownloadQR(
+                              item.tag.qr_url_link,
+                              `qr_${item.pet.name || "tag"}.png`
+                            )
+                          }
+                        >
+                          <img
+                            src={item.tag.qr_url_link}
+                            alt="QR Code"
+                            className="w-20 h-20 mt-2"
+                          />
+                        </button>
+                      </div>
+                    )}
+                    {item?.gps && (
+                      <div className="p-2 border-b mb-2">
+                        <p>
+                          <strong>PET:</strong> {item.pet.name}{" "}
+                        </p>
+                        <p>
+                          <strong>GPS type:</strong> {item.gps.device_type}{" "}
+                        </p>
+                        <p>
+                          {" "}
+                          <strong>GPS Color:</strong> {item.gps.color}
+                        </p>
+                        <p>
+                          <strong>Activo:</strong>{" "}
+                          {item.gps.is_active ? "Sí" : "No"}
+                        </p>
+                        <p>
+                          <strong>quantity:</strong> {item.quantity}
+                        </p>
+                        <p>
+                          <strong> price:</strong> {item.price}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 ))}
+                <div>
+                  <h2>
+                    <strong>shipping address</strong>
+                  </h2>
+                  <p>
+                    <strong>Street address:</strong>{" "}
+                    {order?.shipping_address.street_address}
+                  </p>
+                  <p>
+                    {" "}
+                    <strong>state:</strong> {order?.shipping_address.state}
+                  </p>
+                  <p>
+                    <strong>postal_code:</strong>{" "}
+                    {order?.shipping_address.postal_code}
+                  </p>
+                  <p>
+                    <strong>country</strong> {order?.shipping_address.country}
+                  </p>
+                  <p>
+                    <strong>city</strong> {order?.shipping_address.city}
+                  </p>
+                  <p>
+                    <strong>apartment</strong>{" "}
+                    {order?.shipping_address.apartment}
+                  </p>
+                </div>
               </div>
             )}
+
             {showOrder === order?.id ? (
               <div>
                 <button

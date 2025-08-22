@@ -17,15 +17,11 @@ export default function CheckoutPage() {
   const [openShippingAddress, setOpenShippingAddress] = useState(false);
   const [highlightAddressSection, setHighlightAddressSection] = useState(false);
   const [amountInCents, setAmountInCents] = useState(0);
-  console.log("amountInCents", amountInCents);
   const [refreshAddresses, setRefreshAddresses] = useState(false);
   const [ivaInCents, setIvaInCents] = useState(0);
   const [shippingCost, setShippingCost] = useState(0);
 
   const [shippingAddresses, setShippingAddresses] = useState([]);
-  console.log("shippingAddresses", shippingAddresses);
-  console.log("user", user);
-  console.log("allCarts", allCarts);
   const getCartByUserFunc = () => {
     if (user) {
       getCartByUser(user.id);
@@ -58,7 +54,7 @@ export default function CheckoutPage() {
     setIvaInCents(Math.round(iva));
 
     if (shippingAddresses && shippingAddresses.country === "USA") {
-      setShippingCost(1000); // 10 EUR
+      setShippingCost(1000);
     } else {
       setShippingCost(0);
     }
@@ -76,41 +72,82 @@ export default function CheckoutPage() {
             ? allCarts.map((cart) => {
                 return (
                   <div key={cart.id}>
-                    <div className="border-b border-gray-500 flex justify-between items-center mb-2 pb-2">
-                      <div>
-                        <p>
-                          {t("checkout_page.pet_name")}:{" "}
-                          <strong>{cart.pet.name}</strong>
-                        </p>
-                        <p>
-                          {t("checkout_page.price")}:{" "}
-                          <strong>{cart.price}</strong>
-                        </p>
-                        <p>
-                          {t("checkout_page.quantity")}:{" "}
-                          <strong>{cart.quantity}</strong>
-                        </p>
-                        <p>
-                          {t("checkout_page.tag_details")}:{" "}
-                          <strong>{cart.tag.color} - </strong>
-                          <strong>{cart.tag.material} - </strong>
-                          <strong>{cart.tag.shape}</strong>
-                        </p>
+                    {cart?.tag && (
+                      <div className="border-b border-gray-500 flex justify-between items-center mb-2 pb-2">
+                        <div>
+                          <p>
+                            {t("checkout_page.pet_name")}:{" "}
+                            <strong>{cart.pet.name}</strong>
+                          </p>
+                          <p>
+                            {t("checkout_page.price")}:{" "}
+                            <strong>{cart.price}</strong>
+                          </p>
+                          <p>
+                            {t("checkout_page.quantity")}:{" "}
+                            <strong>{cart.quantity}</strong>
+                          </p>
+                          <p>
+                            {t("checkout_page.tag_details")}:{" "}
+                            <strong>{cart.tag.color} - </strong>
+                            <strong>{cart.tag.material} - </strong>
+                            <strong>{cart.tag.shape}</strong>
+                          </p>
+                        </div>
+                        <div>
+                          <TagImagePreview
+                            shape={cart.tag.shape}
+                            color={cart.tag.color}
+                            width={100}
+                            height={100}
+                          />
+                        </div>
                       </div>
-                      <div>
-                        <TagImagePreview
-                          shape={cart.tag.shape}
-                          color={cart.tag.color}
-                          width={100}
-                          height={100}
-                        />
-                        {/* <img
-                          src="https://s.alicdn.com/@sc04/kf/H623bd864f88641ab95a88756ed36cd903.jpg_720x720q50.jpg"
-                          className="w-[100px]"
-                          alt="s"
-                        /> */}
+                    )}
+                    {cart?.gps && (
+                      <div className="border-b border-gray-500 flex justify-between items-center mb-2 pb-2">
+                        <div>
+                          <p>
+                            {t("checkout_page.pet_name")}:{" "}
+                            <strong>{cart.pet.name}</strong>
+                          </p>
+                          <p>
+                            {t("checkout_page.price")}:{" "}
+                            <strong>{cart.price}</strong>
+                          </p>
+                          <p>
+                            {t("checkout_page.quantity")}:{" "}
+                            <strong>{cart.quantity}</strong>
+                          </p>
+                          <p>
+                            {t("checkout_page.gps_details")}:{" "}
+                            <strong>{cart.gps.device_type}</strong> -{" "}
+                            <strong>{cart.gps.color}</strong>
+                          </p>
+                          <p>
+                            Active:{" "}
+                            <strong>{cart.gps.is_active ? "Yes" : "No"}</strong>
+                          </p>
+                          <p>
+                            Purchased:{" "}
+                            <strong>
+                              {cart.gps.is_purchased ? "Yes" : "No"}
+                            </strong>
+                          </p>
+                        </div>
+                        <div>
+                          <img
+                            src={
+                              cart.gps.device_type === "android"
+                                ? "/android.jpg"
+                                : "/iphone.png"
+                            }
+                            alt={cart.gps.device_type}
+                            className="w-[100px] h-[100px] object-contain"
+                          />
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                 );
               })

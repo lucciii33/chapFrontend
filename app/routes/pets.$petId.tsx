@@ -394,6 +394,39 @@ export default function PetDetail() {
     }
   };
 
+  const addGpsToCart = (gpsId: number) => {
+    if (petByID && user) {
+      const cartData = {
+        gps_id: gpsId, // 👈 aquí la diferencia
+        pet_id: petByID.id,
+        quantity: 1,
+        price: 49.99, // 👈 ajusta al precio real del GPS
+        subtotal: 49.99, // 👈 idem
+        is_checked_out: false,
+      };
+
+      createCart(user.id, cartData)
+        .then((response) => {
+          if (response) {
+            setMessage("GPS added to cart!");
+            getCartByUser(user.id);
+            const modal = document.getElementById(
+              "my_modal_6_pet_id"
+            ) as HTMLDialogElement;
+            if (modal?.open) {
+              modal.close();
+            }
+          }
+        })
+        .catch((error) => {
+          console.error("Error adding GPS to cart:", error);
+          setMessage("Failed to add GPS to cart.");
+        });
+    } else {
+      setMessage("User or Pet information is missing.");
+    }
+  };
+
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -2031,107 +2064,109 @@ export default function PetDetail() {
             </div>
           </div>
           <div className="flex gap-5 items-center flex-col md:flex-row p-5">
-            {petByID?.tags?.length > 0 ? (
-              petByID?.tags?.map((tag) => {
-                return (
-                  <div
-                    key={tag.id}
-                    className="border -2 border-[#65bcbb] rounded-lg p-5 w-full md:w-[250px]"
-                  >
-                    <div className=" ">
-                      <TagImagePreview shape={tag.shape} color={tag.color} />
-                      {/* <img
+            <div className="flex gap-5 items-center flex-col md:flex-row p-5">
+              {petByID?.tags?.length > 0 ? (
+                petByID?.tags?.map((tag) => {
+                  return (
+                    <div
+                      key={tag.id}
+                      className="border -2 border-[#65bcbb] rounded-lg p-5 w-full md:w-[250px]"
+                    >
+                      <div className=" ">
+                        <TagImagePreview shape={tag.shape} color={tag.color} />
+                        {/* <img
                         className="w-full md:w-[225px]"
                         src="https://chap-blue.s3.us-east-2.amazonaws.com/ChatGPT+Image+Apr+14%2C+2025%2C+04_19_29+PM.png"
                         alt="dd"
                       /> */}
-                      <div className="mt-2">
-                        <p>
-                          {t("your_tags.color")}:<strong>{tag.color}</strong>{" "}
-                        </p>
-                        <p className="">
-                          {t("your_tags.shape")}: <strong>{tag.shape}</strong>{" "}
-                        </p>
+                        <div className="mt-2">
+                          <p>
+                            {t("your_tags.color")}:<strong>{tag.color}</strong>{" "}
+                          </p>
+                          <p className="">
+                            {t("your_tags.shape")}: <strong>{tag.shape}</strong>{" "}
+                          </p>
 
-                        <p className="">
-                          {t("your_tags.paid")}{" "}
-                          <strong>{tag.is_purchased ? "Sí" : "No"}</strong>
-                        </p>
-                        {/* <p className=""> {tag.material}</p> */}
-                      </div>
-                      <div className="mt-4 flex justify-between gap-3 w-full">
-                        <button
-                          className=" border-none py-3 px-4 bg-teal-700 text-white rounded-lg"
-                          onClick={() => addToCart(tag.id)}
-                        >
-                          {t("your_tags.add_to_cart_button")}
-                        </button>
-                        <button
-                          onClick={() => openDeleteModal(tag.id)}
-                          className=" border-none py-3 px-4 bg-teal-500 text-white rounded-lg"
-                        >
-                          {t("your_tags.delete_button")}
-                        </button>
+                          <p className="">
+                            {t("your_tags.paid")}{" "}
+                            <strong>{tag.is_purchased ? "Sí" : "No"}</strong>
+                          </p>
+                          {/* <p className=""> {tag.material}</p> */}
+                        </div>
+                        <div className="mt-4 flex justify-between gap-3 w-full">
+                          <button
+                            className=" border-none py-3 px-4 bg-teal-700 text-white rounded-lg"
+                            onClick={() => addToCart(tag.id)}
+                          >
+                            {t("your_tags.add_to_cart_button")}
+                          </button>
+                          <button
+                            onClick={() => openDeleteModal(tag.id)}
+                            className=" border-none py-3 px-4 bg-teal-500 text-white rounded-lg"
+                          >
+                            {t("your_tags.delete_button")}
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })
-            ) : (
-              <div>
-                <p> {t("your_tags.tags_empty_message")}</p>
-              </div>
-            )}
-          </div>
-          <div className="flex gap-5 items-center flex-col md:flex-row p-5">
-            {petByID?.gps_devices?.length > 0 ? (
-              petByID?.gps_devices?.map((gps) => (
-                <div
-                  key={gps.id}
-                  className="border -2 border-[#65bcbb] rounded-lg p-5 w-full md:w-[250px]"
-                >
-                  <img
-                    src={
-                      gps.device_type === "android"
-                        ? "/android.jpg"
-                        : "/iphone.png"
-                    }
-                    alt="GPS Device"
-                    className="w-full md:w-[225px] object-contain"
-                  />
-                  <div className="mt-2">
-                    <p>
-                      Device: <strong>{gps.device_type}</strong>
-                    </p>
-                    <p>
-                      Color: <strong>{gps.color}</strong>
-                    </p>
-                    <p>
-                      {t("your_tags.paid")}{" "}
-                      <strong>{gps.is_purchased ? "Sí" : "No"}</strong>
-                    </p>
-                  </div>
-                  <div className="mt-4 flex justify-between gap-3 w-full">
-                    <button
-                      className=" border-none py-3 px-4 bg-teal-700 text-white rounded-lg"
-                      onClick={() => addToCart(gps.id)}
-                    >
-                      {t("your_tags.add_to_cart_button")}
-                    </button>
-                    <button
-                      onClick={() => openDeleteModal(gps.id)}
-                      className=" border-none py-3 px-4 bg-teal-500 text-white rounded-lg"
-                    >
-                      {t("your_tags.delete_button")}
-                    </button>
-                  </div>
+                  );
+                })
+              ) : (
+                <div>
+                  <p> {t("your_tags.tags_empty_message")}</p>
                 </div>
-              ))
-            ) : (
-              <div>
-                <p>No hay GPS para esta mascota</p>
-              </div>
-            )}
+              )}
+            </div>
+            <div className="flex gap-5 items-center flex-col md:flex-row p-5">
+              {petByID?.gps_devices?.length > 0 ? (
+                petByID?.gps_devices?.map((gps) => (
+                  <div
+                    key={gps.id}
+                    className="border -2 border-[#65bcbb] rounded-lg p-5 w-full md:w-[250px]"
+                  >
+                    <img
+                      src={
+                        gps.device_type === "android"
+                          ? "/android.jpg"
+                          : "/iphone.png"
+                      }
+                      alt="GPS Device"
+                      className="w-full md:w-[225px] object-contain"
+                    />
+                    <div className="mt-2">
+                      <p>
+                        Device: <strong>{gps.device_type}</strong>
+                      </p>
+                      <p>
+                        Color: <strong>{gps.color}</strong>
+                      </p>
+                      <p>
+                        {t("your_tags.paid")}{" "}
+                        <strong>{gps.is_purchased ? "Sí" : "No"}</strong>
+                      </p>
+                    </div>
+                    <div className="mt-4 flex justify-between gap-3 w-full">
+                      <button
+                        className=" border-none py-3 px-4 bg-teal-700 text-white rounded-lg"
+                        onClick={() => addGpsToCart(gps.id)}
+                      >
+                        {t("your_tags.add_to_cart_button")}
+                      </button>
+                      <button
+                        onClick={() => openDeleteModal(gps.id)}
+                        className=" border-none py-3 px-4 bg-teal-500 text-white rounded-lg"
+                      >
+                        {t("your_tags.delete_button")}
+                      </button>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div>
+                  <p>No hay GPS para esta mascota</p>
+                </div>
+              )}
+            </div>
           </div>
           <div className="modal-action pb-[50px]">
             <form method="dialog">

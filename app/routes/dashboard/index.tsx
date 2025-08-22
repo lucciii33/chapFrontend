@@ -23,6 +23,8 @@ export default function Dashboard() {
   const { auth, pet, tag, cart, inventory } = useGlobalContext();
   const { t, i18n } = useTranslation();
   const [cantBuy, setCantBuy] = useState(false);
+  const [gpsInfo, setGpsInfo] = useState(null);
+  console.log("gpsInfo", gpsInfo);
 
   const { getInventoryForUser, inventoryItemsUser } = inventory;
 
@@ -294,9 +296,35 @@ export default function Dashboard() {
     // }
   };
 
+  const addGpsToCart = async () => {
+    if (gpsInfo && user && petProfile) {
+      const cartData = {
+        gps_id: gpsInfo.id, // 👈 usamos el id del GPS
+        pet_id: petProfile.id,
+        quantity: 1,
+        price: 99.99, // 👈 ajusta el precio real del GPS
+        subtotal: 99.99,
+        is_checked_out: false,
+      };
+
+      return await createCart(user.id, cartData)
+        .then((response) => {
+          if (response) {
+            console.log("GPS added to cart successfully:", response);
+            getCartByUser(user.id);
+          }
+          return response;
+        })
+        .catch((error) => {
+          console.error("Error adding GPS to cart:", error);
+        });
+    }
+  };
+
   const addToCartPayNow = async () => {
     const response = await addToCart();
-    if (response) {
+    const response2 = await addGpsToCart();
+    if (response && response2) {
       navigate("/checkout");
     }
   };
@@ -308,11 +336,15 @@ export default function Dashboard() {
     try {
       const petId = petProfile.id;
       if (petId) {
-        await createGps({
+        const response = await createGps({
           pet_id: petId,
           device_type: data.deviceType,
           color: data.gpsColor,
         });
+
+        if (response) {
+          setGpsInfo(response);
+        }
       }
 
       document.getElementById("my_modal_2")?.close();

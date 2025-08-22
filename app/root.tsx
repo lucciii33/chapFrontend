@@ -52,7 +52,6 @@ export const links: LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const matches = useMatches();
-  console.log("Rutas cargadas:", matches);
   return (
     <html lang="en" data-theme="dark">
       <head>
@@ -72,7 +71,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   const matches = useMatches();
-  console.log("Rutas cargadas:", matches);
   const { t } = useTranslation();
 
   useEffect(() => {

@@ -29,21 +29,22 @@ export default function Cart() {
   useEffect(() => {
     getCartByUserFunc();
   }, [user]);
-
+  console.log("allCarts", allCarts);
   const handleIncrement = async (
     cartId,
     currentQuantity,
     tagId,
+    gpsId,
     price,
     isCheckedOut
   ) => {
     const newQuantity = currentQuantity + 1;
     const updatedCart = {
       quantity: newQuantity,
-      tag_id: tagId,
       price: price,
       subtotal: newQuantity * price,
       is_checked_out: isCheckedOut,
+      ...(tagId ? { tag_id: tagId } : { gps_id: gpsId }),
     };
 
     await editCartById(cartId, updatedCart);
@@ -54,6 +55,7 @@ export default function Cart() {
     cartId,
     currentQuantity,
     tagId,
+    gpsId,
     price,
     isCheckedOut
   ) => {
@@ -62,10 +64,10 @@ export default function Cart() {
     const newQuantity = currentQuantity - 1;
     const updatedCart = {
       quantity: newQuantity,
-      tag_id: tagId,
       price: price,
       subtotal: newQuantity * price,
       is_checked_out: isCheckedOut,
+      ...(tagId ? { tag_id: tagId } : { gps_id: gpsId }),
     };
 
     await editCartById(cartId, updatedCart);
@@ -95,29 +97,63 @@ export default function Cart() {
         {allCarts.map((item, index) => {
           return (
             <div key={index} className="border  rounded mt-2  p-3">
-              <div>
+              {item.tag && (
                 <div>
-                  <TagImagePreview
-                    shape={item.tag.shape}
-                    color={item.tag.color}
-                  />
+                  <div>
+                    <TagImagePreview
+                      shape={item?.tag?.shape}
+                      color={item?.tag?.color}
+                    />
+                  </div>
+                  <p className="mt-4">
+                    {t("cart.pet_name")}: <strong>{item.pet.name}</strong>
+                  </p>
+                  <p>
+                    {t("cart.tag_color")}: <strong>{item.tag.color}</strong>
+                  </p>
+                  <p>
+                    {t("cart.tag_shape")}: <strong>{item.tag.shape}</strong>
+                  </p>
+                  <p>
+                    {t("cart.tag_material")}:{" "}
+                    <strong>{item.tag.material}</strong>
+                  </p>
+                  <p>
+                    {t("cart.tag_quantity")}: <strong>{item.quantity}</strong>
+                  </p>
                 </div>
-                <p className="mt-4">
-                  {t("cart.pet_name")}: <strong>{item.pet.name}</strong>
-                </p>
-                <p>
-                  {t("cart.tag_color")}: <strong>{item.tag.color}</strong>
-                </p>
-                <p>
-                  {t("cart.tag_shape")}: <strong>{item.tag.shape}</strong>
-                </p>
-                <p>
-                  {t("cart.tag_material")}: <strong>{item.tag.material}</strong>
-                </p>
-                <p>
-                  {t("cart.tag_quantity")}: <strong>{item.quantity}</strong>
-                </p>
-              </div>
+              )}
+              {item?.gps && (
+                <div className="mt-4">
+                  <img
+                    src={
+                      item?.gps?.device_type === "android"
+                        ? "/android.jpg"
+                        : "/iphone.png"
+                    }
+                    alt={item?.gps?.device_type}
+                    className="w-auto h-auto object-contain mb-2"
+                  />
+
+                  <p>
+                    Device type: <strong>{item?.gps?.device_type}</strong>
+                  </p>
+                  <p>
+                    Color: <strong>{item?.gps?.color}</strong>
+                  </p>
+                  <p>
+                    Active:{" "}
+                    <strong>{item?.gps?.is_active ? "Yes" : "No"}</strong>
+                  </p>
+                  <p>
+                    Purchased:{" "}
+                    <strong>{item?.gps?.is_purchased ? "Yes" : "No"}</strong>
+                  </p>
+                  <p>
+                    Quantity: <strong>{item?.quantity}</strong>
+                  </p>
+                </div>
+              )}
               <div className="mt-3 flex">
                 <button
                   className="border-none w-full flex justify-center items-center py-3 px-4 me-3 bg-teal-500 text-white rounded-lg"
@@ -125,7 +161,8 @@ export default function Cart() {
                     handleDecrement(
                       item.id,
                       item.quantity,
-                      item.tag.id,
+                      item.tag ? item.tag.id : null,
+                      item.gps ? item.gps.id : null,
                       item.price,
                       item.is_checked_out
                     )
@@ -153,7 +190,8 @@ export default function Cart() {
                     handleIncrement(
                       item.id,
                       item.quantity,
-                      item.tag.id,
+                      item.tag ? item.tag.id : null,
+                      item.gps ? item.gps.id : null,
                       item.price,
                       item.is_checked_out
                     )
