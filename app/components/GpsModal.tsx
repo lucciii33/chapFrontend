@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { showErrorToast } from "~/utils/toast";
+import { useGlobalContext } from "~/context/GlobalProvider";
+import { showErrorToast, showInfoToast } from "~/utils/toast";
 
 interface GpsModalProps {
   gpsModal: boolean;
@@ -14,11 +15,20 @@ export default function GpsModal({
   handleGpsApiCall,
 }: GpsModalProps) {
   const { t, i18n } = useTranslation();
+  const { inventory } = useGlobalContext();
 
   const [addGps, setAddGps] = useState(true);
   const [deviceType, setDeviceType] = useState<"iphone" | "android" | "">("");
   const [gpsColor, setGpsColor] = useState("black");
 
+  const { getInventoryForUser, inventoryItemsUser } = inventory;
+  useEffect(() => {
+    getInventoryForUser();
+  }, []);
+  console.log("inventoryItemsUser", inventoryItemsUser);
+  const selectedInventory = inventoryItemsUser.find(
+    (item) => item.type_tag === deviceType && item.color === gpsColor
+  );
   const [deviceError, setDeviceError] = useState(false);
 
   if (!gpsModal) return null;
@@ -30,6 +40,19 @@ export default function GpsModal({
         i18n.language === "es"
           ? "Debes seleccionar tu celular antes de continuar"
           : "Please select your phone before continuing"
+      );
+      return;
+    }
+
+    const deviceInventory = inventoryItemsUser.find(
+      (item) => item.type_tag === deviceType && item.color === gpsColor
+    );
+
+    if (!deviceInventory || deviceInventory.quantity <= 0) {
+      showInfoToast(
+        i18n.language === "es"
+          ? "No tenemos este dispositivo en este momento"
+          : "We don’t have this device available right now"
       );
       return;
     }
@@ -141,6 +164,27 @@ export default function GpsModal({
           {t("petCreation.step4.buttons.close")}
         </button>
       </div>
+      {deviceType && (
+        <p className="mt-2 text-sm">
+          {selectedInventory
+            ? i18n.language === "es"
+              ? `Disponibles: ${selectedInventory.quantity}`
+              : `Available: ${selectedInventory.quantity}`
+            : i18n.language === "es"
+            ? "No tenemos este dispositivo en este momento"
+            : "We don’t have this device available right now"}
+        </p>
+      )}
+      {((deviceType && !selectedInventory) ||
+        selectedInventory?.quantity <= 0) && (
+        <div>
+          <p className="mt-2 text-sm text-red-500">
+            {i18n.language === "es"
+              ? "No tenemos este modelo en este momento"
+              : "We don’t have this model available right now"}
+          </p>
+        </div>
+      )}
     </div>
   );
 }

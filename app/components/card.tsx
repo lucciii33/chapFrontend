@@ -252,14 +252,7 @@ export default function Card({ petObj }: CardProps) {
               </h2>
             </div>
 
-            <div className="card-actions justify-end ms-2">
-              {/* <button
-                className="h-6 w-6 text-teal-500"
-                onClick={() => grabpetIdToDelete(petObj.id)}
-              >
-                <TrashIcon />
-              </button> */}
-            </div>
+            <div className="card-actions justify-end ms-2"></div>
           </div>
           <p>
             {t("petCard.personality")}: <strong>{petObj.personality}</strong>
@@ -273,22 +266,7 @@ export default function Card({ petObj }: CardProps) {
           <p>
             {t("petCard.breed")}: <strong>{petObj.breed}</strong>
           </p>
-          {/* <div className="flex flex-col w-full">
-            <div className=" ">
-              <Link to={`/pets/${petObj.id}`}>
-                <button className="btn btn-primary">Pet's Details</button>
-              </Link>
-            </div>
 
-            <div className="mt-2 w-full">
-              <button
-                className="btn btn-primary"
-                onClick={() => handleBuyTag(petObj.id)}
-              >
-                Buy A tag
-              </button>
-            </div>
-          </div> */}
           <div className="flex flex-col gap-2 mt-2">
             <Link to={`/pets/${petObj.id}`}>
               <button className=" border-none py-3 px-4  bg-teal-500 text-white rounded-lg w-full">
@@ -296,9 +274,6 @@ export default function Card({ petObj }: CardProps) {
               </button>
             </Link>
 
-            {/* {petObj?.tags && petObj?.tags.length > 0 ? (
-              ""
-            ) : ( */}
             <button
               className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full"
               onClick={() => handleBuyTag(petObj.id)}
@@ -375,8 +350,6 @@ export default function Card({ petObj }: CardProps) {
                           <option value="aluminum">
                             {t("petCreation.step2.step3.material_al")}
                           </option>
-                          {/* <option value="plastic">Plástico</option>
-                      <option value="leather">Cuero</option> */}
                         </select>
                       </div>
                     </div>
@@ -413,11 +386,9 @@ export default function Card({ petObj }: CardProps) {
                         </select>
                         {stockStatus?.description ? (
                           <p className="text-sm text-blue-600 m-0">
-                            {
-                              i18n.language === "es"
-                                ? "Ideal para mascotas pequeñas(Sin border de silicon)" // traducción manual
-                                : "Great for small pets (No silicon border)" // valor original de la API
-                            }
+                            {i18n.language === "es"
+                              ? "Ideal para mascotas pequeñas(Sin border de silicon)"
+                              : "Great for small pets (No silicon border)"}
                           </p>
                         ) : (
                           ""
@@ -491,6 +462,14 @@ export default function Card({ petObj }: CardProps) {
                       onClick={handleCreateTag}
                     >
                       {t("petCreation.create_tag_here")}
+                    </button>
+                    <button
+                      className="btn  bg-teal-500 w-[92%] mt-2 me-2"
+                      onClick={() => {
+                        setTagTrackGps({ gps: true, tag: false });
+                      }}
+                    >
+                      SKIP
                     </button>
                   </div>
                   <div className="w-full md:w-1/2 order-1 md:order-2 flex mb-4 md:mt-0 justify-center items-center">
