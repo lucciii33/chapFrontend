@@ -69,87 +69,101 @@ export default function GpsModal({
       >
         {t("tag_description.gps-c")}
       </h2>
-      <p className="m-2 text-sm">{t("tag_description.text-gps")}</p>
+      <div className="text-teal-500 border border-teal-500 rounded-lg p-4 mt-2">
+        <p className="m-2 text-sm">{t("tag_description.text-gps")}</p>
+      </div>
 
-      <div className="flex justify-center md:justify-between flex-col md:flex-row px-[20px]">
-        <div className="order-2 md:order-1">
-          <div className="mt-4"></div>
-          {addGps && (
-            <div className="mt-4">
-              <p className="font-semibold">
-                {i18n.language === "es"
-                  ? "Selecciona tu celular:"
-                  : "Select your phone:"}
-              </p>
-              <div className="flex gap-4 mt-2">
-                <label className="flex items-center gap-2">
-                  <input
-                    type="radio"
-                    name="deviceType"
-                    value="iphone"
-                    checked={deviceType === "iphone"}
-                    onChange={(e) => setDeviceType(e.target.value as "iphone")}
-                    className={`radio radio-accent ${
-                      deviceError ? "border-red-500" : ""
-                    }`}
-                  />
-                  iPhone
-                </label>
+      <div className="text-orange-500 border border-orange-500 rounded-lg p-4 mt-2">
+        <p className="m-2 text-sm">{t("tag_description.warning-gps")}</p>
+      </div>
 
-                <label className="flex items-center gap-2">
-                  <input
-                    type="radio"
-                    name="deviceType"
-                    value="android"
-                    checked={deviceType === "android"}
-                    onChange={(e) => setDeviceType(e.target.value as "android")}
-                    className={`radio radio-accent ${
-                      deviceError ? "border-red-500" : ""
-                    }`}
-                  />
-                  Android
-                </label>
+      <div className="">
+        <div className="flex gap-4 justify-center md:justify-between flex-col md:flex-row px-[20px] mt-2 w-full">
+          <div className="order-2 md:order-1 md:border-r w-full">
+            <div className="mt-4"></div>
+            {addGps && (
+              <div className="mt-4">
+                <p className="font-semibold">
+                  {i18n.language === "es"
+                    ? "Selecciona tu celular:"
+                    : "Select your phone:"}
+                </p>
+                <div className="flex gap-4 mt-2">
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="deviceType"
+                      value="iphone"
+                      checked={deviceType === "iphone"}
+                      onChange={(e) =>
+                        setDeviceType(e.target.value as "iphone")
+                      }
+                      className={`radio radio-accent ${
+                        deviceError ? "border-red-500" : ""
+                      }`}
+                    />
+                    iPhone
+                  </label>
+
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="deviceType"
+                      value="android"
+                      checked={deviceType === "android"}
+                      onChange={(e) =>
+                        setDeviceType(e.target.value as "android")
+                      }
+                      className={`radio radio-accent ${
+                        deviceError ? "border-red-500" : ""
+                      }`}
+                    />
+                    Android
+                  </label>
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* Selección de color e imagen preview */}
-          {addGps && (
-            <div className="mt-4 flex flex-col md:flex-row gap-4 items-center">
-              <div className="w-full">
-                <label className="block mb-1 font-semibold">
-                  {i18n.language === "es" ? "Color del GPS" : "GPS Color"}
-                </label>
-                <select
-                  value={gpsColor}
-                  onChange={(e) => setGpsColor(e.target.value)}
-                  className="w-full px-4 py-2 border rounded-lg border-gray-300"
-                >
-                  <option value="black">
-                    {i18n.language === "es" ? "Negro" : "Black"}
-                  </option>
-                </select>
+            {/* Selección de color e imagen preview */}
+            {addGps && (
+              <div className="mt-4 flex flex-col md:flex-row gap-4 items-center">
+                <div className="w-full pr-0 md:pr-4">
+                  <label className="block mb-1 font-semibold">
+                    {i18n.language === "es" ? "Color del GPS" : "GPS Color"}
+                  </label>
+                  <select
+                    value={gpsColor}
+                    onChange={(e) => setGpsColor(e.target.value)}
+                    className="w-full px-4 py-2 border rounded-lg border-gray-300"
+                  >
+                    <option value="black">
+                      {i18n.language === "es" ? "Negro" : "Black"}
+                    </option>
+                  </select>
+                </div>
+
+                {/* Imagen de preview */}
               </div>
-
-              {/* Imagen de preview */}
-            </div>
-          )}
-        </div>
-        <div className="order-1 md:order-2">
-          {addGps && (
-            <div className="w-[200px] h-[200px] flex items-center justify-center border rounded-lg bg-gray-50">
-              <img
-                src={deviceType === "android" ? "/android.jpg" : "/iphone.png"}
-                alt="GPS Preview"
-                className="max-w-full max-h-full object-contain"
-              />
-            </div>
-          )}
+            )}
+          </div>
+          <div className="order-1 md:order-2 flex justify-center mt-[10px] object-cover">
+            {addGps && (
+              <div className="w-[200px] h-[200px] flex items-center justify-center border rounded-lg bg-gray-50">
+                <img
+                  src={
+                    deviceType === "android" ? "/android.jpg" : "/iphone.png"
+                  }
+                  alt="GPS Preview"
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
       {/* Botones */}
-      <div className="modal-action flex gap-2 items-center">
+      <div className="modal-action flex gap-2 items-center justify-center md:justify-end">
         <button
           className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600"
           onClick={handleSave}

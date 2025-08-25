@@ -14,6 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "~/utils/interceptFetch";
 import { useTranslation } from "react-i18next";
 import i18n from "i18n"; // ajusta si está en otro lugar
+import "./tailwind.css";
 
 // import resolveConfig from "tailwindcss/resolveConfig";
 // import tailwindConfig from "../tailwind.config";
@@ -83,7 +84,7 @@ export default function App() {
       <Elements stripe={stripePromise}>
         <Navbar />
         <Outlet />
-        <ToastContainer />
+        <ToastContainer toastClassName="z-[9999]" />
       </Elements>
     </GlobalProvider>
   );

@@ -843,7 +843,8 @@
   "tag_description": {
     "text": "Con esta chapa podrás agregar información médica general, registrar vacunas y visitas veterinarias, obtener la ubicación al escanear el tag (recibirás un mensaje con su localización), generar flyers de mascota perdida en PDF, crear alertas, realizar chequeos diarios para detectar infecciones, enfermedades o seguir entrenamientos, recibir consejos útiles y llevar un control de tus finanzas sobre lo que gastas en tus mascotas.",
     "text-gps": "Con este GPS tracker podrás localizar a tu mascota en tiempo real dentro de un rango de 50 a 100 metros. Utiliza el mapa predeterminado de tu celular y puedes elegir entre Android o iPhone.",
-    "gps-c": "Configuración del GPS"
+    "gps-c": "Configuración del GPS",
+    "warning-gps": "Recuerda: este GPS no activa las funciones del tag, solo es un complemento adicional para tu mascota."
   },
   "download_tips": {
     "pdf_recommendation": "Para obtener mejores resultados al imprimir volantes para repartir o pegar en paredes/árboles, te recomendamos descargar el PDF desde una computadora."

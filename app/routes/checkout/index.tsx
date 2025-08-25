@@ -124,16 +124,6 @@ export default function CheckoutPage() {
                             <strong>{cart.gps.device_type}</strong> -{" "}
                             <strong>{cart.gps.color}</strong>
                           </p>
-                          <p>
-                            Active:{" "}
-                            <strong>{cart.gps.is_active ? "Yes" : "No"}</strong>
-                          </p>
-                          <p>
-                            Purchased:{" "}
-                            <strong>
-                              {cart.gps.is_purchased ? "Yes" : "No"}
-                            </strong>
-                          </p>
                         </div>
                         <div>
                           <img

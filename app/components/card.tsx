@@ -330,7 +330,7 @@ export default function Card({ petObj }: CardProps) {
                   </div>
                 </div>
               </div>{" "}
-              <div>
+              <div className="text-teal-500 border border-teal-500 rounded-lg p-4 mt-2">
                 <p className="m-2 text-sm">{t("tag_description.text")}</p>
               </div>
               <>
@@ -422,54 +422,15 @@ export default function Card({ petObj }: CardProps) {
                           <option value="green">
                             {t("petCreation.step2.step3.color.options.green")}
                           </option>
-
-                          {/* <option value="heart">Heart</option>
-                          <option value="bone">Bone</option> */}
                         </select>
                       </div>
                     </div>
-
-                    {/* <div className="flex items-center mt-2">
-                  <div>
-                    <label>Name</label>
-                  </div>
-                  <div className="ms-2">
-                    <input
-                      type="checkbox"
-                      name="name"
-                      checked={tagInfoData.name}
-                      onChange={handleTagChange}
-                    />
-                  </div>
-                </div>
-
-                <div className="flex items-center mt-2">
-                  <div>
-                    <label>Continue Later</label>
-                  </div>
-                  <div className="ms-2">
-                    <input
-                      type="checkbox"
-                      name="continue_later"
-                      checked={tagInfoData.continue_later}
-                      onChange={handleTagChange}
-                    />
-                  </div>
-                </div> */}
 
                     <button
                       className="btn  bg-teal-500 w-[92%] mt-2 me-2"
                       onClick={handleCreateTag}
                     >
                       {t("petCreation.create_tag_here")}
-                    </button>
-                    <button
-                      className="btn  bg-teal-500 w-[92%] mt-2 me-2"
-                      onClick={() => {
-                        setTagTrackGps({ gps: true, tag: false });
-                      }}
-                    >
-                      SKIP
                     </button>
                   </div>
                   <div className="w-full md:w-1/2 order-1 md:order-2 flex mb-4 md:mt-0 justify-center items-center">
@@ -523,7 +484,6 @@ export default function Card({ petObj }: CardProps) {
                 <div className="">
                   <h3 className="font-bold text-lg">
                     {t("petCreation.create_gps_here")}
-                    crea tu gps aqui
                   </h3>
                 </div>
                 <div>

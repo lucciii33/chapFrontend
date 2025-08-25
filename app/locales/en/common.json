@@ -845,7 +845,8 @@
   "tag_description": {
     "text": "With this tag, you can add general medical information, record vaccinations and veterinary visits, obtain the location when scanning the tag (you will receive a message with its location), generate lost pet flyers in PDF, create alerts, perform daily check-ups to detect infections, illnesses, or track training, receive useful tips, and keep track of your pet-related expenses.",
     "text-gps": "With this GPS tracker, you can track your pet in real time within a range of 50 to 100 meters. It uses your phone’s default map, and you can choose between Android or iPhone.",
-    "gps-c": "GPS Configuration"
+    "gps-c": "GPS Configuration",
+    "warning-gps": "Remember: this GPS does not activate the tag’s features, it is only an extra accessory for your pet’s"
   },
   "download_tips": {
     "pdf_recommendation": "For best results when printing flyers to distribute or post on walls/trees, we recommend downloading the PDF from a computer."
