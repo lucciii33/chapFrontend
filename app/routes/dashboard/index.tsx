@@ -299,10 +299,10 @@ export default function Dashboard() {
   const addGpsToCart = async () => {
     if (gpsInfo && user && petProfile) {
       const cartData = {
-        gps_id: gpsInfo.id, // 👈 usamos el id del GPS
+        gps_id: gpsInfo.id,
         pet_id: petProfile.id,
         quantity: 1,
-        price: 99.99, // 👈 ajusta el precio real del GPS
+        price: 99.99,
         subtotal: 99.99,
         is_checked_out: false,
       };
@@ -327,6 +327,12 @@ export default function Dashboard() {
     if (response && response2) {
       navigate("/checkout");
     }
+  };
+
+  const addToCartDash = async () => {
+    await addToCart();
+    await addGpsToCart();
+    document.getElementById("my_modal_1").close();
   };
 
   const handleGpsApiCall = async (data: {
@@ -481,8 +487,8 @@ export default function Dashboard() {
                 <div className="flex justify-between px-3">
                   <button
                     onClick={() => {
-                      setWelcomeModal(false); // Oculta la bienvenida
-                      setPetInfoModal(true); // Muestra el form de mascota
+                      setWelcomeModal(false);
+                      setPetInfoModal(true);
                     }}
                     className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600"
                   >
@@ -894,11 +900,9 @@ export default function Dashboard() {
                         </select>
                         {stockStatus?.description ? (
                           <p className="text-sm text-blue-600 m-0">
-                            {
-                              i18n.language === "es"
-                                ? "Ideal para mascotas pequeñas(Sin border de silicon)" // traducción manual
-                                : "Great for small pets (No silicon border)" // valor original de la API
-                            }
+                            {i18n.language === "es"
+                              ? "Ideal para mascotas pequeñas(Sin border de silicon)"
+                              : "Great for small pets (No silicon border)"}
                           </p>
                         ) : (
                           ""
@@ -944,35 +948,6 @@ export default function Dashboard() {
                         </select>
                       </div>
                     </div>
-
-                    {/* <div className="flex items-center mt-2">
-                      <div>
-                        <label>Name</label>
-                      </div>
-                      <div className="ms-2">
-                        <input
-                          type="checkbox"
-                          name="name"
-                          checked={tagInfoData.name}
-                          onChange={handleTagChange}
-                        />
-                      </div>
-                    </div> */}
-
-                    {/* <div className="flex items-center mt-2">
-                      <div>
-                        <label>Continue Later</label>
-                      </div>
-                      <div className="ms-2">
-                        <input
-                          type="checkbox"
-                          name="continue_later"
-                          checked={tagInfoData.continue_later}
-                          onChange={handleTagChange}
-                        />
-                      </div>
-                    </div> */}
-
                     <button
                       className="btn  bg-teal-500 w-full md:w-[92%] mt-2 me-2"
                       onClick={handleCreateTag}
@@ -992,22 +967,6 @@ export default function Dashboard() {
                         Sin preview
                       </div>
                     )}
-
-                    {/* {tagInfoData.shape === "circular" && (
-                      <div className="w-[250px] h-[250px] bg-gray-300 rounded-full"></div>
-                    )}
-                    {tagInfoData.shape === "square" && (
-                      <div className="w-[250px] h-[250px] bg-gray-300"></div>
-                    )} */}
-                    {/* {tagInfoData.shape === "heart" && (
-                      <div className="w-[250px] h-[250px] bg-gray-300 heart-shape"></div>
-                    )}
-                    {tagInfoData.shape === "bone" && (
-                      <div className="bone-shape">
-                        <div className="bottom-circle-left"></div>
-                        <div className="bottom-circle-right"></div>
-                      </div>
-                    )} */}
                   </div>
                 </div>
                 {stockStatus && (
@@ -1084,7 +1043,7 @@ export default function Dashboard() {
                 <div className="modal-action">
                   <button
                     className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600"
-                    onClick={() => addToCart()}
+                    onClick={() => addToCartDash()}
                   >
                     <ShoppingCartIcon className="h-6 w-6 text-white" />
                   </button>

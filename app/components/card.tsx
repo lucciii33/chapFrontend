@@ -355,9 +355,6 @@ export default function Card({ petObj }: CardProps) {
                   </div>
                 </div>
               </div>{" "}
-              <h3 className="font-bold text-lg">
-                {t("petCreation.create_tag_here")}
-              </h3>
               <div>
                 <p className="m-2 text-sm">{t("tag_description.text")}</p>
               </div>
@@ -546,7 +543,7 @@ export default function Card({ petObj }: CardProps) {
               <div className="flex justify-between items-center">
                 <div className="">
                   <h3 className="font-bold text-lg">
-                    {/* {t("petCreation.create_tag_here")} */}
+                    {t("petCreation.create_gps_here")}
                     crea tu gps aqui
                   </h3>
                 </div>

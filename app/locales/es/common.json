@@ -109,6 +109,7 @@
 
   "petCreation": {
     "create_tag_here": "Crea tu chapa aqui",
+    "create_gps_here": "Crea tu GPS aqui",
     "step1": {
       "title": "¡Bienvenido,",
       "description": "¿Estás listo para cuidar y seguir a tu mascota?\nCrea su perfil, diseña su chapa, cómprala y disfruta de todas las funcionalidades.",
@@ -706,7 +707,8 @@
     "tag_added": "Chapa agregada al carrito",
     "tag_unavailable": "Lo sentimos, esta chapa está agotada en este momento.",
     "error_tag_add": "No se pudo agregar la chapa al carrito",
-    "logging_out": "Cerrando sesión"
+    "logging_out": "Cerrando sesión",
+    "gps_created": "GPS creado con éxito."
   },
   "cart_toast": {
     "success": "Carrito editado con éxito",
@@ -839,7 +841,9 @@
     "alert_delete_error": "No se pudo eliminar la alerta"
   },
   "tag_description": {
-    "text": "Con esta chapa podrás agregar información médica general, registrar vacunas y visitas veterinarias, obtener la ubicación al escanear el tag (recibirás un mensaje con su localización), generar flyers de mascota perdida en PDF, crear alertas, realizar chequeos diarios para detectar infecciones, enfermedades o seguir entrenamientos, recibir consejos útiles y llevar un control de tus finanzas sobre lo que gastas en tus mascotas."
+    "text": "Con esta chapa podrás agregar información médica general, registrar vacunas y visitas veterinarias, obtener la ubicación al escanear el tag (recibirás un mensaje con su localización), generar flyers de mascota perdida en PDF, crear alertas, realizar chequeos diarios para detectar infecciones, enfermedades o seguir entrenamientos, recibir consejos útiles y llevar un control de tus finanzas sobre lo que gastas en tus mascotas.",
+    "text-gps": "Con este GPS tracker podrás localizar a tu mascota en tiempo real dentro de un rango de 50 a 100 metros. Utiliza el mapa predeterminado de tu celular y puedes elegir entre Android o iPhone.",
+    "gps-c": "Configuración del GPS"
   },
   "download_tips": {
     "pdf_recommendation": "Para obtener mejores resultados al imprimir volantes para repartir o pegar en paredes/árboles, te recomendamos descargar el PDF desde una computadora."

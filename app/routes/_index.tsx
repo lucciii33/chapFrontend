@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import WhyChap from "~/components/whyChap";
 import Founders from "~/components/founder";
 import { useGlobalContext } from "~/context/GlobalProvider";
+import GpsLandignd from "~/components/gpsLandin";
 
 export const meta: MetaFunction = () => {
   return [
@@ -105,6 +106,7 @@ export default function Index() {
       </div>
       <div className="mt-0">
         <WhyChap />
+        <GpsLandignd />
         <Founders />
         <div className="bg-[#65BCBB] h-[135vh] lg:h-[65vh] pb-5">
           <div className="">

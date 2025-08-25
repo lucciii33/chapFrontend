@@ -25,7 +25,10 @@ export default function WhyChap() {
     >
       <div className="max-w-4xl mx-auto text-center">
         <h2 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-4">
-          <span className="text-teal-500"> {t("whyChap.title")}</span>
+          <span className="text-teal-500" style={{ fontFamily: "chapFont" }}>
+            {" "}
+            {t("whyChap.title")}
+          </span>
         </h2>
         <p className="text-lg text-gray-600 dark:text-gray-300 mb-10">
           {t("whyChap.subTitle")}
