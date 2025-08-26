@@ -167,7 +167,7 @@ export default function Card({ petObj }: CardProps) {
         const response = await createTag(petId, tagInfoData);
         if (response) {
           await getPets(user.id);
-          setTagTrackGps({ gps: true, tag: false });
+          // setTagTrackGps({ gps: true, tag: false });
           // document.getElementById("my_modal_2").close();
         } else {
           alert("Hubo un error al crear la chapa");

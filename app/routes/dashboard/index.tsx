@@ -221,8 +221,8 @@ export default function Dashboard() {
         if (response) {
           await getPets(user.id);
           setPetChapModal(false);
-          setGpsModal(true);
-          setAddTocardOrBuy(false);
+          // setGpsModal(true);
+          setAddTocardOrBuy(true);
         } else {
           alert("Hubo un error al crear la chapa");
         }
@@ -296,42 +296,42 @@ export default function Dashboard() {
     // }
   };
 
-  const addGpsToCart = async () => {
-    if (gpsInfo && user && petProfile) {
-      const cartData = {
-        gps_id: gpsInfo.id,
-        pet_id: petProfile.id,
-        quantity: 1,
-        price: 99.99,
-        subtotal: 99.99,
-        is_checked_out: false,
-      };
+  // const addGpsToCart = async () => {
+  //   if (gpsInfo && user && petProfile) {
+  //     const cartData = {
+  //       gps_id: gpsInfo.id,
+  //       pet_id: petProfile.id,
+  //       quantity: 1,
+  //       price: 99.99,
+  //       subtotal: 99.99,
+  //       is_checked_out: false,
+  //     };
 
-      return await createCart(user.id, cartData)
-        .then((response) => {
-          if (response) {
-            console.log("GPS added to cart successfully:", response);
-            getCartByUser(user.id);
-          }
-          return response;
-        })
-        .catch((error) => {
-          console.error("Error adding GPS to cart:", error);
-        });
-    }
-  };
+  //     return await createCart(user.id, cartData)
+  //       .then((response) => {
+  //         if (response) {
+  //           console.log("GPS added to cart successfully:", response);
+  //           getCartByUser(user.id);
+  //         }
+  //         return response;
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error adding GPS to cart:", error);
+  //       });
+  //   }
+  // };
 
   const addToCartPayNow = async () => {
     const response = await addToCart();
-    const response2 = await addGpsToCart();
-    if (response && response2) {
+    // const response2 = await addGpsToCart();
+    if (response) {
       navigate("/checkout");
     }
   };
 
   const addToCartDash = async () => {
     await addToCart();
-    await addGpsToCart();
+    // await addGpsToCart();
     document.getElementById("my_modal_1").close();
   };
 
@@ -445,14 +445,14 @@ export default function Dashboard() {
               >
                 3
               </div>
-              <div className="box-line w-16 h-1 bg-gray-300"></div>
-              <div
+              {/* <div className="box-line w-16 h-1 bg-gray-300"></div> */}
+              {/* <div
                 className={`box-ball w-10 h-10 flex justify-center items-center rounded-full ${
                   gpsModel ? "bg-teal-500 text-white" : "bg-gray-300 text-black"
                 } font-bold`}
               >
                 4
-              </div>
+              </div> */}
               <div className="box-line w-16 h-1 bg-gray-300"></div>
               <div
                 className={`box-ball w-10 h-10 flex justify-center items-center rounded-full ${
@@ -461,7 +461,7 @@ export default function Dashboard() {
                     : "bg-gray-300 text-black"
                 } font-bold`}
               >
-                5
+                4
               </div>
             </div>
             {welcomeModal && (
