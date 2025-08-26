@@ -282,8 +282,10 @@ export default function Dashboard() {
     if (!selectedId) return;
 
     const selectedPet = allPets.find((pet) => pet.id === parseInt(selectedId));
+    console.log("selectedPet", selectedPet);
 
     const hasPurchasedTag = selectedPet?.tags?.some((tag) => tag.is_purchased);
+    console.log("hasPurchasedTag", hasPurchasedTag);
 
     if (hasPurchasedTag) {
       navigate(`/trackerPet/${selectedId}`);

@@ -18,6 +18,13 @@ export interface PetFormData {
   medication_given: string;
   weight: number;
   sleep_hours: number;
+  urine_color: string;
+  scratching: boolean | null;
+  hair_loss: boolean | null;
+  seizures: boolean | null;
+  eye_discharge: boolean | null;
+  ear_discharge: boolean | null;
+  limping: boolean | null;
 }
 
 export const PetTrackerContext = () => {

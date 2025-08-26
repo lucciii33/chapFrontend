@@ -37,6 +37,7 @@ export default function PetTracker() {
     urinated: false,
     pooped: false,
     poop_quality: "",
+    urine_color: "",
     mood: "",
     walked_minutes: 0,
     played: false,
@@ -48,6 +49,12 @@ export default function PetTracker() {
     fever: false,
     medication_given: "",
     weight: 0,
+    scratching: null,
+    hair_loss: null,
+    seizures: null,
+    eye_discharge: null,
+    ear_discharge: null,
+    limping: null,
     sleep_hours: 0,
   });
 
@@ -112,6 +119,7 @@ export default function PetTracker() {
       urinated: false,
       pooped: false,
       poop_quality: "",
+      urine_color: "",
       mood: "",
       walked_minutes: 0,
       played: false,
@@ -124,6 +132,12 @@ export default function PetTracker() {
       medication_given: "",
       weight: 0,
       sleep_hours: 0,
+      scratching: null,
+      hair_loss: null,
+      seizures: null,
+      eye_discharge: null,
+      ear_discharge: null,
+      limping: null,
     });
   };
 
@@ -380,6 +394,22 @@ export default function PetTracker() {
           </div>
         </div>
 
+        <div className="w-full mt-3">
+          <label className="block text-slate-50">Color de la orina</label>
+          <select
+            name="urine_color"
+            className="w-full px-4 py-2 border rounded-lg"
+            value={formData.urine_color || ""}
+            onChange={handleChange}
+          >
+            <option value="">-- Selecciona --</option>
+            <option value="clara">Clara</option>
+            <option value="normal">Amarillo normal</option>
+            <option value="oscura">Oscura</option>
+            <option value="sangre">Con sangre</option>
+          </select>
+        </div>
+
         <div className="flex flex-col md:flex-row gap-3 mt-3">
           {[
             "urinated",
@@ -397,6 +427,29 @@ export default function PetTracker() {
                 name={field}
                 className="radio radio-accent ms-4"
                 checked={(formData as any)[field]}
+                onChange={handleChange}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Síntomas extra */}
+        <div className="flex flex-col md:flex-row gap-3 mt-3">
+          {[
+            "scratching",
+            "hair_loss",
+            "seizures",
+            "eye_discharge",
+            "ear_discharge",
+            "limping",
+          ].map((field) => (
+            <div key={field}>
+              <label>{field}</label>
+              <input
+                type="checkbox"
+                name={field}
+                className="radio radio-accent ms-4"
+                checked={(formData as any)[field] || false}
                 onChange={handleChange}
               />
             </div>

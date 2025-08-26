@@ -45,6 +45,7 @@ export default function PetCalendar({
     urinated: false,
     pooped: false,
     poop_quality: "",
+    urine_color: "",
     mood: "",
     walked_minutes: 0,
     played: false,
@@ -57,6 +58,12 @@ export default function PetCalendar({
     medication_given: "",
     weight: 0,
     sleep_hours: 0,
+    scratching: null, // 🆕
+    hair_loss: null, // 🆕
+    seizures: null, // 🆕
+    eye_discharge: null, // 🆕
+    ear_discharge: null, // 🆕
+    limping: null,
   });
 
   const daysInMonth = (date) =>
@@ -263,6 +270,46 @@ export default function PetCalendar({
                         className="w-full px-4 py-2 border rounded-lg bg-transparent"
                       />
                     </div>
+                  ))}
+
+                  <div>
+                    <label className="block text-sm font-semibold">
+                      {t("tracker_page.label_urine_color")}
+                    </label>
+                    <select
+                      name="urine_color"
+                      value={formData.urine_color || ""}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2 border rounded-lg bg-transparent"
+                    >
+                      <option value="">
+                        {t("tracker_page.select_placeholder")}
+                      </option>
+                      <option value="clara">Clara</option>
+                      <option value="normal">Amarillo normal</option>
+                      <option value="oscura">Oscura</option>
+                      <option value="sangre">Con sangre</option>
+                    </select>
+                  </div>
+
+                  {[
+                    "scratching",
+                    "hair_loss",
+                    "seizures",
+                    "eye_discharge",
+                    "ear_discharge",
+                    "limping",
+                  ].map((field) => (
+                    <label key={field} className="block text-sm font-medium">
+                      <input
+                        type="checkbox"
+                        name={field}
+                        checked={formData?.[field] || false}
+                        onChange={handleChange}
+                        className="radio radio-accent mr-2"
+                      />
+                      {field}
+                    </label>
                   ))}
 
                   {/* Checkboxes */}
