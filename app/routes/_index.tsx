@@ -106,7 +106,7 @@ export default function Index() {
       </div>
       <div className="mt-0">
         <WhyChap />
-        <GpsLandignd />
+        {/* <GpsLandignd /> */}
         <Founders />
         <div className="bg-[#65BCBB] h-[135vh] lg:h-[65vh] pb-5">
           <div className="">

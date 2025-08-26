@@ -832,10 +832,10 @@ export default function Dashboard() {
                     </span>
                   </div>
                 </div>
-                <div>
+                <div className="text-teal-500 border border-teal-500 rounded-lg p-4 mt-2">
                   <p className="m-2 text-sm">{t("tag_description.text")}</p>
                 </div>
-                <p className="mt-0 text-md">
+                <p className="mt-2 text-md">
                   {t("petCreation.step2.step3.description")}
                 </p>
                 <div className="flex mt-3 flex-col md:flex-row">
