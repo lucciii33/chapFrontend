@@ -139,5 +139,36 @@ export const PetTrackerContext = () => {
     }
   };
 
-  return { createPetTrack, getPetTrack, deletePetTrack, editPetTrack };
+  const getWeeklyActivity = async (petId: number) => {
+    const token = getToken();
+    if (!token) {
+      showErrorToast("User not authenticated");
+      return null;
+    }
+
+    try {
+      const response = await fetch(
+        `${baseUrl}/api/pets/${petId}/weekly_activity`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      if (!response.ok) throw new Error("Network response was not ok");
+
+      return await response.json();
+    } catch (error) {
+      console.error(error);
+      showErrorToast(t("diary.diary_load_error"));
+      return null;
+    }
+  };
+
+  return {
+    createPetTrack,
+    getPetTrack,
+    deletePetTrack,
+    editPetTrack,
+    getWeeklyActivity,
+  };
 };

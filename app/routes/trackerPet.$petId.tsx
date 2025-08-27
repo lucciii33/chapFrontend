@@ -14,19 +14,34 @@ import {
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { useTranslation } from "react-i18next";
 import { showInfoToast } from "~/utils/toast";
+import WeeklyActivityChart from "~/components/weeklyActivity";
 
 export default function PetTracker() {
   const { t } = useTranslation();
 
-  const { createPetTrack, getPetTrack, deletePetTrack, editPetTrack } =
-    PetTrackerContext();
+  const {
+    createPetTrack,
+    getPetTrack,
+    deletePetTrack,
+    editPetTrack,
+    getWeeklyActivity,
+  } = PetTrackerContext();
   const { pet } = useGlobalContext();
   const { getPetById, petByID, editPet } = pet;
   const { petId } = useParams();
+  const [weeklyActivity, setWeeklyActivity] = useState<any | null>(null);
+  console.log("weeklyActivity", weeklyActivity);
 
   useEffect(() => {
     if (petId) {
       getPetById(petId);
+      const fetchWeekly = async () => {
+        const data = await getWeeklyActivity(Number(petId));
+        if (data) {
+          setWeeklyActivity(data);
+        }
+      };
+      fetchWeekly();
     }
   }, []);
 
@@ -281,6 +296,8 @@ export default function PetTracker() {
           </div>
         </div>
       </div>
+
+      {weeklyActivity && <WeeklyActivityChart data={weeklyActivity.days} />}
 
       <div className="border-2 border-gray-700 bg-gray-800 rounded-lg p-5 mt-5">
         <h2
