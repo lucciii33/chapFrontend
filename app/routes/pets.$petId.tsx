@@ -12,7 +12,7 @@ import DeleteDialog from "~/components/deleteDialog";
 import ScheduleAlertForm from "~/components/ScheduleAlertForm";
 import TravelModeForm from "~/components/travelMode";
 import "../../styles/dashboard.css";
-import { showErrorToast } from "~/utils/toast";
+import { showErrorToast, showInfoToast } from "~/utils/toast";
 import Pagination from "~/components/pagination";
 import DogLoader from "~/components/petLoader";
 import { useTranslation } from "react-i18next";
@@ -134,6 +134,12 @@ export default function PetDetail() {
 
   const confirmDelete = async () => {
     if (tagToDelete !== null) {
+      const tag = petByID?.tags.find((t) => t.id === tagToDelete);
+      if (tag.is_purchased) {
+        showInfoToast("Este tag ya fue comprado y no se puede eliminar.");
+        closeDeleteModal();
+        return;
+      }
       const success = await deletePetTag(tagToDelete);
       if (success) {
         getPetById(Number(petId));
@@ -2117,7 +2123,7 @@ export default function PetDetail() {
                 </div>
               )}
             </div>
-            <div className="flex gap-5 items-center flex-col md:flex-row p-5">
+            {/* <div className="flex gap-5 items-center flex-col md:flex-row p-5">
               {petByID?.gps_devices?.length > 0 ? (
                 petByID?.gps_devices?.map((gps) => (
                   <div
@@ -2166,7 +2172,7 @@ export default function PetDetail() {
                   <p>No hay GPS para esta mascota</p>
                 </div>
               )}
-            </div>
+            </div> */}
           </div>
           <div className="modal-action pb-[50px]">
             <form method="dialog">

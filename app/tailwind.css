@@ -8,8 +8,11 @@ body {
 * {
   box-sizing: border-box;
 }
-
-.Toastify__toast-container {
-  z-index: 9999999999999999999999999 !important;
+.modal::before {
+  z-index: 0 !important; /* o display: none; si no lo necesitas */
+}
+#__react-hot-toast,
+[data-sonner-toaster] {
   position: fixed !important;
+  z-index: 2147483647 !important; /* siempre arriba de todo */
 }

@@ -10,11 +10,13 @@ import { useMatches } from "@remix-run/react";
 import { Elements } from "@stripe/react-stripe-js";
 import { stripePromise } from "./stripeConfig";
 import { ToastContainer } from "react-toastify";
+
+// import { Toaster } from "react-hot-toast";
+
 import "react-toastify/dist/ReactToastify.css";
 import "~/utils/interceptFetch";
 import { useTranslation } from "react-i18next";
 import i18n from "i18n"; // ajusta si está en otro lugar
-import "./tailwind.css";
 
 // import resolveConfig from "tailwindcss/resolveConfig";
 // import tailwindConfig from "../tailwind.config";
@@ -64,6 +66,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         {children}
         <ScrollRestoration />
+        {/* <Toaster position="top-right" richColors theme="dark" /> */}
         <Scripts />
       </body>
     </html>
@@ -83,8 +86,15 @@ export default function App() {
     <GlobalProvider>
       <Elements stripe={stripePromise}>
         <Navbar />
+        {/* <Toaster
+          position="top-right"
+          toastOptions={{
+            duration: 30000,
+            style: { zIndex: 999999 }, // ✅ Siempre arriba de modales
+          }}
+        /> */}
         <Outlet />
-        <ToastContainer toastClassName="z-[9999]" />
+        <ToastContainer className="toast-container" />
       </Elements>
     </GlobalProvider>
   );

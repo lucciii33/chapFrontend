@@ -230,10 +230,32 @@ export default function PetCalendar({
                   {t("tracker_page.title_edit")}
                 </h3>
 
+                <div>
+                  <label className="block text-sm font-semibold">
+                    {t("tracker_page.label_mood")}
+                  </label>
+                  <select
+                    name="mood"
+                    value={formData.mood || ""}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border rounded-lg bg-transparent"
+                  >
+                    <option value="">
+                      {t("tracker_page.select_placeholder")}
+                    </option>
+                    <option value="happy">{t("moods.happy")}</option>
+                    <option value="sad">{t("moods.sad")}</option>
+                    <option value="calm">{t("moods.calm")}</option>
+                    <option value="anxious">{t("moods.anxious")}</option>
+                    <option value="aggressive">{t("moods.aggressive")}</option>
+                    <option value="hyper">{t("moods.hyper")}</option>
+                  </select>
+                </div>
+
                 <div className="space-y-2">
                   {/* Inputs normales */}
                   {[
-                    { label: "label_mood", name: "mood" },
+                    // { label: "label_mood", name: "mood" },
                     { label: "label_poop_quality", name: "poop_quality" },
                     {
                       label: "label_minutes_walked",

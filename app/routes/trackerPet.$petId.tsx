@@ -10,6 +10,10 @@ import {
   BeakerIcon,
   AdjustmentsVerticalIcon,
   CakeIcon,
+  FaceSmileIcon,
+  FaceFrownIcon,
+  ExclamationTriangleIcon,
+  FireIcon,
 } from "@heroicons/react/24/solid";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { useTranslation } from "react-i18next";
@@ -31,6 +35,14 @@ export default function PetTracker() {
   const { petId } = useParams();
   const [weeklyActivity, setWeeklyActivity] = useState<any | null>(null);
   console.log("weeklyActivity", weeklyActivity);
+  const moodMap: Record<string, JSX.Element> = {
+    happy: <FaceSmileIcon className="w-6 h-6 text-teal-500" />,
+    sad: <FaceFrownIcon className="w-6 h-6 text-teal-500" />,
+    calm: <FaceSmileIcon className="w-6 h-6 text-teal-500" />,
+    anxious: <ExclamationTriangleIcon className="w-6 h-6 text-teal-500" />,
+    aggressive: <FireIcon className="w-6 h-6 text-teal-500" />,
+    hyper: <FaceSmileIcon className="w-6 h-6 text-teal-500" />,
+  };
 
   useEffect(() => {
     if (petId) {
@@ -297,8 +309,6 @@ export default function PetTracker() {
         </div>
       </div>
 
-      {weeklyActivity && <WeeklyActivityChart data={weeklyActivity.days} />}
-
       <div className="border-2 border-gray-700 bg-gray-800 rounded-lg p-5 mt-5">
         <h2
           className="text-1xl lg:text-2xl font-bold mt-2 text-white"
@@ -312,13 +322,26 @@ export default function PetTracker() {
               {" "}
               {t("tracker_page.label_mood")}
             </label>
-            <input
+            {/* <input
               className="w-full px-4 py-2 border rounded-lg"
               placeholder={t("tracker_page.placeholder_mood")}
               name="mood"
               value={formData.mood}
               onChange={handleChange}
-            />
+            /> */}
+            <select
+              name="mood"
+              className="w-full px-4 py-2 border rounded-lg"
+              value={formData.mood}
+              onChange={handleChange}
+            >
+              <option value="">{t("tracker_page.placeholder_mood")}</option>
+              <option value="happy">{t("moods.happy")}</option>
+              <option value="sad">{t("moods.sad")}</option>
+              <option value="calm">{t("moods.calm")}</option>
+              <option value="anxious">{t("moods.anxious")}</option>
+              <option value="aggressive">{t("moods.aggressive")}</option>
+            </select>
           </div>
         </div>
 
@@ -482,6 +505,79 @@ export default function PetTracker() {
           </button>
         </div>
       </div>
+
+      <div className="border-2 border-gray-700 bg-gray-800 rounded-lg p-5 mt-5">
+        <h2
+          className="text-1xl lg:text-2xl font-bold mt-2 text-white"
+          style={{ fontFamily: "chapFont" }}
+        >
+          {t("tracker_page_2.title_tracker_2")}
+        </h2>
+        <div className="flex items-center justify-between flex-col md:flex-row gap-2">
+          <div className="border-2 border-teal-500 bg-gray-800 h-auto  w-full rounded p-3">
+            <h3 className="text-lg font-bold text-white mb-2">
+              {t("tracker_page_2.food_per_day")}
+            </h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {weeklyActivity?.days?.map((d) => (
+                <div
+                  key={d.date}
+                  className="border border-gray-600 rounded p-3 text-center"
+                >
+                  <p className="text-xs text-gray-400">{d.day.slice(0, 3)}</p>{" "}
+                  {/* Mon, Tue... */}
+                  <p className="text-sm font-semibold text-white">
+                    {d.food_consumed} g
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="border-2 border-teal-500 bg-gray-800 h-auto  w-full rounded p-3">
+            <h3 className="text-lg font-bold text-white mb-2">
+              {t("tracker_page_2.water_per_day")}
+            </h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {weeklyActivity?.days?.map((d) => (
+                <div
+                  key={d.date}
+                  className="border border-gray-600 rounded p-3 text-center"
+                >
+                  <p className="text-xs text-gray-400">{d.day.slice(0, 3)}</p>
+                  <p className="text-sm font-semibold text-white">
+                    {d.water_consumed} ml
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="border-2 border-gray-700 bg-gray-800 rounded-lg p-5 mt-5">
+        <h2
+          className="text-1xl lg:text-2xl font-bold mt-2 text-white"
+          style={{ fontFamily: "chapFont" }}
+        >
+          {t("tracker_page_2.mood_this_week")}
+        </h2>
+        <div className="border-2 border-teal-500 bg-gray-800 h-auto w-full rounded p-3">
+          <div className="flex gap-2 items-center">
+            <span>
+              {weeklyActivity?.weekly_mood &&
+                moodMap[weeklyActivity.weekly_mood]}
+            </span>
+            <p className="text-sm font-semibold text-white">
+              {weeklyActivity?.weekly_mood
+                ? t(`mood_comments.${weeklyActivity.weekly_mood}`)
+                : t("tracker_page_2.no_mood_data")}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {weeklyActivity && <WeeklyActivityChart data={weeklyActivity.days} />}
 
       <PetCalendar
         trackers={petByID?.trackers}

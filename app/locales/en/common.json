@@ -850,5 +850,28 @@
   },
   "download_tips": {
     "pdf_recommendation": "For best results when printing flyers to distribute or post on walls/trees, we recommend downloading the PDF from a computer."
+  },
+  "moods": {
+    "happy": "Happy",
+    "sad": "Sad",
+    "calm": "Calm",
+    "anxious": "Anxious",
+    "aggressive": "Aggressive",
+    "hyper": "Hyper"
+  },
+  "mood_comments": {
+    "happy": "Your dog was happy most of the week✨",
+    "sad": "Your dog seemed a bit down this week, give some extra love.",
+    "calm": "Your dog stayed calm and relaxed.",
+    "anxious": "Your dog showed signs of anxiety, keep an eye on their environment.",
+    "aggressive": "Your dog was a bit aggressive, try to understand what’s causing stress.",
+    "hyper": "Your dog was super active ⚡, full of energy!"
+  },
+  "tracker_page_2": {
+    "no_mood_data": "No mood data available this week",
+    "food_per_day": "Food per day",
+    "water_per_day": "Water per day",
+    "mood_this_week": "Mood this week",
+    "title_tracker_2": "Nutrition this week"
   }
 }
