@@ -240,9 +240,7 @@ export default function PetCalendar({
                     onChange={handleChange}
                     className="w-full px-4 py-2 border rounded-lg bg-transparent"
                   >
-                    <option value="">
-                      {t("tracker_page.select_placeholder")}
-                    </option>
+                    <option value=""></option>
                     <option value="happy">{t("moods.happy")}</option>
                     <option value="sad">{t("moods.sad")}</option>
                     <option value="calm">{t("moods.calm")}</option>
@@ -296,7 +294,7 @@ export default function PetCalendar({
 
                   <div>
                     <label className="block text-sm font-semibold">
-                      {t("tracker_page.label_urine_color")}
+                      {t("urine_colors.urine_color_label")}
                     </label>
                     <select
                       name="urine_color"
@@ -304,13 +302,11 @@ export default function PetCalendar({
                       onChange={handleChange}
                       className="w-full px-4 py-2 border rounded-lg bg-transparent"
                     >
-                      <option value="">
-                        {t("tracker_page.select_placeholder")}
-                      </option>
-                      <option value="clara">Clara</option>
-                      <option value="normal">Amarillo normal</option>
-                      <option value="oscura">Oscura</option>
-                      <option value="sangre">Con sangre</option>
+                      <option value=""></option>
+                      <option value="clear">{t("urine_colors.clear")}</option>
+                      <option value="normal">{t("urine_colors.normal")}</option>
+                      <option value="dark">{t("urine_colors.dark")}</option>
+                      <option value="blood">{t("urine_colors.blood")}</option>
                     </select>
                   </div>
 
@@ -330,7 +326,7 @@ export default function PetCalendar({
                         onChange={handleChange}
                         className="radio radio-accent mr-2"
                       />
-                      {field}
+                      {t(`tracker_page.symptom_labels.${field}`)}
                     </label>
                   ))}
 

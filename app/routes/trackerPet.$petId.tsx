@@ -141,6 +141,8 @@ export default function PetTracker() {
 
     await createPetTrack(formData);
     await getPetById(petId);
+    const updatedWeekly = await getWeeklyActivity(Number(petId));
+    setWeeklyActivity(updatedWeekly);
     setFormData({
       pet_id: petId,
       urinated: false,
@@ -435,31 +437,25 @@ export default function PetTracker() {
         </div>
 
         <div className="w-full mt-3">
-          <label className="block text-slate-50">Color de la orina</label>
+          <label className="block text-slate-50">
+            {t("urine_colors.urine_color_label")}
+          </label>
           <select
             name="urine_color"
             className="w-full px-4 py-2 border rounded-lg"
             value={formData.urine_color || ""}
             onChange={handleChange}
           >
-            <option value="">-- Selecciona --</option>
-            <option value="clara">Clara</option>
-            <option value="normal">Amarillo normal</option>
-            <option value="oscura">Oscura</option>
-            <option value="sangre">Con sangre</option>
+            <option value=""></option>
+            <option value="clear">{t("urine_colors.clear")}</option>
+            <option value="normal">{t("urine_colors.normal")}</option>
+            <option value="dark">{t("urine_colors.dark")}</option>
+            <option value="blood">{t("urine_colors.blood")}</option>
           </select>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-3 mt-3">
-          {[
-            "urinated",
-            "pooped",
-            "played",
-            "vomited",
-            "coughing",
-            "lethargy",
-            "fever",
-          ].map((field) => (
+        <div className="flex flex-col md:flex-row gap-3 mt-3 border border-1 rounded p-4">
+          {["urinated", "pooped", "played"].map((field) => (
             <div key={field}>
               <label>{t(`tracker_page.symptom_labels.${field}`)}</label>
               <input
@@ -474,7 +470,7 @@ export default function PetTracker() {
         </div>
 
         {/* Síntomas extra */}
-        <div className="flex flex-col md:flex-row gap-3 mt-3">
+        <div className="flex flex-col md:flex-row gap-3 mt-3  border border-1 rounded p-4">
           {[
             "scratching",
             "hair_loss",
@@ -482,9 +478,13 @@ export default function PetTracker() {
             "eye_discharge",
             "ear_discharge",
             "limping",
+            "vomited",
+            "coughing",
+            "lethargy",
+            "fever",
           ].map((field) => (
             <div key={field}>
-              <label>{field}</label>
+              <label>{t(`tracker_page.symptom_labels.${field}`)}</label>
               <input
                 type="checkbox"
                 name={field}
@@ -589,10 +589,14 @@ export default function PetTracker() {
         onEdit={async (id, updatedData) => {
           await editPetTrack(id, updatedData);
           await getPetById(petId);
+          const updatedWeekly = await getWeeklyActivity(Number(petId));
+          setWeeklyActivity(updatedWeekly);
         }}
         onCreate={async (data) => {
           await createPetTrack(data);
           await getPetById(petId);
+          const updatedWeekly = await getWeeklyActivity(Number(petId));
+          setWeeklyActivity(updatedWeekly);
         }}
       />
     </div>

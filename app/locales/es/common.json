@@ -472,7 +472,13 @@
       "vomited": "Vomitó",
       "coughing": "Tos",
       "lethargy": "Letargo",
-      "fever": "Fiebre"
+      "fever": "Fiebre",
+      "scratching": "Rascado",
+      "hair_loss": "Pérdida de pelo",
+      "seizures": "Convulsiones",
+      "eye_discharge": "Secreción ocular",
+      "ear_discharge": "Secreción de oído",
+      "limping": "Cojeando"
     },
     "button_save": "GUARDAR",
 
@@ -872,5 +878,12 @@
     "water_per_day": "Agua por día",
     "mood_this_week": "Ánimo esta semana",
     "title_tracker_2": "Alimentación esta semana"
+  },
+  "urine_colors": {
+    "clear": "Clara",
+    "normal": "Amarillo normal",
+    "dark": "Oscura",
+    "blood": "Con sangre",
+    "urine_color_label": "Color de la orina"
   }
 }

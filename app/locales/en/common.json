@@ -472,7 +472,13 @@
       "vomited": "Vomited",
       "coughing": "Cough",
       "lethargy": "Lethargy",
-      "fever": "Fever"
+      "fever": "Fever",
+      "scratching": "Scratching",
+      "hair_loss": "Hair loss",
+      "seizures": "Seizures",
+      "eye_discharge": "Eye discharge",
+      "ear_discharge": "Ear discharge",
+      "limping": "Limping"
     },
 
     "button_save": "Submit Pet Data",
@@ -873,5 +879,12 @@
     "water_per_day": "Water per day",
     "mood_this_week": "Mood this week",
     "title_tracker_2": "Nutrition this week"
+  },
+  "urine_colors": {
+    "clear": "Clear",
+    "normal": "Normal yellow",
+    "dark": "Dark",
+    "blood": "With blood",
+    "urine_color_label": "Urine color"
   }
 }
