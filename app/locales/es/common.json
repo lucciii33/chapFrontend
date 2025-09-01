@@ -885,5 +885,23 @@
     "dark": "Oscura",
     "blood": "Con sangre",
     "urine_color_label": "Color de la orina"
+  },
+  "alert_tracker": {
+    "urine_blood": "Tu mascota mostró sangre en la orina 🚨 Contacta a tu veterinario.",
+    "urine_dark_multiple": "Tu mascota tuvo orina oscura 3+ días 💧 Asegúrate de que beba más agua.",
+    "vomit_multiple": "Tu mascota vomitó varias veces esta semana 🤢. Obsérvalo de cerca y considera contactar a tu veterinario.",
+    "poop_blood": "Tu mascota mostró sangre en las heces 🚨 Contacta a tu veterinario.",
+    "poop_diarrhea_multiple": "Tu mascota presentó diarrea en varios días 💩 Vigílalo y considera consultar al veterinario.",
+    "poop_constipation_multiple": "Tu mascota mostró signos de estreñimiento en varios días 🚱 Asegúrate de que beba agua y consulta si persiste."
+  },
+  "poop_quality": {
+    "poop_quality_label": "Calidad de la pupu",
+    "normal": "Normal",
+    "soft": "Blanda / Pastosa",
+    "diarrhea": "Diarrea",
+    "constipation": "Estreñido",
+    "mucus": "Con moco",
+    "blood": "Con sangre",
+    "color_change": "Color inusual"
   }
 }

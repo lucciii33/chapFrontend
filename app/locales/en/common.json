@@ -886,5 +886,23 @@
     "dark": "Dark",
     "blood": "With blood",
     "urine_color_label": "Urine color"
+  },
+  "alert_tracker": {
+    "urine_blood": "Your pet showed blood in urine 🚨 Contact your vet.",
+    "urine_dark_multiple": "Your pet had dark urine 3+ days 💧 Ensure it drinks more water.",
+    "vomit_multiple": "Your pet vomited several times this week 🤢. Monitor closely and consider contacting your vet.",
+    "poop_blood": "Your pet showed blood in stool 🚨 Contact your vet.",
+    "poop_diarrhea_multiple": "Your pet had diarrhea on several days 💩 Monitor and consider visiting your vet.",
+    "poop_constipation_multiple": "Your pet showed constipation on several days 🚱 Ensure hydration and check with your vet if it continues."
+  },
+  "poop_quality": {
+    "poop_quality_label": "Poop quality",
+    "normal": "Normal",
+    "soft": "Soft / Pastose",
+    "diarrhea": "Diarrhea",
+    "constipation": "Constipation",
+    "mucus": "With mucus",
+    "blood": "With blood",
+    "color_change": "Unusual color"
   }
 }

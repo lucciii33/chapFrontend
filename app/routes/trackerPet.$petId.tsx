@@ -311,6 +311,78 @@ export default function PetTracker() {
         </div>
       </div>
 
+      {weeklyActivity?.alerts?.urine_blood && (
+        <div className="border-2 border-red-500 bg-gray-800 h-auto w-full rounded-lg p-3 mt-4">
+          <div className="flex gap-2 items-center">
+            <span>
+              <ExclamationTriangleIcon className="w-6 h-6 text-red-500" />
+            </span>
+            <p className="text-sm font-semibold text-white">
+              {t("alert_tracker.urine_blood")}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {weeklyActivity?.alerts?.vomit_multiple && (
+        <div className="border-2 border-red-500 bg-gray-800 h-auto w-full rounded p-3 mt-3">
+          <div className="flex gap-2 items-center">
+            <span>
+              <ExclamationTriangleIcon className="w-6 h-6 text-red-500" />
+            </span>
+            <p className="text-sm font-semibold text-white">
+              {t("alert_tracker.vomit_multiple")}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {weeklyActivity?.alerts?.poop_blood && (
+        <div className="border-2 border-red-500 bg-gray-800 h-auto w-full rounded p-3 mt-3">
+          <div className="flex gap-2 items-center">
+            <ExclamationTriangleIcon className="w-6 h-6 text-red-500" />
+            <p className="text-sm font-semibold text-white">
+              {t("alert_tracker.poop_blood")}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {weeklyActivity?.alerts?.poop_diarrhea_multiple && (
+        <div className="border-2 border-yellow-500 bg-gray-800 h-auto w-full rounded-lg p-3 mt-4">
+          <div className="flex gap-2 items-center">
+            <ExclamationTriangleIcon className="w-6 h-6 text-yellow-500" />
+            <p className="text-sm font-semibold text-white">
+              {t("alert_tracker.poop_diarrhea_multiple")}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {weeklyActivity?.alerts?.poop_constipation_multiple && (
+        <div className="border-2 border-yellow-500 bg-gray-800 h-auto w-full rounded-lg p-3 mt-4">
+          <div className="flex gap-2 items-center">
+            <ExclamationTriangleIcon className="w-6 h-6 text-yellow-500" />
+            <p className="text-sm font-semibold text-white">
+              {t("alert_tracker.poop_constipation_multiple")}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {weeklyActivity?.alerts?.urine_dark_multiple && (
+        <div className="border-2 border-yellow-500 bg-gray-800 h-auto w-full rounded-lg p-3 mt-4">
+          <div className="flex gap-2 items-center">
+            <span>
+              <ExclamationTriangleIcon className="w-6 h-6 text-yellow-500" />
+            </span>
+            <p className="text-sm font-semibold text-white">
+              {t("alert_tracker.urine_dark_multiple")}
+            </p>
+          </div>
+        </div>
+      )}
+
       <div className="border-2 border-gray-700 bg-gray-800 rounded-lg p-5 mt-5">
         <h2
           className="text-1xl lg:text-2xl font-bold mt-2 text-white"
@@ -376,13 +448,25 @@ export default function PetTracker() {
             <label className="block text-slate-50">
               {t("tracker_page.label_poop_quality")}
             </label>
-            <input
-              className="w-full px-4 py-2 border rounded-lg"
-              placeholder="heces"
+            <select
               name="poop_quality"
-              value={formData.poop_quality}
+              value={formData.poop_quality || ""}
               onChange={handleChange}
-            />
+              className="w-full px-4 py-2 border rounded-lg"
+            >
+              <option value=""></option>
+              <option value="normal">{t("poop_quality.normal")}</option>
+              <option value="soft">{t("poop_quality.soft")}</option>
+              <option value="diarrhea">{t("poop_quality.diarrhea")}</option>
+              <option value="constipation">
+                {t("poop_quality.constipation")}
+              </option>
+              <option value="mucus">{t("poop_quality.mucus")}</option>
+              <option value="blood">{t("poop_quality.blood")}</option>
+              <option value="color_change">
+                {t("poop_quality.color_change")}
+              </option>
+            </select>
           </div>
           <div className="w-full">
             <label className="block text-slate-50">
@@ -583,8 +667,8 @@ export default function PetTracker() {
         trackers={petByID?.trackers}
         petId={Number(petId)}
         onDelete={async (id) => {
-          await deletePetTrack(id); // llama al context
-          await getPetById(petId); // recarga los datos
+          await deletePetTrack(id);
+          await getPetById(petId);
         }}
         onEdit={async (id, updatedData) => {
           await editPetTrack(id, updatedData);

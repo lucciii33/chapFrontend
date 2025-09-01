@@ -254,7 +254,7 @@ export default function PetCalendar({
                   {/* Inputs normales */}
                   {[
                     // { label: "label_mood", name: "mood" },
-                    { label: "label_poop_quality", name: "poop_quality" },
+                    // { label: "label_poop_quality", name: "poop_quality" },
                     {
                       label: "label_minutes_walked",
                       name: "walked_minutes",
@@ -307,6 +307,33 @@ export default function PetCalendar({
                       <option value="normal">{t("urine_colors.normal")}</option>
                       <option value="dark">{t("urine_colors.dark")}</option>
                       <option value="blood">{t("urine_colors.blood")}</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold">
+                      {t("tracker_page.label_poop_quality")}
+                    </label>
+                    <select
+                      name="poop_quality"
+                      value={formData.poop_quality || ""}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2 border rounded-lg bg-transparent"
+                    >
+                      <option value=""></option>
+                      <option value="normal">{t("poop_quality.normal")}</option>
+                      <option value="soft">{t("poop_quality.soft")}</option>
+                      <option value="diarrhea">
+                        {t("poop_quality.diarrhea")}
+                      </option>
+                      <option value="constipation">
+                        {t("poop_quality.constipation")}
+                      </option>
+                      <option value="mucus">{t("poop_quality.mucus")}</option>
+                      <option value="blood">{t("poop_quality.blood")}</option>
+                      <option value="color_change">
+                        {t("poop_quality.color_change")}
+                      </option>
                     </select>
                   </div>
 
@@ -388,10 +415,30 @@ export default function PetCalendar({
                   {t("tracker_page.title_create")}
                 </h3>
 
+                <div>
+                  <label className="block text-sm font-semibold">
+                    {t("tracker_page.label_mood")}
+                  </label>
+                  <select
+                    name="mood"
+                    value={formData.mood || ""}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border rounded-lg bg-transparent"
+                  >
+                    <option value=""></option>
+                    <option value="happy">{t("moods.happy")}</option>
+                    <option value="sad">{t("moods.sad")}</option>
+                    <option value="calm">{t("moods.calm")}</option>
+                    <option value="anxious">{t("moods.anxious")}</option>
+                    <option value="aggressive">{t("moods.aggressive")}</option>
+                    <option value="hyper">{t("moods.hyper")}</option>
+                  </select>
+                </div>
+
                 <div className="space-y-2">
                   {[
                     { label: "label_mood", name: "mood" },
-                    { label: "label_poop_quality", name: "poop_quality" },
+                    // { label: "label_poop_quality", name: "poop_quality" },
                     {
                       label: "label_minutes_walked",
                       name: "walked_minutes",
@@ -428,6 +475,51 @@ export default function PetCalendar({
                       />
                     </div>
                   ))}
+
+                  {/* Urine color select */}
+                  <div>
+                    <label className="block text-sm font-semibold">
+                      {t("urine_colors.urine_color_label")}
+                    </label>
+                    <select
+                      name="urine_color"
+                      value={formData.urine_color || ""}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2 border rounded-lg bg-transparent"
+                    >
+                      <option value=""></option>
+                      <option value="clear">{t("urine_colors.clear")}</option>
+                      <option value="normal">{t("urine_colors.normal")}</option>
+                      <option value="dark">{t("urine_colors.dark")}</option>
+                      <option value="blood">{t("urine_colors.blood")}</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold">
+                      {t("tracker_page.label_poop_quality")}
+                    </label>
+                    <select
+                      name="poop_quality"
+                      value={formData.poop_quality || ""}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2 border rounded-lg bg-transparent"
+                    >
+                      <option value=""></option>
+                      <option value="normal">{t("poop_quality.normal")}</option>
+                      <option value="soft">{t("poop_quality.soft")}</option>
+                      <option value="diarrhea">
+                        {t("poop_quality.diarrhea")}
+                      </option>
+                      <option value="constipation">
+                        {t("poop_quality.constipation")}
+                      </option>
+                      <option value="mucus">{t("poop_quality.mucus")}</option>
+                      <option value="blood">{t("poop_quality.blood")}</option>
+                      <option value="color_change">
+                        {t("poop_quality.color_change")}
+                      </option>
+                    </select>
+                  </div>
 
                   {[
                     "urinated",
