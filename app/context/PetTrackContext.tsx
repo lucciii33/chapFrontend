@@ -165,11 +165,43 @@ export const PetTrackerContext = () => {
     }
   };
 
+  const getLostDogArea = async (petId: number, address: string) => {
+    const token = getToken();
+    if (!token) {
+      showErrorToast("User not authenticated");
+      return null;
+    }
+
+    try {
+      const response = await fetch(
+        `${baseUrl}/api/pets/${petId}/lost_dog?address=${encodeURIComponent(
+          address
+        )}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) throw new Error("Network response was not ok");
+
+      const data = await response.json();
+      return data; // { pet_name, lat, lng, radius, weight, address_used }
+    } catch (error) {
+      console.error(error);
+      showErrorToast("Error fetching lost dog area");
+      return null;
+    }
+  };
+
   return {
     createPetTrack,
     getPetTrack,
     deletePetTrack,
     editPetTrack,
     getWeeklyActivity,
+    getLostDogArea,
   };
 };

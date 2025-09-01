@@ -298,6 +298,23 @@ export default function Dashboard() {
     // }
   };
 
+  const handlePetSelect_2now = (e) => {
+    const selectedId = e.target.value;
+    if (!selectedId) return;
+
+    const selectedPet = allPets.find((pet) => pet.id === parseInt(selectedId));
+    console.log("selectedPet", selectedPet);
+
+    const hasPurchasedTag = selectedPet?.tags?.some((tag) => tag.is_purchased);
+    console.log("hasPurchasedTag", hasPurchasedTag);
+
+    if (hasPurchasedTag) {
+      navigate(`/emergencyNow/${selectedId}`);
+    } else {
+      document.getElementById("purchase_aler").showModal();
+    }
+  };
+
   // const addGpsToCart = async () => {
   //   if (gpsInfo && user && petProfile) {
   //     const cartData = {
@@ -1107,6 +1124,23 @@ export default function Dashboard() {
                 >
                   <option value="">
                     {t("subNavbar.extraFeatures.buttonDiary")}
+                  </option>
+                  {allPets?.map((pet) => (
+                    <option key={pet.id} value={pet.id}>
+                      {pet.name}
+                    </option>
+                  ))}
+                </select>
+              )}
+
+              {allPets?.length > 0 && (
+                <select
+                  onChange={handlePetSelect_2now}
+                  className="btn bg-teal-500 text-white px-4 py-2 w-full md:w-auto rounded-md shadow-md cursor-pointer"
+                >
+                  <option value="">
+                    hola
+                    {/* {t("subNavbar.extraFeatures.buttonDiary")} */}
                   </option>
                   {allPets?.map((pet) => (
                     <option key={pet.id} value={pet.id}>
