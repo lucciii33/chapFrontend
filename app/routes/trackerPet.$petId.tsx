@@ -199,7 +199,6 @@ export default function PetTracker() {
 
   return (
     <div className="p-5">
-      <EmergencyNow petId={Number(petId)} />
       <div className="border-2 border-gray-700 bg-gray-800 rounded-lg p-5 mt-5">
         <h2
           className="text-1xl lg:text-2xl font-bold text-white"

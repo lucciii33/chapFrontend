@@ -1138,10 +1138,7 @@ export default function Dashboard() {
                   onChange={handlePetSelect_2now}
                   className="btn bg-teal-500 text-white px-4 py-2 w-full md:w-auto rounded-md shadow-md cursor-pointer"
                 >
-                  <option value="">
-                    hola
-                    {/* {t("subNavbar.extraFeatures.buttonDiary")} */}
-                  </option>
+                  <option value="">{t("emergency_obj.title")}</option>
                   {allPets?.map((pet) => (
                     <option key={pet.id} value={pet.id}>
                       {pet.name}

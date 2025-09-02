@@ -904,5 +904,16 @@
     "mucus": "With mucus",
     "blood": "With blood",
     "color_change": "Unusual color"
+  },
+  "emergency_obj": {
+    "title": "Did you just lost your pet?",
+    "alert-message": "",
+    "label_input": "",
+    "placeholder_input": "",
+    "step_1": "",
+    "step_2": "",
+    "step_3": "",
+    "step_4": "",
+    "step_5": ""
   }
 }

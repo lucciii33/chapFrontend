@@ -188,10 +188,21 @@ export const PetTrackerContext = () => {
       if (!response.ok) throw new Error("Network response was not ok");
 
       const data = await response.json();
-      return data; // { pet_name, lat, lng, radius, weight, address_used }
+      return data;
     } catch (error) {
       console.error(error);
       showErrorToast("Error fetching lost dog area");
+      return null;
+    }
+  };
+
+  const getLastLostDogEvent = async (petId: number) => {
+    try {
+      const res = await fetch(`${baseUrl}/api/pets/${petId}/lost_dog/last`);
+      if (!res.ok) return null;
+      return await res.json();
+    } catch (err) {
+      console.error("Error fetching last lost dog event", err);
       return null;
     }
   };
@@ -203,5 +214,6 @@ export const PetTrackerContext = () => {
     editPetTrack,
     getWeeklyActivity,
     getLostDogArea,
+    getLastLostDogEvent,
   };
 };

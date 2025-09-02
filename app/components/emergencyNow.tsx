@@ -1,10 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PetTrackerContext } from "../context/PetTrackContext";
 
-export function EmergencyNow({ petId }: { petId: number }) {
-  const { getLostDogArea } = PetTrackerContext();
+export function EmergencyNow({
+  petId,
+  weeklyActivity,
+}: {
+  petId: number;
+  weeklyActivity: any; // o el tipo que tengas definido
+}) {
+  const { getLostDogArea, getLastLostDogEvent } = PetTrackerContext();
   const [address, setAddress] = useState("");
   const [lostInfo, setLostInfo] = useState<any | null>(null);
+  console.log("weeklyActivity", weeklyActivity);
+
+  useEffect(() => {
+    const fetchLastEvent = async () => {
+      const lastEvent = await getLastLostDogEvent(petId);
+      if (lastEvent) {
+        setLostInfo(lastEvent);
+
+        if (!document.querySelector('[src*="maps.googleapis.com"]')) {
+          const script = document.createElement("script");
+          script.src = `https://maps.googleapis.com/maps/api/js?key=${
+            import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_KEY
+          }`;
+          script.async = true;
+          script.onload = () => initMap(lastEvent);
+          document.body.appendChild(script);
+        } else {
+          initMap(lastEvent);
+        }
+      }
+    };
+    fetchLastEvent();
+  }, [petId]);
 
   const handleSearch = async () => {
     if (!address.trim()) return;
@@ -58,7 +87,7 @@ export function EmergencyNow({ petId }: { petId: number }) {
 
   return (
     <div>
-      <div className="flex gap-2 mb-3">
+      <div className="flex gap-2 mb-3 mt-3">
         <input
           type="text"
           value={address}
@@ -74,7 +103,15 @@ export function EmergencyNow({ petId }: { petId: number }) {
         </button>
       </div>
 
-      <div id="map" style={{ width: "100%", height: "400px" }} />
+      {lostInfo && (
+        <div
+          id="map"
+          style={{
+            width: "100%",
+            height: lostInfo ? "400px" : "none",
+          }}
+        />
+      )}
 
       {lostInfo && (
         <div className="mt-3 text-sm text-gray-200">

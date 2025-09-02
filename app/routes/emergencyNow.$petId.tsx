@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { PetTrackerContext } from "../context/PetTrackContext"; // Ajusta el path correcto aquí
-import { useParams } from "@remix-run/react";
+import { Link, useParams } from "@remix-run/react";
 import { useGlobalContext } from "~/context/GlobalProvider";
 import PetCalendar from "~/components/petCalendar";
 import "../../styles/dashboard.css";
@@ -66,6 +66,12 @@ export default function PetTracker() {
 
   return (
     <div className="p-5">
+      <h1
+        className="text-2xl lg:text-3xl font-bold text-white mb-5"
+        style={{ fontFamily: "chapFont" }}
+      >
+        You are not alone in this emergency
+      </h1>
       <div className="mb-5 border border-gray-700 bg-gray-800 rounded-lg p-5">
         luego de una busqueda constante de perros perdidos, hemos desarrollado
         una herramienta que te permite localizar a tu mascota en caso de
@@ -75,30 +81,53 @@ export default function PetTracker() {
         podría encontrarse. Esta función es especialmente útil para actuar
         rápidamente y aumentar las posibilidades de encontrar a tu amigo peludo.
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-2 border-b border-gray-700 pb-3">
         <div>1</div>
         <div>
-          Add the adrees where you last see you rdog we will generate a map with
-          the radio
+          go to{" "}
+          <Link className="underline text-teal-500" to={`/pets/${petId}`}>
+            {" "}
+            pet details and mark you pet as lost
+          </Link>
         </div>
       </div>
-      <EmergencyNow petId={Number(petId)} />
-      <div className="flex gap-2">
-        <div>2</div>
+      <div className=" border-b border-gray-700 pb-3 mt-2">
+        <div className="flex gap-2">
+          <div>2</div>
+          <div>
+            Add the adrees where you last see you rdog we will generate a map
+            with the radio
+          </div>
+        </div>
+
+        <div>
+          {" "}
+          <EmergencyNow petId={Number(petId)} weeklyActivity={weeklyActivity} />
+        </div>
+      </div>
+
+      <div className="flex gap-2 border-b border-gray-700 pb-3 mt-2">
+        <div>3</div>
         <div>
           contact local aoutorities and shelters to report your lost dog and
           show him the radio the dog could be
         </div>
       </div>
-      <div className="flex gap-2">
-        <div>3</div>
+      <div className="flex gap-2 border-b border-gray-700 pb-3 mt-2">
+        <div>4</div>
         <div>
-          call a frind, prinf out emergency pds, and share it your social media
-          so people on the area can help you.
+          call a frind, prinf out{" "}
+          <Link
+            className="underline text-teal-500"
+            to={`/emergencyPdf/${petId}`}
+          >
+            emergency pds
+          </Link>
+          , and share it your social media so people on the area can help you.
         </div>
       </div>
-      <div className="flex gap-2">
-        <div>4</div>
+      <div className="flex gap-2 border-b border-gray-700 pb-3 mt-2">
+        <div>5</div>
         <div>
           leave food and somthing with your scent on the area, dogs have a great
           sense of smell and this will help him to find his way back to you.
