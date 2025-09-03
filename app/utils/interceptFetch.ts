@@ -14,21 +14,49 @@ if (typeof window !== "undefined") {
     };
 
     try {
-      const response = await originalFetch(url, { ...options, headers });
+      let response = await originalFetch(url, { ...options, headers });
 
       // 🔴 Si el token expiró (401), cerramos sesión y redirigimos
       if (response.status === 401) {
-        console.log("🔴 TOKEN EXPIRADO - CERRANDO SESIÓN");
-        localStorage.removeItem("user");
-        showErrorToast("Sesión expirada. Inicia sesión de nuevo.");
+        console.log("🔴 TOKEN EXPIRADO - DEBERIA LLAMAR NUEVO");
+        // localStorage.removeItem("user");
+        // showErrorToast("Sesión expirada. Inicia sesión de nuevo.");
 
-        if (window.location.pathname !== "/") {
-          window.location.replace("/"); // Redirige y reemplaza en el historial
+        // if (window.location.pathname !== "/") {
+        //   window.location.replace("/"); // Redirige y reemplaza en el historial
+        // } else {
+        //   window.location.reload(); // Si ya estamos en "/", recargamos la página
+        // }
+
+        // return Promise.reject("Unauthorized");
+        console.log("🔴 TOKEN EXPIRADO - probando refresh...");
+        const refreshResp = await originalFetch(
+          `${import.meta.env.VITE_REACT_APP_URL}/users/refresh`,
+          {
+            method: "POST",
+            credentials: "include",
+          }
+        );
+
+        if (refreshResp.ok) {
+          const data = await refreshResp.json();
+          console.log("🔴 REFRESH TOKEN", data);
+          // Guardar nuevo access token
+          const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
+          storedUser.access_token = data.access_token;
+          localStorage.setItem("user", JSON.stringify(storedUser));
+
+          // Reintentar la petición original con nuevo token
+          headers.Authorization = `Bearer ${data.access_token}`;
+          response = await originalFetch(url, { ...options, headers });
         } else {
-          window.location.reload(); // Si ya estamos en "/", recargamos la página
+          // Refresh falló → cerramos sesión
+          console.log("🔴 REFRESH TOKEN INVÁLIDO");
+          localStorage.removeItem("user");
+          showErrorToast("Sesión expirada. Inicia sesión de nuevo.");
+          window.location.replace("/");
+          return Promise.reject("Unauthorized");
         }
-
-        return Promise.reject("Unauthorized");
       }
 
       return response; // 🔹 Devolver la respuesta sin modificarla
