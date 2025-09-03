@@ -56,6 +56,7 @@ export const useAuthContext = () => {
     try {
       const response = await fetch(`${baseUrl}/users/login`, {
         method: "POST",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
