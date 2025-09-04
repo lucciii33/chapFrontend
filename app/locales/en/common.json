@@ -893,7 +893,11 @@
     "vomit_multiple": "Your pet vomited several times this week 🤢. Monitor closely and consider contacting your vet.",
     "poop_blood": "Your pet showed blood in stool 🚨 Contact your vet.",
     "poop_diarrhea_multiple": "Your pet had diarrhea on several days 💩 Monitor and consider visiting your vet.",
-    "poop_constipation_multiple": "Your pet showed constipation on several days 🚱 Ensure hydration and check with your vet if it continues."
+    "poop_constipation_multiple": "Your pet showed constipation on several days 🚱 Ensure hydration and check with your vet if it continues.",
+    "scratching_multiple": "Your pet scratched itself on 3+ days this week 🐾 Possible allergy, fleas or skin issue.",
+    "hair_loss_multiple": "Your pet showed hair loss on 4+ days this week 🐶 Consider checking for allergies or skin disease.",
+    "scratching_and_hair_loss": "Your pet is scratching and losing hair 🐕 This could indicate a skin condition, visit your vet.",
+    "seizures_detected": "Seizures detected 🚨 Requires immediate veterinary attention."
   },
   "poop_quality": {
     "poop_quality_label": "Poop quality",

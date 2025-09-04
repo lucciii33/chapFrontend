@@ -38,6 +38,7 @@ function Popup({ petId, onClose }: PopupProps) {
   return (
     <dialog open className="modal">
       <div className="modal-box w-3/4 max-w-4xl h-auto p-6">
+        <div id="modal-toast-root"></div>
         <h3 className="font-bold text-lg">Create your tag here</h3>
         <div className="flex mt-3">
           <div className="w-1/2 border-r border-gray-500">

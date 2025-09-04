@@ -892,7 +892,11 @@
     "vomit_multiple": "Tu mascota vomitó varias veces esta semana 🤢. Obsérvalo de cerca y considera contactar a tu veterinario.",
     "poop_blood": "Tu mascota mostró sangre en las heces 🚨 Contacta a tu veterinario.",
     "poop_diarrhea_multiple": "Tu mascota presentó diarrea en varios días 💩 Vigílalo y considera consultar al veterinario.",
-    "poop_constipation_multiple": "Tu mascota mostró signos de estreñimiento en varios días 🚱 Asegúrate de que beba agua y consulta si persiste."
+    "poop_constipation_multiple": "Tu mascota mostró signos de estreñimiento en varios días 🚱 Asegúrate de que beba agua y consulta si persiste.",
+    "scratching_multiple": "Tu mascota se rascó en 3+ días esta semana 🐾 Puede ser alergia, pulgas o problema de piel.",
+    "hair_loss_multiple": "Tu mascota presentó caída de pelo en 4+ días esta semana 🐶 Considera revisar alergias o enfermedad de piel.",
+    "scratching_and_hair_loss": "Tu mascota se rasca y está perdiendo pelo 🐕 Esto puede indicar un problema de piel, visita al veterinario.",
+    "seizures_detected": "Se detectaron convulsiones 🚨 Requiere atención veterinaria inmediata."
   },
   "poop_quality": {
     "poop_quality_label": "Calidad de la pupu",

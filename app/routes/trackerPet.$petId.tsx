@@ -360,6 +360,50 @@ export default function PetTracker() {
         </div>
       )}
 
+      {weeklyActivity?.alerts?.scratching_multiple && (
+        <div className="border-2 border-yellow-500 bg-gray-800 h-auto w-full rounded-lg p-3 mt-4">
+          <div className="flex gap-2 items-center">
+            <ExclamationTriangleIcon className="w-6 h-6 text-yellow-500" />
+            <p className="text-sm font-semibold text-white">
+              {t("alert_tracker.scratching_multiple")}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {weeklyActivity?.alerts?.hair_loss_multiple && (
+        <div className="border-2 border-yellow-500 bg-gray-800 h-auto w-full rounded-lg p-3 mt-4">
+          <div className="flex gap-2 items-center">
+            <ExclamationTriangleIcon className="w-6 h-6 text-yellow-500" />
+            <p className="text-sm font-semibold text-white">
+              {t("alert_tracker.hair_loss_multiple")}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {weeklyActivity?.alerts?.scratching_and_hair_loss && (
+        <div className="border-2 border-orange-500 bg-gray-800 h-auto w-full rounded-lg p-3 mt-4">
+          <div className="flex gap-2 items-center">
+            <ExclamationTriangleIcon className="w-6 h-6 text-orange-500" />
+            <p className="text-sm font-semibold text-white">
+              {t("alert_tracker.scratching_and_hair_loss")}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {weeklyActivity?.alerts?.seizures_detected && (
+        <div className="border-2 border-red-600 bg-gray-800 h-auto w-full rounded-lg p-3 mt-4">
+          <div className="flex gap-2 items-center">
+            <ExclamationTriangleIcon className="w-6 h-6 text-red-600" />
+            <p className="text-sm font-semibold text-white">
+              {t("alert_tracker.seizures_detected")}
+            </p>
+          </div>
+        </div>
+      )}
+
       {weeklyActivity?.alerts?.poop_constipation_multiple && (
         <div className="border-2 border-yellow-500 bg-gray-800 h-auto w-full rounded-lg p-3 mt-4">
           <div className="flex gap-2 items-center">

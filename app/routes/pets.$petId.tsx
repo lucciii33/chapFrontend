@@ -12,7 +12,7 @@ import DeleteDialog from "~/components/deleteDialog";
 import ScheduleAlertForm from "~/components/ScheduleAlertForm";
 import TravelModeForm from "~/components/travelMode";
 import "../../styles/dashboard.css";
-import { showErrorToast, showInfoToast } from "~/utils/toast";
+import { showErrorToast, showInfoToast, showSuccessToast } from "~/utils/toast";
 import Pagination from "~/components/pagination";
 import DogLoader from "~/components/petLoader";
 import { useTranslation } from "react-i18next";
@@ -357,6 +357,10 @@ export default function PetDetail() {
     try {
       const updatedPet = await editPet(Number(petId), petInfo);
       if (updatedPet) {
+        setPetInfo((prev) => ({
+          ...prev,
+          profile_photo: `${updatedPet.profile_photo}`,
+        }));
         setMessage("Pet details updated successfully!");
       } else {
         setMessage("Failed to update pet details.");
@@ -558,6 +562,7 @@ export default function PetDetail() {
         // setMessage("Sesión veterinaria eliminada con éxito.");
         getPetById(Number(petId)); // Recargar datos de la mascota
         setIsDeleteDialogOpen(false);
+        // showSuccessToast(t("context_pet_med.vet_visit_deleted"));
       } else {
         // setMessage("No se pudo eliminar la sesión veterinaria.");
       }
@@ -841,6 +846,7 @@ export default function PetDetail() {
                       {/* <p>Profile Photo</p> */}
                       {petInfo.profile_photo ? (
                         <img
+                          key={petInfo.profile_photo}
                           src={petInfo.profile_photo}
                           alt="defdefe"
                           className={
@@ -1857,6 +1863,7 @@ export default function PetDetail() {
       {/* //modal here to create or edit medical vet session   */}
       <dialog id="my_modal_4_pet_id" className="modal">
         <div className="modal-box max-w-4xl">
+          <div id="modal-toast-root-4"></div>
           <div className="flex justify-between items-center mt-[30px]">
             <div>
               <h3 className=" text-lg" style={{ fontFamily: "chapFont" }}>
@@ -2051,6 +2058,7 @@ export default function PetDetail() {
       {/* //modal here to show tags  */}
       <dialog id="my_modal_6_pet_id" className="modal">
         <div className="modal-box w-full max-w-7xl">
+          <div id="modal-toast-root"></div>
           <div className="flex justify-between items-center mt-[30px]">
             <div>
               <h3 className="font-bold text-lg">
@@ -2187,6 +2195,7 @@ export default function PetDetail() {
       <dialog id="my_modal_7_pet_id" className="modal">
         <div className="modal-box w-full max-w-7xl">
           <div>
+            <div id="modal-toast-root-2"></div>
             <div className="flex justify-between items-center mt-[30px]">
               <h3 className="font-bold text-lg">
                 {" "}
@@ -2337,6 +2346,7 @@ export default function PetDetail() {
       {/* //modal here to vaccines  */}
       <dialog id="my_modal_8_pet_id" className="modal">
         <div className="modal-box w-full max-w-7xl">
+          <div id="modal-toast-root-3"></div>
           <div className="flex justify-between items-center mt-[30px]">
             <div>
               <h3 className="font-bold text-lg">

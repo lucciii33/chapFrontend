@@ -35,6 +35,7 @@ export default function EditDialogShippinAddress({
   return (
     <dialog id="edit-modal" className="modal" open={isOpen}>
       <div className="modal-box">
+        <div id="modal-toast-root"></div>
         <h3 className="font-bold text-lg">{t("saved_address.edit_title")}</h3>
 
         <div className="mt-3">

@@ -311,6 +311,7 @@ export default function Card({ petObj }: CardProps) {
       )}
       <dialog id="my_modal_2" className="modal">
         <div className="modal-box w-full max-w-full sm:w-3/4 sm:max-w-4xl h-auto p-6">
+          <div id="modal-toast-root"></div>
           {tagTrackGps.tag && (
             <div>
               <div className="flex justify-between items-center">
