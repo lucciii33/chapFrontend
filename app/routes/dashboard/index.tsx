@@ -92,8 +92,6 @@ export default function Dashboard() {
         item.type_tag === tagInfoData.shape && item.color === tagInfoData.color
     );
 
-    console.log("matchmatchmatch", match);
-
     if (match) {
       setStockStatus({
         available: match.quantity > 0,
@@ -1138,7 +1136,9 @@ export default function Dashboard() {
                   onChange={handlePetSelect_2now}
                   className="btn bg-teal-500 text-white px-4 py-2 w-full md:w-auto rounded-md shadow-md cursor-pointer"
                 >
-                  <option value="">{t("emergency_obj.title")}</option>
+                  <option value="">
+                    {t("emergency_tracker.title_button")}
+                  </option>
                   {allPets?.map((pet) => (
                     <option key={pet.id} value={pet.id}>
                       {pet.name}

@@ -29,7 +29,7 @@ export default function Cart() {
   useEffect(() => {
     getCartByUserFunc();
   }, [user]);
-  console.log("allCarts", allCarts);
+
   const handleIncrement = async (
     cartId,
     currentQuantity,

@@ -36,8 +36,6 @@ export default function TagImagePreview({
       img.color.toLowerCase() === color.toLowerCase()
   );
 
-  console.log("matchmatch", match);
-
   return match ? (
     <img
       src={match.imageUrl}

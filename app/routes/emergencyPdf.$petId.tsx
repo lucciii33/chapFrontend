@@ -15,7 +15,7 @@ export default function EmegencyPdf() {
   const { t } = useTranslation();
 
   const [isMobile, setIsMobile] = useState(false);
-  console.log("isMobile", isMobile);
+  console.log("Updating lost pet petByID:", petByID);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
@@ -65,6 +65,8 @@ export default function EmegencyPdf() {
 
   const handleLostPetUpdate = async () => {
     if (!petId) return;
+
+    console.log("Updating lost pet info:", profile_photo);
 
     const updateData = {
       last_time_pet_seen: lastSeenTime
@@ -250,7 +252,7 @@ export default function EmegencyPdf() {
 
           <div className="w-full flex flex-col md:flex-row justify-center p-5">
             <div>
-              <img
+              {/* <img
                 id="pet-photo"
                 className="h-auto md:h-[500px]"
                 crossOrigin="anonymous"
@@ -258,7 +260,27 @@ export default function EmegencyPdf() {
                   profile_photo
                 )}`}
                 alt="pet"
-              />
+              /> */}
+              {profile_photo &&
+              profile_photo !== "null" &&
+              profile_photo.trim() !== "" ? (
+                <img
+                  id="pet-photo"
+                  className="h-auto md:h-[500px]"
+                  crossOrigin="anonymous"
+                  src={`${backendUrl}/api/proxy-image?url=${encodeURIComponent(
+                    profile_photo
+                  )}`}
+                  alt="pet"
+                />
+              ) : (
+                <img
+                  id="pet-photo-2"
+                  className="h-auto md:h-[500px]"
+                  src="https://chap-blue.s3.us-east-2.amazonaws.com/Group+5350.png"
+                  alt="pet"
+                />
+              )}
             </div>
             <div className="text-start ms-5">
               <h1 className="text-[#e60000] text-3xl md:text-8xl">{name}</h1>

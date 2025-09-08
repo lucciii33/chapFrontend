@@ -1,4 +1,4 @@
-import { showErrorToast, showSuccessToast } from "~/utils/toast";
+import { showErrorToast, showInfoToast, showSuccessToast } from "~/utils/toast";
 import { useTranslation } from "react-i18next";
 
 export interface PetFormData {
@@ -185,13 +185,14 @@ export const PetTrackerContext = () => {
         }
       );
 
-      if (!response.ok) throw new Error("Network response was not ok");
-
       const data = await response.json();
+      if (data.detail === "Pet weight not found in medical history") {
+        showInfoToast(t("diary.add_weight_height_first"));
+        return null;
+      }
       return data;
     } catch (error) {
-      console.error(error);
-      showErrorToast("Error fetching lost dog area");
+      showErrorToast("try again");
       return null;
     }
   };

@@ -33,8 +33,7 @@ const CheckoutForm: React.FC<{
   const { auth, cart } = useGlobalContext();
   const { user } = auth;
   const { allCarts } = cart;
-  console.log("user", user);
-  console.log("allCarts", allCarts);
+
   const { t } = useTranslation();
   const stripe = useStripe();
   const elements = useElements();

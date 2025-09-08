@@ -441,6 +441,9 @@
     "title_create": "Create",
 
     "title_tracker": "Track your pet",
+    "subtitle_tracker_2": "This form only allows you to enter information for today. To log past or future days, please use the calendar form.",
+
+    "label_mood": "Estado de ánimo",
 
     "label_mood": "Mood",
     "placeholder_mood": "Mood",
@@ -804,6 +807,7 @@
     "diary_deleted": "Pet data successfully deleted",
     "diary_delete_error": "Error deleting data",
     "diary_load_error": "Could not load data",
+    "add_weight_height_first": "Please add the pet’s weight and height first",
     "diary_already_exists": "You already have data today. Edit the data if you like.",
     "diary_already_exists_toast": "You already have a tracker for today. You can edit it if you like.",
     "fill_one_field_toast": "Add at least one field before saving."
@@ -909,15 +913,28 @@
     "blood": "With blood",
     "color_change": "Unusual color"
   },
-  "emergency_obj": {
-    "title": "Did you just lost your pet?",
-    "alert-message": "",
-    "label_input": "",
-    "placeholder_input": "",
-    "step_1": "",
-    "step_2": "",
-    "step_3": "",
-    "step_4": "",
-    "step_5": ""
+  "emergency_tracker": {
+    "title": "You're Not Alone in This Emergency",
+    "title_button": "¿Acabas de perder a tu mascota?",
+    "introduction": "After extensive research and collaboration with professional rescuers, we've developed an innovative tool to help locate your pet during emergencies. Simply enter the address where your dog was last seen, and our system will use Google Maps to display an approximate location with a search radius indicator. This feature is designed for rapid response, significantly increasing your chances of being reunited with your furry family member.",
+    "steps": {
+      "step1": "Mark your pet as lost in pet details",
+      "step2": "Add the last known location to generate search radius",
+      "step3": "Contact local authorities and shelters with the search area",
+      "step4": "Print emergency flyers and share on social media",
+      "step5": "Leave familiar scents and food at the location"
+    },
+    "links": {
+      "pet_details": "pet details",
+      "emergency_pdf": "emergency PDFs"
+    },
+    "actions": {
+      "go_to": "Go to",
+      "contact": "Contact",
+      "print": "Print",
+      "share": "Share",
+      "leave": "Leave",
+      "search": "Search"
+    }
   }
 }

@@ -435,6 +435,7 @@ export default function PetTracker() {
         >
           {t("tracker_page.title_tracker")}
         </h2>
+        <p>{t("tracker_page.subtitle_tracker_2")}</p>
         <div className="flex flex-col md:flex-row gap-3 mt-3 mb-3">
           <div className="w-full">
             <label className="block text-slate-50">

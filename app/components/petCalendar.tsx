@@ -437,7 +437,7 @@ export default function PetCalendar({
 
                 <div className="space-y-2">
                   {[
-                    { label: "label_mood", name: "mood" },
+                    // { label: "label_mood", name: "mood" },
                     // { label: "label_poop_quality", name: "poop_quality" },
                     {
                       label: "label_minutes_walked",

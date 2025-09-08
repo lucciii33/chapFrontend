@@ -441,6 +441,7 @@
     "title_create": "Crear",
 
     "title_tracker": "Diario de tu mascota",
+    "subtitle_tracker_2": "Este formulario solo permite registrar información del día de hoy. Si deseas llenar días pasados o futuros, utiliza el formulario del calendario.",
 
     "label_mood": "Estado de ánimo",
     "placeholder_mood": "Estado de ánimo",
@@ -802,6 +803,7 @@
     "diary_deleted": "Datos eliminados con éxito",
     "diary_delete_error": "Error al eliminar datos",
     "diary_load_error": "No se pudieron cargar los datos",
+    "add_weight_height_first": "Por favor, agrega primero el peso y la altura de la mascota",
     "diary_already_exists": "Ya tienes un tracker para hoy. Puedes editarlo si deseas.",
     "diary_already_exists_toast": "Ya tienes un tracker para hoy. Puedes editarlo si lo deseas.",
     "fill_one_field_toast": "Debes llenar al menos un campo antes de guardar."
@@ -908,15 +910,28 @@
     "blood": "Con sangre",
     "color_change": "Color inusual"
   },
-  "emergency_obj": {
-    "title": "Acabas de perder a tu mascota?",
-    "alert-message": "",
-    "label_input": "",
-    "placeholder_input": "",
-    "step_1": "",
-    "step_2": "",
-    "step_3": "",
-    "step_4": "",
-    "step_5": ""
+  "emergency_tracker": {
+    "title": "No Estás Solo en Esta Emergencia",
+    "title_button": "Did you just lose your pet?",
+    "introduction": "Tras colaborar con expertos en rescate animal, hemos desarrollado una herramienta que crea un cerco virtual del área donde podría estar tu perrito durante las primeras 24 horas. Ingresa la dirección donde se perdió tu mascota y nuestro sistema utilizará Google Maps para mostrarte un mapa con ubicación aproximada y el radio de búsqueda. Esta función te ayuda a actuar rápidamente y maximizar las posibilidades de encontrar a tu compañero peludo.",
+    "steps": {
+      "step1": "Marca tu mascota como perdida en los detalles",
+      "step2": "Añade la última ubicación conocida para generar el radio de búsqueda",
+      "step3": "Contacta autoridades locales y refugios con el área de búsqueda",
+      "step4": "Imprime volantes de emergencia y comparte en redes sociales",
+      "step5": "Deja alimentos y objetos con tu olor en la ubicación"
+    },
+    "links": {
+      "pet_details": "detalles de mascota",
+      "emergency_pdf": "PDFs de emergencia"
+    },
+    "actions": {
+      "go_to": "Ir a",
+      "contact": "Contacta",
+      "print": "Imprime",
+      "share": "Comparte",
+      "leave": "Deja",
+      "search": "Buscar"
+    }
   }
 }

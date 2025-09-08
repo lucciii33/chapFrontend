@@ -70,68 +70,62 @@ export default function PetTracker() {
         className="text-2xl lg:text-3xl font-bold text-white mb-5"
         style={{ fontFamily: "chapFont" }}
       >
-        You are not alone in this emergency
+        {t("emergency_tracker.title")}
       </h1>
       <div className="mb-5 border border-gray-700 bg-gray-800 rounded-lg p-5">
-        luego de una busqueda constante de perros perdidos, hemos desarrollado
-        una herramienta que te permite localizar a tu mascota en caso de
-        emergencia. Simplemente ingresa la dirección donde se perdió tu perro y
-        nuestra aplicación utilizará Google Maps para mostrarte un mapa con la
-        ubicación aproximada de tu mascota y un círculo que indica el área donde
-        podría encontrarse. Esta función es especialmente útil para actuar
-        rápidamente y aumentar las posibilidades de encontrar a tu amigo peludo.
+        {t("emergency_tracker.introduction")}
       </div>
       <div className="flex gap-2 border-b border-gray-700 pb-3">
         <div>1</div>
         <div>
-          go to{" "}
+          {t("emergency_tracker.actions.go_to")}{" "}
           <Link className="underline text-teal-500" to={`/pets/${petId}`}>
-            {" "}
-            pet details and mark you pet as lost
-          </Link>
+            {t("emergency_tracker.links.pet_details")}
+          </Link>{" "}
+          {t("emergency_tracker.steps.step1")}
         </div>
       </div>
       <div className=" border-b border-gray-700 pb-3 mt-2">
         <div className="flex gap-2">
           <div>2</div>
           <div>
-            Add the adrees where you last see you rdog we will generate a map
-            with the radio
+            <div>{t("emergency_tracker.steps.step2")}</div>
           </div>
         </div>
 
         <div>
           {" "}
-          <EmergencyNow petId={Number(petId)} weeklyActivity={weeklyActivity} />
+          <EmergencyNow
+            petId={Number(petId)}
+            weeklyActivity={weeklyActivity}
+            t={t}
+          />
         </div>
       </div>
 
       <div className="flex gap-2 border-b border-gray-700 pb-3 mt-2">
         <div>3</div>
         <div>
-          contact local aoutorities and shelters to report your lost dog and
-          show him the radio the dog could be
+          <div>{t("emergency_tracker.steps.step3")}</div>
         </div>
       </div>
       <div className="flex gap-2 border-b border-gray-700 pb-3 mt-2">
         <div>4</div>
         <div>
-          call a frind, prinf out{" "}
+          {t("emergency_tracker.actions.print")}{" "}
           <Link
             className="underline text-teal-500"
             to={`/emergencyPdf/${petId}`}
           >
-            emergency pds
+            {t("emergency_tracker.links.emergency_pdf")}
           </Link>
-          , and share it your social media so people on the area can help you.
+          , {t("emergency_tracker.actions.share")}{" "}
+          {t("emergency_tracker.steps.step4")}
         </div>
       </div>
       <div className="flex gap-2 border-b border-gray-700 pb-3 mt-2">
         <div>5</div>
-        <div>
-          leave food and somthing with your scent on the area, dogs have a great
-          sense of smell and this will help him to find his way back to you.
-        </div>
+        <div>{t("emergency_tracker.steps.step5")}</div>
       </div>
     </div>
   );

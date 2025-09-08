@@ -4,9 +4,11 @@ import { PetTrackerContext } from "../context/PetTrackContext";
 export function EmergencyNow({
   petId,
   weeklyActivity,
+  t,
 }: {
   petId: number;
-  weeklyActivity: any; // o el tipo que tengas definido
+  weeklyActivity: any; // o el tipo que tengas definido,
+  t: any;
 }) {
   const { getLostDogArea, getLastLostDogEvent } = PetTrackerContext();
   const [address, setAddress] = useState("");
@@ -99,7 +101,7 @@ export function EmergencyNow({
           onClick={handleSearch}
           className="px-4 py-2 bg-teal-600 text-white rounded"
         >
-          Buscar
+          {t("emergency_tracker.actions.search")}
         </button>
       </div>
 
