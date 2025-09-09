@@ -147,6 +147,24 @@ export default function AdminDashboard() {
   };
 
   console.log("currentOrders", currentOrders);
+
+  const calculateFinalPrice = (price, country) => {
+    const countryCode = country?.toLowerCase() || "";
+
+    const ivaCountries = ["es", "pt", "it", "fr", "de", "nl", "be", "ie"];
+    const ivaRate = 0.21;
+    const shippingCost = 10; // céntimos = 10 Eu
+
+    if (["us", "usa"].includes(countryCode)) {
+      return price + shippingCost;
+    }
+
+    if (ivaCountries.includes(countryCode)) {
+      return price + price * ivaRate;
+    }
+    console.log("price", price);
+    return price;
+  };
   return (
     <div className="p-[40px]">
       <Link to="/inventory">INVENTORY</Link>
@@ -250,13 +268,19 @@ export default function AdminDashboard() {
                         </p>
                         <p>
                           <strong>Tag:</strong> {item?.tag.shape} -{" "}
-                          {item.tag.material}
+                          {item.tag.material} - {item?.tag.color}
                         </p>
                         <p>
-                          <strong>Quantity</strong> ${item?.quantity}
+                          <strong>Quantity</strong>
+                          {item?.quantity}
                         </p>
                         <p>
-                          <strong>Precio:</strong> ${item?.price}
+                          <strong>Precio:</strong>{" "}
+                          {calculateFinalPrice(
+                            item?.price,
+                            order?.shipping_address?.country
+                          )}{" "}
+                          Eu
                         </p>
                         <button
                           onClick={() =>

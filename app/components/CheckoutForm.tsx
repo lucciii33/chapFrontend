@@ -33,6 +33,7 @@ const CheckoutForm: React.FC<{
   const { auth, cart } = useGlobalContext();
   const { user } = auth;
   const { allCarts } = cart;
+  console.log("allCarts", allCarts);
 
   const { t } = useTranslation();
   const stripe = useStripe();
@@ -134,7 +135,34 @@ const CheckoutForm: React.FC<{
       return;
     }
 
-    const totalPrice = allCarts.reduce((acc, item) => acc + item.subtotal, 0);
+    const calculateTotalPrice = (baseTotal, country) => {
+      const countryCode = country?.toLowerCase() || "";
+
+      const ivaCountries = ["es", "pt", "it", "fr", "de", "nl", "be", "ie"];
+      const ivaRate = 0.21;
+      const shippingCost = 10; // en euros
+
+      if (["us", "usa"].includes(countryCode)) {
+        return baseTotal + shippingCost;
+      }
+
+      if (ivaCountries.includes(countryCode)) {
+        return baseTotal + baseTotal * ivaRate;
+      }
+
+      return baseTotal;
+    };
+
+    // 👉 suma de todos los precios
+    const baseTotal = allCarts.reduce(
+      (acc, item) => acc + item.price * item.quantity,
+      0
+    );
+
+    // 👉 aplica IVA o envío
+    const totalPrice = calculateTotalPrice(baseTotal, selectedAddress?.country);
+
+    // const totalPrice = allCarts.reduce((acc, item) => acc + item.subtotal, 0);
 
     const orderData = {
       user_id: user.id,

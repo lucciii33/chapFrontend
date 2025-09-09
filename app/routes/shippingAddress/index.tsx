@@ -7,6 +7,7 @@ import EditDialogShippinAddress from "~/components/editDialogShippingAddress";
 import DeleteDialogAddress from "~/components/deleteDialogAddress";
 import CheckoutPage from "../checkout";
 import { useTranslation } from "react-i18next";
+import { showErrorToast } from "~/utils/toast";
 
 export default function ShippingAddress({
   setRefreshAddresses,
@@ -18,6 +19,7 @@ export default function ShippingAddress({
   console.log("user", user);
   const [selectedAddress, setSelectedAddress] = useState<number | null>(null);
   const { t } = useTranslation();
+  const [errors, setErrors] = useState<{ [key: string]: boolean }>({});
 
   const {
     createShippingAddress,
@@ -61,6 +63,23 @@ export default function ShippingAddress({
   };
 
   const handleSubmit = async () => {
+    const newErrors: { [key: string]: boolean } = {};
+
+    // ✅ validamos TODOS los campos
+    if (!formData.country) newErrors.country = true;
+    if (!formData.state) newErrors.state = true;
+    if (!formData.city) newErrors.city = true;
+    if (!formData.postal_code) newErrors.postal_code = true;
+    if (!formData.street_address) newErrors.street_address = true;
+    // if (!formData.apartment) newErrors.apartment = true;
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      showErrorToast("Por favor completa todos los campos");
+      return;
+    }
+
+    setErrors({}); // limpiamos errores
     await createShippingAddress(user.id, formData); // Enviamos la dirección
     const updatedAddresses = await getShippingAddresses(user.id); // Llamamos de nuevo al GET
     setAddresses(await updatedAddresses.json()); // Aseguramos que guardamos la data correcta
@@ -141,7 +160,9 @@ export default function ShippingAddress({
               {t("shipping_address.country_label")}
             </label>
             <select
-              className="w-full px-4 py-2 border rounded-lg"
+              className={`w-full px-4 py-2 border rounded-lg ${
+                errors.country ? "border-red-500" : "border-gray-300"
+              }`}
               name="country"
               value={formData.country}
               onChange={handleChange}
@@ -167,7 +188,9 @@ export default function ShippingAddress({
                 {t("shipping_address.state_label")}
               </label>
               <input
-                className="w-full px-4 py-2 border rounded-lg"
+                className={`w-full px-4 py-2 border rounded-lg ${
+                  errors.state ? "border-red-500" : "border-gray-300"
+                }`}
                 placeholder={t("shipping_address.state_label")}
                 name="state"
                 value={formData.state}
@@ -181,7 +204,9 @@ export default function ShippingAddress({
               </label>
               <input
                 //   type="password"
-                className="w-full px-4 py-2 border rounded-lg"
+                className={`w-full px-4 py-2 border rounded-lg ${
+                  errors.city ? "border-red-500" : "border-gray-300"
+                }`}
                 placeholder={t("shipping_address.city_label")}
                 name="city"
                 value={formData.city}
@@ -196,7 +221,9 @@ export default function ShippingAddress({
               </label>
               <input
                 //   type="password"
-                className="w-full px-4 py-2 border rounded-lg"
+                className={`w-full px-4 py-2 border rounded-lg ${
+                  errors.street_address ? "border-red-500" : "border-gray-300"
+                }`}
                 placeholder={t("shipping_address.street_label")}
                 name="street_address"
                 value={formData.street_address}
@@ -212,7 +239,9 @@ export default function ShippingAddress({
               </label>
               <input
                 //   type="password"
-                className="w-full px-4 py-2 border rounded-lg"
+                className={`w-full px-4 py-2 border rounded-lg ${
+                  errors.postal_code ? "border-red-500" : "border-gray-300"
+                }`}
                 placeholder={t("shipping_address.zip_label")}
                 name="postal_code"
                 value={formData.postal_code}
@@ -225,7 +254,9 @@ export default function ShippingAddress({
               </label>
               <input
                 //   type="password"
-                className="w-full px-4 py-2 border rounded-lg"
+                className={`w-full px-4 py-2 border rounded-lg ${
+                  errors.apartment ? "border-red-500" : "border-gray-300"
+                }`}
                 placeholder={t("shipping_address.apartment_label")}
                 name="apartment"
                 value={formData.apartment}
