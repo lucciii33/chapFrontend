@@ -129,7 +129,7 @@
         "owner1": "Owner 1",
         "owner2": "Owner 2",
         "petName": "Pet's name",
-        "age": "Pet's age",
+        "age": "Pet's age (if younger than 1 year, enter 1)",
         "personality": "Personality",
         "address": "Address",
         "phone1": "Contact number 1",
@@ -224,7 +224,7 @@
     "owner1": "Owner 1",
     "owner2": "Owner 2",
     "petName": "Pet’s name",
-    "petAge": "Pet’s age",
+    "petAge": "Pet’s age (if younger than 1 year, enter 1)",
     "color": "Color",
     "breed": "Breed",
     "personality": "Personality",
@@ -382,7 +382,7 @@
     "expense_label_dogs": "Filter by Pet",
     "expense_label_select": "All pets",
     "totalExpense": "TOTAL EXPENSE",
-    "lockedFeature": "Get your tag and unlock this and many more features.",
+    "lockedFeature": "Get your pet tag and unlock this and many more features.",
     "buttonClose": "Close"
   },
   "travelMode": {
@@ -664,7 +664,7 @@
     "button": "Pay"
   },
   "pet_tracker": {
-    "empty_message": "Get your tag and unlock this and many more features.",
+    "empty_message": "Get your pet tag and unlock this and many more features.",
     "buy_message_2": "Once your pet has its tag, you'll unlock this special feature.",
     "button": "Close"
   },

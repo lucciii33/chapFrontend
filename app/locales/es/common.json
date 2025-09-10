@@ -129,7 +129,7 @@
         "owner1": "Dueño 1",
         "owner2": "Dueño 2",
         "petName": "Nombre de la mascota",
-        "age": "Edad de la mascota",
+        "age": "Edad de la mascota (si es menor de 1 año, escribe 1)",
         "personality": "Personalidad",
         "address": "Dirección",
         "phone1": "Número de contacto 1",
@@ -223,8 +223,8 @@
     "travelMode": "Mostrar modo viaje",
     "owner1": "Dueño 1",
     "owner2": "Dueño 2",
-    "petName": "Nombre",
-    "petAge": "Edad",
+    "petName": "Nombre de la mascota",
+    "petAge": "Edad de la mascota (si es menor de 1 año, escribe 1)",
     "color": "Color",
     "breed": "Raza",
     "personality": "Personalidad",
@@ -382,7 +382,7 @@
       "action": "Acción"
     },
     "totalExpense": "GASTO TOTAL",
-    "lockedFeature": "Adquiere tu chapa y desbloquea esta y muchas funciones más.",
+    "lockedFeature": "Adquiere la chapa de tu mascota y desbloquea esta y muchas funciones más.",
     "buttonClose": "Cerrar"
   },
   "travelMode": {
@@ -661,7 +661,7 @@
     "button": "Pagar"
   },
   "pet_tracker": {
-    "empty_message": "Adquiere tu chapa y desbloquea esta y muchas funciones más.",
+    "empty_message": "Adquiere la chapa de tu mascota y desbloquea esta y muchas funciones más.",
     "buy_message_2": "Una vez que tu mascota tenga su chapa, podrás acceder a esta función especial.",
     "button": "Cerrar"
   },

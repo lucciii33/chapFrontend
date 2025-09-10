@@ -210,7 +210,7 @@ export default function Card({ petObj }: CardProps) {
         className=" relative card bg-base-100 w-96 shadow-xl border-[5px] border-[#0e0f11] bg-[#2b2f38] "
         style={{ zIndex: actSideBar ? -10 : "auto" }}
       >
-        <div className="absolute bottom-[59%] left-[80%] transform -translate-x-1/2 w-[90%]">
+        <div className="absolute bottom-[59%] left-[55%] md:left-[57%] transform -translate-x-1/2 w-[90%]">
           {petObj?.tags && petObj?.tags.length > 0 && (
             <Link
               to={`/pets/${petObj.id}`}
@@ -226,7 +226,7 @@ export default function Card({ petObj }: CardProps) {
             </Link>
           )}
         </div>
-        <div className="absolute bottom-[89%] left-[125%] transform -translate-x-1/2 w-[90%]">
+        <div className="absolute bottom-[89%] left-[50%] md:left-[50%] transform -translate-x-1/2 w-[90%]">
           <AlertCircle petObj={petObj} />
         </div>
 
