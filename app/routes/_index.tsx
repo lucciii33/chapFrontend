@@ -13,6 +13,7 @@ import WhyChap from "~/components/whyChap";
 import Founders from "~/components/founder";
 import { useGlobalContext } from "~/context/GlobalProvider";
 import GpsLandignd from "~/components/gpsLandin";
+import Footer from "~/components/footer";
 
 export const meta: MetaFunction = () => {
   return [
@@ -158,6 +159,7 @@ export default function Index() {
         </div>
       </div>
       <ScrollVideo />
+      <Footer />
     </>
   );
 }
