@@ -8,6 +8,7 @@ type User = {
   token_type: string;
   full_name: string;
   id: number;
+  email_subscription: boolean;
 };
 
 type RegisterData = {
@@ -36,6 +37,7 @@ type LoginResponse = {
   token_type: string;
   full_name: string;
   id: number;
+  email_subscription: boolean;
 };
 
 export const useAuthContext = () => {
@@ -51,6 +53,15 @@ export const useAuthContext = () => {
       setUser(JSON.parse(storedUser));
     }
   }, []);
+
+  const getToken = (): string | null => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      return user.access_token; // token guardado al login
+    }
+    return null;
+  };
 
   const login = async (data: LoginData): Promise<LoginResponse | null> => {
     try {
@@ -71,6 +82,7 @@ export const useAuthContext = () => {
         token_type: responseData.token_type,
         full_name: responseData.full_name,
         id: responseData.id,
+        email_subscription: responseData.email_subscription,
       };
       setUser(userData);
       localStorage.setItem("user", JSON.stringify(userData));
@@ -157,5 +169,58 @@ export const useAuthContext = () => {
     }
   };
 
-  return { user, login, register, logout, requestPasswordReset, resetPassword };
+  const updateEmailSubscription = async (
+    userId: number,
+    emailSubscription: boolean
+  ): Promise<boolean> => {
+    try {
+      const token = getToken();
+      if (!token) throw new Error("No token found");
+
+      const response = await fetch(
+        `${baseUrl}/users/${userId}/email-subscription`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            user_id: userId,
+            email_subscription: emailSubscription,
+          }),
+        }
+      );
+
+      if (!response.ok) throw new Error("Error al actualizar suscripción");
+      setUser((prev) => {
+        if (!prev) return prev;
+        const updated = { ...prev, email_subscription: emailSubscription };
+        localStorage.setItem("user", JSON.stringify(updated));
+        return updated;
+      });
+
+      showSuccessToast(
+        emailSubscription
+          ? t("subscription.enabled")
+          : t("subscription.disabled")
+      );
+
+      return true;
+    } catch (error) {
+      console.error("Error al actualizar suscripción:", error);
+      showErrorToast(t("subscription.error"));
+      return false;
+    }
+  };
+
+  return {
+    user,
+    login,
+    register,
+    logout,
+    requestPasswordReset,
+    resetPassword,
+    updateEmailSubscription,
+  };
 };

@@ -23,14 +23,22 @@ export default function Navbar() {
   const { activateSideBar, actSideBar, closeSideBar, allCarts } = cart;
   const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);
+  const { logout, user } = auth;
+  const [subscribed, setSubscribed] = useState(null);
+
+  useEffect(() => {
+    if (user?.email_subscription !== undefined) {
+      setSubscribed(user?.email_subscription);
+    }
+  }, [user]);
+  console.log("subscribedsubscribed", subscribed);
 
   const toggleLang = () => {
     const nextLang = i18n.language === "es" ? "en" : "es";
     i18n.changeLanguage(nextLang);
   };
 
-  const { logout, user } = auth;
-
+  console.log("user", user);
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
@@ -40,6 +48,13 @@ export default function Navbar() {
   useEffect(() => {
     setOpen(false);
   }, [location.pathname, i18n.language]);
+
+  const handleSave = async () => {
+    if (user) {
+      await auth.updateEmailSubscription(user.id, subscribed);
+    }
+    document.getElementById("user-modal").close();
+  };
 
   const renderLinks = () => (
     <>
@@ -56,6 +71,13 @@ export default function Navbar() {
               {t("navbar.dashboard")}
             </button>
           </Link>
+
+          <button className="btn md:w-atuo">
+            <UserIcon
+              className="h-6 w-6 text-teal-500"
+              onClick={() => document.getElementById("user-modal").showModal()}
+            />
+          </button>
 
           <button
             className="btn text-teal-500"
@@ -159,6 +181,35 @@ export default function Navbar() {
           </div>
         </div>
       </div>
+      <dialog id="user-modal" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">User Settings</h3>
+
+          <div className="form-control my-4">
+            <label className="cursor-pointer label">
+              <span className="label-text">Email Subscription</span>
+              <input
+                type="checkbox"
+                className="toggle toggle-primary"
+                checked={subscribed}
+                onChange={(e) => setSubscribed(e.target.checked)}
+              />
+            </label>
+          </div>
+
+          <div className="modal-action">
+            <button
+              className="btn"
+              onClick={() => document.getElementById("user-modal").close()}
+            >
+              Cerrar
+            </button>
+            <button className="btn btn-primary" onClick={handleSave}>
+              Guardar
+            </button>
+          </div>
+        </div>
+      </dialog>
     </>
   );
 }
