@@ -1621,7 +1621,7 @@ export default function PetDetail() {
                   </div>
 
                   {/* Botón para crear el historial */}
-                  <div className="flex gap-3 flex-col md:flex-row justify-end mb-4 mt-4">
+                  <div className="flex gap-3 justify-end mb-4 mt-4">
                     {/* <button
                   className="border-none py-3 px-4  bg-teal-500 text-white  rounded-lg  w-full md:w-auto"
                   onClick={() =>
@@ -1964,7 +1964,7 @@ export default function PetDetail() {
                     rel="noopener noreferrer"
                     className="text-blue-500"
                   >
-                    {file.file_url}
+                    {file.filename}
                   </a>
                   <button
                     className="text-red-500"

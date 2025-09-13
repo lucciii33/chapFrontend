@@ -149,6 +149,17 @@ export default function Index() {
                   {t("ChapStats.boxThreePar")}
                 </small>
               </div>
+              <div className="w-[320px] h-[250px] bg-cyan-700 mt-3 flex flex-col items-center justify-center  text-center rounded-lg p-3">
+                <h2
+                  className="text-white text-4xl font-bold "
+                  style={{ fontFamily: "chapFont" }}
+                >
+                  {t("ChapStats.boxFourTitle")}
+                </h2>
+                <small className="text-white">
+                  {t("ChapStats.boxFourPar")}
+                </small>
+              </div>
             </div>
             <div>
               {/* <h1 className="text-white text-5xl font-bold z-10 relative">

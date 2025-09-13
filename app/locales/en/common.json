@@ -33,7 +33,9 @@
     "boxTwoTitle": "45% of pet owners forget their pet’s medical history.",
     "boxTwoPar": "CHAP remembers it for you",
     "boxThreeTitle": "Over €1,200/year spent on our pets.",
-    "boxThreePar": "CHAP keeps your wallet in check."
+    "boxThreePar": "CHAP keeps your wallet in check.",
+    "boxFourTitle": "60% of health problems are detected late.",
+    "boxFourPar": "CHAP notifies you when something is wrong."
   },
 
   "founder": {
@@ -366,6 +368,7 @@
     "recurring": "Recurring",
     "saveButton": "SAVE",
     "filters": "Filters",
+    "filters_text": "We will show you the current month, but to see your past expenses you can use our filters.",
     "allPets": "All pets",
     "filterButton": "Filter",
     "tableHeaders": {

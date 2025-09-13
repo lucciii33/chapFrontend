@@ -417,7 +417,11 @@ export default function Finances() {
 
       <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 p-5 mt-5">
         <div>
-          <h2> {t("expenses.filters")}</h2>
+          <h1 className="text-lg" style={{ fontFamily: "chapFont" }}>
+            {" "}
+            {t("expenses.filters")}
+          </h1>
+          <p className="text-sm"> {t("expenses.filters_text")}</p>
           <div className="flex flex-col md:flex-row items-center mt-4 justify-between gap-2">
             <div className="w-full">
               <label>{t("expenses.expense_label_from")}</label>
@@ -507,7 +511,7 @@ export default function Finances() {
           </tbody>
         </table>
         {/* //aqui va el monto total gastado AL MES! */}
-        <div>
+        <div style={{ fontFamily: "chapFont" }} className="mt-2">
           {t("expenses.totalExpense")}: {totalSpentFiltered}
         </div>
       </div>

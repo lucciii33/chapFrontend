@@ -33,7 +33,9 @@
     "boxTwoTitle": "El 45% de los dueños olvida su historial médico.",
     "boxTwoPar": "CHAP lo recuerda por ti ",
     "boxThreeTitle": "+1.200 € al año invertimos en ellos.",
-    "boxThreePar": " CHAP lleva el control de tu billetera"
+    "boxThreePar": "CHAP lleva el control de tu billetera",
+    "boxFourTitle": "El 60 % de los problemas de salud se detectan tarde.",
+    "boxFourPar": "CHAP te avisa cuando algo no va bien."
   },
 
   "founder": {
@@ -57,7 +59,7 @@
   },
 
   "scrollVideo": {
-    "scroll.text1": "Tu perro <strong class='text-color-bg'>es único</strong>. Su Dog Tag también. 🐾✨",
+    "scroll.text1": "Tu mascota <strong class='text-color-bg'>es único</strong>. Su Dog Tag también. 🐾✨",
     "scroll.text2": "El mundo puede ser enorme, pero con un <strong class='text-color-bg'>simple escaneo</strong>,<br /> siempre sabrás dónde está.",
     "scroll.text3": "Todo su <strong class='text-color-bg'>cuidado</strong>, sus <strong class='text-color-bg-2'>aventuras</strong>, su <strong class='text-color-bg-3'>historia...</strong> al alcance de tu mano."
   },
@@ -370,6 +372,7 @@
     "recurring": "Recurrente",
     "saveButton": "GUARDAR",
     "filters": "Filtros",
+    "filters_text": "Te mostraremos el mes corriente, pero para ver tus gastos pasados puedes usar nuestros filtros.",
     "allPets": "Todas las mascotas",
     "filterButton": "Filtrar",
     "tableHeaders": {
