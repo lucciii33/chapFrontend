@@ -213,7 +213,8 @@
     "create_vet_visits": "Create veterinary visits",
     "create_vaccines": "Create vaccines",
     "create_travel_mode": "Create travel mode",
-    "delete_pet": "I want to delete this pet"
+    "delete_pet": "I want to delete this pet",
+    "delete_pet_test_small": "If you delete your pet, you will lose all the information added so far. We recommend not doing it."
   },
   "tagInfo": {
     "title": "General information",
@@ -936,5 +937,12 @@
       "leave": "Leave",
       "search": "Search"
     }
+  },
+  "setting_user": {
+    "title": "User settings",
+    "description": "If you don’t want to receive any more emails, please disable the switch.",
+    "title_2": "Email subscription",
+    "save": "Save",
+    "close": "Close"
   }
 }

@@ -183,14 +183,15 @@ export default function Navbar() {
       </div>
       <dialog id="user-modal" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">User Settings</h3>
+          <h3 className="font-bold text-lg">{t("setting_user.title")}</h3>
+          <p className="font-bold text-xs">{t("setting_user.description")}</p>
 
           <div className="form-control my-4">
             <label className="cursor-pointer label">
-              <span className="label-text">Email Subscription</span>
+              <span className="label-text">{t("setting_user.title_2")}</span>
               <input
                 type="checkbox"
-                className="toggle toggle-primary"
+                className="toggle checked:bg-teal-500 checked:border-teal-500"
                 checked={subscribed}
                 onChange={(e) => setSubscribed(e.target.checked)}
               />
@@ -202,10 +203,10 @@ export default function Navbar() {
               className="btn"
               onClick={() => document.getElementById("user-modal").close()}
             >
-              Cerrar
+              {t("setting_user.close")}
             </button>
-            <button className="btn btn-primary" onClick={handleSave}>
-              Guardar
+            <button className="btn bg-teal-500" onClick={handleSave}>
+              {t("setting_user.save")}
             </button>
           </div>
         </div>

@@ -878,7 +878,7 @@ export default function PetDetail() {
                       )}
                     </div>
                   </div>
-                  <div className="mb-4">
+                  <div className="mb-4 border border-l-gray-50 p-5 rounded">
                     <h2 className="text-1xl font-bold text-white">
                       {t("tagInfo.description")}
                     </h2>
@@ -1769,6 +1769,12 @@ export default function PetDetail() {
                   </div>
                   <div className="mt-3 flex gap-3 justify-end">
                     <button
+                      className="btn py-3 px-4 rounded-lg"
+                      onClick={() => toggleCollapse("vaccines")}
+                    >
+                      {t("create_vaccine.button.close")}
+                    </button>
+                    <button
                       className=" border-none py-3 px-4  bg-teal-900 text-white rounded-lg  w-full md:w-auto"
                       onClick={handleCreateVaccine}
                       disabled={loading}
@@ -1776,12 +1782,6 @@ export default function PetDetail() {
                       {loading
                         ? t("create_vaccine.button.create-loading")
                         : t("create_vaccine.button.create")}
-                    </button>
-                    <button
-                      className="btn py-3 px-4 rounded-lg"
-                      onClick={() => toggleCollapse("vaccines")}
-                    >
-                      {t("create_vaccine.button.close")}
                     </button>
                   </div>
                 </div>
@@ -1804,13 +1804,17 @@ export default function PetDetail() {
           </div>
 
           <div
-            className="px-5 flex items-center mb-[40px] cursor-pointer"
+            className="px-5 flex items-center cursor-pointer"
             onClick={openPetDeleteModal}
           >
             <div>{t("general_pet_id.delete_pet")}</div>
+
             <div className="">
               <TrashIcon className="w-6 h-6" />
             </div>
+          </div>
+          <div className="px-5 text-xs font-light mb-[40px] ">
+            {t("general_pet_id.delete_pet_test_small")}
           </div>
         </div>
       ) : (
@@ -2000,7 +2004,7 @@ export default function PetDetail() {
           />
 
           {/* Botones */}
-          <div className="modal-action">
+          <div className="modal-action pb-[2rem]">
             <button
               className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 rounded-md"
               onClick={handleEditVetSession}
@@ -2212,7 +2216,7 @@ export default function PetDetail() {
             </div>
           </div>
 
-          <div className="p-5">
+          <div className="p-0 md:p-5 pt-5 md:pt-0">
             {petByID?.medical_history?.length > 0 &&
             petByID.medical_history[0].vets?.length > 0 ? (
               paginatedVetSessions?.map((vetSession) => (

@@ -212,7 +212,8 @@
     "create_vet_visits": "Crear visitas al veterinario",
     "create_vaccines": "Crear vacunas",
     "create_travel_mode": "Crear modo viaje",
-    "delete_pet": "Quiero borrar esta mascota"
+    "delete_pet": "Quiero borrar esta mascota",
+    "delete_pet_test_small": "Si eliminas tu mascota, perderás toda la información agregada hasta el momento. Te recomendamos no hacerlo."
   },
 
   "tagInfo": {
@@ -933,5 +934,12 @@
       "leave": "Deja",
       "search": "Buscar"
     }
+  },
+  "setting_user": {
+    "title": "Configuración de usuario",
+    "description": "Si no quieres recibir más correos electrónicos, por favor desactiva el interruptor.",
+    "title_2": "Suscripción de correos",
+    "save": "Guardar",
+    "close": "Cerrar"
   }
 }

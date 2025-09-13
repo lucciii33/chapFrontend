@@ -542,7 +542,7 @@ export default function Dashboard() {
                   {t("petCreation.step2.subtitle")}
                 </p>
                 <form method="dialog" className="mt-5">
-                  <div>
+                  <div className="border border-l-gray-50 p-5 rounded">
                     <h2 className="text-1xl font-bold text-white">
                       {t("petCreation.step2.helpText")}
                     </h2>
@@ -622,7 +622,7 @@ export default function Dashboard() {
                     </div>
                   </div>
 
-                  <div className="flex flex-col md:flex-row">
+                  <div className="flex flex-col md:flex-row mt-4">
                     <div className="mb-4 w-full">
                       <label>{t("petCreation.step2.form.owner1")}</label>
                       <input
@@ -818,7 +818,7 @@ export default function Dashboard() {
                     />
                   </div>
 
-                  <div className="modal-action flex gap-2 items-center">
+                  <div className="modal-action flex gap-2 items-center pb-[2rem]">
                     <button className="btn mt-4">
                       {t("petCreation.step2.form.button1")}
                     </button>
