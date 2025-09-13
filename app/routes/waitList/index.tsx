@@ -114,6 +114,24 @@ export default function WaitList() {
                 <option className="text-black" value="venezuela">
                   Venezuela
                 </option>
+                <option className="text-black" value="argentina">
+                  Argentina
+                </option>
+                <option className="text-black" value="dominicana">
+                  República Dominicana
+                </option>
+                <option className="text-black" value="mexico">
+                  México
+                </option>
+                <option className="text-black" value="chile">
+                  Chile
+                </option>
+                <option className="text-black" value="colombia">
+                  Colombia
+                </option>
+                <option className="text-black" value="panama">
+                  Panamá
+                </option>
               </select>
             </div>
           </div>

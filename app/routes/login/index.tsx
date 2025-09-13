@@ -23,7 +23,7 @@ export default function Login() {
     const { name, value } = e.target;
     setLoginData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: name === "email" ? value.toLowerCase() : value,
     }));
   };
   const handleLoginClick = async (e: React.FormEvent) => {
