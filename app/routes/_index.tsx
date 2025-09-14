@@ -109,7 +109,7 @@ export default function Index() {
         <WhyChap />
         {/* <GpsLandignd /> */}
         <Founders />
-        <div className="bg-[#65BCBB] h-[135vh] lg:h-[65vh] pb-5">
+        <div className="bg-[#65BCBB] h-[170vh] lg:h-[70vh] pb-5">
           <div className="">
             <h1
               className="text-[70px] font-bold text-black p-5 text-center"
