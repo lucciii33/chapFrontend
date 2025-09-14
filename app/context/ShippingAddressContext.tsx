@@ -51,7 +51,6 @@ export const ShippingAddressContext = () => {
   };
 
   const getShippingAddresses = async (userId: number) => {
-    console.log(",,anadp ");
     const token = getToken();
     const res = await fetch(`${baseUrl}/api/users/${userId}/shipping_address`, {
       method: "GET",
@@ -64,7 +63,6 @@ export const ShippingAddressContext = () => {
   };
 
   const deleteShippingAddresses = async (shippingAddressId: number) => {
-    console.log(",,anadp ");
     const token = getToken();
     try {
       const res = await fetch(

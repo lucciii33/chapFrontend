@@ -71,7 +71,6 @@ export const useTravelModelContext = () => {
     try {
       const token = getToken();
       if (!token) throw new Error("Usuario no autenticado");
-      console.log("llamando desde conetxttt");
 
       const response = await fetch(
         `${baseUrl}/api/travel_mode/${travelModeId}`,

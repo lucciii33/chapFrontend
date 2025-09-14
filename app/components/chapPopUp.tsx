@@ -28,7 +28,6 @@ function Popup({ petId, onClose }: PopupProps) {
 
   const handleCreateTag = async () => {
     if (petId !== null) {
-      console.log(`Creating tag for pet ID ${petId}`, tagInfoData);
       onClose(); // Close the popup
     } else {
       alert("No pet selected");

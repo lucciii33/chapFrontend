@@ -13,7 +13,6 @@ export default function DeleteDialogAdmin({
   onConfirm,
   itemName = "this item",
 }: DeleteDialogProps) {
-  console.log("isOpen", isOpen);
   useEffect(() => {
     if (isOpen) {
       document.getElementById("delete-modal-admin")?.showModal();
@@ -34,7 +33,6 @@ export default function DeleteDialogAdmin({
           <button
             className="btn btn-error"
             onClick={() => {
-              console.log("🔴 BOTÓN FUNCIONA");
               onConfirm();
             }}
           >

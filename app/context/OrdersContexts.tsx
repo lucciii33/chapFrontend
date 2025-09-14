@@ -211,7 +211,6 @@ export const useOrdersContext = () => {
   };
 
   const deleteOrder = async (orderId: number): Promise<Order | null> => {
-    console.log("desde context", orderId);
     try {
       const token = getToken();
       if (!token) throw new Error("Usuario no autenticado");

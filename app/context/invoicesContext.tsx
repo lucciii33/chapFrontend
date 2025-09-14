@@ -33,7 +33,6 @@ export const useInvoiceAdminContext = () => {
   };
 
   const fetchInvoices = async () => {
-    console.log("LLAMANDOOOO");
     setLoading(true);
     setError(null);
     try {

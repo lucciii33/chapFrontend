@@ -17,7 +17,7 @@ export const useUserAlerts = (userId: number | undefined) => {
   const { t } = useTranslation();
 
   const [alerts, setAlerts] = useState<Alert[]>([]);
-  console.log("alertsalertsalerts", alerts);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fetchAlerts = async () => {
@@ -33,7 +33,6 @@ export const useUserAlerts = (userId: number | undefined) => {
           },
         }
       );
-      console.log("llamandooooooooooooo");
 
       const data = await res.json();
       setAlerts(data);

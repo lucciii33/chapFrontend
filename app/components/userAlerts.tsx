@@ -3,7 +3,6 @@ import { useUserAlerts } from "../context/AlertContext";
 
 export default function UserAlerts({ userId }: { userId: number }) {
   const { alerts, loading, error } = useUserAlerts(userId);
-  console.log("alertsalertsalerts", alerts);
 
   if (loading) return null;
   if (error) return null;

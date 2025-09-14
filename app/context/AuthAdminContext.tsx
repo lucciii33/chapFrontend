@@ -45,7 +45,6 @@ export const useAuthAdminContext = () => {
   }, []);
 
   const loginAdmin = async (data: LoginData): Promise<LoginResponse | null> => {
-    console.log("data", data);
     try {
       const response = await fetch(`${baseUrl}/admin/user/login`, {
         method: "POST",

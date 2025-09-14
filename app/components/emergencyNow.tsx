@@ -13,7 +13,6 @@ export function EmergencyNow({
   const { getLostDogArea, getLastLostDogEvent } = PetTrackerContext();
   const [address, setAddress] = useState("");
   const [lostInfo, setLostInfo] = useState<any | null>(null);
-  console.log("weeklyActivity", weeklyActivity);
 
   useEffect(() => {
     const fetchLastEvent = async () => {

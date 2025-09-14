@@ -16,7 +16,7 @@ import { useTranslation } from "react-i18next";
 export default function Navbar() {
   const { authAdmin } = useGlobalContext(); // ✅ AGREGADO
   const { adminUser, logoutAdmin } = authAdmin;
-  console.log("adminUser NAVBAR", adminUser);
+
   const [theme, setTheme] = useState("light");
   const location = useLocation();
   const { auth, cart } = useGlobalContext();
@@ -31,14 +31,12 @@ export default function Navbar() {
       setSubscribed(user?.email_subscription);
     }
   }, [user]);
-  console.log("subscribedsubscribed", subscribed);
 
   const toggleLang = () => {
     const nextLang = i18n.language === "es" ? "en" : "es";
     i18n.changeLanguage(nextLang);
   };
 
-  console.log("user", user);
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);

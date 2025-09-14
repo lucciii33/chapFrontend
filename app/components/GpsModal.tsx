@@ -25,7 +25,7 @@ export default function GpsModal({
   useEffect(() => {
     getInventoryForUser();
   }, []);
-  console.log("inventoryItemsUser", inventoryItemsUser);
+
   const selectedInventory = inventoryItemsUser.find(
     (item) => item.type_tag === deviceType && item.color === gpsColor
   );

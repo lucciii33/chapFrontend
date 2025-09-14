@@ -62,7 +62,6 @@ export const usePetContext = () => {
     userId: number,
     petData: Pet
   ): Promise<CreatePetResponse | null> => {
-    console.log("petData", petData);
     try {
       const formData = new FormData();
       if (petData.profile_photo) {
@@ -183,7 +182,6 @@ export const usePetContext = () => {
     petData: Pet
   ): Promise<CreatePetResponse | null> => {
     try {
-      console.log("petDatapetData", petData);
       const token = getToken();
       if (!token) throw new Error("Usuario no autenticado");
 

@@ -32,7 +32,7 @@ export default function PetTracker() {
   useEffect(() => {
     if (petId) {
       getPetById(petId);
-      console.log("HOLASDDDDDD:", petByID);
+
       const fetchWeekly = async () => {
         const data = await getWeeklyActivity(Number(petId));
         if (data) {
@@ -48,10 +48,8 @@ export default function PetTracker() {
     if (!selectedId) return;
 
     const selectedPet = allPets.find((pet) => pet.id === parseInt(selectedId));
-    console.log("selectedPet", selectedPet);
 
     const hasPurchasedTag = selectedPet?.tags?.some((tag) => tag.is_purchased);
-    console.log("hasPurchasedTag", hasPurchasedTag);
 
     if (hasPurchasedTag) {
       navigate(`/trackerPet/${selectedId}`);

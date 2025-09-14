@@ -18,8 +18,6 @@ export default function PetCalendar({
 
   const { t } = useTranslation();
 
-  console.log("trackers", trackers);
-
   const handleChange = (e) => {
     const { name, type, checked, value } = e.target;
 

@@ -140,7 +140,6 @@ export const PetTrackerContext = () => {
   };
 
   const getWeeklyActivity = async (petId: number) => {
-    console.log("Fetching weekly activity for petId:", petId);
     const token = getToken();
     if (!token) {
       showErrorToast("User not authenticated");

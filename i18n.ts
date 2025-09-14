@@ -4,7 +4,7 @@ import { initReactI18next } from "react-i18next";
 
 import en from "./app/locales/en/common.json";
 import es from "./app/locales/es/common.json";
-console.log("HOLAAA LLAMANDOOOOOO")
+
 i18n
   .use(initReactI18next)
   .init({
@@ -28,7 +28,6 @@ i18n
       .then((res) => res.json())
       .then((data) => {
         const { lang } = data;
-        console.log("lang", lang);
         i18n.changeLanguage(lang);
         localStorage.setItem("lang", lang);
       })

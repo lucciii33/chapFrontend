@@ -13,7 +13,6 @@ export default function DeleteDialogAddress({
   onConfirm,
   itemName = "this item",
 }: DeleteDialogProps) {
-  console.log("isOpen", isOpen);
   useEffect(() => {
     if (isOpen) {
       document.getElementById("delete-modal-address")?.showModal();
@@ -34,7 +33,6 @@ export default function DeleteDialogAddress({
           <button
             className="btn btn-error"
             onClick={() => {
-              console.log("🔴 BOTÓN FUNCIONA");
               onConfirm();
             }}
           >

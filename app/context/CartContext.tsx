@@ -196,12 +196,10 @@ export const useCartContext = () => {
   };
 
   const activateSideBar = () => {
-    console.log("opening");
     setActSideBar(true);
   };
 
   const closeSideBar = () => {
-    console.log("closing");
     setActSideBar(false);
     const input = document.getElementById(
       "my-drawer-4"
@@ -211,7 +209,6 @@ export const useCartContext = () => {
 
   const selectPetIdForTag = (id: number) => {
     setSelectPetIdNew(id);
-    console.log("ID seleccionado para la chapa:", id);
   };
 
   return {

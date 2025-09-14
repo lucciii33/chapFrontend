@@ -89,7 +89,6 @@ export const useFinanceContext = () => {
       });
 
       if (response.status === 404) {
-        console.log("Usuario sin finanzas aún, no es error.");
         showInfoToast(t("finances.no_finances"));
         return [];
       }
@@ -103,7 +102,6 @@ export const useFinanceContext = () => {
 
       return data;
     } catch (error) {
-      console.log("Error al obtener los gastos:", error?.response?.status);
       showErrorToast(t("finances.expenses_load_error"));
       return null;
     }

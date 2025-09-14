@@ -14,7 +14,6 @@ export default function DeleteDialog({
   onConfirm,
   itemName = "",
 }: DeleteDialogProps) {
-  console.log("isOpen", isOpen);
   const { t } = useTranslation();
 
   // useEffect(() => {
@@ -48,7 +47,6 @@ export default function DeleteDialog({
           <button
             className="btn btn-error"
             onClick={() => {
-              console.log("🔴 BOTÓN FUNCIONA");
               onConfirm();
             }}
           >

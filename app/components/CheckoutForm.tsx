@@ -33,7 +33,6 @@ const CheckoutForm: React.FC<{
   const { auth, cart } = useGlobalContext();
   const { user } = auth;
   const { allCarts } = cart;
-  console.log("allCarts", allCarts);
 
   const { t } = useTranslation();
   const stripe = useStripe();
@@ -56,7 +55,7 @@ const CheckoutForm: React.FC<{
     LUCKY30: 30,
     ROXY40: 40,
     TAG50: 50,
-    FAMILY100: 99,
+    FAMILY95: 95,
   };
 
   useEffect(() => {
@@ -82,7 +81,6 @@ const CheckoutForm: React.FC<{
 
   const [addresses, setAddresses] = useState([]);
 
-  console.log("addresses", addresses);
   useEffect(() => {
     if (!user?.id) return;
 
@@ -90,7 +88,6 @@ const CheckoutForm: React.FC<{
       try {
         const response = await getShippingAddresses(user.id);
         const data = await response.json();
-        console.log("addresses", data);
         if (data) {
           setAddresses(data); // Local: todas
           const selectedAddress = data.find((addr) => addr.is_selected);
@@ -187,7 +184,6 @@ const CheckoutForm: React.FC<{
       }
 
       const data = await response.json();
-      console.log("Orden creada:", data);
     } catch (error) {
       console.error("Error al crear la orden:", error);
     }
@@ -231,7 +227,6 @@ const CheckoutForm: React.FC<{
         )
       );
 
-      console.log("petIdspetIds from the front end", petIds);
       const totalPrice = allCarts.reduce(
         (acc, item) => acc + item.price * item.quantity,
         0

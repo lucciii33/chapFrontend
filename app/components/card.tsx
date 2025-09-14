@@ -64,7 +64,6 @@ export default function Card({ petObj }: CardProps) {
   const { deletePetById, getPets } = pet;
 
   const grabpetIdToDelete = (id: number) => {
-    console.log("id", id);
     setSelectPetId(id);
     setIsModalOpen(true);
   };
@@ -93,8 +92,6 @@ export default function Card({ petObj }: CardProps) {
       (item) =>
         item.type_tag === tagInfoData.shape && item.color === tagInfoData.color
     );
-
-    console.log("match", match);
 
     if (match) {
       setStockStatus({
@@ -131,7 +128,6 @@ export default function Card({ petObj }: CardProps) {
   const [selectPetIdTag, setSelectPetIdTag] = useState<number | null>(null);
   const handleBuyTag = (id: number) => {
     document.getElementById("my_modal_2").showModal();
-    console.log("ID recibido para comprar tag:", id);
     selectPetIdForTag(id);
   };
 
