@@ -919,7 +919,7 @@
   },
   "emergency_tracker": {
     "title": "You're Not Alone in This Emergency",
-    "title_button": "¿Acabas de perder a tu mascota?",
+    "title_button": "Did you just lose your pet?",
     "introduction": "After extensive research and collaboration with professional rescuers, we've developed an innovative tool to help locate your pet during emergencies. Simply enter the address where your dog was last seen, and our system will use Google Maps to display an approximate location with a search radius indicator. This feature is designed for rapid response, significantly increasing your chances of being reunited with your furry family member.",
     "steps": {
       "step1": "Mark your pet as lost in pet details",
