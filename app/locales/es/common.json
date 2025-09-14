@@ -919,11 +919,11 @@
     "title_button": "Did you just lose your pet?",
     "introduction": "Tras colaborar con expertos en rescate animal, hemos desarrollado una herramienta que crea un cerco virtual del área donde podría estar tu perrito durante las primeras 24 horas. Ingresa la dirección donde se perdió tu mascota y nuestro sistema utilizará Google Maps para mostrarte un mapa con ubicación aproximada y el radio de búsqueda. Esta función te ayuda a actuar rápidamente y maximizar las posibilidades de encontrar a tu compañero peludo.",
     "steps": {
-      "step1": "Marca tu mascota como perdida en los detalles",
+      "step1": "Marca tu mascota como perdida",
       "step2": "Añade la última ubicación conocida para generar el radio de búsqueda",
-      "step3": "Contacta autoridades locales y refugios con el área de búsqueda",
+      "step3": "Contacta a las autoridades locales, explícales lo que pasó y muéstrales el área marcada para que puedan avisar a otras patrullas, y al mismo tiempo intenta coordinarte con tus colegas o familiares para separarse y cubrir esa zona de manera más efectiva.",
       "step4": "Imprime volantes de emergencia y comparte en redes sociales",
-      "step5": "Deja alimentos y objetos con tu olor en la ubicación"
+      "step5": "Deja alimentos y objetos con tu olor en diferentes ubicaciones y espera un poco, ya que las mascotas tienen un gran sentido del olfato y podrían acercarse al reconocer tu aroma."
     },
     "links": {
       "pet_details": "detalles de mascota",
@@ -936,6 +936,11 @@
       "share": "Comparte",
       "leave": "Deja",
       "search": "Buscar"
+    },
+    "small": {
+      "pet": "Mascota",
+      "addr": "Dirección usada",
+      "radio": "Radio estimado"
     }
   },
   "setting_user": {

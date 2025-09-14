@@ -117,13 +117,16 @@ export function EmergencyNow({
       {lostInfo && (
         <div className="mt-3 text-sm text-gray-200">
           <p>
-            <strong>Mascota:</strong> {lostInfo.pet_name}
+            <strong>{t("emergency_tracker.small.pet")}:</strong>{" "}
+            {lostInfo.pet_name}
           </p>
           <p>
-            <strong>Dirección usada:</strong> {lostInfo.address_used}
+            <strong>{t("emergency_tracker.small.addr")}:</strong>{" "}
+            {lostInfo.address_used}
           </p>
           <p>
-            <strong>Radio estimado:</strong> {lostInfo.max_distance_km} km
+            <strong>{t("emergency_tracker.small.radio")}:</strong>{" "}
+            {lostInfo.max_distance_km} km
           </p>
         </div>
       )}

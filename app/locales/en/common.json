@@ -924,9 +924,9 @@
     "steps": {
       "step1": "Mark your pet as lost in pet details",
       "step2": "Add the last known location to generate search radius",
-      "step3": "Contact local authorities and shelters with the search area",
+      "step3": "Contact the local authorities, explain what happened and show them the marked area so they can alert other patrols, while at the same time coordinating with your colleagues or family to split up and cover that zone more effectively.",
       "step4": "Print emergency flyers and share on social media",
-      "step5": "Leave familiar scents and food at the location"
+      "step5": "Leave food and items with your scent in different locations and wait a little, since pets have a strong sense of smell and might come closer when they recognize your scent."
     },
     "links": {
       "pet_details": "pet details",
@@ -939,6 +939,11 @@
       "share": "Share",
       "leave": "Leave",
       "search": "Search"
+    },
+    "small": {
+      "pet": "Pet",
+      "addr": "Address used",
+      "radio": "Estimated radius"
     }
   },
   "setting_user": {
