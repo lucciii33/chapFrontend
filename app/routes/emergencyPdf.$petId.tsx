@@ -108,76 +108,41 @@ export default function EmegencyPdf() {
     }
   };
 
-  // const shareImage = () => {
-  //   const element = document.getElementById("pdf-content");
-  //   if (!element) return;
-  //   console.log("TESTTTT");
-
-  //   html2canvas(element, {
-  //     scale: 2,
-  //     useCORS: true,
-  //     allowTaint: false,
-  //     backgroundColor: null,
-  //   }).then((canvas) => {
-  //     canvas.toBlob((blob) => {
-  //       if (!blob) return;
-
-  //       const file = new File([blob], "cartel-perro-perdido.png", {
-  //         type: "image/png",
-  //       });
-
-  //       const filesArray = [file];
-
-  //       if (navigator.canShare && navigator.canShare({ files: filesArray })) {
-  //         navigator
-  //           .share({
-  //             files: filesArray,
-  //             title: "Cartel de perro perdido",
-  //             text: "¡Ayúdame a encontrar a mi mascota!",
-  //           })
-  //           .catch((error) =>
-  //             console.error("Error al intentar compartir:", error)
-  //           );
-  //       } else {
-  //         alert("Compartir no es compatible en este dispositivo.");
-  //       }
-  //     });
-  //   });
-  // };
-  const shareImage = async () => {
+  const shareImage = () => {
     const element = document.getElementById("pdf-content");
     if (!element) return;
     console.log("TESTTTT");
 
-    try {
-      const canvas = await html2canvas(element, {
-        scale: 2,
-        useCORS: true,
-        allowTaint: false,
-        backgroundColor: null,
-      });
+    html2canvas(element, {
+      scale: 2,
+      useCORS: true,
+      allowTaint: false,
+      backgroundColor: null,
+    }).then((canvas) => {
+      canvas.toBlob((blob) => {
+        if (!blob) return;
 
-      const blob: Blob | null = await new Promise((resolve) =>
-        canvas.toBlob(resolve)
-      );
-      if (!blob) return;
-
-      const file = new File([blob], "cartel-perro-perdido.png", {
-        type: "image/png",
-      });
-
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share({
-          files: [file],
-          title: "Cartel de perro perdido",
-          text: "¡Ayúdame a encontrar a mi mascota!",
+        const file = new File([blob], "cartel-perro-perdido.png", {
+          type: "image/png",
         });
-      } else {
-        alert("Compartir no es compatible en este dispositivo.");
-      }
-    } catch (error) {
-      console.error("Error al intentar compartir:", error);
-    }
+
+        const filesArray = [file];
+
+        if (navigator.canShare && navigator.canShare({ files: filesArray })) {
+          navigator
+            .share({
+              files: filesArray,
+              title: "Cartel de perro perdido",
+              text: "¡Ayúdame a encontrar a mi mascota!",
+            })
+            .catch((error) =>
+              console.error("Error al intentar compartir:", error)
+            );
+        } else {
+          alert("Compartir no es compatible en este dispositivo.");
+        }
+      });
+    });
   };
 
   return (
