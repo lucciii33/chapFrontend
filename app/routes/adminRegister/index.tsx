@@ -16,8 +16,6 @@ export default function Register() {
     password: "",
   });
 
-  console.log("formData", formData);
-
   const onChangeAdmin = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -30,9 +28,8 @@ export default function Register() {
     e.preventDefault();
     try {
       const result = await authAdmin.registerAdmin(formData);
-      console.log("Result", result);
+
       if (result) {
-        console.log("Login exitoso", result);
         navigate("/loginAdmin");
       } else {
         console.error("Credenciales incorrectas");

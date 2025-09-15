@@ -16,7 +16,7 @@ export default function ShippingAddress({
 }) {
   const { auth } = useGlobalContext();
   const user = auth.user;
-  console.log("user", user);
+
   const [selectedAddress, setSelectedAddress] = useState<number | null>(null);
   const { t } = useTranslation();
   const [errors, setErrors] = useState<{ [key: string]: boolean }>({});
@@ -43,7 +43,7 @@ export default function ShippingAddress({
       try {
         const response = await getShippingAddresses(user.id);
         const data = await response.json();
-        console.log("addresses", data);
+
         if (data) setAddresses(data);
       } catch (error) {
         console.error("Error fetching addresses:", error);
@@ -53,10 +53,7 @@ export default function ShippingAddress({
     fetchAddresses();
   }, [user]);
 
-  console.log("formData", formData);
-
   const [addresses, setAddresses] = useState([]);
-  console.log("addresses", addresses);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

@@ -38,7 +38,6 @@ export default function ResetPasswordPage() {
 
     const error = validatePassword(newPassword);
     if (error) {
-      console.log("Error", error);
       showErrorToast(error);
       setPasswordError(error);
       return;

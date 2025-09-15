@@ -75,7 +75,6 @@ export const showErrorToast = (message) => {
 
 // Info Toast
 export const showInfoToast = (message) => {
-  console.log("Showing info toast with message:", message);
   toast.info(message || "Heads up!", {
     position: "top-right",
     autoClose: 3000,

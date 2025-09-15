@@ -14,7 +14,6 @@ export default function Finances() {
   const { getPets, allPets } = pet;
   const { t } = useTranslation();
 
-  console.log("allPetsallPets", allPets);
   const user = auth.user;
   const [allFinances, setAllFinances] = useState([]);
   const [filteredFinances, setFilteredFinances] = useState([]);
@@ -75,7 +74,6 @@ export default function Finances() {
         .then((data) => {
           setAllFinances(data);
           // setFilteredFinances(data);
-          console.log("Mascotas cargadas al refrescar");
         })
         .catch((error) => {
           console.error("Error al cargar mascotas:", error);
@@ -96,7 +94,7 @@ export default function Finances() {
     if (token && user) {
       getPets(user.id)
         .then(() => {
-          console.log("Mascotas cargadas al refrescar");
+          console.log("M");
         })
         .catch((error) => {
           console.error("Error al cargar mascotas:", error);

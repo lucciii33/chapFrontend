@@ -17,7 +17,7 @@
     "subTitle": "Simple, rápida y sin complicaciones.",
     "smalText": "Todo lo que tu mascota necesita, en un solo lugar.",
     "featureOne": "Porque su historia cambia, y esta chapa evoluciona con ella: Actualiza sus datos y los tuyos tantas veces como necesites.",
-    "featureTwo": "Recibe un correo electrónico con la ubicación aproximada del perro en un mapa cuando alguien escanee la placa si se pierde.",
+    "featureTwo": "Recibe un correo electrónico con la ubicación del perro en un mapa cuando alguien escanee la placa si se pierde.",
     "featureTree": "Manten el control total de sus gastos y cuidados para planificar y ahorrar.",
     "featureFour": "Su historial medico con solo un clic. Guarda sus visitas medicas, vacunas, historial de informes y analisis.",
     "featureFive": "Algoritmos de rescate con un radio de búsqueda.",
@@ -880,6 +880,8 @@
   },
   "tracker_page_2": {
     "no_mood_data": "No hay datos de ánimo esta semana",
+    "played_yes": "Tu perro ha estado bastante activo esta semana ",
+    "played_no": "Tu perro no ha jugado suficiente esta semana",
     "food_per_day": "Comida por día",
     "water_per_day": "Agua por día",
     "mood_this_week": "Ánimo esta semana",

@@ -12,7 +12,7 @@ export default function Inventory() {
     description: "",
   });
   const [editingItemId, setEditingItemId] = useState<number | null>(null);
-  console.log("editingItemId", editingItemId);
+
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const [modalOpenDelete, setOpenModalDelete] = useState(false);
 

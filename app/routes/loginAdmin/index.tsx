@@ -12,8 +12,6 @@ export default function Login() {
     password: "",
   });
 
-  console.log("loginAdminData", loginAdminData);
-
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setLoginAdminData((prev) => ({
@@ -25,9 +23,8 @@ export default function Login() {
     e.preventDefault();
     try {
       const result = await authAdmin.loginAdmin(loginAdminData);
-      console.log("Result", result);
+
       if (result) {
-        console.log("Login exitoso", result);
         navigate("/AdminDashboard");
       } else {
         console.error("Credenciales incorrectas");

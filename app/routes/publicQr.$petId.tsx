@@ -19,7 +19,6 @@ export default function PublicQr() {
   const [location, setLocation] = useState(null);
   const [ubicacion, setUbicacion] = useState(null);
   const [mapError, setMapError] = useState(false);
-  console.log("petData", petData);
   useEffect(() => {
     if (petId) {
       axios
@@ -54,8 +53,6 @@ export default function PublicQr() {
             import.meta.env.VITE_REACT_APP_GEOLOCATION_KEY
           }`
         );
-        console.log("✅ Ubicación recibida desde API de Google:", response);
-
         const data = response.data;
         setUbicacion({ lat: data.location.lat, lng: data.location.lng });
       } catch (error) {
@@ -106,7 +103,6 @@ export default function PublicQr() {
 
   useEffect(() => {
     if (!ubicacion || !petId) return;
-    console.log("ubicacionubicacionubicacion", ubicacion);
 
     const updateLastLatAndLastLong = async () => {
       try {
@@ -157,7 +153,6 @@ export default function PublicQr() {
 
     const storedUser = localStorage.getItem("user");
     if (!storedUser) {
-      console.log("📤 Enviando ubicación en notify-scan:", ubicacion);
       fetch(
         `${
           import.meta.env.VITE_REACT_APP_URL
@@ -177,14 +172,14 @@ export default function PublicQr() {
           if (!res.ok) {
             console.error("❌ Error notificando escaneo");
           } else {
-            console.log("✅ Escaneo notificado correctamente");
+            console.log("✅");
           }
         })
         .catch((err) => {
           console.error("❌ Error al hacer fetch para notificar escaneo:", err);
         });
     } else {
-      console.log("🐶 Dueño logueado — no se envía email.");
+      console.log("🐶");
     }
   }, [petData]);
 

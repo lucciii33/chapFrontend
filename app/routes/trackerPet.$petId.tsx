@@ -35,7 +35,7 @@ export default function PetTracker() {
   const { getPetById, petByID, editPet } = pet;
   const { petId } = useParams();
   const [weeklyActivity, setWeeklyActivity] = useState<any | null>(null);
-  console.log("weeklyActivity", weeklyActivity);
+
   const moodMap: Record<string, JSX.Element> = {
     happy: <FaceSmileIcon className="w-6 h-6 text-teal-500" />,
     sad: <FaceFrownIcon className="w-6 h-6 text-teal-500" />,
@@ -57,8 +57,6 @@ export default function PetTracker() {
       fetchWeekly();
     }
   }, []);
-
-  console.log("petByID", petByID);
 
   const [formData, setFormData] = useState<PetFormData>({
     pet_id: petId ? petId : null,
@@ -703,6 +701,11 @@ export default function PetTracker() {
                 ? t(`mood_comments.${weeklyActivity.weekly_mood}`)
                 : t("tracker_page_2.no_mood_data")}
             </p>
+          </div>
+          <div className="border-2 border-teal-500 bg-gray-800 h-auto w-full rounded p-3 mt-3">
+            {weeklyActivity?.alerts?.played_multiple
+              ? t("tracker_page_2.played_yes")
+              : t("tracker_page_2.played_no")}
           </div>
         </div>
       </div>

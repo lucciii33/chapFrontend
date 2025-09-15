@@ -17,7 +17,7 @@
     "subTitle": "Simple, fast, and hassle-free.",
     "smalText": "everything your pet needs, all in one place",
     "featureOne": "Because their story keeps changing — and this tag grows with them. Update their info anytime, as often as you need.",
-    "featureTwo": "Receive an email with the dog's approximate location on a map when someone scans the tag if they get lost.",
+    "featureTwo": "Receive an email with the dog's location on a map when someone scans the tag if they get lost.",
     "featureTree": "Track and manage expenses to plan ahead and save on their care.",
     "featureFour": "Their medical history in one place — save all vet visits, vaccines, reports, and lab results.",
     "featureFive": "Rescue algorithms with a search radius.",
@@ -883,6 +883,8 @@
   },
   "tracker_page_2": {
     "no_mood_data": "No mood data available this week",
+    "played_yes": "Your dog has been quite active this week",
+    "played_no": "Your dog hasn’t played enough this week",
     "food_per_day": "Food per day",
     "water_per_day": "Water per day",
     "mood_this_week": "Mood this week",

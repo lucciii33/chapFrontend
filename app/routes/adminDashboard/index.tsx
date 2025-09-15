@@ -55,7 +55,6 @@ export default function AdminDashboard() {
       });
 
       if (updatedOrder) {
-        console.log("showSuccessToast", updatedOrder);
         await fetchOrders();
         showSuccessToast("Orden editada correctamente");
       } else {
@@ -72,23 +71,17 @@ export default function AdminDashboard() {
   };
 
   const handleDeletefunc = (orderId: number) => {
-    console.log("desde context", orderId);
-
     setSelectedOrderId(orderId);
     setIsDeleteModalOpen(true);
   };
 
   const handleConfirmDelete = async () => {
-    console.log("testtttttt");
     if (!selectedOrderId) return;
 
-    console.log("🚀 Intentando eliminar la orden ID:", selectedOrderId);
-
     try {
-      const result = await orders.deleteOrder(selectedOrderId); // ✅ Aquí debe llamar al contexto
+      const result = await orders.deleteOrder(selectedOrderId);
 
       if (result) {
-        console.log("✅ Orden eliminada:", result);
         setAllOrders((prevOrders) =>
           prevOrders.filter((order) => order.id !== selectedOrderId)
         );
@@ -146,8 +139,6 @@ export default function AdminDashboard() {
     }
   };
 
-  console.log("currentOrders", currentOrders);
-
   const calculateFinalPrice = (price, country) => {
     const countryCode = country?.toLowerCase() || "";
 
@@ -162,7 +153,7 @@ export default function AdminDashboard() {
     if (ivaCountries.includes(countryCode)) {
       return price + price * ivaRate;
     }
-    console.log("price", price);
+
     return price;
   };
   return (

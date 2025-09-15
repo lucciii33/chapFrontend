@@ -18,7 +18,7 @@ if (typeof window !== "undefined") {
 
       // 🔴 Si el token expiró (401), cerramos sesión y redirigimos
       if (response.status === 401) {
-        console.log("🔴 TOKEN EXPIRADO - DEBERIA LLAMAR NUEVO");
+       
         // localStorage.removeItem("user");
         // showErrorToast("Sesión expirada. Inicia sesión de nuevo.");
 
@@ -29,7 +29,7 @@ if (typeof window !== "undefined") {
         // }
 
         // return Promise.reject("Unauthorized");
-        console.log("🔴 TOKEN EXPIRADO - probando refresh...");
+
         const refreshResp = await originalFetch(
           `${import.meta.env.VITE_REACT_APP_URL}/users/refresh`,
           {
@@ -40,7 +40,7 @@ if (typeof window !== "undefined") {
 
         if (refreshResp.ok) {
           const data = await refreshResp.json();
-          console.log("🔴 REFRESH TOKEN", data);
+    
           // Guardar nuevo access token
           const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
           storedUser.access_token = data.access_token;
@@ -51,7 +51,7 @@ if (typeof window !== "undefined") {
           response = await originalFetch(url, { ...options, headers });
         } else {
           // Refresh falló → cerramos sesión
-          console.log("🔴 REFRESH TOKEN INVÁLIDO");
+  
           localStorage.removeItem("user");
           showErrorToast("Sesión expirada. Inicia sesión de nuevo.");
           window.location.replace("/");

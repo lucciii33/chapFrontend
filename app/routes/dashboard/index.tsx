@@ -24,7 +24,6 @@ export default function Dashboard() {
   const { t, i18n } = useTranslation();
   const [cantBuy, setCantBuy] = useState(false);
   const [gpsInfo, setGpsInfo] = useState(null);
-  console.log("gpsInfo", gpsInfo);
 
   const { getInventoryForUser, inventoryItemsUser } = inventory;
 
@@ -262,7 +261,6 @@ export default function Dashboard() {
       return await createCart(user.id, cartData)
         .then((response) => {
           if (response) {
-            console.log("Item added to cart successfully:", response);
             getCartByUser(user.id);
           }
           return response;
@@ -280,10 +278,8 @@ export default function Dashboard() {
     if (!selectedId) return;
 
     const selectedPet = allPets.find((pet) => pet.id === parseInt(selectedId));
-    console.log("selectedPet", selectedPet);
 
     const hasPurchasedTag = selectedPet?.tags?.some((tag) => tag.is_purchased);
-    console.log("hasPurchasedTag", hasPurchasedTag);
 
     if (hasPurchasedTag) {
       navigate(`/trackerPet/${selectedId}`);
@@ -301,10 +297,8 @@ export default function Dashboard() {
     if (!selectedId) return;
 
     const selectedPet = allPets.find((pet) => pet.id === parseInt(selectedId));
-    console.log("selectedPet", selectedPet);
 
     const hasPurchasedTag = selectedPet?.tags?.some((tag) => tag.is_purchased);
-    console.log("hasPurchasedTag", hasPurchasedTag);
 
     if (hasPurchasedTag) {
       navigate(`/emergencyNow/${selectedId}`);

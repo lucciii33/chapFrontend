@@ -25,7 +25,6 @@ export default function PetDetail() {
   const navigate = useNavigate();
   const [highlightMedicalBox, setHighlightMedicalBox] = useState(false);
   const { getPetById, petByID, editPet, deletePetById } = pet;
-  console.log("petByID", petByID);
   const { createCart, cartProfile, getCartByUser } = cart;
   const { deletePetTag } = tag;
   const { comingFromCardButton, setComingFromCardButton } = comingFromCard;
@@ -586,7 +585,6 @@ export default function PetDetail() {
 
     setLoading(true);
     try {
-      console.log("petVetInfo petVetInfo petVetInfo", petVetInfo);
       const response = await editVetSession(vetId, petVetInfo);
 
       if (response) {

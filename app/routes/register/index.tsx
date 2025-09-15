@@ -20,8 +20,6 @@ export default function Register() {
   });
   const [errors, setErrors] = useState<{ [key: string]: boolean }>({});
 
-  console.log("formData", formData);
-
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, type, value, checked } = e.target;
     setFormData((prev) => ({
@@ -80,9 +78,8 @@ export default function Register() {
 
     try {
       const result = await auth.register(formData);
-      console.log("Result", result);
+
       if (result) {
-        console.log("Login exitoso", result);
         localStorage.removeItem("registerFormData");
         navigate("/login");
       } else {

@@ -15,7 +15,6 @@ export default function EmegencyPdf() {
   const { t } = useTranslation();
 
   const [isMobile, setIsMobile] = useState(false);
-  console.log("Updating lost pet petByID:", petByID);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
@@ -65,8 +64,6 @@ export default function EmegencyPdf() {
 
   const handleLostPetUpdate = async () => {
     if (!petId) return;
-
-    console.log("Updating lost pet info:", profile_photo);
 
     const updateData = {
       last_time_pet_seen: lastSeenTime
