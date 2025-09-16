@@ -237,7 +237,7 @@ export default function Dashboard() {
     if (token && user) {
       getPets(user.id)
         .then(() => {
-          console.log("Mascotas cargadas al refrescar");
+          console.log("M");
         })
         .catch((error) => {
           console.error("Error al cargar mascotas:", error);

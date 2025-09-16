@@ -36,6 +36,8 @@ export default function PetTracker() {
   const { petId } = useParams();
   const [weeklyActivity, setWeeklyActivity] = useState<any | null>(null);
 
+  const [selectedDate, setSelectedDate] = useState<string>("");
+
   const moodMap: Record<string, JSX.Element> = {
     happy: <FaceSmileIcon className="w-6 h-6 text-teal-500" />,
     sad: <FaceFrownIcon className="w-6 h-6 text-teal-500" />,
@@ -86,10 +88,10 @@ export default function PetTracker() {
 
   const hasAnyValue = (data: typeof formData) => {
     return Object.entries(data).some(([key, value]) => {
-      if (key === "pet_id") return false; // no cuenta
-      if (typeof value === "boolean") return value === true; // algún checkbox marcado
-      if (typeof value === "number") return value > 0; // números > 0
-      if (typeof value === "string") return value.trim() !== ""; // textos no vacíos
+      if (key === "pet_id") return false;
+      if (typeof value === "boolean") return value === true;
+      if (typeof value === "number") return value > 0;
+      if (typeof value === "string") return value.trim() !== "";
       return false;
     });
   };
@@ -109,7 +111,7 @@ export default function PetTracker() {
               "weight",
               "sleep_hours",
             ].includes(name)
-          ? Number(value.replace(/^0+(?=\d)/, "")) || "" // 🧠 elimina ceros al inicio
+          ? Number(value.replace(/^0+(?=\d)/, "")) || ""
           : value,
     }));
   };
@@ -310,6 +312,42 @@ export default function PetTracker() {
         </div>
       </div>
 
+      <div className="border-2 bg-gray-800 h-auto w-full rounded p-3 mt-5">
+        <ul className="list-disc ml-6 text-sm">
+          <li> {t("tracker_page.par_filter_1")}</li>
+          <li> {t("tracker_page.par_filter_2")}</li>
+        </ul>
+
+        <div className="mt-3 flex gap-2 flex-col md:flex-row">
+          <div className="w-full">
+            {" "}
+            <label>{t("tracker_page.label_filter")}</label>
+            <input
+              type="date"
+              value={selectedDate}
+              onChange={(e) => setSelectedDate(e.target.value)}
+              className="w-full px-4 py-2 border rounded-lg"
+            />
+          </div>
+          <div>
+            <button
+              onClick={async () => {
+                if (petId) {
+                  const data = await getWeeklyActivity(
+                    Number(petId),
+                    selectedDate
+                  );
+                  if (data) setWeeklyActivity(data);
+                }
+              }}
+              className="px-4 py-2 bg-teal-500 text-white rounded-lg w-full"
+            >
+              {t("tracker_page.button_filter")}
+            </button>
+          </div>
+        </div>
+      </div>
+
       {weeklyActivity?.alerts?.urine_blood && (
         <div className="border-2 border-red-500 bg-gray-800 h-auto w-full rounded-lg p-3 mt-4">
           <div className="flex gap-2 items-center">
@@ -433,7 +471,7 @@ export default function PetTracker() {
         >
           {t("tracker_page.title_tracker")}
         </h2>
-        <p>{t("tracker_page.subtitle_tracker_2")}</p>
+        <p>{t("tracker_page.subtitle_tracker_2")} </p>
         <div className="flex flex-col md:flex-row gap-3 mt-3 mb-3">
           <div className="w-full">
             <label className="block text-slate-50">
@@ -639,7 +677,10 @@ export default function PetTracker() {
           className="text-1xl lg:text-2xl font-bold mt-2 text-white"
           style={{ fontFamily: "chapFont" }}
         >
-          {t("tracker_page_2.title_tracker_2")}
+          {t("tracker_page_2.title_tracker_2")}:{" "}
+          {weeklyActivity?.week_range
+            ? `${weeklyActivity.week_range.start} - ${weeklyActivity.week_range.end}`
+            : ""}
         </h2>
         <div className="flex items-center justify-between flex-col md:flex-row gap-2">
           <div className="border-2 border-teal-500 bg-gray-800 h-auto  w-full rounded p-3">
@@ -688,7 +729,10 @@ export default function PetTracker() {
           className="text-1xl lg:text-2xl font-bold mt-2 text-white"
           style={{ fontFamily: "chapFont" }}
         >
-          {t("tracker_page_2.mood_this_week")}
+          {t("tracker_page_2.mood_this_week")}:{" "}
+          {weeklyActivity?.week_range
+            ? `${weeklyActivity.week_range.start} - ${weeklyActivity.week_range.end}`
+            : ""}
         </h2>
         <div className="border-2 border-teal-500 bg-gray-800 h-auto w-full rounded p-3">
           <div className="flex gap-2 items-center">
@@ -710,7 +754,12 @@ export default function PetTracker() {
         </div>
       </div>
 
-      {weeklyActivity && <WeeklyActivityChart data={weeklyActivity.days} />}
+      {weeklyActivity && (
+        <WeeklyActivityChart
+          data={weeklyActivity.days}
+          weeklyActivity={weeklyActivity}
+        />
+      )}
 
       <PetCalendar
         trackers={petByID?.trackers}

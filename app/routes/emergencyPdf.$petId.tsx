@@ -111,7 +111,6 @@ export default function EmegencyPdf() {
   const shareImage = () => {
     const element = document.getElementById("pdf-content");
     if (!element) return;
-    console.log("TESTTTT");
 
     html2canvas(element, {
       scale: 2,

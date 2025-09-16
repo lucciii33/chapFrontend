@@ -1,7 +1,7 @@
 {
   "hero.title": "YOUR PET IS ONE OF A KIND. SO SHOULD THEIR TAG. THEIR ENTIRE LIFE, ONE QR SCAN AWAY.",
   "hero.subtitle": "Imagine having everything your pet needs to stay healthy, safe, and happy — all in the palm of your hand. Our smart tag is more than just an ID — it’s their whole life, protected.",
-  "hero.paragraph": "Imagine a world where you never have to worry about updating your dog’s tag. With our app and smart collar, all your best friend's information is just a scan away.",
+  "hero.paragraph": "Imagine a world where you never have to worry about updating your pets’s tag. With our app and smart collar, all your best friend's information is just a scan away.",
   "login": "Login",
   "register": "Activate your CHAP today!",
   "features": "Explore all features",
@@ -512,7 +512,11 @@
     "delete_title": "Confirm deletion?",
     "delete_text": "Are you sure you want to delete this day?",
     "delete_button_cancel": "Cancel",
-    "delete_button_confirm": "Yes, delete"
+    "delete_button_confirm": "Yes, delete",
+    "par_filter_1": "By default, the app always shows your pet’s current week (from Monday to Sunday). If you want to check a previous week, you can use the date filter.",
+    "par_filter_2": "For example: choosing Tuesday, September 2 will show the activity from Monday, September 1 to Sunday, September 7.",
+    "label_filter": "Select a date",
+    "button_filter": "Search week"
   },
   "create_alerts": {
     "subtitle": "This is an alert for {{target}}",
@@ -874,12 +878,12 @@
     "hyper": "Hyper"
   },
   "mood_comments": {
-    "happy": "Your dog was happy most of the week✨",
-    "sad": "Your dog seemed a bit down this week, give some extra love.",
-    "calm": "Your dog stayed calm and relaxed.",
-    "anxious": "Your dog showed signs of anxiety, keep an eye on their environment.",
-    "aggressive": "Your dog was a bit aggressive, try to understand what’s causing stress.",
-    "hyper": "Your dog was super active ⚡, full of energy!"
+    "happy": "Your pet was happy most of the week✨",
+    "sad": "Your pet seemed a bit down this week, give some extra love.",
+    "calm": "Your pet stayed calm and relaxed.",
+    "anxious": "Your pet showed signs of anxiety, keep an eye on their environment.",
+    "aggressive": "Your pet was a bit aggressive, try to understand what’s causing stress.",
+    "hyper": "Your pet was super active ⚡, full of energy!"
   },
   "tracker_page_2": {
     "no_mood_data": "No mood data available this week",
@@ -922,7 +926,7 @@
   "emergency_tracker": {
     "title": "You're Not Alone in This Emergency",
     "title_button": "Did you just lose your pet?",
-    "introduction": "After extensive research and collaboration with professional rescuers, we've developed an innovative tool to help locate your pet during emergencies. Simply enter the address where your dog was last seen, and our system will use Google Maps to display an approximate location with a search radius indicator. This feature is designed for rapid response, significantly increasing your chances of being reunited with your furry family member.",
+    "introduction": "After extensive research and collaboration with professional rescuers, we've developed an innovative tool to help locate your pet during emergencies. Simply enter the address where your pet was last seen, and our system will use Google Maps to display an approximate location with a search radius indicator. This feature is designed for rapid response, significantly increasing your chances of being reunited with your furry family member.",
     "steps": {
       "step1": "Mark your pet as lost in pet details",
       "step2": "Add the last known location to generate search radius",

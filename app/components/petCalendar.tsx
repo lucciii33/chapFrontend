@@ -520,6 +520,26 @@ export default function PetCalendar({
                   </div>
 
                   {[
+                    "scratching",
+                    "hair_loss",
+                    "seizures",
+                    "eye_discharge",
+                    "ear_discharge",
+                    "limping",
+                  ].map((field) => (
+                    <label key={field} className="block text-sm font-medium">
+                      <input
+                        type="checkbox"
+                        name={field}
+                        checked={formData?.[field] || false}
+                        onChange={handleChange}
+                        className="radio radio-accent mr-2"
+                      />
+                      {t(`tracker_page.symptom_labels.${field}`)}
+                    </label>
+                  ))}
+
+                  {[
                     "urinated",
                     "pooped",
                     "played",

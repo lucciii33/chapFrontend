@@ -139,7 +139,7 @@ export const PetTrackerContext = () => {
     }
   };
 
-  const getWeeklyActivity = async (petId: number) => {
+  const getWeeklyActivity = async (petId: number, date?: string) => {
     const token = getToken();
     if (!token) {
       showErrorToast("User not authenticated");
@@ -147,12 +147,21 @@ export const PetTrackerContext = () => {
     }
 
     try {
-      const response = await fetch(
-        `${baseUrl}/api/pets/${petId}/weekly_activity`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      let url = `${baseUrl}/api/pets/${petId}/weekly_activity`;
+      if (date) {
+        url += `?date=${date}`;
+      }
+
+      const response = await fetch(url, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      // const response = await fetch(
+      //   `${baseUrl}/api/pets/${petId}/weekly_activity`,
+      //   {
+      //     headers: { Authorization: `Bearer ${token}` },
+      //   }
+      // );
 
       if (!response.ok) throw new Error("Network response was not ok");
 

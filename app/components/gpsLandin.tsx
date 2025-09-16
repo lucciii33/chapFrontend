@@ -24,7 +24,7 @@ export default function GpsLandignd() {
           </h2>
           <p className="">
             {i18n.language === "es"
-              ? "Rastrea a tu perro en un radio de 50 a 100 metros directamente en el mapa de tu celular. Una protección extra junto a su chapa inteligente, esencial en caso de que se pierda."
+              ? "Rastrea a tu mascota en un radio de 50 a 100 metros directamente en el mapa de tu celular. Una protección extra junto a su chapa inteligente, esencial en caso de que se pierda."
               : "Track your dog within a range of 50 to 100 meters directly on your phone’s map. An extra layer of protection alongside their smart tag, essential in case they get lost."}
           </p>
           <p className="mt-2">

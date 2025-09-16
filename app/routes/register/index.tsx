@@ -22,13 +22,19 @@ export default function Register() {
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, type, value, checked } = e.target;
+    const newValue =
+      name === "email"
+        ? value.toLowerCase()
+        : type === "checkbox"
+        ? checked
+        : value;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: newValue,
     }));
     const newData = {
       ...formData,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: newValue,
     };
     localStorage.setItem("registerFormData", JSON.stringify(newData));
   };

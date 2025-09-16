@@ -1,7 +1,7 @@
 {
   "hero.title": "TU MASCOTA ES ÚNICA. SU CHAPA TAMBIEN. TODA SU VIDA, AL ALCANCE DE UN ESCANEO.",
   "hero.subtitle": "Imagina tener todo lo que tu mascota necesita para estar sana, segura y feliz… en la palma de tu mano. Nuestra chapa inteligente no es solo una identificación: es su vida entera, protegida.",
-  "hero.paragraph": "Imagina un mundo donde nunca tengas que preocuparte por actualizar el tag de tu perro. Con nuestra app y collar inteligente, toda la información de tu mejor amigo está a un escaneo de distancia.",
+  "hero.paragraph": "Imagina un mundo donde nunca tengas que preocuparte por actualizar el tag de tu mascota. Con nuestra app y collar inteligente, toda la información de tu mejor amigo está a un escaneo de distancia.",
   "login": "Login",
   "register": "¡Activa tu CHAP hoy!",
   "features": "Explora todas sus funciones",
@@ -509,7 +509,11 @@
     "delete_title": "Confirmar eliminación?",
     "delete_text": "¿Estás seguro que quieres eliminar este día?",
     "delete_button_cancel": "Cancelar",
-    "delete_button_confirm": "Sí, eliminar"
+    "delete_button_confirm": "Sí, eliminar",
+    "par_filter_1": "Por defecto, la app siempre muestra la semana actual de tu mascota (de lunes a domingo). Si deseas revisar una semana pasada, puedes usar el filtro de fecha.",
+    "par_filter_2": "Por ejemplo: si eliges el martes 2 de septiembre, la app mostrará la actividad desde el lunes 1 hasta el domingo 7 de septiembre.",
+    "label_filter": "Selecciona una fecha",
+    "button_filter": "Buscar semana"
   },
   "create_alerts": {
     "subtitle": "Esta es una alerta para {{target}}",
@@ -871,17 +875,17 @@
     "hyper": "Hiperactivo"
   },
   "mood_comments": {
-    "happy": "Tu perro estuvo feliz la mayor parte de la semana",
+    "happy": "Tu mascota estuvo feliz la mayor parte de la semana",
     "sad": "Se notó algo bajoneado esta semana, dale más cariño.",
     "calm": "Se mantuvo tranquilo y relajado.",
     "anxious": "Mostró signos de ansiedad, observa su entorno.",
     "aggressive": "Estuvo algo agresivo, intenta entender qué lo estresa.",
-    "hyper": "Tu perro estuvo súper activo, ¡lleno de energía!"
+    "hyper": "Tu mascota estuvo súper activo, ¡lleno de energía!"
   },
   "tracker_page_2": {
     "no_mood_data": "No hay datos de ánimo esta semana",
-    "played_yes": "Tu perro ha estado bastante activo esta semana ",
-    "played_no": "Tu perro no ha jugado suficiente esta semana",
+    "played_yes": "Tu mascota ha estado bastante activo esta semana ",
+    "played_no": "Tu mascota no ha jugado suficiente esta semana",
     "food_per_day": "Comida por día",
     "water_per_day": "Agua por día",
     "mood_this_week": "Ánimo esta semana",
