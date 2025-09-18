@@ -25,10 +25,26 @@ export default function PetTracker() {
   const { t } = useTranslation();
 
   const { getWeeklyActivity } = PetTrackerContext();
-  const { pet } = useGlobalContext();
+  const { pet, auth } = useGlobalContext();
   const { getPetById, petByID, editPet } = pet;
   const { petId } = useParams();
   const [weeklyActivity, setWeeklyActivity] = useState<any | null>(null);
+
+  const [acceptEmails, setAcceptEmails] = useState(false);
+
+  useEffect(() => {
+    if (auth.user) {
+      setAcceptEmails(auth?.user?.accept_send_info_email_pet_lost ?? false);
+    }
+  }, [auth.user]);
+
+  const handleCheckbox = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = e.target.checked;
+    setAcceptEmails(checked);
+    if (auth.user) {
+      await auth.updatePetLostPreference(auth.user.id, checked);
+    }
+  };
   useEffect(() => {
     if (petId) {
       getPetById(petId);
@@ -83,9 +99,24 @@ export default function PetTracker() {
           {t("emergency_tracker.steps.step1")}
         </div>
       </div>
+      <div className="flex gap-2 border-b border-gray-700 pb-3">
+        <div>2</div>
+        <div className="flex flex-col">
+          <div>{t("pet_lost_pref.Accept_title")}</div>
+          <div>
+            <input
+              type="checkbox"
+              className="radio radio-accent ms-4"
+              checked={acceptEmails}
+              onChange={handleCheckbox}
+            />
+            <label className="ms-3">{t("pet_lost_pref.accept_label")}</label>
+          </div>
+        </div>
+      </div>
       <div className=" border-b border-gray-700 pb-3 mt-2">
         <div className="flex gap-2">
-          <div>2</div>
+          <div>3</div>
           <div>
             <div>{t("emergency_tracker.steps.step2")}</div>
           </div>
@@ -102,13 +133,13 @@ export default function PetTracker() {
       </div>
 
       <div className="flex gap-2 border-b border-gray-700 pb-3 mt-2">
-        <div>3</div>
+        <div>4</div>
         <div>
           <div>{t("emergency_tracker.steps.step3")}</div>
         </div>
       </div>
       <div className="flex gap-2 border-b border-gray-700 pb-3 mt-2">
-        <div>4</div>
+        <div>5</div>
         <div>
           {t("emergency_tracker.actions.print")}{" "}
           <Link
@@ -122,7 +153,7 @@ export default function PetTracker() {
         </div>
       </div>
       <div className="flex gap-2 border-b border-gray-700 pb-3 mt-2">
-        <div>5</div>
+        <div>6</div>
         <div>{t("emergency_tracker.steps.step5")}</div>
       </div>
     </div>

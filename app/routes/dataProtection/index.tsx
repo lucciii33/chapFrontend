@@ -74,8 +74,15 @@ export default function DataProtection() {
           <p className="text-white">{t("privacy.section7Text")}</p>
         </section>
 
+        <section className="mb-6">
+          <h2 className="text-xl font-semibold mb-2">
+            {t("privacy.section8Title")}
+          </h2>
+          <p className="text-white">{t("privacy.section8Text")}</p>
+        </section>
+
         <p className="text-sm text-center text-gray-500 mt-10">
-          Última actualización: 25 de junio de 2025
+          Última actualización: 19 de septiembre de 2025
         </p>
       </div>
     </div>

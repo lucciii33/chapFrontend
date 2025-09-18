@@ -341,7 +341,10 @@
     "section6Text": "De acuerdo con el RGPD y leyes internacionales, puedes acceder, modificar o eliminar tus datos en cualquier momento. Escríbenos para ejercer tus derechos.",
 
     "section7Title": "7. Contacto",
-    "section7Text": "Cualquier duda o solicitud:"
+    "section7Text": "Cualquier duda o solicitud:",
+
+    "section8Title": "8. Alertas comunitarias de mascotas perdidas",
+    "section8Text": "Si registras la pérdida de tu mascota en nuestra plataforma, puedes optar por activar un sistema de notificación comunitaria. Al hacerlo, autorizas expresamente a CHAP a enviar a otros usuarios cercanos un correo electrónico que incluirá el nombre de tu mascota, una fotografía, el lugar donde se perdió y tu número de contacto. Esta información solo será compartida con otros usuarios de nuestra plataforma con el fin de ayudarte a recuperar a tu mascota. Si no deseas que esta información sea compartida, puedes no activar esta opción."
   },
 
   "expenses": {
@@ -955,5 +958,12 @@
     "title_2": "Suscripción de correos",
     "save": "Guardar",
     "close": "Cerrar"
+  },
+  "pet_lost_pref": {
+    "enabled": "Se ha activado el envío de emails a personas cercanas.",
+    "disabled": "Has desactivado esta opción. No enviaremos emails con tu información.",
+    "error": "Ocurrió un error al actualizar tu preferencia.",
+    "accept_label": "Acepto enviar mis datos en el correo",
+    "Accept_title": "Si aceptas, autorizas compartir tu número de teléfono, la foto de tu mascota y la dirección donde se perdió. Nuestro algoritmo enviará un mensaje a otros usuarios con el tag para que más personas puedan ayudarte a encontrarla."
   }
 }

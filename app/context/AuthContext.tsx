@@ -9,6 +9,7 @@ type User = {
   full_name: string;
   id: number;
   email_subscription: boolean;
+  accept_send_info_email_pet_lost: boolean;
 };
 
 type RegisterData = {
@@ -38,6 +39,7 @@ type LoginResponse = {
   full_name: string;
   id: number;
   email_subscription: boolean;
+  accept_send_info_email_pet_lost: boolean;
 };
 
 export const useAuthContext = () => {
@@ -83,6 +85,8 @@ export const useAuthContext = () => {
         full_name: responseData.full_name,
         id: responseData.id,
         email_subscription: responseData.email_subscription,
+        accept_send_info_email_pet_lost:
+          responseData.accept_send_info_email_pet_lost,
       };
       setUser(userData);
       localStorage.setItem("user", JSON.stringify(userData));
@@ -214,6 +218,48 @@ export const useAuthContext = () => {
     }
   };
 
+  const updatePetLostPreference = async (
+    userId: number,
+    accept: boolean
+  ): Promise<boolean> => {
+    try {
+      const token = getToken();
+      if (!token) throw new Error("No token found");
+
+      const response = await fetch(
+        `${baseUrl}/users/update-preference?user_id=${userId}&accept_send_info_email_pet_lost=${accept}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) throw new Error("Error al actualizar preferencia");
+
+      setUser((prev) => {
+        if (!prev) return prev;
+        const updated = {
+          ...prev,
+          accept_send_info_email_pet_lost: accept,
+        };
+        localStorage.setItem("user", JSON.stringify(updated));
+        return updated;
+      });
+
+      showSuccessToast(
+        accept ? t("pet_lost_pref.enabled") : t("pet_lost_pref.disabled")
+      );
+
+      return true;
+    } catch (error) {
+      console.error("Error al actualizar preferencia:", error);
+      showErrorToast(t("pet_lost_pref.error"));
+      return false;
+    }
+  };
+
   return {
     user,
     login,
@@ -222,5 +268,6 @@ export const useAuthContext = () => {
     requestPasswordReset,
     resetPassword,
     updateEmailSubscription,
+    updatePetLostPreference,
   };
 };

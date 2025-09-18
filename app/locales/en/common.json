@@ -341,7 +341,10 @@
     "section6Text": "In accordance with the GDPR and applicable international data laws, you have the right to access, modify, or delete your data at any time. Contact us to exercise these rights.",
 
     "section7Title": "7. Contact",
-    "section7Text": "For any privacy questions or requests:"
+    "section7Text": "For any privacy questions or requests:",
+
+    "section8Title": "8. Lost Pet Community Alerts",
+    "section8Text": "If you report your pet as lost on our platform, you can choose to activate a community notification system. By enabling it, you expressly authorize CHAP to send nearby users an email containing your pet’s name, photo, the location where it was lost, and your contact number. This information will only be shared with other CHAP users in your area for the sole purpose of helping you recover your pet. If you do not wish to share this information, simply do not activate this option."
   },
 
   "expenses": {
@@ -958,5 +961,12 @@
     "title_2": "Email subscription",
     "save": "Save",
     "close": "Close"
+  },
+  "pet_lost_pref": {
+    "enabled": "Email notifications to nearby people have been enabled.",
+    "disabled": "You have disabled this option. We will not send emails with your information.",
+    "error": "An error occurred while updating your preference.",
+    "accept_label": "I agree to share my information by email",
+    "Accept_title": "By accepting, you agree to share your phone number, your pet’s photo, and the address where it got lost. Our algorithm will send a message to other users with the tag so more people can help you find your pet."
   }
 }

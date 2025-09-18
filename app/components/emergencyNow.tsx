@@ -7,32 +7,32 @@ export function EmergencyNow({
   t,
 }: {
   petId: number;
-  weeklyActivity: any; // o el tipo que tengas definido,
+  weeklyActivity: any;
   t: any;
 }) {
   const { getLostDogArea, getLastLostDogEvent } = PetTrackerContext();
   const [address, setAddress] = useState("");
   const [lostInfo, setLostInfo] = useState<any | null>(null);
 
-  useEffect(() => {
-    const fetchLastEvent = async () => {
-      const lastEvent = await getLastLostDogEvent(petId);
-      if (lastEvent) {
-        setLostInfo(lastEvent);
+  const fetchLastEvent = async () => {
+    const lastEvent = await getLastLostDogEvent(petId);
+    if (lastEvent) {
+      setLostInfo(lastEvent);
 
-        if (!document.querySelector('[src*="maps.googleapis.com"]')) {
-          const script = document.createElement("script");
-          script.src = `https://maps.googleapis.com/maps/api/js?key=${
-            import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_KEY
-          }`;
-          script.async = true;
-          script.onload = () => initMap(lastEvent);
-          document.body.appendChild(script);
-        } else {
-          initMap(lastEvent);
-        }
+      if (!document.querySelector('[src*="maps.googleapis.com"]')) {
+        const script = document.createElement("script");
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${
+          import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_KEY
+        }`;
+        script.async = true;
+        script.onload = () => initMap(lastEvent);
+        document.body.appendChild(script);
+      } else {
+        initMap(lastEvent);
       }
-    };
+    }
+  };
+  useEffect(() => {
     fetchLastEvent();
   }, [petId]);
 
@@ -40,16 +40,16 @@ export function EmergencyNow({
     if (!address.trim()) return;
     const data = await getLostDogArea(petId, address);
     if (data) {
-      setLostInfo(data);
+      setLostInfo(data.event);
+      await getLastLostDogEvent(petId);
 
-      // cargar Google Maps script si no existe
       if (!document.querySelector('[src*="maps.googleapis.com"]')) {
         const script = document.createElement("script");
         script.src = `https://maps.googleapis.com/maps/api/js?key=${
           import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_KEY
         }`;
         script.async = true;
-        script.onload = () => initMap(data);
+        script.onload = () => initMap(data.event);
         document.body.appendChild(script);
       } else {
         initMap(data);
@@ -58,12 +58,15 @@ export function EmergencyNow({
   };
 
   const initMap = (data: any) => {
-    const { lat, lng, radius } = data;
+    const event = data.event ? data.event : data;
 
+    const { lat, lng, radius } = event;
+
+    // const { lat, lng, radius } = data;
     const map = new google.maps.Map(
       document.getElementById("map") as HTMLElement,
       {
-        zoom: 13,
+        zoom: 10,
         center: { lat, lng },
       }
     );
@@ -71,7 +74,7 @@ export function EmergencyNow({
     new google.maps.Marker({
       position: { lat, lng },
       map,
-      title: data.pet_name,
+      title: event.pet_name,
     });
 
     new google.maps.Circle({

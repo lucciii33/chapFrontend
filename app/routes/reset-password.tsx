@@ -3,9 +3,11 @@ import { useState } from "react";
 import { useGlobalContext } from "~/context/GlobalProvider";
 import { showErrorToast, showSuccessToast } from "~/utils/toast";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "@remix-run/react";
 
 export default function ResetPasswordPage() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const { auth } = useGlobalContext();
   const [searchParams] = useSearchParams();
@@ -47,6 +49,7 @@ export default function ResetPasswordPage() {
 
     if (result?.success) {
       showSuccessToast(t("password_recovery.success"));
+      navigate("/login");
     } else {
       showErrorToast(t("password_recovery.request_error"));
     }
