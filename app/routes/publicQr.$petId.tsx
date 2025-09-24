@@ -61,20 +61,20 @@ export default function PublicQr() {
       }
     );
 
-    const watcher = navigator.geolocation.watchPosition(
-      (position) => {
-        const coords = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-        setUbicacion(coords);
-      },
-      (error) => {
-        console.warn("❌ Error en watchPosition:", error);
-      },
-      { enableHighAccuracy: true }
-    );
-    return () => navigator.geolocation.clearWatch(watcher);
+    // const watcher = navigator.geolocation.watchPosition(
+    //   (position) => {
+    //     const coords = {
+    //       lat: position.coords.latitude,
+    //       lng: position.coords.longitude,
+    //     };
+    //     setUbicacion(coords);
+    //   },
+    //   (error) => {
+    //     console.warn("❌ Error en watchPosition:", error);
+    //   },
+    //   { enableHighAccuracy: true }
+    // );
+    // return () => navigator.geolocation.clearWatch(watcher);
   }, [petId]);
 
   useEffect(() => {
