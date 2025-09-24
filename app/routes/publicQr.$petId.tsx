@@ -27,6 +27,21 @@ export default function PublicQr() {
         .catch((error) => console.error("Error al obtener la mascota:", error));
     }
 
+    const obtenerUbicacionGoogle = async () => {
+      try {
+        const response = await axios.post(
+          `https://www.googleapis.com/geolocation/v1/geolocate?key=${
+            import.meta.env.VITE_REACT_APP_GEOLOCATION_KEY
+          }`
+        );
+        const data = response.data;
+        setUbicacion({ lat: data.location.lat, lng: data.location.lng });
+      } catch (error) {
+        console.error("Error al obtener ubicación:", error);
+        setUbicacion({ lat: "10.500000", lng: "-66.916664" });
+      }
+    };
+
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const coords = {
@@ -46,20 +61,20 @@ export default function PublicQr() {
       }
     );
 
-    const obtenerUbicacionGoogle = async () => {
-      try {
-        const response = await axios.post(
-          `https://www.googleapis.com/geolocation/v1/geolocate?key=${
-            import.meta.env.VITE_REACT_APP_GEOLOCATION_KEY
-          }`
-        );
-        const data = response.data;
-        setUbicacion({ lat: data.location.lat, lng: data.location.lng });
-      } catch (error) {
-        console.error("Error al obtener ubicación:", error);
-        setUbicacion({ lat: "10.500000", lng: "-66.916664" });
-      }
-    };
+    const watcher = navigator.geolocation.watchPosition(
+      (position) => {
+        const coords = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        setUbicacion(coords);
+      },
+      (error) => {
+        console.warn("❌ Error en watchPosition:", error);
+      },
+      { enableHighAccuracy: true }
+    );
+    return () => navigator.geolocation.clearWatch(watcher);
   }, [petId]);
 
   useEffect(() => {
