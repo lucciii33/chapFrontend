@@ -711,7 +711,8 @@
   },
   "profile_photo": {
     "title": "Add a new profile photo",
-    "subtitle": "Now everyone can see how adorable they are!"
+    "subtitle": "Now everyone can see how adorable they are!",
+    "save": "Save Image"
   },
   "login_toast": {
     "success": "Login successful",

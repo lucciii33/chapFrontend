@@ -708,7 +708,8 @@
   },
   "profile_photo": {
     "title": "Agrega una nueva foto de perfil",
-    "subtitle": "¡Ahora todos podrán ver lo adorable que es!"
+    "subtitle": "¡Ahora todos podrán ver lo adorable que es!",
+    "save": "Guardar Imagen"
   },
   "login_toast": {
     "success": "Inicio exitoso",

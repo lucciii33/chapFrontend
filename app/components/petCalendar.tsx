@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import DeleteDialog from "../components/deleteDialog";
 import { useTranslation } from "react-i18next";
+import { showInfoToast } from "~/utils/toast";
+import { hasAnyValue } from "~/utils/dateFormat";
 
 export default function PetCalendar({
   trackers,
@@ -565,8 +567,12 @@ export default function PetCalendar({
                   <button
                     className="px-4 py-2 bg-teal-500 text-white rounded"
                     onClick={async () => {
+                      if (!hasAnyValue(formData)) {
+                        showInfoToast(t("diary.fill_one_field_toast"));
+                        return;
+                      }
+
                       await onCreate(formData);
-                      // await getPetById(formData.pet_id);
                       setIsModalOpen(false);
                     }}
                   >

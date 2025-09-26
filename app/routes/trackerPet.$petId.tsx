@@ -129,7 +129,7 @@ export default function PetTracker() {
 
     const existingTrackers = await getPetTrack(petId);
 
-    const today = new Date().toISOString().split("T")[0]; // Solo la fecha YYYY-MM-DD
+    const today = new Date().toISOString().split("T")[0];
 
     const alreadyTrackedToday = existingTrackers?.some((t) =>
       t.date.startsWith(today)

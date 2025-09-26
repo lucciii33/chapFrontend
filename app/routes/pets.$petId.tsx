@@ -1857,6 +1857,13 @@ export default function PetDetail() {
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
               <button className="btn">{t("pet_tracker.button")}</button>
+              <button
+                type="button"
+                onClick={(e) => handleSubmit(e as unknown as React.FormEvent)}
+                className="mt-4 ms-2 bg-teal-500 text-white px-4 py-2 rounded"
+              >
+                {t("profile_photo.save")}
+              </button>
             </form>
           </div>
         </div>
