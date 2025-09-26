@@ -85,7 +85,7 @@ export default function PublicQr() {
   }, [petId]);
 
   useEffect(() => {
-    if (!ubicacion) return;
+    if (!petData?.last_latitude || !petData?.last_longitude) return;
     const cargarScriptGoogleMaps = () => {
       const existingScript = document.querySelector(
         '[src*="maps.googleapis.com"]'
