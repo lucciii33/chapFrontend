@@ -99,7 +99,6 @@ export default function PublicQr() {
         script.async = true;
 
         script.onload = () => {
-          // window.google && inicializarMapa(ubicacion.lat, ubicacion.lng);
           window.google &&
             inicializarMapa(petData.last_latitude, petData.last_longitude);
         };
