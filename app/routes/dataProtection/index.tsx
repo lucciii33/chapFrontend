@@ -19,6 +19,7 @@ export default function DataProtection() {
             <li>{t("privacy.section1List.personal")}</li>
             <li>{t("privacy.section1List.pet")}</li>
             <li>{t("privacy.section1List.usage")}</li>
+            <li>{t("privacy.section1List.ip")}</li>
           </ul>
         </section>
 

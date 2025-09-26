@@ -1,8 +1,4 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-// import { useState } from "react";
-// import { Link, useNavigate } from "@remix-run/react";
-// import { useGlobalContext } from "../../context/GlobalProvider"; // Ajusta el path
-// import loginImage from "../../images/imageLogin4.png";
 import { useParams } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "../context/GlobalProvider";
@@ -16,9 +12,17 @@ export default function PublicQr() {
 
   const { petId } = useParams();
   const [petData, setPetData] = useState(null);
+  console.log("petData", petData);
   const [location, setLocation] = useState(null);
   const [ubicacion, setUbicacion] = useState(null);
   const [mapError, setMapError] = useState(false);
+  const [storedUser, setStoredUser] = useState(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setStoredUser(localStorage.getItem("user"));
+    }
+  }, []);
   useEffect(() => {
     if (petId) {
       axios
@@ -26,40 +30,41 @@ export default function PublicQr() {
         .then((response) => setPetData(response.data))
         .catch((error) => console.error("Error al obtener la mascota:", error));
     }
+    if (!storedUser) {
+      const obtenerUbicacionGoogle = async () => {
+        try {
+          const response = await axios.post(
+            `https://www.googleapis.com/geolocation/v1/geolocate?key=${
+              import.meta.env.VITE_REACT_APP_GEOLOCATION_KEY
+            }`
+          );
+          const data = response.data;
+          setUbicacion({ lat: data.location.lat, lng: data.location.lng });
+        } catch (error) {
+          console.error("Error al obtener ubicación:", error);
+          setUbicacion({ lat: "10.500000", lng: "-66.916664" });
+        }
+      };
 
-    const obtenerUbicacionGoogle = async () => {
-      try {
-        const response = await axios.post(
-          `https://www.googleapis.com/geolocation/v1/geolocate?key=${
-            import.meta.env.VITE_REACT_APP_GEOLOCATION_KEY
-          }`
-        );
-        const data = response.data;
-        setUbicacion({ lat: data.location.lat, lng: data.location.lng });
-      } catch (error) {
-        console.error("Error al obtener ubicación:", error);
-        setUbicacion({ lat: "10.500000", lng: "-66.916664" });
-      }
-    };
-
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const coords = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-        setUbicacion(coords);
-      },
-      async (error) => {
-        console.warn("❌ Usuario rechazó ubicación o falló:", error);
-        await obtenerUbicacionGoogle();
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 0,
-      }
-    );
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const coords = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          setUbicacion(coords);
+        },
+        async (error) => {
+          console.warn("❌ Usuario rechazó ubicación o falló:", error);
+          await obtenerUbicacionGoogle();
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0,
+        }
+      );
+    }
 
     // const watcher = navigator.geolocation.watchPosition(
     //   (position) => {
@@ -92,7 +97,9 @@ export default function PublicQr() {
         script.async = true;
 
         script.onload = () => {
-          window.google && inicializarMapa(ubicacion.lat, ubicacion.lng);
+          // window.google && inicializarMapa(ubicacion.lat, ubicacion.lng);
+          window.google &&
+            inicializarMapa(petData.last_latitude, petData.last_longitude);
         };
 
         script.onerror = () => {
@@ -104,10 +111,12 @@ export default function PublicQr() {
       } else {
         // Ya cargado
         if (window.google) {
-          inicializarMapa(ubicacion.lat, ubicacion.lng);
+          // inicializarMapa(ubicacion.lat, ubicacion.lng);
+          inicializarMapa(petData.last_latitude, petData.last_longitude);
         } else {
           existingScript.addEventListener("load", () => {
-            inicializarMapa(ubicacion.lat, ubicacion.lng);
+            // inicializarMapa(ubicacion.lat, ubicacion.lng);
+            inicializarMapa(petData.last_latitude, petData.last_longitude);
           });
         }
       }
@@ -166,7 +175,6 @@ export default function PublicQr() {
   useEffect(() => {
     if (!petData || !petId || !ubicacion?.lat || !ubicacion?.lng) return;
 
-    const storedUser = localStorage.getItem("user");
     if (!storedUser) {
       fetch(
         `${
@@ -490,7 +498,16 @@ export default function PublicQr() {
                 ❌ No se pudo cargar Google Maps.
               </div>
             ) : (
-              <div id="map" style={{ height: "400px", width: "100%" }} />
+              <div>
+                <div className="">
+                  <p className="text-white">Last location Scan:</p>
+                </div>
+                <div
+                  className="mt-3"
+                  id="map"
+                  style={{ height: "400px", width: "100%" }}
+                />
+              </div>
             )}
           </div>
         </div>

@@ -23,7 +23,7 @@ export function EmergencyNow({
         const script = document.createElement("script");
         script.src = `https://maps.googleapis.com/maps/api/js?key=${
           import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_KEY
-        }`;
+        }&libraries=geometry`;
         script.async = true;
         script.onload = () => initMap(lastEvent);
         document.body.appendChild(script);
@@ -57,6 +57,43 @@ export function EmergencyNow({
     }
   };
 
+  // const createColoredCircle = (map: any, center: any, radius: number) => {
+  // esto no sirve
+  //   const colors = ["#FF0000", "#00FF00", "#0000FF", "#FFFF00"]; // rojo, verde, azul, amarillo
+
+  //   // 4 cuadrantes de 90°
+  //   for (let i = 0; i < 4; i++) {
+  //     const startAngle = i * 90;
+  //     const endAngle = (i + 1) * 90;
+
+  //     const path = [center];
+
+  //     // ir creando puntos del arco desde startAngle hasta endAngle
+  //     for (let angle = startAngle; angle <= endAngle; angle += 10) {
+  //       const point = google.maps.geometry.spherical.computeOffset(
+  //         center,
+  //         radius,
+  //         angle
+  //       );
+  //       path.push(point);
+  //     }
+
+  //     // cerrar con el centro
+  //     path.push(center);
+
+  //     // dibujar el polígono
+  //     new google.maps.Polygon({
+  //       paths: path,
+  //       strokeColor: colors[i],
+  //       strokeOpacity: 0.8,
+  //       strokeWeight: 2,
+  //       fillColor: colors[i],
+  //       fillOpacity: 0.35,
+  //       map,
+  //     });
+  //   }
+  // };
+
   const initMap = (data: any) => {
     const event = data.event ? data.event : data;
 
@@ -87,6 +124,48 @@ export function EmergencyNow({
       center: { lat, lng },
       radius,
     });
+
+    const north = google.maps.geometry.spherical.computeOffset(
+      { lat, lng },
+      radius,
+      0
+    );
+    const south = google.maps.geometry.spherical.computeOffset(
+      { lat, lng },
+      radius,
+      180
+    );
+    const east = google.maps.geometry.spherical.computeOffset(
+      { lat, lng },
+      radius,
+      90
+    );
+    const west = google.maps.geometry.spherical.computeOffset(
+      { lat, lng },
+      radius,
+      270
+    );
+
+    // línea N-S
+    new google.maps.Polyline({
+      path: [north, south],
+      geodesic: true,
+      strokeColor: "#00FF00", // verde
+      strokeOpacity: 1.0,
+      strokeWeight: 2,
+      map,
+    });
+
+    // línea E-O
+    new google.maps.Polyline({
+      path: [east, west],
+      geodesic: true,
+      strokeColor: "#0000FF", // azul
+      strokeOpacity: 1.0,
+      strokeWeight: 2,
+      map,
+    });
+    // createColoredCircle(map, { lat, lng }, radius); // esto no sirve
   };
 
   return (

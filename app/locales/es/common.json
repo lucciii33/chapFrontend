@@ -318,7 +318,8 @@
     "section1List": {
       "personal": "Datos personales: nombre, email, dirección de envío,",
       "pet": "Datos de mascotas: nombre, raza, información médica, fotos, notas",
-      "usage": "Datos de uso: análisis anónimo de navegación"
+      "usage": "Datos de uso: análisis anónimo de navegación",
+      "ip": "Dirección IP: utilizada únicamente para determinar idioma y región de preferencia"
     },
 
     "section2Title": "2. Uso de datos",

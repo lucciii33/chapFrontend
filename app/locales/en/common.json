@@ -318,7 +318,8 @@
     "section1List": {
       "personal": "Personal info: name, email, shipping address, payment details",
       "pet": "Pet info: name, breed, medical data, photos, notes",
-      "usage": "Platform usage data (analytics, browser info, etc.)"
+      "usage": "Platform usage data (analytics, browser info, etc.)",
+      "ip": "IP address: used solely to determine preferred language and region"
     },
 
     "section2Title": "2. How We Use It",
