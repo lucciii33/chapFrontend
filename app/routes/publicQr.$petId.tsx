@@ -101,6 +101,7 @@ export default function PublicQr() {
         script.onload = () => {
           window.google &&
             inicializarMapa(petData.last_latitude, petData.last_longitude);
+          console.log("iniciandoooo mapaaaaa");
         };
 
         script.onerror = () => {
@@ -114,10 +115,12 @@ export default function PublicQr() {
         if (window.google) {
           // inicializarMapa(ubicacion.lat, ubicacion.lng);
           inicializarMapa(petData.last_latitude, petData.last_longitude);
+          console.log("window.google");
         } else {
           existingScript.addEventListener("load", () => {
             // inicializarMapa(ubicacion.lat, ubicacion.lng);
             inicializarMapa(petData.last_latitude, petData.last_longitude);
+            console.log("else existingScript");
           });
         }
       }
