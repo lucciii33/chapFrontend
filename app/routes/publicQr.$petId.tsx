@@ -17,6 +17,7 @@ export default function PublicQr() {
   const [ubicacion, setUbicacion] = useState(null);
   const [mapError, setMapError] = useState(false);
   const [storedUser, setStoredUser] = useState(null);
+  console.log("storedUser", storedUser);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -30,6 +31,7 @@ export default function PublicQr() {
         .then((response) => setPetData(response.data))
         .catch((error) => console.error("Error al obtener la mascota:", error));
     }
+    if (!petId || storedUser) return;
     if (!storedUser) {
       const obtenerUbicacionGoogle = async () => {
         try {
@@ -493,7 +495,7 @@ export default function PublicQr() {
             </div>
 
             {/* <div id="map" style={{ height: "400px", width: "100%" }} /> */}
-            {mapError ? (
+            {/* {mapError ? (
               <div className="text-center text-red-500 font-bold">
                 ❌ No se pudo cargar Google Maps.
               </div>
@@ -506,6 +508,24 @@ export default function PublicQr() {
                   className="mt-3"
                   id="map"
                   style={{ height: "400px", width: "100%" }}
+                />
+              </div>
+            )} */}
+            {mapError ? (
+              <div className="text-center text-red-500 font-bold">
+                ❌ No se pudo cargar Google Maps.
+              </div>
+            ) : !petData?.last_latitude || !petData?.last_longitude ? (
+              <div className="text-center text-gray-500">
+                ⏳ Cargando mapa...
+              </div>
+            ) : (
+              <div>
+                <p className="text-white">Last location Scan:</p>
+                <div
+                  id="map"
+                  style={{ height: "400px", width: "100%" }}
+                  className="mt-3"
                 />
               </div>
             )}
