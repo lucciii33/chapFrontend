@@ -127,7 +127,7 @@ export default function PublicQr() {
     };
 
     cargarScriptGoogleMaps();
-  }, [ubicacion]);
+  }, [petData?.last_latitude, petData?.last_longitude]);
 
   useEffect(() => {
     if (!ubicacion || !petId) return;
