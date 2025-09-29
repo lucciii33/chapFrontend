@@ -4,7 +4,9 @@ export default function Donation() {
   const handleOnboard = async () => {
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_REACT_APP_URL}/stripe/onboard-user`,
+        `${
+          import.meta.env.VITE_REACT_APP_URL
+        }/stripe/onboard-user?user_id=${1}`,
         {
           method: "POST",
           headers: {
