@@ -1100,11 +1100,20 @@ export default function Dashboard() {
             <div className="flex flex-col md:flex-row gap-2 mt-4">
               {allPets.length > 0 ? (
                 <div>
-                  <Link to={`/finances`}>
-                    <button className="btn flex justify-start  bg-teal-500 w-full md:w-auto">
-                      {t("subNavbar.extraFeatures.buttonFinances")}
-                    </button>
-                  </Link>
+                  <div>
+                    <Link to={`/finances`}>
+                      <button className="btn flex justify-start  bg-teal-500 w-full md:w-auto">
+                        {t("subNavbar.extraFeatures.buttonFinances")}
+                      </button>
+                    </Link>
+                  </div>
+                  <div>
+                    <Link to={`/donation`}>
+                      <button className="btn flex justify-start  bg-teal-500 w-full md:w-auto">
+                        test
+                      </button>
+                    </Link>
+                  </div>
                 </div>
               ) : (
                 ""
