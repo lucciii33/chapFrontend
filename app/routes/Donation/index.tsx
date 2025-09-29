@@ -3,13 +3,16 @@ import "../../../styles/dashboard.css";
 export default function Donation() {
   const handleOnboard = async () => {
     try {
-      const res = await fetch("/stripe/onboard-user", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ user_id: 1 }), // 👈 cambia el user_id dinámicamente si lo tienes en contexto/login
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_REACT_APP_URL}/stripe/onboard-user`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ user_id: 1 }),
+        }
+      );
 
       if (!res.ok) {
         throw new Error("Error en la petición");
