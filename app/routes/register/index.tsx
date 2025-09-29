@@ -95,6 +95,32 @@ export default function Register() {
       console.error("Error en login:", error);
     }
   };
+
+  // countries.js
+  const countries = [
+    { value: "spain", label: "España" },
+    { value: "portugal", label: "Portugal" },
+    { value: "italy", label: "Italia" },
+    { value: "france", label: "Francia" },
+    { value: "germany", label: "Alemania" },
+    { value: "uk", label: "Reino Unido" },
+    { value: "netherlands", label: "Países Bajos" },
+    { value: "sweden", label: "Suecia" },
+    { value: "argentina", label: "Argentina" },
+    { value: "chile", label: "Chile" },
+    { value: "colombia", label: "Colombia" },
+    { value: "mexico", label: "México" },
+    { value: "venezuela", label: "Venezuela" },
+    { value: "peru", label: "Perú" },
+    { value: "uruguay", label: "Uruguay" },
+    { value: "ecuador", label: "Ecuador" },
+    { value: "bolivia", label: "Bolivia" },
+    { value: "paraguay", label: "Paraguay" },
+    { value: "costa_rica", label: "Costa Rica" },
+    { value: "panama", label: "Panamá" },
+    { value: "dominican_republic", label: "República Dominicana" },
+  ];
+
   return (
     <div className="flex flex-col md:flex-row">
       <div className="w-full md:w-1/2 flex items-center justify-center">
@@ -178,16 +204,21 @@ export default function Register() {
               {" "}
               {t("register_page.country")}
             </label>
-            <input
-              type="text"
+            <select
               className={`w-full px-4 py-2 border rounded-lg ${
                 errors.country ? "border-red-500" : ""
               }`}
-              placeholder={t("register_page.country")}
-              onChange={onChange}
               name="country"
               value={formData.country}
-            />
+              onChange={onChange}
+            >
+              <option value="">{t("register_page.country")}</option>
+              {countries.map((c) => (
+                <option key={c.value} value={c.value}>
+                  {c.label}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="mb-4">
             <label className="block text-slate-50">
