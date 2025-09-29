@@ -3,7 +3,7 @@ import "../../../styles/dashboard.css";
 export default function Donation() {
   const handleOnboard = async () => {
     try {
-      const res = await fetch("/api/onboard-user", {
+      const res = await fetch("/stripe/onboard-user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
