@@ -16,13 +16,12 @@ export default function PetTracker() {
       const res = await fetch(
         `${
           import.meta.env.VITE_REACT_APP_URL
-        }/stripe/onboard-user?user_id=${1}`,
+        }/stripe/onboard-user?user_id=${userId}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ user_id: 1 }),
         }
       );
 
@@ -33,7 +32,6 @@ export default function PetTracker() {
       const data = await res.json();
 
       if (data.onboarding_url) {
-        // 🚀 Redirige al link de Stripe
         window.location.href = data.onboarding_url;
       } else {
         alert("No se recibió el link de onboarding");
