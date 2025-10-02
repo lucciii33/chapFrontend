@@ -1107,13 +1107,13 @@ export default function Dashboard() {
                       </button>
                     </Link>
                   </div>
-                  {/* <div>
-                    <Link to={`/donation`}>
+                  <div>
+                    <Link to={`/donation/${user.id}`}>
                       <button className="btn flex justify-start  bg-teal-500 w-full md:w-auto">
                         test
                       </button>
                     </Link>
-                  </div> */}
+                  </div>
                 </div>
               ) : (
                 ""

@@ -1,6 +1,16 @@
-import "../../../styles/dashboard.css";
+import { useEffect, useState } from "react";
+import { useParams } from "@remix-run/react";
+import { useGlobalContext } from "~/context/GlobalProvider";
 
-export default function Donation() {
+import "../../styles/dashboard.css";
+
+import { useTranslation } from "react-i18next";
+import { showInfoToast } from "~/utils/toast";
+
+export default function PetTracker() {
+  const { t } = useTranslation();
+  const { userId } = useParams();
+  console.log("userId", userId);
   const handleOnboard = async () => {
     try {
       const res = await fetch(
@@ -35,11 +45,14 @@ export default function Donation() {
   };
 
   return (
-    <div className="donation-container">
-      <h1>Test donation</h1>
-      <button onClick={handleOnboard} className="btn">
-        Conectar con Stripe
-      </button>
+    <div className="p-5">
+      test {userId}
+      <div className="donation-container">
+        <h1>Test donation</h1>
+        <button onClick={handleOnboard} className="btn">
+          Conectar con Stripe
+        </button>
+      </div>
     </div>
   );
 }
