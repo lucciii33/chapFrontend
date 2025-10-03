@@ -774,7 +774,10 @@ export default function PetDetail() {
                 </div>
                 <div className="w-full md:w-auto md:flex md:flex-row">
                   <div>
-                    <Link to={`/publicQr/${petId}`}>
+                    <Link
+                      to={`/publicQr/${petId}`}
+                      state={{ internalPreview: true }}
+                    >
                       <button className="w-full md:w-auto border-none py-3 px-4 ms-0 md:ms-3 mt-5 bg-teal-700 text-white rounded-lg inline-block">
                         {" "}
                         {t("extraOptions.qr_view")}

@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useParams } from "@remix-run/react";
+import { useParams, useLocation } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "../context/GlobalProvider";
 import DogLoader from "../components/petLoader";
@@ -13,23 +13,41 @@ export default function PublicQr() {
   const { petId } = useParams();
   const [petData, setPetData] = useState(null);
   console.log("petData", petData);
+
+  const locationRemix = useLocation();
+  const isInternalPreview = locationRemix.state?.internalPreview === true;
+  console.log("isInternalPreview", isInternalPreview);
+
   const [location, setLocation] = useState(null);
   const [ubicacion, setUbicacion] = useState(null);
   const [mapError, setMapError] = useState(false);
   const [storedUser, setStoredUser] = useState(null);
-  console.log("storedUser", storedUser);
+  const [checkedUser, setCheckedUser] = useState(false); // 👈 nuevo
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       setStoredUser(localStorage.getItem("user"));
+      setCheckedUser(true);
     }
   }, []);
+
+  const fetchPet = async () => {
+    try {
+      const res = await axios.get(
+        `${import.meta.env.VITE_REACT_APP_URL}/api/public/pets/${petId}`
+      );
+      setPetData(res.data);
+    } catch (err) {
+      console.error("Error fetchPet:", err);
+    }
+  };
   useEffect(() => {
     if (petId) {
-      axios
-        .get(`${import.meta.env.VITE_REACT_APP_URL}/api/public/pets/${petId}`)
-        .then((response) => setPetData(response.data))
-        .catch((error) => console.error("Error al obtener la mascota:", error));
+      fetchPet();
+      // axios
+      //   .get(`${import.meta.env.VITE_REACT_APP_URL}/api/public/pets/${petId}`)
+      //   .then((response) => setPetData(response.data))
+      //   .catch((error) => console.error("Error al obtener la mascota:", error));
     }
     if (!petId || storedUser) return;
     if (!storedUser) {
@@ -130,6 +148,8 @@ export default function PublicQr() {
   }, [petData?.last_latitude, petData?.last_longitude]);
 
   useEffect(() => {
+    if (!checkedUser) return;
+    if (storedUser) return;
     if (!ubicacion || !petId) return;
 
     const updateLastLatAndLastLong = async () => {
@@ -141,7 +161,9 @@ export default function PublicQr() {
             last_longitude: ubicacion.lng,
           }
         );
+        console.log("llamando aqui");
         const updatedData = response.data;
+        await fetchPet();
         return updatedData;
         // setPetData(updatedData);
       } catch (error) {
@@ -518,12 +540,18 @@ export default function PublicQr() {
                 ❌ No se pudo cargar Google Maps.
               </div>
             ) : !petData?.last_latitude || !petData?.last_longitude ? (
-              <div className="text-center text-gray-500">
-                ⏳ Cargando mapa...
+              <div className="text-center border-2 text-gray-500 p-4">
+                {t("qr_code_view.activate_map")}
               </div>
             ) : (
               <div>
-                <p className="text-white">Last location Scan:</p>
+                {isInternalPreview ? (
+                  <p className="text-white">{t("qr_code_view.message_exp")}</p>
+                ) : (
+                  <p className="text-white">
+                    {t("qr_code_view.message_exp_qr_scan")}
+                  </p>
+                )}
                 <div
                   id="map"
                   style={{ height: "400px", width: "100%" }}

@@ -644,7 +644,10 @@
     "notes": "Notes",
     "emergency_contact": "Emergency contact",
     "not_active": "QR Not Activated",
-    "not_Active_description": "This QR code has not been activated yet. Please ask the pet owner to complete the purchase and activation process."
+    "not_Active_description": "This QR code has not been activated yet. Please ask the pet owner to complete the purchase and activation process.",
+    "activate_map": "No one has scanned this pet’s QR code yet. The code only saves the location when it’s scanned from other devices. If you scan it from your own phone with your session active, the location won’t be registered because we assume you are with your pet. The map will automatically appear once someone scans the code from another device. If you want to test it, scan the code from a different device or sign out and scan it there.",
+    "message_exp": "he last scan of your dog’s tag appears on the map; here you can see where it was last detected, useful if your pet gets lost or is being cared for by someone.",
+    "message_exp_qr_scan": "Address (latitude and longitude) of the last scanned location."
   },
   "cart": {
     "pet_name": "Pet",

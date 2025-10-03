@@ -641,15 +641,16 @@
     "notes": "Notas",
     "emergency_contact": "Contacto de emergencia",
     "not_active": "QR Inactivo",
-    "not_Active_description": "Este código QR no ha sido activado aun. Por favor, pide al dueño de la mascota que complete el proceso de compra y activación."
-  },
-  "cart": {
+    "not_Active_description": "Este código QR no ha sido activado aun. Por favor, pide al dueño de la mascota que complete el proceso de compra y activación.",
+    "activate_map": "Nadie ha escaneado el código QR de esta mascota todavía. El código solo guarda la ubicación cuando lo escanean otros dispositivos. Si lo escaneas desde tu propio teléfono con tu sesión iniciada, la ubicación no se registra porque asumimos que estás con tu mascota. El mapa aparecerá automáticamente una vez que alguien escanee el código desde otro dispositivo. Si quieres probarlo, escanea el código desde un dispositivo diferente o cierra tu sesión y escanéalo allí.",
     "pet_name": "Mascota",
     "tag_color": "Color",
     "tag_shape": "Forma",
     "tag_material": "Material",
     "tag_quantity": "Cantidad",
-    "button": "Paga Ahora"
+    "button": "Paga Ahora",
+    "message_exp": "El último escaneo del tag de tu perro aparece en el mapa; aquí podrás ver dónde estuvo por última vez, ideal si se pierde o está bajo el cuidado de alguien.",
+    "message_exp_qr_scan": "Dirección (latitud y longitud) de la última ubicación escaneada."
   },
   "checkout_page": {
     "title_checkout": "Resumen",
