@@ -14,14 +14,12 @@ import { useNavigate } from "@remix-run/react";
 import { useTranslation } from "react-i18next";
 import DogLoader from "./petLoader";
 
-// Función auxiliar para llamar al backend
-
 const CheckoutForm: React.FC<{
   openShippingModal: () => void;
   setHighlightAddressSection: (value: boolean) => void;
   setAmountInCents: (value: number) => void;
   refreshAddresses: boolean;
-  setShippingAddresses: (value: any[]) => void; // ⚡
+  setShippingAddresses: (value: any[]) => void;
 }> = ({
   openShippingModal,
   setHighlightAddressSection,
@@ -69,12 +67,10 @@ const CheckoutForm: React.FC<{
     setAmountInCents(calculatedAmount);
   }, [allCarts, discount]);
 
-  // 2. Función para manejar el cambio del input
   const handleCouponChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.trim().toUpperCase(); // Por si lo escriben en minúscula
+    const value = e.target.value.trim().toUpperCase();
     setCouponCode(value);
 
-    // Si coincide con el código "TAG20", aplicamos 20% descuento
     const discountValue = couponDiscounts[value] || 0;
     setDiscount(discountValue);
   };
@@ -150,16 +146,12 @@ const CheckoutForm: React.FC<{
       return baseTotal;
     };
 
-    // 👉 suma de todos los precios
     const baseTotal = allCarts.reduce(
       (acc, item) => acc + item.price * item.quantity,
       0
     );
 
-    // 👉 aplica IVA o envío
     const totalPrice = calculateTotalPrice(baseTotal, selectedAddress?.country);
-
-    // const totalPrice = allCarts.reduce((acc, item) => acc + item.subtotal, 0);
 
     const orderData = {
       user_id: user.id,
@@ -167,6 +159,7 @@ const CheckoutForm: React.FC<{
       order_data: allCarts,
       shipping_address: selectedAddress,
       total_price: totalPrice,
+      coupon_code: couponCode,
     };
 
     try {

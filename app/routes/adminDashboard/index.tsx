@@ -20,6 +20,7 @@ export default function AdminDashboard() {
   const [selectedOrderId, setSelectedOrderId] = useState<number | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [newStatus, setNewStatus] = useState<string>("pending");
+  const [filterCoupon, setFilterCoupon] = useState("");
 
   const fetchOrders = async () => {
     try {
@@ -107,7 +108,11 @@ export default function AdminDashboard() {
       ? new Date(order?.created_at).toISOString().slice(0, 10) === filterDate
       : true;
 
-    return countryMatch && dateMatch;
+    const couponMatch = filterCoupon
+      ? order?.coupon_code?.toLowerCase().includes(filterCoupon.toLowerCase())
+      : true;
+
+    return countryMatch && dateMatch && couponMatch;
   });
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -117,6 +122,7 @@ export default function AdminDashboard() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
   const currentOrders = filteredOrders.slice(indexOfFirstItem, indexOfLastItem);
+  console.log("currentOrders", currentOrders);
   const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
 
   const handleDownloadQR = async (url: string, fileName: string) => {
@@ -198,6 +204,15 @@ export default function AdminDashboard() {
             onChange={(e) => setFilterCountry(e.target.value)}
           />
         </div>
+        <div className="mb-2 mt-3 ms-2">
+          <label className="block text-black">By coupon</label>
+          <input
+            className="w-full px-4 py-2 border rounded-lg"
+            placeholder="Coupon code"
+            value={filterCoupon}
+            onChange={(e) => setFilterCoupon(e.target.value)}
+          />
+        </div>
       </div>
       {currentOrders.length === 0 ? (
         <p>No hay órdenes disponibles.</p>
@@ -248,6 +263,9 @@ export default function AdminDashboard() {
                 <h3 className="font-semibold">Detalles del pedido:</h3>
                 <p className="mb-3">
                   <strong>Status:</strong> {order?.status}
+                </p>
+                <p>
+                  <strong>Coupon:</strong> {order?.coupon_code}
                 </p>
                 {order?.order_data.map((item, index) => (
                   <div key={index}>
