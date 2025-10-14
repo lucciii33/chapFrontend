@@ -9,6 +9,7 @@ import Pagination from "~/components/pagination";
 
 export default function AdminDashboard() {
   const { orders } = useGlobalContext();
+  console.log("orders", orders);
 
   const [showOrder, setShowOrder] = useState(false);
   const [trackerShippingNumber, setTrackerShippingNumber] = useState("");
@@ -377,6 +378,14 @@ export default function AdminDashboard() {
                 >
                   delete order
                 </button>
+                {order.reference_number && (
+                  <button
+                    className="btn  bg-teal-500  mt-2 me-2 border-none text-white"
+                    onClick={() => orders.activateManualPayment(order.id)}
+                  >
+                    Activar Manualmente
+                  </button>
+                )}
               </div>
             ) : (
               ""

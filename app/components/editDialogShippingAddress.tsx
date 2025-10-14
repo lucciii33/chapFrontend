@@ -40,12 +40,33 @@ export default function EditDialogShippinAddress({
 
         <div className="mt-3">
           <label className="block">{t("saved_address.country_label")}</label>
-          <input
+          <select
             name="country"
             className="input input-bordered w-full"
             value={formData.country}
             onChange={handleChange}
-          />
+          >
+            <option value="">
+              {t("shipping_address.country_placeholder")}
+            </option>
+            <option value="ES">Spain</option>
+            <option value="PT">Portugal</option>
+            <option value="IT">Italy</option>
+            <option value="FR">France</option>
+            <option value="DE">Germany</option>
+            <option value="NL">Netherlands</option>
+            <option value="BE">Belgium</option>
+            <option value="IE">Ireland</option>
+            <option value="UK">United Kingdom</option>
+            <option value="USA">United States</option>
+            <option value="VE">Venezuela</option>
+          </select>
+          {/* <input
+            name="country"
+            className="input input-bordered w-full"
+            value={formData.country}
+            onChange={handleChange}
+          /> */}
         </div>
 
         <div className="mt-3">

@@ -87,6 +87,7 @@ export const useAuthContext = () => {
         email_subscription: responseData.email_subscription,
         accept_send_info_email_pet_lost:
           responseData.accept_send_info_email_pet_lost,
+        country: responseData.country,
       };
       setUser(userData);
       localStorage.setItem("user", JSON.stringify(userData));

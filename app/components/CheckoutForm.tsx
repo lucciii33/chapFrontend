@@ -41,6 +41,7 @@ const CheckoutForm: React.FC<{
   const [cardExpiryComplete, setCardExpiryComplete] = useState(false);
   const [cardCvcComplete, setCardCvcComplete] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [referenceNumber, setReferenceNumber] = useState("");
 
   const { getShippingAddresses } = ShippingAddressContext();
 
@@ -257,91 +258,181 @@ const CheckoutForm: React.FC<{
     }
   };
 
+  const handleManualPayment = async () => {
+    const selectedAddress = addresses.find((addr) => addr.is_selected);
+    if (!selectedAddress) {
+      showErrorToast("Selecciona una dirección de envío antes de continuar.");
+      openShippingModal();
+      setHighlightAddressSection(true);
+      return;
+    }
+
+    if (!referenceNumber.trim()) {
+      showErrorToast("Debes ingresar el número de referencia del pago.");
+      return;
+    }
+
+    const orderData = {
+      user_id: user.id,
+      full_name: user.full_name,
+      order_data: allCarts,
+      shipping_address: selectedAddress,
+      total_price: allCarts.reduce(
+        (acc, item) => acc + item.price * item.quantity,
+        0
+      ),
+      coupon_code: couponCode,
+      reference_number: referenceNumber,
+    };
+
+    try {
+      const response = await fetch(`${baseUrl}/api/order/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.access_token}`,
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      if (!response.ok) throw new Error("Error al crear la orden manual");
+
+      showSuccessToast("Pago manual registrado correctamente");
+      navigate("/ThanksForShopping");
+    } catch (error) {
+      console.error("Error al crear la orden manual:", error);
+      showErrorToast("No se pudo registrar el pago manual");
+    }
+  };
+
   return (
     <div>
       <h2 className="p-2">{t("payment_info.title")}</h2>
-      <form onSubmit={handleSubmit} style={{}}>
-        <div
-          style={{
-            border: "1px solid #ccc",
-            padding: "10px",
-            borderRadius: "5px",
-            width: "100%",
-          }}
-        >
-          {/* <CardElement options={{ style: { base: { fontSize: "16px" } } }} /> */}
-          <div className="space-y-4">
-            <div
-              className={`border p-2 rounded ${
-                !cardNumberComplete ? "border-red-500" : "border-gray-300"
-              }`}
-            >
-              {/* {t("subNavbar.extraFeatures.buttonFinances")} */}
-              <label className="block text-sm mb-1">
-                {t("payment_info.card_number_label")}
-              </label>
-              <CardNumberElement
-                options={{
-                  style: { base: { fontSize: "16px" } },
-                  showIcon: true,
-                }}
-                onChange={(e) => setCardNumberComplete(e.complete)}
-              />
-            </div>
+      {user?.country !== "venezuela" ? (
+        <form onSubmit={handleSubmit} style={{}}>
+          <div
+            style={{
+              border: "1px solid #ccc",
+              padding: "10px",
+              borderRadius: "5px",
+              width: "100%",
+            }}
+          >
+            {/* <CardElement options={{ style: { base: { fontSize: "16px" } } }} /> */}
+            <div className="space-y-4">
+              <div
+                className={`border p-2 rounded ${
+                  !cardNumberComplete ? "border-red-500" : "border-gray-300"
+                }`}
+              >
+                {/* {t("subNavbar.extraFeatures.buttonFinances")} */}
+                <label className="block text-sm mb-1">
+                  {t("payment_info.card_number_label")}
+                </label>
+                <CardNumberElement
+                  options={{
+                    style: { base: { fontSize: "16px" } },
+                    showIcon: true,
+                  }}
+                  onChange={(e) => setCardNumberComplete(e.complete)}
+                />
+              </div>
 
-            <div
-              className={`border p-2 rounded ${
-                !cardExpiryComplete ? "border-red-500" : "border-gray-300"
-              }`}
-            >
-              <label className="block text-sm mb-1">
-                {t("payment_info.expiration_label")}
-              </label>
-              <CardExpiryElement
-                options={{ style: { base: { fontSize: "16px" } } }}
-                onChange={(e) => setCardExpiryComplete(e.complete)}
-              />
-            </div>
+              <div
+                className={`border p-2 rounded ${
+                  !cardExpiryComplete ? "border-red-500" : "border-gray-300"
+                }`}
+              >
+                <label className="block text-sm mb-1">
+                  {t("payment_info.expiration_label")}
+                </label>
+                <CardExpiryElement
+                  options={{ style: { base: { fontSize: "16px" } } }}
+                  onChange={(e) => setCardExpiryComplete(e.complete)}
+                />
+              </div>
 
-            <div
-              className={`border p-2 rounded ${
-                !cardCvcComplete ? "border-red-500" : "border-gray-300"
-              }`}
-            >
-              <label className="block text-sm mb-1">
-                {t("payment_info.cvv_label")}
-              </label>
-              <CardCvcElement
-                options={{ style: { base: { fontSize: "16px" } } }}
-                onChange={(e) => setCardCvcComplete(e.complete)}
-              />
-            </div>
+              <div
+                className={`border p-2 rounded ${
+                  !cardCvcComplete ? "border-red-500" : "border-gray-300"
+                }`}
+              >
+                <label className="block text-sm mb-1">
+                  {t("payment_info.cvv_label")}
+                </label>
+                <CardCvcElement
+                  options={{ style: { base: { fontSize: "16px" } } }}
+                  onChange={(e) => setCardCvcComplete(e.complete)}
+                />
+              </div>
 
-            <div className="mt-4">
-              <label className="block text-sm mb-1">
-                {t("payment_info.discount_label")}
-              </label>
+              <div className="mt-4">
+                <label className="block text-sm mb-1">
+                  {t("payment_info.discount_label")}
+                </label>
+                <input
+                  type="text"
+                  value={couponCode}
+                  onChange={handleCouponChange}
+                  placeholder={t("payment_info.discount_placeholder")}
+                  className="border p-2 w-full rounded"
+                />
+              </div>
+            </div>
+          </div>
+          <div className="w-full">
+            <button
+              type="submit"
+              disabled={!stripe || !elements || isProcessing}
+              style={{ marginTop: 20 }}
+              className="btn  bg-teal-500 w-full"
+            >
+              {isProcessing ? <DogLoader /> : t("payment_info.button")}
+            </button>
+          </div>
+        </form>
+      ) : (
+        <div className="p-4 border rounded bg-neutral-900 text-slate-50 text-center">
+          <h3 className="text-xl mb-4">Pago Móvil 🇻🇪</h3>
+          <p className="text-sm mb-4">
+            Ingresa tu número de referencia del pago móvil. Si tienes un cupón,
+            úsalo primero para aplicar el descuento antes de confirmar.
+          </p>
+
+          <div className="space-y-3">
+            {/* ✅ input del cupón (ya conectado al descuento del carrito) */}
+            <div>
+              <label className="block text-sm mb-1">Cupón de descuento</label>
               <input
                 type="text"
                 value={couponCode}
                 onChange={handleCouponChange}
-                placeholder={t("payment_info.discount_placeholder")}
-                className="border p-2 w-full rounded"
+                placeholder=""
+                className="border p-2 w-full rounded text-black"
               />
             </div>
+
+            {/* ✅ input del número de referencia */}
+            <div>
+              <label className="block text-sm mb-1">Número de referencia</label>
+              <input
+                type="text"
+                value={referenceNumber}
+                onChange={(e) => setReferenceNumber(e.target.value)}
+                placeholder=""
+                className="border p-2 w-full rounded text-black"
+              />
+            </div>
+
+            <button
+              className="btn bg-teal-500 w-full mt-4"
+              onClick={handleManualPayment}
+            >
+              Confirmar pago manual
+            </button>
           </div>
         </div>
-        <div className="w-full">
-          <button
-            type="submit"
-            disabled={!stripe || !elements || isProcessing}
-            style={{ marginTop: 20 }}
-            className="btn  bg-teal-500 w-full"
-          >
-            {isProcessing ? <DogLoader /> : t("payment_info.button")}
-          </button>
-        </div>
-      </form>
+      )}
     </div>
   );
 };

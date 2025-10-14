@@ -56,7 +56,9 @@ export default function ShippingAddress() {
           {t("order_confirmation.thanks")}
         </h2>
         <p className="text-sm text-gray-500 mb-4">
-          {t("order_confirmation.contact_text")}
+          {user?.country === "venezuela"
+            ? t("order_confirmation.contact_text_manual")
+            : t("order_confirmation.contact_text")}
         </p>
         {/* <p>{t("order_confirmation.contact_email")}</p> */}
         <Link to="/dashboard">

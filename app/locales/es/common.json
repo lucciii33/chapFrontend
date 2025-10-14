@@ -787,6 +787,7 @@
   "order_confirmation": {
     "thanks": "¡Gracias por tu compra!",
     "contact_text": "En breve te enviaremos un correo electrónico con los detalles de tu pedido.",
+    "contact_text_manual": "Debido a que tu pago ha sido manual, la activación de las funcionalidades de tu chapa puede tardar hasta 24 horas mientras verificamos tu comprobante. Te notificaremos cuando todo esté listo.",
     "contact_email": "LUCCI@GMAIL.COM",
     "back_dash_button": "Volver al panel"
   },

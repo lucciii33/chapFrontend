@@ -792,6 +792,7 @@
   "order_confirmation": {
     "thanks": "Thanks for shopping!",
     "contact_text": "You will receive an order confirmation email soon",
+    "contact_text_manual": "Since your payment was made manually, activating your tag’s features may take up to 24 hours while we verify your payment. We’ll notify you once everything is ready.",
     "contact_email": "LUCCI@GMAIL.COM",
     "back_dash_button": "Go back to dashboard"
   },

@@ -269,6 +269,36 @@ export const useOrdersContext = () => {
     }
   };
 
+  const activateManualPayment = async (orderId: number): Promise<void> => {
+    try {
+      const token = getToken();
+      if (!token) throw new Error("Usuario no autenticado");
+
+      const response = await fetch(
+        `${baseUrl}/api/order/orders/${orderId}/activate-payment`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error al activar las funcionalidades de la chapa");
+      }
+
+      const data = await response.json();
+      showSuccessToast(
+        `Activación completada correctamente (${data.activated_pets.length} pets)`
+      );
+    } catch (error) {
+      console.error("Error al activar manualmente:", error);
+      showErrorToast("Error al activar las funcionalidades del pet");
+    }
+  };
+
   return {
     allOrders,
     userOrders,
@@ -280,5 +310,6 @@ export const useOrdersContext = () => {
     updateOrderStatus,
     deleteOrder,
     updateTrackerOrStatus,
+    activateManualPayment,
   };
 };

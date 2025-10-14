@@ -117,28 +117,24 @@ export default function ShippingAddress({
 
   const selectAddress = async (addressId: number) => {
     try {
-      // 1️⃣ Actualiza el estado local antes de llamar a la API para reflejar el cambio en el frontend
       setAddresses((prevAddresses) =>
         prevAddresses.map((addr) => ({
           ...addr,
-          is_selected: addr.id === addressId, // ✅ Solo marcar el seleccionado
+          is_selected: addr.id === addressId,
         }))
       );
 
-      // 2️⃣ Encuentra la dirección a actualizar
       const addressToUpdate = addresses.find((addr) => addr.id === addressId);
       if (!addressToUpdate) {
         console.error("Dirección no encontrada en el estado local.");
         return;
       }
 
-      // 3️⃣ Llamar al backend para actualizar `is_selected`
       await editShippingAddress(addressId, {
         ...addressToUpdate,
-        is_selected: true, // ✅ Solo actualizamos is_selected
+        is_selected: true,
       });
 
-      // 4️⃣ Refrescar direcciones después de actualizar desde el backend
       const response = await getShippingAddresses(user.id);
       setAddresses(await response.json());
       setRefreshAddresses((prev) => !prev);
@@ -177,6 +173,7 @@ export default function ShippingAddress({
               <option value="IE">Ireland</option>
               <option value="UK">United Kingdom</option>
               <option value="USA">United States</option>
+              <option value="VE">Venezuela</option>
             </select>
           </div>
           <div className="flex md:justify-between flex-col md:flex-row">
