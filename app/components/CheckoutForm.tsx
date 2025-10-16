@@ -394,7 +394,16 @@ const CheckoutForm: React.FC<{
       ) : (
         <div className="p-4 border rounded bg-neutral-900 text-slate-50 text-center">
           <h3 className="text-xl mb-4">Pago Móvil 🇻🇪</h3>
-          <p className="text-sm mb-4">
+          <div className="mb-4  border rounded bg-neutral-900 text-slate-50 p-3">
+            <p>
+              Telef: <strong>04143233535</strong>
+            </p>
+            <p>
+              C.I: <strong>6557918</strong>
+            </p>
+            <p>BNC</p>
+          </div>
+          <p className="text-sm mb-4 text-start">
             Ingresa tu número de referencia del pago móvil. Si tienes un cupón,
             úsalo primero para aplicar el descuento antes de confirmar.
           </p>
