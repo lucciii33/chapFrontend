@@ -96,7 +96,6 @@ export default function Register() {
     }
   };
 
-  // countries.js
   const countries = [
     { value: "spain", label: "España" },
     { value: "portugal", label: "Portugal" },
@@ -104,6 +103,9 @@ export default function Register() {
     { value: "france", label: "Francia" },
     { value: "germany", label: "Alemania" },
     { value: "uk", label: "Reino Unido" },
+    { value: "usa", label: "Estados Unidos" },
+    { value: "canada", label: "Canadá" },
+    { value: "ireland", label: "Irlanda" },
     { value: "netherlands", label: "Países Bajos" },
     { value: "sweden", label: "Suecia" },
     { value: "argentina", label: "Argentina" },

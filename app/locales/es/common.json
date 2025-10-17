@@ -969,5 +969,17 @@
     "error": "Ocurrió un error al actualizar tu preferencia.",
     "accept_label": "Acepto enviar mis datos en el correo",
     "Accept_title": "Si aceptas, autorizas compartir tu número de teléfono, la foto de tu mascota y la dirección donde se perdió. Nuestro algoritmo enviará un mensaje a otros usuarios con el tag para que más personas puedan ayudarte a encontrarla."
+  },
+  "send_vet_visit": {
+    "title": "Envía el historial veterinario de tu mascota 🩺",
+    "subtitle": "Comparte con tu veterinario todas las visitas médicas y documentos de tu mascota. Si es la primera vez que lo atiende, ¡tendrá toda la información al instante!",
+    "subtitle_2": "Enviar historial veterinario",
+    "close": "Cancelar",
+    "send": "Enviar",
+    "sending": "Enviando...",
+    "email": "Email del doctor",
+    "toast_success": "Historial médico enviado correctamente al doctor 🩺",
+    "toast_error": "No se pudo enviar el historial veterinario",
+    "new": "NUEVO"
   }
 }

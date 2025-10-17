@@ -17,6 +17,7 @@ import Pagination from "~/components/pagination";
 import DogLoader from "~/components/petLoader";
 import { useTranslation } from "react-i18next";
 import TagImagePreview from "~/components/TagImagePreview";
+import SendVetVisit from "~/components/sendVetVisit";
 
 export default function PetDetail() {
   const { t } = useTranslation();
@@ -1521,6 +1522,9 @@ export default function PetDetail() {
                     <small className="text-sm text-white">
                       {t("vetVisitForm.note")}
                     </small>
+                  </div>
+                  <div>
+                    <SendVetVisit petId={petId} />
                   </div>
                   <div className="mb-4 w-full">
                     <label>{t("vetVisitForm.form.clinicAddressLabel")}</label>

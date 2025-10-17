@@ -359,6 +359,29 @@ export const useMedicalPetContext = () => {
     }
   };
 
+  const sendVetVisits = async (petId: number, doctorEmail: string) => {
+    const token = getToken();
+    try {
+      const response = await fetch(`${baseUrl}/api/send_vet_visits`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          pet_id: petId,
+          doctor_email: doctorEmail,
+        }),
+      });
+
+      if (!response.ok) throw new Error("Error enviando historial veterinario");
+      showSuccessToast(t("send_vet_visit.toast_success"));
+    } catch (error) {
+      console.error(error);
+      showErrorToast(t("send_vet_visit.toast_error"));
+    }
+  };
+
   return {
     createMedicalHistory,
     deleteMedicalHistory,
@@ -370,5 +393,6 @@ export const useMedicalPetContext = () => {
     deleteVetVaccine,
     createVaccine,
     editVaccine,
+    sendVetVisits,
   };
 };

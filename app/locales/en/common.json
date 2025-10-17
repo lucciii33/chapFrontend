@@ -974,5 +974,17 @@
     "error": "An error occurred while updating your preference.",
     "accept_label": "I agree to share my information by email",
     "Accept_title": "By accepting, you agree to share your phone number, your pet’s photo, and the address where it got lost. Our algorithm will send a message to other users with the tag so more people can help you find your pet."
+  },
+  "send_vet_visit": {
+    "title": "Send your pet’s veterinary history 🩺",
+    "subtitle": "Share all your pet’s medical visits and documents with your veterinarian. If it’s their first time attending your pet, they’ll have all the information right away!",
+    "subtitle_2": "Send veterinary history",
+    "close": "Cancel",
+    "send": "Send",
+    "sending": "Sending...",
+    "email": "Doctor’s email",
+    "toast_success": "Medical history successfully sent to the doctor 🩺",
+    "toast_error": "Failed to send the veterinary history",
+    "new": "NEW"
   }
 }
