@@ -981,5 +981,8 @@
     "toast_success": "Historial médico enviado correctamente al doctor 🩺",
     "toast_error": "No se pudo enviar el historial veterinario",
     "new": "NUEVO"
+  },
+  "tool_tip": {
+    "create": "Crea a tu mascota"
   }
 }

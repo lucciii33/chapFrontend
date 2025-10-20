@@ -404,7 +404,7 @@ export default function Dashboard() {
               </div>
               <div>
                 {allPets.length > 0 ? (
-                  <div className="tooltip" data-tip="Crea Tu mascota">
+                  <div className="tooltip" data-tip={t("tool_tip.create")}>
                     <div
                       className="h-10 w-10 rounded-full flex justify-center items-center bg-teal-500"
                       onClick={() =>

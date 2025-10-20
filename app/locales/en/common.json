@@ -986,5 +986,8 @@
     "toast_success": "Medical history successfully sent to the doctor 🩺",
     "toast_error": "Failed to send the veterinary history",
     "new": "NEW"
+  },
+  "tool_tip": {
+    "create": "Build Your Pet"
   }
 }
