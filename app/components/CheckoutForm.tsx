@@ -54,6 +54,7 @@ const CheckoutForm: React.FC<{
     LUCKY30: 30,
     ROXY40: 40,
     TAG50: 50,
+    VZLA50: 50,
     FAMILY95: 95,
   };
 
