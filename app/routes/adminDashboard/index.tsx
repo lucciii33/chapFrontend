@@ -9,7 +9,6 @@ import Pagination from "~/components/pagination";
 
 export default function AdminDashboard() {
   const { orders } = useGlobalContext();
-  console.log("orders", orders);
 
   const [showOrder, setShowOrder] = useState(false);
   const [trackerShippingNumber, setTrackerShippingNumber] = useState("");
@@ -123,7 +122,7 @@ export default function AdminDashboard() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
   const currentOrders = filteredOrders.slice(indexOfFirstItem, indexOfLastItem);
-  console.log("currentOrders", currentOrders);
+
   const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
 
   const handleDownloadQR = async (url: string, fileName: string) => {

@@ -7,7 +7,6 @@ type Props = {
 };
 
 export default function SendVetVisit({ petId }: Props) {
-  console.log("petIdpetIdpetIdpetId", petId);
   const { medicalHistory } = useGlobalContext();
   const { sendVetVisits } = medicalHistory;
   const [doctorEmail, setDoctorEmail] = useState("");

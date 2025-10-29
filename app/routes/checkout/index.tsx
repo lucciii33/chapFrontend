@@ -13,7 +13,7 @@ export default function CheckoutPage() {
   const { t } = useTranslation();
 
   const { user } = auth;
-  console.log("user", user);
+
   const { getCartByUser, allCarts } = cart;
   const [openShippingAddress, setOpenShippingAddress] = useState(false);
   const [highlightAddressSection, setHighlightAddressSection] = useState(false);

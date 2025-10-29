@@ -12,11 +12,9 @@ export default function PublicQr() {
 
   const { petId } = useParams();
   const [petData, setPetData] = useState(null);
-  console.log("petData", petData);
 
   const locationRemix = useLocation();
   const isInternalPreview = locationRemix.state?.internalPreview === true;
-  console.log("isInternalPreview", isInternalPreview);
 
   const [location, setLocation] = useState(null);
   const [ubicacion, setUbicacion] = useState(null);
@@ -119,7 +117,6 @@ export default function PublicQr() {
         script.onload = () => {
           window.google &&
             inicializarMapa(petData.last_latitude, petData.last_longitude);
-          console.log("iniciandoooo mapaaaaa");
         };
 
         script.onerror = () => {
@@ -133,12 +130,10 @@ export default function PublicQr() {
         if (window.google) {
           // inicializarMapa(ubicacion.lat, ubicacion.lng);
           inicializarMapa(petData.last_latitude, petData.last_longitude);
-          console.log("window.google");
         } else {
           existingScript.addEventListener("load", () => {
             // inicializarMapa(ubicacion.lat, ubicacion.lng);
             inicializarMapa(petData.last_latitude, petData.last_longitude);
-            console.log("else existingScript");
           });
         }
       }
@@ -161,7 +156,7 @@ export default function PublicQr() {
             last_longitude: ubicacion.lng,
           }
         );
-        console.log("llamando aqui");
+
         const updatedData = response.data;
         await fetchPet();
         return updatedData;

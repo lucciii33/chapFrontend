@@ -10,7 +10,6 @@ import { showInfoToast } from "~/utils/toast";
 export default function PetTracker() {
   const { t } = useTranslation();
   const { userId } = useParams();
-  console.log("userId", userId);
   const handleOnboard = async () => {
     try {
       const res = await fetch(
