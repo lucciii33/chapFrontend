@@ -10,6 +10,7 @@ import { useMatches } from "@remix-run/react";
 import { Elements } from "@stripe/react-stripe-js";
 import { stripePromise } from "./stripeConfig";
 import { ToastContainer } from "react-toastify";
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
 // import { Toaster } from "react-hot-toast";
 
@@ -63,11 +64,23 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
+
       <body>
-        {children}
-        <ScrollRestoration />
-        {/* <Toaster position="top-right" richColors theme="dark" /> */}
-        <Scripts />
+        <GoogleReCaptchaProvider
+          reCaptchaKey={import.meta.env.VITE_REACT_APP_RECAPTCHA_SITE_KEY}
+          scriptProps={{
+            async: false,
+            defer: false,
+            appendTo: "body",
+          }}
+          useRecaptchaNet={true}
+          useEnterprise={false}
+        >
+          {children}
+          <ScrollRestoration />
+          {/* <Toaster position="top-right" richColors theme="dark" /> */}
+          <Scripts />
+        </GoogleReCaptchaProvider>
       </body>
     </html>
   );

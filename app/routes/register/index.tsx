@@ -5,6 +5,8 @@ import { useGlobalContext } from "../../context/GlobalProvider"; // Ajusta el pa
 import { useTranslation } from "react-i18next";
 import loginImage from "../../images/imageLogin4.png";
 import "../../../styles/dashboard.css";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+
 export default function Register() {
   const { auth } = useGlobalContext();
   const navigate = useNavigate();
@@ -19,6 +21,14 @@ export default function Register() {
     agree_to_terms_and_conditions: false,
   });
   const [errors, setErrors] = useState<{ [key: string]: boolean }>({});
+  const { executeRecaptcha } = useGoogleReCaptcha();
+  const [isRecaptchaReady, setIsRecaptchaReady] = useState(false);
+
+  useEffect(() => {
+    if (executeRecaptcha) {
+      setIsRecaptchaReady(true);
+    }
+  }, [executeRecaptcha]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, type, value, checked } = e.target;
@@ -60,6 +70,9 @@ export default function Register() {
     e.preventDefault();
     const newErrors: { [key: string]: boolean } = {};
     Object.entries(formData).forEach(([key, value]) => {
+      if (key === "recaptcha_token") {
+        return;
+      }
       if (
         (typeof value === "string" && value.trim() === "") ||
         (typeof value === "number" && value === 0) ||
@@ -82,8 +95,18 @@ export default function Register() {
 
     setErrors({});
 
+    if (!executeRecaptcha) {
+      alert("Por favor espera, reCAPTCHA se está cargando...");
+      return;
+    }
+
     try {
-      const result = await auth.register(formData);
+      const token = await executeRecaptcha("register");
+      const dataWithToken = {
+        ...formData,
+        recaptcha_token: token,
+      };
+      const result = await auth.register(dataWithToken);
 
       if (result) {
         localStorage.removeItem("registerFormData");
@@ -268,6 +291,7 @@ export default function Register() {
             <button
               className="w-full border-none py-3 px-4  bg-teal-500 text-white rounded-lg"
               onClick={handleRegisterClick}
+              disabled={!isRecaptchaReady}
             >
               {t("register_page.button")}
             </button>
