@@ -26,6 +26,7 @@ export default function PetDetail() {
   const navigate = useNavigate();
   const [highlightMedicalBox, setHighlightMedicalBox] = useState(false);
   const { getPetById, petByID, editPet, deletePetById } = pet;
+  console.log("petByID", petByID);
   const { createCart, cartProfile, getCartByUser, actSideBar } = cart;
 
   const { deletePetTag } = tag;
@@ -703,6 +704,11 @@ export default function PetDetail() {
   };
 
   const confirmPetDelete = async () => {
+    if (petByID?.tags?.some((tag) => tag.is_purchased)) {
+      showErrorToast(t("delete_pet.error"));
+      setIsDeletePetDialogOpen(false);
+      return;
+    }
     if (petByID.id !== null) {
       const success = await deletePetById(petByID.id);
       if (success) {

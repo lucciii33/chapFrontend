@@ -984,5 +984,8 @@
   },
   "tool_tip": {
     "create": "Crea a tu mascota"
+  },
+  "delete_pet": {
+    "error": "No puedes eliminar esta mascota porque tiene un tag comprado y perderás tu información. Si deseas, puedes comunicarte con el equipo de Chap a nuestro correo y te ayudaremos."
   }
 }

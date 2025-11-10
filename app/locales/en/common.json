@@ -989,5 +989,8 @@
   },
   "tool_tip": {
     "create": "Build Your Pet"
+  },
+  "delete_pet": {
+    "error": "You can't delete this pet because it has a purchased tag, and you will lose your information. If you wish, you can contact the Chap team at our email, and we’ll help you."
   }
 }
