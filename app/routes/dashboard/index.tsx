@@ -232,6 +232,15 @@ export default function Dashboard() {
     }
   };
 
+  const resetSteps = () => {
+    setWelcomeModal(true);
+    setPetInfoModal(false);
+    setPetChapModal(false);
+    setAddTocardOrBuy(false);
+    setErrors({});
+    setErrorsTag({});
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("user");
     if (token && user) {
@@ -342,6 +351,7 @@ export default function Dashboard() {
 
   const addToCartDash = async () => {
     await addToCart();
+    resetSteps();
     // await addGpsToCart();
     document.getElementById("my_modal_1").close();
   };
@@ -1044,7 +1054,8 @@ export default function Dashboard() {
                   <small
                     className="text-xs text-gray-500 cursor-pointer"
                     onClick={() => {
-                      document.getElementById("my_modal_1").close(); // Cierra el modal
+                      resetSteps();
+                      document.getElementById("my_modal_1").close();
                     }}
                   >
                     Continue Exploring
@@ -1068,6 +1079,7 @@ export default function Dashboard() {
                   <button
                     className="btn mt-4 bg-teal-500 text-white hover:bg-teal-600"
                     onClick={() => {
+                      resetSteps();
                       document.getElementById("my_modal_1").close();
                     }}
                   >
